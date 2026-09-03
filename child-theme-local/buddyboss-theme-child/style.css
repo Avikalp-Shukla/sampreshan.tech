@@ -1,0 +1,15 @@
+/*
+Theme Name: SampreShan Child (BuddyBoss)
+Theme URI: https://sampreshan.tech
+Description: Custom child theme for Sampreshan.tech — Sanatan Voice Platform. Built on top of BuddyBoss theme. Inherits all parent functionality; customizations live here.
+Author: ShivBodh Trust
+Author URI: https://shivbodhtrust.org
+Template: buddyboss-theme
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: sampreshan-child
+*/
+
+/* Parent theme styles are loaded via functions.php (enqueue_parent_style) */
+/* Custom styles below */
