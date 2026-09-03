@@ -2,7 +2,7 @@
 /**
  * Front Page (Homepage)
  * SampreShan — Sanatan Voice Platform
- * Truth Social + Change.org fusion layout
+ * Truth Social + Change.org fusion layout — Premium, Responsive, No AI Content
  *
  * @package SampreShan_Child
  */
@@ -12,7 +12,7 @@ get_header();
 
 <main class="site-main" role="main">
 
-    <!-- LEFT SIDEBAR (Navigation) -->
+    <!-- LEFT SIDEBAR -->
     <aside class="site-main__sidebar-left" aria-label="Sidebar navigation">
         <div class="card" style="padding: var(--space-5);">
             <h3 style="font-family: var(--font-display); font-size: var(--text-lg); margin-bottom: var(--space-3);">Quick Links</h3>
@@ -37,10 +37,10 @@ get_header();
         </div>
     </aside>
 
-    <!-- MAIN CONTENT (Feed) -->
+    <!-- MAIN CONTENT -->
     <div class="site-main__content">
 
-        <!-- Hero / Mission (using existing real content) -->
+        <!-- Hero / Mission -->
         <section class="card" style="padding: var(--space-8); margin-bottom: var(--space-6); background: linear-gradient(135deg, var(--saffron-50), var(--bg-card));">
             <p class="display" style="font-size: var(--text-base); color: var(--saffron-800); margin-bottom: var(--space-3); text-transform: uppercase; letter-spacing: var(--tracking-widest); font-weight: var(--weight-semibold);">
                 A Platform for Dharma-Driven Change
@@ -60,34 +60,18 @@ get_header();
             </div>
         </section>
 
-        <!-- Section: Welcome Post (real content, ID:99) -->
+        <!-- Featured Petition (Real existing page ID:94) -->
+        <?php include get_stylesheet_directory() . '/template-parts/petition/card.php'; ?>
+
+        <!-- Welcome Post (Real content, ID:99) -->
         <?php
         $welcome_post = get_post( 99 );
         if ( $welcome_post ) :
         ?>
-        <article class="post-card">
-            <header class="post-card__header">
-                <div class="post-card__avatar">SB</div>
-                <div class="post-card__author">
-                    <h3 class="post-card__author-name"><?php echo esc_html( $welcome_post->post_title ); ?></h3>
-                    <p class="post-card__meta">
-                        <?php echo esc_html( get_the_author_meta( 'display_name', $welcome_post->post_author ) ); ?>
-                        &middot;
-                        <?php echo esc_html( human_time_diff( strtotime( $welcome_post->post_date ), current_time( 'timestamp' ) ) ); ?> ago
-                    </p>
-                </div>
-            </header>
-            <div class="post-card__content">
-                <?php echo wp_kses_post( wpautop( $welcome_post->post_content ) ); ?>
-            </div>
-            <div class="post-card__actions">
-                <button class="post-card__action" type="button">Support</button>
-                <button class="post-card__action" type="button">Share</button>
-            </div>
-        </article>
+        <?php include get_stylesheet_directory() . '/template-parts/feed/post-card.php'; ?>
         <?php endif; ?>
 
-        <!-- Section: Petitions (real BuddyBoss/BP active, no fake data) -->
+        <!-- Active Petitions Section -->
         <section style="margin-top: var(--space-8);">
             <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-5);">
                 <h2 class="display" style="font-size: var(--text-2xl);">Active Petitions</h2>
@@ -95,13 +79,49 @@ get_header();
             </header>
 
             <?php
-            // Empty state if no petitions yet
+            // Check if there are any petitions (using BuddyBoss/BP data or pages)
+            $petition_pages = get_posts( array(
+                'post_type'      => 'page',
+                'posts_per_page' => 3,
+                'post_status'    => 'publish',
+                'post__not_in'   => array( 17, 42, 55, 72, 78, 84, 89, 120, 122, 123, 124, 125, 127, 128, 134 ),
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+            ) );
             ?>
-            <div class="empty-state">
-                <h3 class="empty-state__title">No active petitions yet</h3>
-                <p style="margin-bottom: var(--space-5);">Be the first to start a petition and rally support for a cause.</p>
-                <a class="btn btn--primary" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">Start a Petition</a>
-            </div>
+
+            <?php if ( ! empty( $petition_pages ) ) : ?>
+                <?php foreach ( $petition_pages as $petition ) : ?>
+                    <article class="petition-card" aria-label="Petition: <?php echo esc_attr( $petition->post_title ); ?>">
+                        <div class="petition-card__image" aria-hidden="true">
+                            <span aria-label="Petition" style="font-family: var(--font-display); font-size: var(--text-3xl); color: var(--saffron-800);">&#10003;</span>
+                        </div>
+                        <div class="petition-card__body">
+                            <div class="petition-card__champion">
+                                <span>Started by <?php echo esc_html( get_the_author_meta( 'display_name', $petition->post_author ) ); ?></span>
+                                <span aria-hidden="true">&middot;</span>
+                                <time datetime="<?php echo esc_attr( get_the_date( 'c', $petition ) ); ?>"><?php echo esc_html( get_the_date( 'F j, Y', $petition ) ); ?></time>
+                            </div>
+                            <h3 class="petition-card__title">
+                                <a href="<?php echo esc_url( get_permalink( $petition->ID ) ); ?>"><?php echo esc_html( $petition->post_title ); ?></a>
+                            </h3>
+                            <p class="petition-card__desc">
+                                <?php echo esc_html( wp_trim_words( strip_tags( $petition->post_content ), 25 ) ); ?>
+                            </p>
+                            <div class="petition-card__actions">
+                                <a class="btn btn--primary btn--sm" href="<?php echo esc_url( get_permalink( $petition->ID ) ); ?>">Sign Petition</a>
+                                <a class="btn btn--outline btn--sm" href="<?php echo esc_url( get_permalink( $petition->ID ) ); ?>">Read More</a>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <div class="empty-state">
+                    <h3 class="empty-state__title">No active petitions yet</h3>
+                    <p style="margin-bottom: var(--space-5);">Be the first to start a petition and rally support for a cause.</p>
+                    <a class="btn btn--primary" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">Start a Petition</a>
+                </div>
+            <?php endif; ?>
         </section>
 
     </div>
@@ -128,7 +148,6 @@ get_header();
 </main>
 
 <?php
-// Use custom footer if available, else parent footer
 if ( file_exists( get_stylesheet_directory() . '/template-parts/footer/site-footer.php' ) ) {
     include get_stylesheet_directory() . '/template-parts/footer/site-footer.php';
 } else {
