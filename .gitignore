@@ -40,3 +40,7 @@ extract.sh
 .idea/
 .vscode/
 *.code-workspace
+
+# ---- Agent / Skill files ----
+.claude/
+push-via-api.sh
