@@ -1,9 +1,31 @@
 /* ============================================================
-   future.css — "Cosmic Dharma" futuristic skin
-   Dark space base + neon kesariya glow + haldi + mor-cyan accents.
-   Scoped to body.sp-future (added globally via body_class).
-   Loaded LAST so it wins over design-system / fusion / pages.
-   ============================================================ */
+    future.css — "Cosmic Dharma" futuristic skin
+    Dark space base + neon kesariya glow + haldi + mor-cyan accents.
+    Scoped to body.sp-future (added globally via body_class).
+    Loaded LAST so it wins over design-system / fusion / pages.
+    ============================================================ */
+
+/* === FORCE VISIBLE: Override any plugin CSS that hides content === */
+body.sp-future,
+body.sp-future * {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+}
+body.sp-future .sp-hero,
+body.sp-future .sp-landing,
+body.sp-future .sp-section,
+body.sp-future .site-main,
+body.sp-future .site-content,
+body.sp-future .site-footer {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+body.sp-future .skeleton-card,
+body.sp-future .bb-loading-bg {
+    display: none !important;
+}
 
 body.sp-future {
     --ft-bg: #060913;
