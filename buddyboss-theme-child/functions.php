@@ -12,6 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * IconScout credentials — define in wp-config.php for production:
+ *   define( 'ICONSCOUT_CLIENT_ID', '165483987904653' );
+ *   define( 'ICONSCOUT_API_KEY',   'GJmR3qpF7LGDVNyfXfuQTHVVAPnYh0jTtjJQAwF' );
+ * Or set via WP admin: Settings → IconScout (we'll add a simple options page later).
+ * For now, the API client falls back to get_option() / env vars.
+ */
+
+/**
+ * Load IconScout client.
+ */
+require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
+
+/**
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
@@ -333,6 +346,100 @@ function sampreshan_child_future_body_class( $classes ) {
     return $classes;
 }
 add_filter( 'body_class', 'sampreshan_child_future_body_class', 20 );
+
+/**
+ * Global localization for AJAX (includes IconScout nonce).
+ */
+function sp_global_ajax_localize() {
+    wp_add_inline_script( 'sampreshan-navigation', 'var SampreshanAuth = ' . wp_json_encode( array(
+        'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
+        'nonce'     => wp_create_nonce( 'sp_iconscout_search' ),
+        'isLoggedIn'=> is_user_logged_in() ? 1 : 0,
+    ) ) . ';', 'before' );
+}
+add_action( 'wp_enqueue_scripts', 'sp_global_ajax_localize', 999 );
+
+/**
+ * AJAX: Live IconScout search for dashboard icon picker.
+ * Expects: query, asset (optional), page (optional).
+ */
+function sp_ajax_iconscout_search() {
+    if ( ! is_user_logged_in() ) {
+        wp_send_json_error( [ 'message' => __( 'Login required.', 'sampreshan-child' ) ], 401 );
+    }
+    check_ajax_referer( 'sp_iconscout_search', 'nonce' );
+
+    $query  = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
+    $asset  = isset( $_POST['asset'] ) ? sanitize_text_field( wp_unslash( $_POST['asset'] ) ) : 'icon';
+    $page   = isset( $_POST['page'] ) ? max( 1, (int) $_POST['page'] ) : 1;
+
+    if ( '' === $query ) {
+        wp_send_json_error( [ 'message' => __( 'Empty query.', 'sampreshan-child' ) ], 400 );
+    }
+
+    $api   = sp_iconscout_api();
+    $result = $api->search( $query, $asset, $page, 30 );
+
+    if ( is_wp_error( $result ) ) {
+        wp_send_json_error( [ 'message' => $result->get_error_message() ], 502 );
+    }
+
+    // Normalize response for UI
+    $items = [];
+    if ( isset( $result['data'] ) && is_array( $result['data'] ) ) {
+        foreach ( $result['data'] as $item ) {
+            $id    = (int) ( $item['id'] ?? 0 );
+            $title = $item['title'] ?? $item['name'] ?? 'Untitled';
+            $thumb = $item['thumbnail'] ?? $item['preview_url'] ?? '';
+            $style = $item['style'] ?? '';
+            $items[] = [
+                'id'       => $id,
+                'title'    => $title,
+                'thumb'    => $thumb,
+                'style'    => $style,
+                'asset'    => $asset,
+            ];
+        }
+    }
+
+    wp_send_json_success( [
+        'items'      => $items,
+        'total'      => (int) ( $result['total'] ?? count( $items ) ),
+        'page'       => $page,
+        'per_page'   => 30,
+        'has_more'   => count( $items ) === 30,
+    ] );
+}
+add_action( 'wp_ajax_sp_iconscout_search', 'sp_ajax_iconscout_search' );
+
+/**
+ * AJAX: Download / get asset URL (for inserting into content).
+ */
+function sp_ajax_iconscout_download() {
+    if ( ! is_user_logged_in() ) {
+        wp_send_json_error( [ 'message' => __( 'Login required.', 'sampreshan-child' ) ], 401 );
+    }
+    check_ajax_referer( 'sp_iconscout_search', 'nonce' );
+
+    $asset_type = isset( $_POST['asset_type'] ) ? sanitize_text_field( wp_unslash( $_POST['asset_type'] ) ) : 'icon';
+    $asset_id   = isset( $_POST['asset_id'] ) ? max( 1, (int) $_POST['asset_id'] ) : 0;
+    $format     = isset( $_POST['format'] ) ? sanitize_text_field( wp_unslash( $_POST['format'] ) ) : 'svg';
+    $size       = isset( $_POST['size'] ) ? max( 64, (int) $_POST['size'] ) : 512;
+
+    if ( $asset_id <= 0 ) {
+        wp_send_json_error( [ 'message' => __( 'Invalid asset ID.', 'sampreshan-child' ) ], 400 );
+    }
+
+    $api = sp_iconscout_api();
+    $url = $api->get_download_url( $asset_type, $asset_id, $format, $size );
+
+    if ( is_wp_error( $url ) ) {
+        wp_send_json_error( [ 'message' => $url->get_error_message() ], 502 );
+    }
+
+    wp_send_json_success( [ 'url' => $url, 'format' => $format, 'size' => $size ] );
+}
+add_action( 'wp_ajax_sp_iconscout_download', 'sp_ajax_iconscout_download' );
 
 /**
  * Child theme setup
@@ -888,6 +995,37 @@ function sampreshan_child_create_all_user_pages() {
             'template' => 'template-activity.php',
             'option'   => 'sampreshan_feed_page_created',
         ),
+        // Category / cause pages (Quick Links section)
+        array(
+            'title'    => __( 'Temple Preservation', 'sampreshan-child' ),
+            'slug'     => 'category-temple-preservation',
+            'template' => 'template-category.php',
+            'option'   => 'sampreshan_category_temple_page_created',
+        ),
+        array(
+            'title'    => __( 'Cultural Heritage', 'sampreshan-child' ),
+            'slug'     => 'category-cultural-heritage',
+            'template' => 'template-category.php',
+            'option'   => 'sampreshan_category_cultural_page_created',
+        ),
+        array(
+            'title'    => __( 'Religious Education', 'sampreshan-child' ),
+            'slug'     => 'category-religious-education',
+            'template' => 'template-category.php',
+            'option'   => 'sampreshan_category_religious_page_created',
+        ),
+        array(
+            'title'    => __( 'Environmental Causes', 'sampreshan-child' ),
+            'slug'     => 'category-environmental-causes',
+            'template' => 'template-category.php',
+            'option'   => 'sampreshan_category_environmental_page_created',
+        ),
+        array(
+            'title'    => __( 'Community Welfare', 'sampreshan-child' ),
+            'slug'     => 'category-community-welfare',
+            'template' => 'template-category.php',
+            'option'   => 'sampreshan_category_community_page_created',
+        ),
     );
 
     foreach ( $pages as $page ) {
@@ -943,6 +1081,11 @@ add_action( 'admin_init', function () {
         'sampreshan_settings_page_created',
         'sampreshan_community_page_created',
         'sampreshan_feed_page_created',
+        'sampreshan_category_temple_page_created',
+        'sampreshan_category_cultural_page_created',
+        'sampreshan_category_religious_page_created',
+        'sampreshan_category_environmental_page_created',
+        'sampreshan_category_community_page_created',
     );
     $needs_run = ! get_option( 'sampreshan_pages_template_fix_v2' );
     if ( ! $needs_run ) {

@@ -51,3 +51,72 @@ $is_logged_in = is_user_logged_in();
         </div>
     </div>
 </section>
+
+<?php
+/**
+ * Quick Links + Categories section.
+ */
+$categories = array(
+    array( 'slug' => 'category-temple-preservation',  'icon' => 'temple',        'title' => __( 'Temple Preservation', 'sampreshan-child' ),
+           'desc' => __( 'Preserve ancient temples and sacred sites.', 'sampreshan-child' ), 'color' => 'kesariya' ),
+    array( 'slug' => 'category-cultural-heritage',    'icon' => 'scroll',        'title' => __( 'Cultural Heritage', 'sampreshan-child' ),
+           'desc' => __( 'Protect art, manuscripts, and traditions.', 'sampreshan-child' ), 'color' => 'saffron' ),
+    array( 'slug' => 'category-religious-education',  'icon' => 'book-open',     'title' => __( 'Religious Education', 'sampreshan-child' ),
+           'desc' => __( 'Spread Vedic knowledge and Dharmic learning.', 'sampreshan-child' ), 'color' => 'haldi' ),
+    array( 'slug' => 'category-environmental-causes', 'icon' => 'leaf',          'title' => __( 'Environmental Causes', 'sampreshan-child' ),
+           'desc' => __( 'Protect rivers, forests, and nature.', 'sampreshan-child' ), 'color' => 'green' ),
+    array( 'slug' => 'category-community-welfare',    'icon' => 'hand-heart',    'title' => __( 'Community Welfare', 'sampreshan-child' ),
+           'desc' => __( 'Food, healthcare, and shelter for all.', 'sampreshan-child' ), 'color' => 'mor-pankh' ),
+);
+?>
+<section class="sp-section sp-section--center" aria-labelledby="sp-causes-h">
+    <div class="sp-section__head">
+        <p class="sp-section__eyebrow"><?php esc_html_e( 'Quick Links · Categories', 'sampreshan-child' ); ?></p>
+        <h2 class="sp-section__title" id="sp-causes-h"><?php esc_html_e( 'Dharmic Causes', 'sampreshan-child' ); ?></h2>
+        <p class="sp-section__sub"><?php esc_html_e( 'Choose a cause, start a petition, and rally the community.', 'sampreshan-child' ); ?></p>
+    </div>
+    <div class="sp-cause-grid">
+        <?php foreach ( $categories as $cat ) :
+            $url = home_url( '/' . $cat['slug'] . '/' );
+            $icon = $cat['icon'];
+            $color = 'sp-badge--' . $cat['color'];
+        ?>
+            <a href="<?php echo esc_url( $url ); ?>" class="sp-cause-card <?php echo esc_attr( $color ); ?>">
+                <span class="sp-cause-card__icon" aria-hidden="true"><?php sp_icon_e( $icon, 'sp-icon--lg', '' ); ?></span>
+                <h3 class="sp-cause-card__title"><?php echo esc_html( $cat['title'] ); ?></h3>
+                <p class="sp-cause-card__desc"><?php echo esc_html( $cat['desc'] ); ?></p>
+                <span class="sp-cause-card__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<?php
+/**
+ * IconScout search widget — only visible to logged-in users.
+ */
+if ( is_user_logged_in() ) : ?>
+    <section class="sp-section" aria-labelledby="sp-iconscout-h">
+        <div class="sp-section__head">
+            <p class="sp-section__eyebrow"><?php esc_html_e( 'Icon Library', 'sampreshan-child' ); ?></p>
+            <h2 class="sp-section__title" id="sp-iconscout-h"><?php esc_html_e( 'Search Icons, Illustrations & Lottie', 'sampreshan-child' ); ?></h2>
+            <p class="sp-section__sub"><?php esc_html_e( 'Browse the IconScout collection directly in your dashboard.', 'sampreshan-child' ); ?></p>
+        </div>
+        <div class="sp-icon-scout">
+            <div class="sp-icon-scout__search">
+                <input type="search" id="sp-icon-scout-input" class="sp-icon-scout__input" placeholder="<?php esc_attr_e( 'Search icons, illustrations, lottie…', 'sampreshan-child' ); ?>" aria-label="<?php esc_attr_e( 'Search icons', 'sampreshan-child' ); ?>" />
+                <select id="sp-icon-scout-asset" class="sp-icon-scout__select" aria-label="<?php esc_attr_e( 'Asset type', 'sampreshan-child' ); ?>">
+                    <option value="icon"><?php esc_html_e( 'Icons', 'sampreshan-child' ); ?></option>
+                    <option value="illustration"><?php esc_html_e( 'Illustrations', 'sampreshan-child' ); ?></option>
+                    <option value="lottie"><?php esc_html_e( 'Lottie', 'sampreshan-child' ); ?></option>
+                </select>
+                <button type="button" id="sp-icon-scout-btn" class="btn btn--primary btn--sm"><?php esc_html_e( 'Search', 'sampreshan-child' ); ?></button>
+            </div>
+            <div id="sp-icon-scout-results" class="sp-icon-scout__results" aria-live="polite"></div>
+            <div id="sp-icon-scout-loading" class="sp-icon-scout__loading" hidden>
+                <span class="sp-spinner"></span> <?php esc_html_e( 'Searching IconScout…', 'sampreshan-child' ); ?>
+            </div>
+            <p id="sp-icon-scout-error" class="sp-icon-scout__error" hidden></p>
+        </div>
+    </section>
+<?php endif; ?>

@@ -222,4 +222,61 @@
 
     /* === SMOOTH PAGE LOAD === */
     document.body.classList.add('is-loaded');
+
+    /* === ICONSCOUT SEARCH WIDGET === */
+    (function () {
+        var input = document.getElementById('sp-icon-scout-input');
+        var btn   = document.getElementById('sp-icon-scout-btn');
+        var sel   = document.getElementById('sp-icon-scout-asset');
+        var res   = document.getElementById('sp-icon-scout-results');
+        var load  = document.getElementById('sp-icon-scout-loading');
+        var err   = document.getElementById('sp-icon-scout-error');
+        if (!input || !btn) return;
+
+        function doSearch(page) {
+            var q = input.value.trim();
+            if (!q) return;
+            if (res) res.innerHTML = '';
+            if (load) load.hidden = false;
+            if (err) err.hidden = true;
+            var asset = sel ? sel.value : 'icon';
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', SampreshanAuth.ajaxUrl);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (load) load.hidden = true;
+                if (xhr.status !== 200) {
+                    if (err) { err.textContent = 'Search failed. Try again.'; err.hidden = false; }
+                    return;
+                }
+                try {
+                    var d = JSON.parse(xhr.responseText);
+                    if (d.success && d.data.items) {
+                        var html = '';
+                        d.data.items.forEach(function (item) {
+                            var thumb = item.thumb ? '<img src="' + item.thumb + '" alt="' + item.title + '" width="48" height="48" />' : '';
+                            html += '<a class="sp-icon-scout-item" href="' + item.thumb + '" download title="' + item.title + '">' + thumb + '<span>' + item.title + '</span></a>';
+                        });
+                        if (html) {
+                            res.innerHTML = html;
+                            if (d.data.has_more) {
+                                html += '<a class="sp-icon-scout-item" href="#" data-page="' + (page + 1) + '"><span>More →</span></a>';
+                            }
+                        } else {
+                            res.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;padding:1rem;text-align:center;">No results found.</p>';
+                        }
+                    }
+                } catch (e) { /* ignore */ }
+            };
+            xhr.onerror = function () { if (load) load.hidden = true; };
+            xhr.send('action=sp_iconscout_search&nonce=' + SampreshanAuth.phoneNonce + '&query=' + encodeURIComponent(q) + '&asset=' + encodeURIComponent(asset) + '&page=' + (page || 1));
+        }
+
+        btn.addEventListener('click', function (e) { e.preventDefault(); doSearch(1); });
+        input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doSearch(1); } });
+        document.addEventListener('click', function (e) {
+            var more = e.target.closest('[data-page]');
+            if (more) { e.preventDefault(); doSearch(parseInt(more.dataset.page, 10) || 1); }
+        });
+    })();
 })();

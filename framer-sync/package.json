@@ -1,0 +1,21 @@
+{
+  "name": "sampreshan-framer-sync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Framer Server API sync for sampreshan.tech — pulls the Framer project, exports it for WordPress embedding, and (optionally) deploys.",
+  "type": "module",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "framer:status": "node sync.js --status",
+    "framer:pull": "node sync.js --pull",
+    "framer:publish": "node sync.js --publish",
+    "framer:deploy": "node sync.js --publish --deploy",
+    "framer:diff": "node sync.js --diff"
+  },
+  "dependencies": {
+    "framer-api": "latest",
+    "dotenv": "latest"
+  }
+}
