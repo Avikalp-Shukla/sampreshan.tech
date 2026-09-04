@@ -40,11 +40,22 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 // Re-use the detection function from phone.php if loaded.
 if ( ! function_exists( 'sp_digits_is_active' ) ) {
     function sp_digits_is_active() {
-        return defined( 'DIGITS_VERSION' )
+        if ( defined( 'DIGITS_VERSION' )
             || class_exists( 'Digits' )
             || class_exists( 'digit_gateway' )
             || class_exists( 'digits_admin_menu' )
-            || function_exists( 'digits_get_phone_number' );
+            || function_exists( 'digits_get_phone_number' )
+            || function_exists( 'digits_login_button' )
+            || function_exists( 'digits_page_onlylogin' )
+        ) {
+            return true;
+        }
+        if ( function_exists( 'shortcode_exists' )
+            && ( shortcode_exists( 'dm-login-page' ) || shortcode_exists( 'dm-page' ) )
+        ) {
+            return true;
+        }
+        return false;
     }
 }
 

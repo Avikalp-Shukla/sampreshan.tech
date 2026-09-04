@@ -23,16 +23,30 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 if ( ! function_exists( 'sp_digits_is_active' ) ) {
     /**
      * True when the Digits (unitedover) plugin is active. We probe
-     * for known plugin file + class combinations used across the 8.x/9.x
-     * line. If we miss one, the worst that happens is the integration
-     * falls back to our default phone flow.
+     * for known markers across the 8.x/9.x line — 9.x (e.g. 9.2.1)
+     * defines neither DIGITS_VERSION nor a Digits class, so the
+     * shortcode + login-function probes below are the reliable ones
+     * on the frontend. If we miss one, the worst that happens is the
+     * integration falls back to our default phone flow.
      */
     function sp_digits_is_active() {
-        return defined( 'DIGITS_VERSION' )
+        if ( defined( 'DIGITS_VERSION' )
             || class_exists( 'Digits' )
             || class_exists( 'digit_gateway' )
             || class_exists( 'digits_admin_menu' )
-            || function_exists( 'digits_get_phone_number' );
+            || function_exists( 'digits_get_phone_number' )
+            || function_exists( 'digits_login_button' )
+            || function_exists( 'digits_page_onlylogin' )
+        ) {
+            return true;
+        }
+        // Most robust: the dm-* login shortcodes Digits registers on init.
+        if ( function_exists( 'shortcode_exists' )
+            && ( shortcode_exists( 'dm-login-page' ) || shortcode_exists( 'dm-page' ) )
+        ) {
+            return true;
+        }
+        return false;
     }
 }
 
