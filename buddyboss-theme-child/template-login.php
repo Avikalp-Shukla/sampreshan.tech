@@ -144,6 +144,12 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                     <span><?php echo esc_html( $login_notice ); ?></span>
                 </div>
             <?php endif; ?>
+            <?php if ( isset( $_GET['deleted'] ) && '1' === $_GET['deleted'] ) : ?>
+                <div class="sp-login__notice" role="status">
+                    <?php sp_icon_e( 'check', 'sp-icon--md sp-icon--success', __( 'Deleted', 'sampreshan-child' ) ); ?>
+                    <span><?php esc_html_e( 'Your account has been deleted. Thank you for being part of SampreShan.', 'sampreshan-child' ); ?></span>
+                </div>
+            <?php endif; ?>
 
             <?php if ( 'login' === $action ) : ?>
                 <header class="sp-login__head">

@@ -156,6 +156,20 @@ while ( have_posts() ) : the_post();
                             <?php sp_icon_e( 'share', 'sp-icon--sm sp-icon--white', __( 'Share', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Share', 'sampreshan-child' ); ?>
                         </button>
+                        <?php if ( is_user_logged_in() ) :
+                            $saved = function_exists( 'sp_is_petition_saved' ) && sp_is_petition_saved( $pid );
+                        ?>
+                            <button
+                                type="button"
+                                class="sp-save-btn<?php echo $saved ? ' is-saved' : ''; ?>"
+                                data-petition-id="<?php echo esc_attr( $pid ); ?>"
+                                data-saved="<?php echo $saved ? '1' : '0'; ?>"
+                                aria-pressed="<?php echo $saved ? 'true' : 'false'; ?>"
+                            >
+                                <?php sp_icon_auto( 'bookmark', 'sp-icon--sm', __( 'Save', 'sampreshan-child' ) ); ?>
+                                <span><?php echo $saved ? esc_html__( 'Saved', 'sampreshan-child' ) : esc_html__( 'Save', 'sampreshan-child' ); ?></span>
+                            </button>
+                        <?php endif; ?>
                         <?php if ( is_user_logged_in() && get_current_user_id() !== (int) $author_id ) : ?>
                             <button
                                 type="button"
@@ -216,6 +230,57 @@ while ( have_posts() ) : the_post();
                 <?php endif; ?>
             </aside>
         </div>
+
+        <?php $sp_updates = function_exists( 'sp_get_petition_updates' ) ? sp_get_petition_updates( $pid ) : array(); ?>
+        <section class="sp-petition-single__updates card-3d" aria-labelledby="sp-updates-heading">
+            <h2 id="sp-updates-heading" class="sp-petition-single__signers-title">
+                <?php sp_icon_auto( 'bell', 'sp-icon--md sp-icon--saffron', __( 'Updates', 'sampreshan-child' ) ); ?>
+                <?php esc_html_e( 'Updates from the starter', 'sampreshan-child' ); ?>
+            </h2>
+            <?php if ( function_exists( 'sp_can_post_petition_update' ) && sp_can_post_petition_update( $pid ) ) : ?>
+                <form class="sp-update-form" data-petition-id="<?php echo esc_attr( $pid ); ?>" novalidate>
+                    <label class="sp-update-form__label" for="sp-update-text-<?php echo esc_attr( $pid ); ?>">
+                        <?php esc_html_e( 'Share progress with your supporters', 'sampreshan-child' ); ?>
+                    </label>
+                    <textarea
+                        id="sp-update-text-<?php echo esc_attr( $pid ); ?>"
+                        name="text"
+                        class="sp-form-textarea"
+                        rows="3"
+                        maxlength="1000"
+                        required
+                        placeholder="<?php esc_attr_e( 'What happened since you started? Meetings, milestones, media coverage…', 'sampreshan-child' ); ?>"
+                    ></textarea>
+                    <button type="submit" class="btn-3d btn-3d--sm"><?php esc_html_e( 'Post update', 'sampreshan-child' ); ?></button>
+                </form>
+            <?php endif; ?>
+            <?php if ( ! empty( $sp_updates ) ) : ?>
+                <ul class="sp-updates-list">
+                    <?php foreach ( $sp_updates as $u ) : ?>
+                        <li class="sp-updates-list__item">
+                            <p class="sp-updates-list__text"><?php echo esc_html( $u['text'] ); ?></p>
+                            <time class="sp-updates-list__time" datetime="<?php echo esc_attr( $u['time'] ); ?>"><?php echo esc_html( human_time_diff( strtotime( $u['time'] ), current_time( 'timestamp' ) ) ); ?> <?php esc_html_e( 'ago', 'sampreshan-child' ); ?></time>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else : ?>
+                <p class="sp-petition-single__signers-empty"><?php esc_html_e( 'No updates yet. The starter will post progress here.', 'sampreshan-child' ); ?></p>
+            <?php endif; ?>
+        </section>
+
+        <section class="sp-petition-single__comments card-3d" aria-labelledby="sp-discussion-heading">
+            <h2 id="sp-discussion-heading" class="sp-petition-single__signers-title">
+                <?php sp_icon_auto( 'comment', 'sp-icon--md sp-icon--saffron', __( 'Discussion', 'sampreshan-child' ) ); ?>
+                <?php esc_html_e( 'Discussion', 'sampreshan-child' ); ?>
+            </h2>
+            <?php
+            if ( comments_open() || get_comments_number() ) {
+                comments_template();
+            } else {
+                echo '<p class="sp-petition-single__signers-empty">' . esc_html__( 'Discussion is closed for this petition.', 'sampreshan-child' ) . '</p>';
+            }
+            ?>
+        </section>
 
     </main>
     <?php

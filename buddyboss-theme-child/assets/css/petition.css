@@ -289,3 +289,70 @@
     padding-left: 0.6rem;
     margin: 0.25rem 0;
 }
+
+/* ====== Save / bookmark button ====== */
+.sp-save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #e7e5e4;
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary, #1c1917);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.sp-save-btn:hover { border-color: var(--saffron-400, #fb9f3f); transform: translateY(-1px); }
+.sp-save-btn.is-saved { border-color: var(--saffron-500, #ff9933); background: #fff7ed; color: #b45309; }
+.sp-save-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+/* ====== Starter updates timeline ====== */
+.sp-petition-single__updates { margin-top: var(--space-6, 1.5rem); padding: var(--space-6, 1.5rem); }
+.sp-update-form { margin-bottom: var(--space-4, 1rem); }
+.sp-update-form__label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+.sp-update-form .sp-form-textarea { width: 100%; margin-bottom: 0.6rem; }
+.sp-updates-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+.sp-updates-list__item {
+    border-left: 3px solid var(--saffron-400, #fb9f3f);
+    padding: 0.1rem 0 0.1rem 0.9rem;
+}
+.sp-updates-list__text { margin: 0 0 0.2rem; line-height: 1.65; }
+.sp-updates-list__time { font-size: 0.78rem; color: var(--text-muted, #78716c); }
+
+/* ====== Discussion ====== */
+.sp-petition-single__comments { margin-top: var(--space-6, 1.5rem); padding: var(--space-6, 1.5rem); }
+.sp-petition-single__comments .comment-list { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.sp-petition-single__comments .comment-body { border: 1px solid #f3ece1; border-radius: 14px; padding: 0.9rem 1rem; }
+.sp-petition-single__comments .comment-author { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; }
+.sp-petition-single__comments .comment-author img { border-radius: 50%; }
+.sp-petition-single__comments .comment-meta { font-size: 0.78rem; color: var(--text-muted, #78716c); }
+.sp-petition-single__comments .comment-content p { margin: 0.5rem 0 0; line-height: 1.65; }
+.sp-petition-single__comments .comment-reply-link { font-size: 0.82rem; font-weight: 700; color: #b45309; }
+.sp-petition-single__comments .comment-respond { margin-top: 1.25rem; }
+.sp-petition-single__comments .comment-reply-title { font-size: 1.05rem; margin: 0 0 0.6rem; }
+.sp-petition-single__comments textarea#comment,
+.sp-petition-single__comments input#author,
+.sp-petition-single__comments input#email,
+.sp-petition-single__comments input#url {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #e7e5e4;
+    border-radius: 10px;
+    font: inherit;
+    box-sizing: border-box;
+}
+.sp-petition-single__comments input[type="submit"] {
+    margin-top: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fb9f3f, #ed7a1a);
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}

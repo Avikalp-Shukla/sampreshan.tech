@@ -33,6 +33,7 @@ $cause_nm  = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
 $cover     = get_the_post_thumbnail_url( $pid, 'medium' );
 $signed    = is_user_logged_in() && function_exists( 'sp_petition_user_has_signed' ) && sp_petition_user_has_signed( $pid );
 $can_sign  = is_user_logged_in() && current_user_can( 'sign_petitions' );
+$saved     = is_user_logged_in() && function_exists( 'sp_is_petition_saved' ) && sp_is_petition_saved( $pid );
 
 // First supporter faces for the avatar stack.
 $faces = array();
@@ -97,6 +98,11 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
                 <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Sign', 'sampreshan-child' ); ?></a>
             <?php endif; ?>
             <a class="sp-fu-link" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Read', 'sampreshan-child' ); ?></a>
+            <?php if ( is_user_logged_in() ) : ?>
+                <button type="button" class="sp-save-btn sp-save-btn--sm<?php echo $saved ? ' is-saved' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-saved="<?php echo $saved ? '1' : '0'; ?>" aria-pressed="<?php echo $saved ? 'true' : 'false'; ?>" aria-label="<?php esc_attr_e( 'Save petition', 'sampreshan-child' ); ?>">
+                    <?php sp_icon_auto( 'bookmark', 'sp-icon--sm', '' ); ?>
+                </button>
+            <?php endif; ?>
         </div>
     </div>
 </article>

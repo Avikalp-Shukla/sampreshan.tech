@@ -432,6 +432,35 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
                     <?php endif; ?>
                 </section>
 
+                <?php
+                $saved_ids = function_exists( 'sp_get_saved_petition_ids' ) ? sp_get_saved_petition_ids( $user_id ) : array();
+                $saved_posts = array();
+                if ( ! empty( $saved_ids ) ) {
+                    $saved_posts = get_posts( array(
+                        'post_type'      => 'petition',
+                        'post_status'    => 'publish',
+                        'post__in'       => $saved_ids,
+                        'posts_per_page' => count( $saved_ids ),
+                        'orderby'        => 'post__in',
+                    ) );
+                }
+                ?>
+                <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-saved-h">
+                    <h2 class="sp-dash-card__title" id="sp-dash-saved-h"><?php sp_icon_auto( 'bookmark', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Saved petitions', 'sampreshan-child' ); ?></h2>
+                    <?php if ( ! empty( $saved_posts ) ) : ?>
+                        <ul class="sp-dash-signed">
+                            <?php foreach ( $saved_posts as $sp ) : ?>
+                                <li data-saved-row="<?php echo esc_attr( $sp->ID ); ?>">
+                                    <a href="<?php echo esc_url( get_permalink( $sp ) ); ?>"><?php echo esc_html( get_the_title( $sp ) ); ?></a>
+                                    <small><button class="sp-dash-link sp-save-btn sp-save-btn--inline is-saved" type="button" data-petition-id="<?php echo esc_attr( $sp->ID ); ?>" data-saved="1" data-behavior="remove"><?php esc_html_e( 'Remove', 'sampreshan-child' ); ?></button></small>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else : ?>
+                        <p class="sp-dash-muted"><?php esc_html_e( 'Tap Save on any petition to build your reading list.', 'sampreshan-child' ); ?></p>
+                    <?php endif; ?>
+                </section>
+
                 <?php if ( ! empty( $signed_recent ) ) : ?>
                     <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-signed-h">
                         <h2 class="sp-dash-card__title" id="sp-dash-signed-h"><?php sp_icon_auto( 'check', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Recently signed by you', 'sampreshan-child' ); ?></h2>

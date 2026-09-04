@@ -65,6 +65,31 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_settings_nonce']
     }
 }
 
+/* --- Delete my account (separate form, password-confirmed) --- */
+if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_delete_nonce'] ) ) {
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['sp_delete_nonce'] ) ), 'sp_delete_account' ) ) {
+        $errors[] = __( 'Security check failed. Please try again.', 'sampreshan-child' );
+    } elseif ( empty( $_POST['sp_delete_confirm'] ) ) {
+        $errors[] = __( 'Please tick the confirmation box to delete your account.', 'sampreshan-child' );
+    } elseif ( $user && user_can( $user_id, 'manage_options' ) ) {
+        $errors[] = __( 'Administrators cannot delete their own account here. Ask another admin for help.', 'sampreshan-child' );
+    } else {
+        $pw = isset( $_POST['current_password'] ) ? (string) $_POST['current_password'] : '';
+        if ( ! $user || ! wp_check_password( $pw, $user->user_pass, $user_id ) ) {
+            $errors[] = __( 'That password is not correct.', 'sampreshan-child' );
+        } else {
+            // Preserve community content: hand petitions to the oldest admin.
+            $admins = get_users( array( 'role' => 'administrator', 'number' => 1, 'orderby' => 'ID', 'order' => 'ASC', 'fields' => 'ID' ) );
+            $reassign = ( ! empty( $admins ) && (int) $admins[0] !== $user_id ) ? (int) $admins[0] : null;
+            require_once ABSPATH . 'wp-admin/includes/user.php';
+            wp_delete_user( $user_id, $reassign );
+            wp_logout();
+            wp_safe_redirect( add_query_arg( 'deleted', '1', home_url( '/login/' ) ) );
+            exit;
+        }
+    }
+}
+
 $display_name = $user ? $user->display_name : '';
 $bio   = function_exists( 'sp_profile_get_field' ) ? sp_profile_get_field( 'bio', $user_id ) : (string) get_user_meta( $user_id, 'description', true );
 $gotra = function_exists( 'sp_profile_get_field' ) ? sp_profile_get_field( 'gotra', $user_id ) : '';
@@ -136,6 +161,25 @@ get_header();
             <div class="sp-settings__actions">
                 <button class="btn btn--primary btn--lg" type="submit"><?php esc_html_e( 'Save Changes', 'sampreshan-child' ); ?></button>
                 <a class="btn btn--ghost" href="<?php echo esc_url( $dash_url ); ?>"><?php esc_html_e( 'Back to Dashboard', 'sampreshan-child' ); ?></a>
+            </div>
+        </form>
+    </div>
+
+    <div class="sp-danger-zone" aria-labelledby="sp-danger-h">
+        <h2 class="sp-settings__subhead" id="sp-danger-h"><?php esc_html_e( 'Danger zone', 'sampreshan-child' ); ?></h2>
+        <p class="sp-dash-muted"><?php esc_html_e( 'Delete your account permanently. Your petitions stay with the community under site care; your signatures keep their display name. This cannot be undone.', 'sampreshan-child' ); ?></p>
+        <form method="post" action="<?php echo esc_url( get_permalink() ); ?>" class="sp-danger-zone__form" onsubmit="return window.confirm('Delete your account permanently? This cannot be undone.');">
+            <?php wp_nonce_field( 'sp_delete_account', 'sp_delete_nonce' ); ?>
+            <div class="sp-form-group">
+                <label class="sp-form-label" for="sp-current-pw"><?php esc_html_e( 'Current password', 'sampreshan-child' ); ?></label>
+                <input class="sp-form-input" id="sp-current-pw" type="password" name="current_password" autocomplete="current-password" required />
+            </div>
+            <label class="sp-login__remember">
+                <input type="checkbox" name="sp_delete_confirm" value="1" required />
+                <?php esc_html_e( 'Yes, delete my account permanently', 'sampreshan-child' ); ?>
+            </label>
+            <div class="sp-settings__actions">
+                <button class="btn btn--danger" type="submit"><?php esc_html_e( 'Delete My Account', 'sampreshan-child' ); ?></button>
             </div>
         </form>
     </div>

@@ -229,6 +229,102 @@
         });
     }
 
+    /* ── Save / unsave toggle ── */
+    function bindSave() {
+        document.querySelectorAll('.sp-save-btn[data-petition-id]').forEach(function (btn) {
+            if (btn.dataset.spBound === '1') { return; }
+            btn.dataset.spBound = '1';
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (btn.disabled) { return; }
+                btn.disabled = true;
+                var saving = btn.dataset.saved !== '1';
+                post(saving ? 'sp_save_petition' : 'sp_unsave_petition', {
+                    petition_id: btn.dataset.petitionId
+                })
+                    .then(function (res) {
+                        if (!res || !res.success) {
+                            var msg = (res && res.data && res.data.message) || 'Something went wrong. Please try again.';
+                            showToast(msg, 'error');
+                            return;
+                        }
+                        btn.dataset.saved = saving ? '1' : '0';
+                        btn.classList.toggle('is-saved', saving);
+                        btn.setAttribute('aria-pressed', saving ? 'true' : 'false');
+                        var label = btn.querySelector('span');
+                        if (label && (label.textContent.trim() === 'Save' || label.textContent.trim() === 'Saved')) {
+                            label.textContent = saving ? 'Saved' : 'Save';
+                        }
+                        showToast((res.data && res.data.message) || (saving ? 'Saved.' : 'Removed.'), 'success');
+                        if (!saving && btn.dataset.behavior === 'remove') {
+                            var li = btn.closest('li');
+                            if (li) { li.remove(); }
+                        }
+                    })
+                    .catch(function () {
+                        showToast('Network error. Please try again.', 'error');
+                    })
+                    .finally(function () {
+                        btn.disabled = false;
+                    });
+            });
+        });
+    }
+
+    /* ── Starter updates ── */
+    function bindUpdates() {
+        document.querySelectorAll('.sp-update-form[data-petition-id]').forEach(function (form) {
+            if (form.dataset.spBound === '1') { return; }
+            form.dataset.spBound = '1';
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var field = form.querySelector('textarea[name="text"]');
+                var submit = form.querySelector('button[type="submit"]');
+                var text = field ? field.value.trim() : '';
+                if (text.length < 10) {
+                    showToast('Please write at least a sentence.', 'error');
+                    return;
+                }
+                if (submit) { submit.disabled = true; }
+                post('sp_post_update', {
+                    petition_id: form.dataset.petitionId,
+                    text: text
+                })
+                    .then(function (res) {
+                        if (!res || !res.success) {
+                            var msg = (res && res.data && res.data.message) || 'Something went wrong. Please try again.';
+                            showToast(msg, 'error');
+                            return;
+                        }
+                        showToast((res.data && res.data.message) || 'Update posted.', 'success');
+                        if (field) { field.value = ''; }
+                        var list = document.querySelector('.sp-updates-list');
+                        if (list) {
+                            var li = document.createElement('li');
+                            li.className = 'sp-updates-list__item';
+                            var p = document.createElement('p');
+                            p.className = 'sp-updates-list__text';
+                            p.textContent = text;
+                            var time = document.createElement('time');
+                            time.className = 'sp-updates-list__time';
+                            time.textContent = 'Just now';
+                            li.appendChild(p);
+                            li.appendChild(time);
+                            list.insertBefore(li, list.firstChild);
+                        } else {
+                            window.location.reload();
+                        }
+                    })
+                    .catch(function () {
+                        showToast('Network error. Please try again.', 'error');
+                    })
+                    .finally(function () {
+                        if (submit) { submit.disabled = false; }
+                    });
+            });
+        });
+    }
+
     /* ── Initialize ── */
     function init() {
         var nodes = document.querySelectorAll('.sp-sign-button[data-petition-id]');
@@ -237,6 +333,8 @@
         }
         bindShareButtons();
         bindReport();
+        bindSave();
+        bindUpdates();
     }
 
     ready(init);
