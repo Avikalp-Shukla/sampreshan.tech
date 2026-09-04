@@ -1,0 +1,322 @@
+/**
+ * SampreShan Global Icon System — Premium 3D Transparent
+ *
+ * Resolution-independent SVG icons with 3D glass-morphism effects.
+ * Works on mobile, tablet, desktop, and large screens.
+ * Customizable via CSS custom properties.
+ *
+ * Usage:
+ *   <?php sp_icon_e('home', 'sp-icon--md sp-icon--saffron'); ?>
+ *   <?php sp_icon_e('dharma', 'sp-icon--2xl sp-icon--gold sp-icon--float'); ?>
+ *
+ * @package SampreShan_Child
+ */
+
+/* ============================================================
+   BASE: every icon container
+   ============================================================ */
+.sp-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--sp-icon-size, 1em);
+    height: var(--sp-icon-size, 1em);
+    line-height: 0;
+    vertical-align: -0.15em;
+    color: currentColor;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: inherit;
+}
+
+/* ============================================================
+   SVG BASE: 3D transparent glass effect
+   ============================================================ */
+.sp-icon svg,
+.sp-icon__svg,
+.sp-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* PNG imports (Icons8 3D Fluency, transparent) scale like SVGs.
+   object-fit keeps every size crisp on mobile / tablet / desktop. */
+.sp-icon img {
+    object-fit: contain;
+}
+    fill: currentColor;
+    /* 3D depth shadow — transparent glass feel */
+    filter:
+        drop-shadow(0 1px 1px rgba(10, 26, 61, 0.12))
+        drop-shadow(0 2px 4px rgba(10, 26, 61, 0.08))
+        drop-shadow(0 4px 8px rgba(10, 26, 61, 0.06));
+    transition:
+        transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Remove shadow class */
+.sp-icon--no-shadow svg { filter: none; }
+
+/* Hover lift effect */
+a:hover .sp-icon:not(.sp-icon--no-hover),
+button:hover .sp-icon:not(.sp-icon--no-hover),
+.sp-icon--hoverable:hover {
+    transform: translateY(-2px) scale(1.08);
+    filter:
+        drop-shadow(0 4px 6px rgba(10, 26, 61, 0.18))
+        drop-shadow(0 8px 16px rgba(10, 26, 61, 0.12));
+}
+
+/* ============================================================
+   3D TRANSPARENT GLASS EFFECT — the premium layer
+   ============================================================ */
+.sp-icon--glass {
+    position: relative;
+    border-radius: 12px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    backdrop-filter: blur(8px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(10, 26, 61, 0.05),
+        0 2px 8px rgba(10, 26, 61, 0.08),
+        0 4px 16px rgba(10, 26, 61, 0.06);
+}
+
+.sp-icon--glass svg {
+    filter: none;
+}
+
+.sp-icon--glass:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(10, 26, 61, 0.06),
+        0 4px 12px rgba(10, 26, 61, 0.12),
+        0 8px 24px rgba(10, 26, 61, 0.08);
+}
+
+/* Glass dark variant */
+.sp-icon--glass-dark {
+    background: rgba(10, 26, 61, 0.25);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================================
+   3D DEPTH EFFECT — for premium hero icons
+   ============================================================ */
+.sp-icon--depth {
+    border-radius: 16px;
+    padding: 6px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.15) 100%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 8px 32px rgba(10, 26, 61, 0.12),
+        0 2px 8px rgba(10, 26, 61, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(10, 26, 61, 0.06);
+}
+
+.sp-icon--depth svg { filter: none; }
+
+.sp-icon--depth:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow:
+        0 12px 40px rgba(10, 26, 61, 0.16),
+        0 4px 12px rgba(10, 26, 61, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -1px 0 rgba(10, 26, 61, 0.08);
+}
+
+/* ============================================================
+   SIZE MODIFIERS — fluid responsive
+   ============================================================ */
+.sp-icon--xxs { --sp-icon-size: 12px; }
+.sp-icon--xs  { --sp-icon-size: 14px; }
+.sp-icon--sm  { --sp-icon-size: 18px; }
+.sp-icon--md  { --sp-icon-size: 24px; }
+.sp-icon--lg  { --sp-icon-size: 36px; }
+.sp-icon--xl  { --sp-icon-size: 56px; }
+.sp-icon--2xl { --sp-icon-size: 80px; }
+.sp-icon--3xl { --sp-icon-size: 120px; }
+
+/* ============================================================
+   COLOR MODIFIERS
+   ============================================================ */
+.sp-icon--saffron     { color: var(--saffron-700, #E0851A); }
+.sp-icon--saffron-soft { color: var(--saffron-500, #FF9933); }
+.sp-icon--blue        { color: var(--blue-500, #1E3A8A); }
+.sp-icon--blue-soft   { color: var(--blue-300, #7E96C0); }
+.sp-icon--gold        { color: var(--gold-400, #D4A017); }
+.sp-icon--white       { color: #fff; }
+.sp-icon--muted       { color: var(--text-muted, #5C5C5C); }
+.sp-icon--danger      { color: var(--danger, #B33A3A); }
+.sp-icon--success     { color: var(--success, #2D7A4D); }
+.sp-icon--warning     { color: var(--warning, #D4A017); }
+.sp-icon--info        { color: var(--info, #2A6FB5); }
+
+/* ============================================================
+   ANIMATION MODIFIERS
+   ============================================================ */
+.sp-icon--float   { animation: sp-float 6s ease-in-out infinite; }
+.sp-icon--pulse   { animation: sp-pulse 3s ease-in-out infinite; }
+.sp-icon--bounce  { animation: sp-bounce 2.4s ease-in-out infinite; }
+.sp-icon--spin    { animation: sp-spin 1.4s linear infinite; }
+.sp-icon--glow    { animation: sp-glow 2s ease-in-out infinite; }
+.sp-icon--morph   { animation: sp-morph 8s ease-in-out infinite; }
+
+@keyframes sp-float  { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes sp-pulse  { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: .92; } }
+@keyframes sp-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes sp-spin   { to { transform: rotate(360deg); } }
+@keyframes sp-glow   { 0%,100% { filter: drop-shadow(0 0 0 rgba(255,153,51,0)); } 50% { filter: drop-shadow(0 0 12px rgba(255,153,51,.5)); } }
+@keyframes sp-morph  { 0%,100% { border-radius: 16px; } 50% { border-radius: 24px 8px 24px 8px; } }
+
+/* ============================================================
+   RESPONSIVE — 8 breakpoints
+   ============================================================ */
+
+/* Small phones (320-479) */
+@media (max-width: 479px) {
+    .sp-icon--xxs { --sp-icon-size: 10px; }
+    .sp-icon--xs  { --sp-icon-size: 12px; }
+    .sp-icon--sm  { --sp-icon-size: 16px; }
+    .sp-icon--md  { --sp-icon-size: 20px; }
+    .sp-icon--lg  { --sp-icon-size: 28px; }
+    .sp-icon--xl  { --sp-icon-size: 40px; }
+    .sp-icon--2xl { --sp-icon-size: 56px; }
+    .sp-icon--3xl { --sp-icon-size: 80px; }
+    .sp-icon--glass,
+    .sp-icon--depth { padding: 3px; border-radius: 8px; }
+}
+
+/* Large phones / phablets (480-639) */
+@media (min-width: 480px) and (max-width: 639px) {
+    .sp-icon--sm  { --sp-icon-size: 18px; }
+    .sp-icon--md  { --sp-icon-size: 22px; }
+    .sp-icon--lg  { --sp-icon-size: 32px; }
+    .sp-icon--xl  { --sp-icon-size: 48px; }
+    .sp-icon--2xl { --sp-icon-size: 64px; }
+    .sp-icon--3xl { --sp-icon-size: 96px; }
+}
+
+/* Tablets portrait (640-767) */
+@media (min-width: 640px) and (max-width: 767px) {
+    .sp-icon--sm  { --sp-icon-size: 18px; }
+    .sp-icon--md  { --sp-icon-size: 24px; }
+    .sp-icon--lg  { --sp-icon-size: 36px; }
+    .sp-icon--xl  { --sp-icon-size: 56px; }
+    .sp-icon--2xl { --sp-icon-size: 72px; }
+    .sp-icon--3xl { --sp-icon-size: 110px; }
+}
+
+/* Tablets landscape / small laptops (768-1023) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .sp-icon--sm  { --sp-icon-size: 18px; }
+    .sp-icon--md  { --sp-icon-size: 24px; }
+    .sp-icon--lg  { --sp-icon-size: 40px; }
+    .sp-icon--xl  { --sp-icon-size: 60px; }
+    .sp-icon--2xl { --sp-icon-size: 84px; }
+    .sp-icon--3xl { --sp-icon-size: 128px; }
+}
+
+/* Desktop (1024-1279) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .sp-icon--sm  { --sp-icon-size: 18px; }
+    .sp-icon--md  { --sp-icon-size: 24px; }
+    .sp-icon--lg  { --sp-icon-size: 44px; }
+    .sp-icon--xl  { --sp-icon-size: 64px; }
+    .sp-icon--2xl { --sp-icon-size: 96px; }
+    .sp-icon--3xl { --sp-icon-size: 144px; }
+}
+
+/* Large desktop (1280-1535) */
+@media (min-width: 1280px) and (max-width: 1535px) {
+    .sp-icon--sm  { --sp-icon-size: 20px; }
+    .sp-icon--md  { --sp-icon-size: 26px; }
+    .sp-icon--lg  { --sp-icon-size: 48px; }
+    .sp-icon--xl  { --sp-icon-size: 72px; }
+    .sp-icon--2xl { --sp-icon-size: 104px; }
+    .sp-icon--3xl { --sp-icon-size: 160px; }
+}
+
+/* Extra-large desktop / 4K (1536+) */
+@media (min-width: 1536px) {
+    .sp-icon--xxs { --sp-icon-size: 14px; }
+    .sp-icon--xs  { --sp-icon-size: 16px; }
+    .sp-icon--sm  { --sp-icon-size: 22px; }
+    .sp-icon--md  { --sp-icon-size: 28px; }
+    .sp-icon--lg  { --sp-icon-size: 52px; }
+    .sp-icon--xl  { --sp-icon-size: 80px; }
+    .sp-icon--2xl { --sp-icon-size: 112px; }
+    .sp-icon--3xl { --sp-icon-size: 176px; }
+}
+
+/* ============================================================
+   HIGH-DPI / RETINA — crisper shadows
+   ============================================================ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .sp-icon svg {
+        filter:
+            drop-shadow(0 0.5px 0.8px rgba(10, 26, 61, 0.14))
+            drop-shadow(0 1px 2px rgba(10, 26, 61, 0.1));
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+    .sp-icon svg {
+        filter:
+            drop-shadow(0 0.4px 0.6px rgba(10, 26, 61, 0.16))
+            drop-shadow(0 0.8px 1.5px rgba(10, 26, 61, 0.12));
+    }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .sp-icon,
+    .sp-icon--float,
+    .sp-icon--pulse,
+    .sp-icon--bounce,
+    .sp-icon--spin,
+    .sp-icon--glow,
+    .sp-icon--morph {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ============================================================
+   DARK MODE
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+    .sp-icon--saffron { color: var(--saffron-400, #FB9F3F); }
+    .sp-icon--muted   { color: #B0B0B0; }
+    .sp-icon svg {
+        filter:
+            drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4))
+            drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    .sp-icon--glass {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+    .sp-icon { color: #000 !important; }
+    .sp-icon svg { filter: none !important; }
+}

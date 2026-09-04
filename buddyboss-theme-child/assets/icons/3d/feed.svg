@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Activity Feed">
+  <defs>
+    <linearGradient id="feedPulse" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </linearGradient>
+    <radialGradient id="feedGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFF8F0" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFF8F0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="feedShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#feedShadow)">
+    <circle cx="32" cy="32" r="20" fill="url(#feedGlow)"/>
+    <path d="M4 38 L18 38 L24 26 L34 46 L42 22 L50 38 L60 38" fill="none" stroke="url(#feedPulse)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M4 38 L18 38 L24 26 L34 46 L42 22 L50 38 L60 38 L60 60 L4 60 Z" fill="url(#feedPulse)" opacity="0.18"/>
+    <circle cx="24" cy="26" r="2.4" fill="#FF9933"/>
+    <circle cx="34" cy="46" r="2.4" fill="#E0851A"/>
+    <circle cx="42" cy="22" r="2.4" fill="#FF9933"/>
+  </g>
+</svg>

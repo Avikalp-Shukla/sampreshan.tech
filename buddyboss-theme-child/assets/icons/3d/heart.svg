@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Support">
+  <defs>
+    <radialGradient id="heartGrad" cx="0.4" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#FF8A8A"/>
+      <stop offset="60%" stop-color="#E04040"/>
+      <stop offset="100%" stop-color="#7A1F1F"/>
+    </radialGradient>
+    <radialGradient id="heartGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFB0B0" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#FFB0B0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="heartShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#heartShadow)">
+    <circle cx="32" cy="32" r="22" fill="url(#heartGlow)"/>
+    <path d="M32 54 C12 40, 8 28, 14 20 C20 12, 28 14, 32 22 C36 14, 44 12, 50 20 C56 28, 52 40, 32 54 Z" fill="url(#heartGrad)"/>
+    <ellipse cx="22" cy="22" rx="4" ry="3" fill="#FFF8F0" opacity="0.7"/>
+  </g>
+</svg>

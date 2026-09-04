@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Close">
+  <defs>
+    <radialGradient id="closeCircle" cx="0.4" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#FF8A8A"/>
+      <stop offset="60%" stop-color="#B33A3A"/>
+      <stop offset="100%" stop-color="#7A1F1F"/>
+    </radialGradient>
+    <linearGradient id="closeX" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FAE8E8"/>
+    </linearGradient>
+    <filter id="closeShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#closeShadow)">
+    <circle cx="32" cy="32" r="24" fill="url(#closeCircle)"/>
+    <ellipse cx="24" cy="22" rx="6" ry="4" fill="#FFF8F0" opacity="0.45"/>
+    <line x1="22" y1="22" x2="42" y2="42" stroke="url(#closeX)" stroke-width="5" stroke-linecap="round"/>
+    <line x1="42" y1="22" x2="22" y2="42" stroke="url(#closeX)" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,45 +1,64 @@
 <?php
 /**
- * Home: Featured Petition
- * Real data only. Pulls existing page ID 94 ("Start a Petition").
- * No AI content. No fake signature counts — shows 0 unless meta key set.
+ * Home: Featured Petition — Premium Edition
+ * Live signature count, AJAX sign button, animated progress bar
  *
  * @package SampreShan_Child
  */
 
-$petition_id = 94;
-$petition    = get_post( $petition_id );
-
-if ( ! $petition ) {
-    return;
+$featured_id = 0;
+$featured_q  = new WP_Query( array(
+    'post_type'      => 'petition',
+    'post_status'    => 'publish',
+    'meta_query'     => array( array( 'key' => 'sampreshan_featured', 'value' => 1 ) ),
+    'posts_per_page' => 1,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+) );
+if ( $featured_q->have_posts() ) {
+    $featured_q->the_post();
+    $featured_id = get_the_ID();
+    wp_reset_postdata();
 }
 
-$petition_url   = get_permalink( $petition_id );
-$petition_title = $petition->post_title;
-$petition_excerpt = wp_trim_words( strip_tags( $petition->post_content ), 30, '…' );
-$author_id      = (int) $petition->post_author;
-$author_name    = get_the_author_meta( 'display_name', $author_id );
-$author_avatar  = get_avatar_url( $author_id, array( 'size' => 80 ) );
-$author_url     = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $author_id ) : get_author_posts_url( $author_id );
-
-// Signature counts from real post meta (if present) — otherwise 0
-$signature_current = (int) get_post_meta( $petition_id, 'sampreshan_signatures', true );
-$signature_goal    = (int) get_post_meta( $petition_id, 'sampreshan_goal', true );
-if ( $signature_goal <= 0 ) {
-    $signature_goal = 50000;
+if ( ! $featured_id ) {
+    $featured_id = 94;
 }
-$signature_pct = $signature_goal > 0 ? min( 100, ( $signature_current / $signature_goal ) * 100 ) : 0;
+$petition = get_post( $featured_id );
+if ( ! $petition ) { return; }
+
+$petition_id      = (int) $featured_id;
+$petition_url     = get_permalink( $petition_id );
+$petition_title   = $petition->post_title;
+$petition_excerpt = wp_trim_words( strip_tags( $petition->post_content ), 30, '...' );
+$author_id        = (int) $petition->post_author;
+$author_name      = get_the_author_meta( 'display_name', $author_id );
+$author_avatar    = get_avatar_url( $author_id, array( 'size' => 80 ) );
+$author_url       = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $author_id ) : get_author_posts_url( $author_id );
+
+$signature_current = function_exists( 'sp_petition_signature_count' )
+    ? (int) sp_petition_signature_count( $petition_id )
+    : (int) get_post_meta( $petition_id, 'sampreshan_signatures', true );
+$signature_goal = (int) get_post_meta( $petition_id, 'sampreshan_goal', true );
+if ( $signature_goal <= 0 ) { $signature_goal = 50000; }
+$signature_pct  = min( 100, ( $signature_current / $signature_goal ) * 100 );
+
+$user_signed = is_user_logged_in()
+    && function_exists( 'sp_petition_user_has_signed' )
+    && sp_petition_user_has_signed( $petition_id );
+$is_petition_cpt = ( 'petition' === get_post_type( $petition_id ) );
 ?>
-<article class="petition-card petition-card--featured" aria-label="Featured petition">
+<article class="petition-card petition-card--featured card-3d fade-in" data-petition-card data-petition-card-id="<?php echo esc_attr( $petition_id ); ?>" aria-label="Featured petition">
     <div class="petition-card__image" aria-hidden="true">
-        <svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M32 6 L40 24 L60 26 L44 40 L48 60 L32 50 L16 60 L20 40 L4 26 L24 24 Z" />
-        </svg>
+        <?php sp_icon_e( 'dharma', 'sp-icon--2xl sp-icon--saffron sp-icon--float', __( 'Featured', 'sampreshan-child' ) ); ?>
     </div>
 
     <div class="petition-card__body">
         <div class="petition-card__badge-row">
-            <span class="badge badge--saffron"><?php echo esc_html__( 'Featured Cause', 'sampreshan-child' ); ?></span>
+            <span class="chip-3d chip-3d--gold">
+                <?php sp_icon_e( 'star', 'sp-icon--sm sp-icon--gold', __( 'Featured', 'sampreshan-child' ) ); ?>
+                <?php echo esc_html__( 'Featured Cause', 'sampreshan-child' ); ?>
+            </span>
         </div>
 
         <div class="petition-card__champion">
@@ -49,7 +68,6 @@ $signature_pct = $signature_goal > 0 ? min( 100, ( $signature_current / $signatu
             <span>
                 <?php
                 printf(
-                    /* translators: %s = author display name */
                     esc_html__( 'Started by %s', 'sampreshan-child' ),
                     '<a href="' . esc_url( $author_url ) . '">' . esc_html( $author_name ) . '</a>'
                 );
@@ -66,13 +84,12 @@ $signature_pct = $signature_goal > 0 ? min( 100, ( $signature_current / $signatu
         <div class="petition-card__progress" aria-label="Signature progress">
             <div class="petition-card__progress-label">
                 <span class="petition-card__progress-count">
-                    <?php echo esc_html( number_format_i18n( $signature_current ) ); ?>
+                    <span data-sp-signature-count><?php echo esc_html( number_format_i18n( $signature_current ) ); ?></span>
                     <small><?php echo esc_html__( 'supporters', 'sampreshan-child' ); ?></small>
                 </span>
                 <span>
                     <?php
                     printf(
-                        /* translators: %s = formatted goal number */
                         esc_html__( 'Goal: %s', 'sampreshan-child' ),
                         esc_html( number_format_i18n( $signature_goal ) )
                     );
@@ -85,10 +102,24 @@ $signature_pct = $signature_goal > 0 ? min( 100, ( $signature_current / $signatu
         </div>
 
         <div class="petition-card__actions">
-            <a class="btn btn--primary" href="<?php echo esc_url( $petition_url ); ?>">
-                <?php echo esc_html__( 'Sign This Petition', 'sampreshan-child' ); ?>
-            </a>
-            <a class="btn btn--outline" href="<?php echo esc_url( $petition_url ); ?>">
+            <?php if ( $is_petition_cpt && is_user_logged_in() && current_user_can( 'sign_petitions' ) ) : ?>
+                <button
+                    type="button"
+                    class="btn-3d btn-3d--lg sp-sign-button<?php echo $user_signed ? ' is-signed' : ''; ?>"
+                    data-petition-id="<?php echo esc_attr( $petition_id ); ?>"
+                    data-signed="<?php echo $user_signed ? '1' : '0'; ?>"
+                >
+                    <?php sp_icon_e( $user_signed ? 'check' : 'pen', 'sp-icon--sm sp-icon--white', $user_signed ? __( 'Signed', 'sampreshan-child' ) : __( 'Sign', 'sampreshan-child' ) ); ?>
+                    <?php echo $user_signed ? esc_html__( 'You signed', 'sampreshan-child' ) : esc_html__( 'Sign This Petition', 'sampreshan-child' ); ?>
+                </button>
+            <?php else : ?>
+                <a class="btn-3d btn-3d--lg" href="<?php echo esc_url( $petition_url ); ?>">
+                    <?php sp_icon_e( 'pen', 'sp-icon--sm sp-icon--white', __( 'Sign', 'sampreshan-child' ) ); ?>
+                    <?php echo esc_html__( 'Sign This Petition', 'sampreshan-child' ); ?>
+                </a>
+            <?php endif; ?>
+
+            <a class="btn-3d btn-3d--lg btn-3d--royal" href="<?php echo esc_url( $petition_url ); ?>">
                 <?php echo esc_html__( 'Read Full Cause', 'sampreshan-child' ); ?>
             </a>
         </div>

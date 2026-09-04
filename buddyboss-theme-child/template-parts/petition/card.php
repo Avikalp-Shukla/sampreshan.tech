@@ -1,68 +1,102 @@
 <?php
 /**
- * Petition Card Template
- * Change.org inspired — premium, responsive, no emojis
- * Uses real existing petition data (page ID: 94 — "Start a Petition")
+ * Shared petition card — Change.org pattern, Indian style.
+ *
+ * Usage:
+ *   get_template_part( 'template-parts/petition/card', null, array( 'id' => $pid ) );
+ *
+ * Expects $args['id'] = petition post ID.
  *
  * @package SampreShan_Child
  */
 
-// Get petition data from existing page
-$petition_id = 94; // "Start a Petition" — real existing page
-$petition = get_post( $petition_id );
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-if ( ! $petition ) {
-    return;
+$pid = 0;
+if ( isset( $args['id'] ) ) {
+    $pid = (int) $args['id'];
+} else {
+    $qid = get_query_var( 'sp_card_pid', 0 );
+    $pid = (int) $qid;
 }
+if ( $pid <= 0 || 'petition' !== get_post_type( $pid ) ) { return; }
 
-$petition_title   = $petition->post_title;
-$petition_content = $petition->post_content;
-$petition_url     = get_permalink( $petition_id );
-$petition_date    = get_the_date( 'F j, Y', $petition );
-$petition_author  = get_the_author_meta( 'display_name', $petition->post_author );
+$title     = get_the_title( $pid );
+$purl      = get_permalink( $pid );
+$author_id = (int) get_post_field( 'post_author', $pid );
+$author_nm = get_the_author_meta( 'display_name', $author_id );
+$sig_count = function_exists( 'sp_petition_signature_count' ) ? (int) sp_petition_signature_count( $pid ) : (int) get_post_meta( $pid, 'sampreshan_signatures', true );
+$goal      = (int) get_post_meta( $pid, 'sampreshan_goal', true );
+$progress  = $goal > 0 ? min( 100, round( ( $sig_count / $goal ) * 100 ) ) : 0;
+$terms     = get_the_terms( $pid, 'cause_category' );
+$cause_nm  = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
+$cover     = get_the_post_thumbnail_url( $pid, 'medium' );
+$signed    = is_user_logged_in() && function_exists( 'sp_petition_user_has_signed' ) && sp_petition_user_has_signed( $pid );
+$can_sign  = is_user_logged_in() && current_user_can( 'sign_petitions' );
 
-// Signature counts from real post meta only — no fake numbers.
-$signature_current = (int) get_post_meta( $petition_id, 'sampreshan_signatures', true );
-$signature_goal    = (int) get_post_meta( $petition_id, 'sampreshan_goal', true );
-if ( $signature_goal <= 0 ) {
-    $signature_goal = 50000; // sensible default goal until admin sets one
+// First supporter faces for the avatar stack.
+$faces = array();
+if ( function_exists( 'sp_petition_get_signatures' ) ) {
+    $rows = sp_petition_get_signatures( array( 'petition_id' => $pid, 'per_page' => 3, 'page' => 1 ) );
+    if ( $rows ) {
+        foreach ( $rows as $r ) {
+            $faces[] = empty( $r->is_anonymous ) ? get_avatar_url( (int) $r->user_id, array( 'size' => 52 ) ) : '';
+        }
+    }
 }
-$signature_pct = $signature_goal > 0 ? min( 100, ( $signature_current / $signature_goal ) * 100 ) : 0;
 ?>
-
-<article class="petition-card" aria-label="Petition: <?php echo esc_attr( $petition_title ); ?>">
-    <div class="petition-card__image" aria-hidden="true">
-        <span aria-label="Petition icon" style="font-family: var(--font-display); font-size: var(--text-4xl); color: var(--saffron-800);">&#10003;</span>
-    </div>
-
-    <div class="petition-card__body">
-        <div class="petition-card__champion">
-            <span>Started by <?php echo esc_html( $petition_author ); ?></span>
-            <span aria-hidden="true">&middot;</span>
-            <time datetime="<?php echo esc_attr( $petition_date ); ?>"><?php echo esc_html( $petition_date ); ?></time>
-        </div>
-
-        <h3 class="petition-card__title">
-            <a href="<?php echo esc_url( $petition_url ); ?>"><?php echo esc_html( $petition_title ); ?></a>
-        </h3>
-
-        <p class="petition-card__desc">
-            <?php echo esc_html( wp_trim_words( strip_tags( $petition_content ), 25 ) ); ?>
+<article class="sp-fu-pet" data-petition-card data-petition-card-id="<?php echo esc_attr( $pid ); ?>" aria-label="<?php echo esc_attr( $title ); ?>">
+    <a class="sp-fu-pet__media" href="<?php echo esc_url( $purl ); ?>" tabindex="-1" aria-hidden="true">
+        <?php if ( $cover ) : ?>
+            <img src="<?php echo esc_url( $cover ); ?>" alt="" loading="lazy" />
+        <?php else : ?>
+            <span class="sp-fu-pet__ph" aria-hidden="true">ॐ</span>
+        <?php endif; ?>
+        <?php if ( $cause_nm ) : ?>
+            <span class="sp-fu-pet__cause"><?php echo esc_html( $cause_nm ); ?></span>
+        <?php endif; ?>
+    </a>
+    <div class="sp-fu-pet__body">
+        <h3 class="sp-fu-pet__title"><a href="<?php echo esc_url( $purl ); ?>"><?php echo esc_html( $title ); ?></a></h3>
+        <p class="sp-fu-pet__by">
+            <?php echo esc_html( sprintf( __( 'Started by %s', 'sampreshan-child' ), $author_nm ) ); ?>
         </p>
-
-        <div class="petition-card__progress" aria-label="Signature progress">
-            <div class="petition-card__progress-label">
-                <span><?php echo number_format( $signature_current ); ?> supporters</span>
-                <span class="petition-card__progress-count">Goal: <?php echo number_format( $signature_goal ); ?></span>
-            </div>
-            <div class="petition-card__progress-bar" role="progressbar" aria-valuenow="<?php echo esc_attr( $signature_current ); ?>" aria-valuemin="0" aria-valuemax="<?php echo esc_attr( $signature_goal ); ?>">
-                <div class="petition-card__progress-fill" style="width: <?php echo esc_attr( min( $signature_pct, 100 ) ); ?>%;"></div>
-            </div>
+        <div class="sp-fu-pet__sigrow">
+            <?php if ( ! empty( $faces ) ) : ?>
+                <span class="sp-fu-avatars" aria-hidden="true">
+                    <?php foreach ( $faces as $f ) : ?>
+                        <?php if ( $f ) : ?>
+                            <img src="<?php echo esc_url( $f ); ?>" alt="" loading="lazy" width="26" height="26" />
+                        <?php else : ?>
+                            <span>ॐ</span>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </span>
+            <?php endif; ?>
+            <span class="sp-fu-pet__count" data-sp-signature-count-wrap>
+                <strong data-sp-signature-count><?php echo esc_html( number_format_i18n( $sig_count ) ); ?></strong>
+                <?php esc_html_e( 'signatures', 'sampreshan-child' ); ?>
+            </span>
         </div>
-
-        <div class="petition-card__actions">
-            <a class="btn btn--primary btn--sm" href="<?php echo esc_url( $petition_url ); ?>">Sign Petition</a>
-            <a class="btn btn--outline btn--sm" href="<?php echo esc_url( $petition_url ); ?>">Read More</a>
+        <div class="sp-fu-pet__bar" role="progressbar" aria-valuenow="<?php echo esc_attr( $progress ); ?>" aria-valuemin="0" aria-valuemax="100" aria-label="<?php esc_attr_e( 'Signature progress', 'sampreshan-child' ); ?>">
+            <span class="sp-fu-pet__fill" style="width: <?php echo esc_attr( $progress ); ?>%;"></span>
+        </div>
+        <p class="sp-fu-pet__goal">
+            <?php if ( $goal > 0 ) : ?>
+                <?php echo esc_html( sprintf( __( '%s%% of %s goal', 'sampreshan-child' ), number_format_i18n( $progress ), number_format_i18n( $goal ) ) ); ?>
+            <?php else : ?>
+                <?php esc_html_e( 'Every signature counts', 'sampreshan-child' ); ?>
+            <?php endif; ?>
+        </p>
+        <div class="sp-fu-pet__foot">
+            <?php if ( $can_sign ) : ?>
+                <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
+                    <?php echo $signed ? esc_html__( 'Signed ✓', 'sampreshan-child' ) : esc_html__( 'Sign', 'sampreshan-child' ); ?>
+                </button>
+            <?php else : ?>
+                <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Sign', 'sampreshan-child' ); ?></a>
+            <?php endif; ?>
+            <a class="sp-fu-link" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Read', 'sampreshan-child' ); ?></a>
         </div>
     </div>
 </article>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Sampreshan">
+  <defs>
+    <radialGradient id="favLotus" cx="0.5" cy="0.5" r="0.55">
+      <stop offset="0%" stop-color="#FFF8F0"/>
+      <stop offset="60%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </radialGradient>
+    <linearGradient id="favPetal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="60%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </linearGradient>
+    <linearGradient id="favCenter" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <radialGradient id="favBg" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#A9B9D5"/>
+      <stop offset="100%" stop-color="#0A1A3D"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#favBg)"/>
+  <g transform="translate(32 32)">
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(45)"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(90)"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(135)"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(225)"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(270)"/>
+    <ellipse cx="0" cy="-12" rx="4" ry="11" fill="url(#favPetal)" opacity="0.9" transform="rotate(315)"/>
+    <circle r="7" fill="url(#favLotus)"/>
+    <circle r="3" fill="url(#favCenter)"/>
+  </g>
+</svg>

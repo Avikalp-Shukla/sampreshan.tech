@@ -1,23 +1,22 @@
 <?php
 /**
- * Home: Right Sidebar
- * About ShivBodh Trust card + Community Guidelines card.
- * No fundraising, no payments, no AI content.
+ * Home: Right Sidebar — Premium Edition
+ * About ShivBodh Trust, Community Guidelines, CTA cards
  *
  * @package SampreShan_child
  */
 
-$trust_url      = 'https://shivbodhtrust.org';
+$about_url      = home_url( '/about/' );
 $guidelines_url = home_url( '/community-guidelines/' );
 ?>
 <aside class="home-aside home-aside--right" aria-label="About and guidelines">
     <div class="card card--aside card--aside-accent">
-        <h3 class="card__title card__title--aside"><?php echo esc_html__( 'About ShivBodh Trust', 'sampreshan-child' ); ?></h3>
+        <h3 class="card__title card__title--aside"><?php echo esc_html__( 'About SampreShan', 'sampreshan-child' ); ?></h3>
         <p class="home-aside__text">
-            <?php echo esc_html__( 'Sampreshan is a non-commercial digital initiative by ShivBodh Trust, dedicated to preserving, protecting, and promoting Sanatana Dharma through respectful community participation, petitions, and constructive dialogue.', 'sampreshan-child' ); ?>
+            <?php echo esc_html__( 'A non-commercial digital initiative by ShivBodh Trust, dedicated to preserving, protecting, and promoting Sanatana Dharma through respectful community participation, petitions, and constructive dialogue.', 'sampreshan-child' ); ?>
         </p>
-        <a class="btn btn--outline btn--sm btn--block" href="<?php echo esc_url( $trust_url ); ?>" target="_blank" rel="noopener noreferrer">
-            <?php echo esc_html__( 'Visit shivbodhtrust.org', 'sampreshan-child' ); ?>
+        <a class="btn btn--outline btn--sm btn--block" href="<?php echo esc_url( $about_url ); ?>">
+            <?php echo esc_html__( 'Learn More', 'sampreshan-child' ); ?> &rarr;
         </a>
     </div>
 

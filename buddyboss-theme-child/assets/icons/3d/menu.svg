@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Menu">
+  <defs>
+    <linearGradient id="menuBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFB877"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <filter id="menuShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+      <feOffset dy="1.4"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="10" ry="1.5" fill="#1A3380" opacity="0.15"/>
+  <g filter="url(#menuShadow)">
+    <rect x="8" y="14" width="48" height="6" rx="3" fill="url(#menuBar)"/>
+    <rect x="8" y="29" width="48" height="6" rx="3" fill="url(#menuBar)"/>
+    <rect x="8" y="44" width="48" height="6" rx="3" fill="url(#menuBar)"/>
+  </g>
+</svg>

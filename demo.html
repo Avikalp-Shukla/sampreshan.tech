@@ -1,498 +1,204 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sampreshan.tech - Sanatan Dharma anuyayiyon ka digital manch. Dharmik star par ek doosre se judein, samasyaon ko uthayein, support batcha jama karein. Koi paisa nahi, keval awaaj.">
-  <title>Sampreshan.tech - Sanatan Voice Platform</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background: linear-gradient(135deg, #ff9933, #ffffff, #138808); min-height: 100vh; }
-
-    /* Header */
-    .header {
-      background: rgba(255,255,255,0.95);
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ff9933, #138808);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .nav-links { display: flex; gap: 25px; align-items: center; }
-    .nav-links a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s; }
-    .nav-links a:hover { color: #ff9933; }
-    .btn-primary {
-      background: linear-gradient(45deg, #ff9933, #ff6600);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .btn-primary:hover { transform: translateY(-2px); }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-    .hero h1 {
-      font-size: 3.5em;
-      margin-bottom: 20px;
-      animation: fadeInUp 1s ease;
-    }
-    .hero p {
-      font-size: 1.3em;
-      margin-bottom: 15px;
-      animation: fadeInUp 1.2s ease;
-    }
-    .hero .sub {
-      font-size: 1.05em;
-      opacity: 0.95;
-      max-width: 800px;
-      margin: 0 auto 30px;
-      animation: fadeInUp 1.4s ease;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Mission strip */
-    .mission {
-      max-width: 1100px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.95);
-      border-radius: 18px;
-      padding: 30px 35px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.12);
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .mission-item { text-align: center; }
-    .mission-icon { font-size: 2em; margin-bottom: 8px; }
-    .mission-title { font-weight: 700; color: #333; margin-bottom: 4px; }
-    .mission-desc { color: #555; font-size: 0.9em; line-height: 1.5; }
-
-    /* Stats */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .stat-card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .stat-card:hover { transform: translateY(-5px); }
-    .stat-number {
-      font-size: 2.5em;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ff9933, #138808);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .stat-label { color: #666; margin-top: 5px; }
-
-    /* Sections */
-    .section {
-      padding: 60px 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-title {
-      text-align: center;
-      font-size: 2.5em;
-      margin-bottom: 15px;
-      color: #333;
-    }
-    .section-sub {
-      text-align: center;
-      color: #555;
-      max-width: 800px;
-      margin: 0 auto 40px;
-      font-size: 1.05em;
-      line-height: 1.6;
-    }
-
-    /* Issues */
-    .issues-list { display: flex; flex-direction: column; gap: 20px; }
-    .issue-card {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      transition: transform 0.3s;
-    }
-    .issue-card:hover { transform: translateX(5px); }
-    .issue-icon {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8em;
-      color: white;
-      flex-shrink: 0;
-    }
-    .issue-content { flex: 1; }
-    .issue-title { font-size: 1.2em; margin-bottom: 8px; color: #333; }
-    .issue-desc { color: #666; font-size: 0.9em; margin-bottom: 6px; line-height: 1.5; }
-    .issue-meta { color: #888; font-size: 0.85em; }
-    .signature-count {
-      text-align: center;
-      padding: 10px 20px;
-      background: linear-gradient(135deg, #ff9933, #138808);
-      color: white;
-      border-radius: 10px;
-      font-weight: bold;
-      white-space: nowrap;
-    }
-
-    /* Feed */
-    .feed-container { max-width: 600px; margin: 0 auto; }
-    .post-card {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-    .post-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 15px;
-    }
-    .avatar {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ff9933, #138808);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-    }
-    .post-author { font-weight: 600; color: #333; }
-    .post-time { color: #999; font-size: 0.85em; }
-    .post-content { color: #444; line-height: 1.6; margin-bottom: 15px; }
-    .post-actions {
-      display: flex;
-      gap: 20px;
-      padding-top: 15px;
-      border-top: 1px solid #eee;
-    }
-    .post-action {
-      color: #666;
-      cursor: pointer;
-      transition: color 0.3s;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .post-action:hover { color: #ff9933; }
-
-    /* Acharya / Peeth awareness */
-    .peeth-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .peeth-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-    .peeth-card:hover { transform: translateY(-5px); }
-    .peeth-emoji { font-size: 2.5em; margin-bottom: 10px; }
-    .peeth-name { font-weight: 700; color: #333; margin-bottom: 6px; }
-    .peeth-desc { color: #666; font-size: 0.9em; line-height: 1.5; }
-    .peeth-link {
-      display: inline-block;
-      margin-top: 12px;
-      color: #ff6600;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.9em;
-    }
-    .peeth-link:hover { text-decoration: underline; }
-
-    /* Footer */
-    .footer {
-      background: rgba(0,0,0,0.85);
-      color: white;
-      text-align: center;
-      padding: 35px 20px;
-      margin-top: 60px;
-    }
-    .footer p { margin: 6px 0; }
-    .footer a { color: #ffb366; text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2em; }
-      .nav-links { display: none; }
-      .issue-card { flex-direction: column; text-align: center; }
-      .signature-count { width: 100%; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="SampreShan — one voice for Sanatan Dharma. Start petitions, gather signatures, connect with the community." />
+<title>SampreShan — One Voice for Sanatan Dharma</title>
+<style>
+  :root{
+    --bg:#060913; --panel:rgba(255,255,255,.045); --line:rgba(255,255,255,.09);
+    --neon:#FF8A00; --saffron:#FF9933; --gold:#F5C542; --cyan:#41E2FF;
+    --text:#F5F0E6; --muted:#A79D8C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.6;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(900px 480px at 12% -80px,rgba(255,138,0,.16),transparent 60%),
+    radial-gradient(800px 420px at 88% 8%,rgba(65,226,255,.08),transparent 60%),
+    radial-gradient(1000px 600px at 50% 110%,rgba(154,27,30,.22),transparent 60%)}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(6,9,19,.8);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,153,51,.18)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1160px;margin:0 auto}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:.02em}
+  .brand .om{display:inline-flex;width:34px;height:34px;border-radius:12px;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#FF8A00,#9A1B1E);box-shadow:0 0 22px rgba(255,138,0,.5);font-size:1.1rem}
+  .nav-links{display:flex;gap:22px}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:600}
+  .nav-links a:hover{color:var(--gold)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;font-weight:800;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:.2s}
+  .btn-primary{background:linear-gradient(135deg,#FF8A00,#E04E00);color:#fff!important;padding:.8rem 1.6rem;
+    box-shadow:0 0 0 1px rgba(255,200,120,.35),0 8px 28px rgba(255,138,0,.35)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,200,120,.6),0 12px 36px rgba(255,138,0,.5)}
+  .btn-ghost{background:rgba(65,226,255,.06);border-color:rgba(65,226,255,.35);color:#BDEFFF!important;padding:.8rem 1.5rem}
+  .btn-sm{padding:.55rem 1.1rem;font-size:.85rem}
+  /* hero */
+  .hero{padding:90px 0 60px;text-align:center;position:relative}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--cyan);border:1px solid rgba(65,226,255,.3);border-radius:999px;padding:.45rem 1rem;background:rgba(65,226,255,.06);margin-bottom:22px}
+  .pulse{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pl 1.6s infinite}
+  @keyframes pl{50%{opacity:.4}}
+  h1{font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.05;letter-spacing:-.02em;
+    background:linear-gradient(100deg,#FFF3DC 10%,var(--saffron) 45%,var(--gold) 70%,#FFF3DC 95%);background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sheen 7s linear infinite}
+  @keyframes sheen{to{background-position:220% center}}
+  .sub{max-width:620px;margin:20px auto 32px;color:var(--muted);font-size:1.1rem}
+  .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .stats{display:flex;gap:36px;justify-content:center;margin-top:54px;flex-wrap:wrap}
+  .stat b{display:block;font-size:1.9rem;background:linear-gradient(100deg,var(--saffron),var(--gold));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat span{font-size:.82rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  /* sections */
+  .section{padding:64px 0}
+  .eyebrow{color:var(--cyan);font-size:.74rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+  .sec-title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:8px}
+  .sec-sub{color:var(--muted);max-width:640px;margin-bottom:28px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;backdrop-filter:blur(14px);
+    box-shadow:0 18px 50px rgba(0,0,0,.45);transition:.22s}
+  .card:hover{transform:translateY(-3px);border-color:rgba(255,138,0,.45);box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 32px rgba(255,138,0,.12)}
+  .icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px;
+    background:rgba(255,138,0,.12);border:1px solid rgba(255,138,0,.3)}
+  .card h3{margin-bottom:8px;font-size:1.05rem}
+  .card p{color:var(--muted);font-size:.92rem}
+  /* petition cards */
+  .pet{overflow:hidden;padding:0}
+  .pet-media{height:150px;background:linear-gradient(135deg,#3A1405,#9A1B1E 55%,#FF8A00);display:flex;align-items:center;justify-content:center;
+    font-size:3rem;position:relative}
+  .pet-cause{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.6);color:#FFE3B3;font-size:.66rem;font-weight:800;
+    letter-spacing:.07em;text-transform:uppercase;padding:.28rem .7rem;border-radius:999px}
+  .pet-body{padding:18px}
+  .pet-body h3{font-size:.98rem;line-height:1.45;margin-bottom:6px}
+  .sigrow{display:flex;align-items:center;gap:8px;margin:10px 0 8px;font-size:.82rem;color:var(--muted)}
+  .sigrow b{color:#FF6B6B}
+  .bar{height:8px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden}
+  .fill{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--neon));box-shadow:0 0 12px rgba(255,138,0,.7);border-radius:999px}
+  .goal{font-size:.74rem;color:var(--muted);margin:6px 0 12px}
+  /* feed + trending */
+  .cols{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+  .post{margin-bottom:12px;padding:18px 20px}
+  .post-head{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+  .ava{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#FF8A00,#9A1B1E);display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+  .post-head small{display:block;color:var(--muted);font-size:.76rem}
+  .trend{display:flex;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.07)}
+  .trend:first-of-type{border-top:0}
+  .rank{font-size:1.4rem;font-weight:800;color:var(--gold);min-width:26px}
+  .trend p{font-size:.86rem;line-height:1.45}
+  .trend small{color:var(--muted);font-size:.74rem}
+  /* cta banner */
+  .banner{background:linear-gradient(135deg,#0A0618,#2A0E04 55%,#083344);border:1px solid rgba(255,138,0,.3);border-radius:24px;
+    padding:52px 40px;text-align:center;box-shadow:0 0 60px rgba(255,138,0,.12)}
+  .banner h2{font-size:clamp(1.5rem,3.4vw,2.2rem);margin-bottom:10px}
+  .banner p{color:var(--muted);max-width:560px;margin:0 auto 26px}
+  footer{border-top:1px solid rgba(255,153,51,.18);margin-top:64px;padding:34px 0;color:var(--muted);font-size:.85rem;background:#04060F}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer a{color:#FFB35C;text-decoration:none}
+  @media(max-width:900px){.grid3{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.nav-links{display:none}.hero{padding:64px 0 44px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">🙏 Sampreshan.tech</div>
-    <nav class="nav-links">
-      <a href="#mission">Mission</a>
-      <a href="#issues">Issues</a>
-      <a href="#peeth">Acharya</a>
-      <a href="#feed">Feed</a>
-      <button class="btn-primary" onclick="alert('Demo page - Full platform coming soon!')">Join Now</button>
-    </nav>
-  </header>
+<header><nav class="nav">
+  <div class="brand"><span class="om">ॐ</span> SampreShan</div>
+  <div class="nav-links"><a href="#features">Platform</a><a href="#issues">Petitions</a><a href="#peeth">Mission</a><a href="#feed">Community</a></div>
+  <a class="btn btn-primary btn-sm" href="#issues">+ Start a Petition</a>
+</nav></header>
 
-  <!-- Hero -->
+<div class="wrap">
   <section class="hero">
-    <h1>Raise Your Voice for Dharma</h1>
-    <p>Connect, Discuss, Raise Your Voice — Together for Dharma</p>
-    <p class="sub">
-      Sanatan Dharma ke anuyayiyon ka digital manch. Vishwa bhar mein faili samaj ek doosre se jude,
-      samasyaon ko uthaye, aur sakaratmak parivartan laaye — bina kisi paisa ke, keval awaaj ke saath.
-    </p>
-    <button class="btn-primary" style="font-size: 1.1em; padding: 15px 30px;" onclick="alert('Demo page - Full platform coming soon!')">Raise an Issue</button>
-  </section>
-
-  <!-- Mission -->
-  <section id="mission" class="section" style="padding-top: 20px;">
-    <h2 class="section-title">🙏 Hamara Uddeshya</h2>
-    <p class="section-sub">
-      Bharat sahit poore vishwa mein Sanatan Dharma ke anuyayiyon ke apne-apne guru hain, apni sampradaya hain.
-      Lekin bahut baar unki baat daba di jaati hai, kyunki unki apni community tak woh awaaj pahunch nahi paati.
-      Isi samasya ka samadhan hai <strong>Sampreshan</strong> — ek sauchcha digital manch.
-    </p>
-    <div class="mission">
-      <div class="mission-item">
-        <div class="mission-icon">🤝</div>
-        <div class="mission-title">Judo aur Baat Karo</div>
-        <div class="mission-desc">Apne sampradaya, kshetra aur vicharon ke logon se ek saath judein aur vichar-vimarsh karein.</div>
-      </div>
-      <div class="mission-item">
-        <div class="mission-icon">✊</div>
-        <div class="mission-title">Samasya Uthayein</div>
-        <div class="mission-desc">Koi bhi samasya ho — samasik, dharmik ya sanskritik — yahan uthayein, logo tak pahunchayein.</div>
-      </div>
-      <div class="mission-item">
-        <div class="mission-icon">📜</div>
-        <div class="mission-title">Support Jama Karein</div>
-        <div class="mission-desc">Kisi bhi issue par signature ya support batcha jama karein — kisi bhi provider ke madhyam se, mukt roop se.</div>
-      </div>
-      <div class="mission-item">
-        <div class="mission-icon">🕉️</div>
-        <div class="mission-title">Ekta ka Sandesh</div>
-        <div class="mission-desc">Dharm ek hai, raahayein anek hain. Sabhi peeth, sampradaya aur aacharyon ka sammaan.</div>
-      </div>
+    <span class="badge"><span class="pulse"></span> A non-commercial initiative of ShivBodh Trust</span>
+    <h1>One Voice for<br/>Sanatan Dharma</h1>
+    <p class="sub">Raise local issues, start petitions, gather signatures, and connect with people who share Dharmic values — together turning a single voice into collective impact.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#issues">Start a Petition</a>
+      <a class="btn btn-ghost" href="#features">What is SampreShan?</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>12,400+</b><span>Members</span></div>
+      <div class="stat"><b>86,000+</b><span>Signatures</span></div>
+      <div class="stat"><b>320+</b><span>Petitions</span></div>
+      <div class="stat"><b>40+</b><span>Causes Won</span></div>
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="stats">
-    <div class="stat-card">
-      <div class="stat-number">10K+</div>
-      <div class="stat-label">Active Members</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">200+</div>
-      <div class="stat-label">Issues Raised</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">50K+</div>
-      <div class="stat-label">Signatures</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">100+</div>
-      <div class="stat-label">Cities</div>
+  <section class="section" id="features">
+    <p class="eyebrow">What is SampreShan?</p>
+    <h2 class="sec-title">A simple place to raise what matters</h2>
+    <p class="sec-sub">Temple upkeep, cultural heritage, religious education, community welfare — if it affects the Dharmic community, it belongs here.</p>
+    <div class="grid3">
+      <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div><h3>1 · Raise</h3><p>Write your issue in simple words, add a photo, set a signature goal. It takes two minutes.</p></div>
+      <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>2 · Gather</h3><p>Share with friends and community. Every signature and comment adds weight to your cause.</p></div>
+      <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5Z"/></svg></div><h3>3 · Impact</h3><p>Take the collective voice to authorities, temples and media — with proof of public support.</p></div>
     </div>
   </section>
 
-  <!-- Issues -->
-  <section id="issues" class="section">
-    <h2 class="section-title">✍️ Live Issues & Petitions</h2>
-    <p class="section-sub">
-      Yahan koi bhi sadasya ek mudda uthata hai. Aap padhein, vichar karein, aur apna samarthan jodein —
-      keval ek signature se awaaj badi hoti hai. <em>Koi paisa nahi, keval awaaj.</em>
-    </p>
-    <div class="issues-list">
-      <div class="issue-card">
-        <div class="issue-icon">📜</div>
-        <div class="issue-content">
-          <div class="issue-title">Sacred Cow Heritage ka Sanrakshan</div>
-          <div class="issue-desc">Gau mata ke sanrakshan ke liye samajik jagrukta aur sarkar se nitiyon mein sudhaar ki maang.</div>
-          <div class="issue-meta">@Rahul Sharma ne shuru kiya • 2 din pehle</div>
-        </div>
-        <div class="signature-count">12,450 / 50,000</div>
+  <section class="section" id="issues">
+    <p class="eyebrow">Active Causes</p>
+    <h2 class="sec-title">Petitions &amp; Campaigns</h2>
+    <p class="sec-sub">Real causes the community is rallying behind right now.</p>
+    <div class="grid3">
+      <div class="card pet"><div class="pet-media">ॐ<span class="pet-cause">Temple Heritage</span></div>
+        <div class="pet-body"><h3>Restore the ancient stepwell near Kashi Vishwanath corridor</h3>
+        <div class="sigrow"><b>8,412</b> signatures</div><div class="bar"><span class="fill" style="width:67%"></span></div>
+        <p class="goal">67% of 12,500 goal</p><a class="btn btn-primary btn-sm" href="#issues">Sign</a></div></div>
+      <div class="card pet"><div class="pet-media" style="background:linear-gradient(135deg,#083344,#0E4D64 55%,#41E2FF)">ॐ<span class="pet-cause">Culture</span></div>
+        <div class="pet-body"><h3>Sanskrit learning centres in every district library</h3>
+        <div class="sigrow"><b>5,209</b> signatures</div><div class="bar"><span class="fill" style="width:52%"></span></div>
+        <p class="goal">52% of 10,000 goal</p><a class="btn btn-primary btn-sm" href="#issues">Sign</a></div></div>
+      <div class="card pet"><div class="pet-media" style="background:linear-gradient(135deg,#0B2E13,#1A7A2E 60%,#F5C542)">ॐ<span class="pet-cause">Environment</span></div>
+        <div class="pet-body"><h3>Protect peepal &amp; banyan trees on highway projects</h3>
+        <div class="sigrow"><b>11,980</b> signatures</div><div class="bar"><span class="fill" style="width:80%"></span></div>
+        <p class="goal">80% of 15,000 goal</p><a class="btn btn-primary btn-sm" href="#issues">Sign</a></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="peeth">
+    <p class="eyebrow">By ShivBodh Trust</p>
+    <h2 class="sec-title">Non-commercial. Community-first. For Dharma.</h2>
+    <p class="sec-sub">No donations on this platform. No fees. Just a clean space for Sanatan voices to be heard — every sampradaya respected equally.</p>
+    <div class="grid3">
+      <div class="card"><div class="icon">ॐ</div><h3>Dharma First</h3><p>Every feature serves the community — never advertisers, never data brokers.</p></div>
+      <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Trust &amp; Safety</h3><p>Clear community guidelines keep every tradition respected and every voice safe.</p></div>
+      <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>One Sangha</h3><p>Members, petitions, feed and profiles connected in a single living network.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="feed">
+    <p class="eyebrow">Community Pulse</p>
+    <h2 class="sec-title">Live from the Sangha</h2>
+    <p class="sec-sub">Fresh signatures and trending causes across the platform.</p>
+    <div class="cols">
+      <div>
+        <div class="card post"><div class="post-head"><span class="ava">A</span><div><b>Ananya S.</b><small>signed 12 min ago</small></div></div>
+          <p><b>Restore the ancient stepwell near Kashi Vishwanath corridor</b></p></div>
+        <div class="card post"><div class="post-head"><span class="ava">R</span><div><b>Rohit V.</b><small>signed 34 min ago</small></div></div>
+          <p><b>Protect peepal &amp; banyan trees on highway projects</b></p></div>
+        <div class="card post"><div class="post-head"><span class="ava">M</span><div><b>Meera K.</b><small>started a petition · 1 hr ago</small></div></div>
+          <p><b>Weekly bhajan Sandhya for senior citizens in Vrindavan</b></p></div>
       </div>
-      <div class="issue-card">
-        <div class="issue-icon">🕉️</div>
-        <div class="issue-content">
-          <div class="issue-title">Sabhi Rajyon mein Gau Vadh par Pratibandh</div>
-          <div class="issue-desc">Desh ke sabhi rajyon mein samanta-siddh aadhaar par gau vadh par pratibandh ki maang.</div>
-          <div class="issue-meta">@Priya Patel ne shuru kiya • 5 din pehle</div>
-        </div>
-        <div class="signature-count">8,320 / 30,000</div>
-      </div>
-      <div class="issue-card">
-        <div class="issue-icon">🏛️</div>
-        <div class="issue-content">
-          <div class="issue-title">Prachin Mandiron ka Jirnoddhar aur Sanrakshan</div>
-          <div class="issue-desc">Vishwa virasat ke roop mein prachin mandiron ki suraksha, jirnoddhar aur samajik pehchaan.</div>
-          <div class="issue-meta">@Amit Gupta ne shuru kiya • 1 saptah pehle</div>
-        </div>
-        <div class="signature-count">25,100 / 100,000</div>
+      <div class="card"><p class="eyebrow">Trending now</p>
+        <div class="trend"><span class="rank">1</span><div><p>Restore the ancient stepwell near Kashi Vishwanath corridor</p><small>8,412 signatures</small></div></div>
+        <div class="trend"><span class="rank">2</span><div><p>Protect peepal &amp; banyan trees on highway projects</p><small>11,980 signatures</small></div></div>
+        <div class="trend"><span class="rank">3</span><div><p>Sanskrit learning centres in every district library</p><small>5,209 signatures</small></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Acharya / Peeth awareness -->
-  <section id="peeth" class="section">
-    <h2 class="section-title">🕉️ Acharya aur Peeth se Judein</h2>
-    <p class="section-sub">
-      Dharm ka sarvashreshtha stambh aacharya hain. <strong>Sri Shankaracharya</strong> dwara sthapit
-      4 aamna peethon ke shreshta aacharyon ke saath-sath anek sampradaya ke aacharya logon ke jeevan
-      mein dharmik samasyaon ka hal uplabdh karate hain. Un sabhi ka parichay aur margadarshan ke liye
-      hamara bhaiya manch dekhein:
-    </p>
-    <div class="peeth-grid">
-      <div class="peeth-card">
-        <div class="peeth-emoji">🛕</div>
-        <div class="peeth-name">Govardhan Peeth (Puri)</div>
-        <div class="peeth-desc">Adi Shankaracharya dwara sthapit charam dhamon mein se ek. Sanyog aur gyan ki parampara.</div>
-        <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org par parichayein →</a>
-      </div>
-      <div class="peeth-card">
-        <div class="peeth-emoji">🪔</div>
-        <div class="peeth-name">Sharada Peeth (Sringeri)</div>
-        <div class="peeth-desc">Advaita Vedanta ki mukhya peeth. Vaidik gyan aur darshan ka prachhin kendra.</div>
-        <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org par parichayein →</a>
-      </div>
-      <div class="peeth-card">
-        <div class="peeth-emoji">🙏</div>
-        <div class="peeth-name">Jyotir Peeth (Dwarika)</div>
-        <div class="peeth-desc">Paschim kshetra ki dharmik peeth. Aacharyaon ka margadarshan.</div>
-        <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org par parichayein →</a>
-      </div>
-      <div class="peeth-card">
-        <div class="peeth-emoji">📿</div>
-        <div class="peeth-name">Kalika Peeth (Kamakhya)</div>
-        <div class="peeth-desc">Poorvottar Bharat ki shaktipeeth. Tantra aur upasana ka paramparik adhar.</div>
-        <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org par parichayein →</a>
-      </div>
-    </div>
-    <p class="section-sub" style="margin-top: 30px;">
-      🙏 <strong>Ek Sandesh:</strong> Dharm ek hai, raahayein anek hain. Jab sabhi aacharya aur sampradaya
-      ek hi maryada par tikte hain, to unke beech ka anya vichar ek-doosre ka sammaan hai, virodh nahi.
-      <a href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">www.shivbodhtrust.org</a> par har peeth aur aacharya ka vivechak parichay uplabdh hai.
-    </p>
-  </section>
-
-  <!-- Feed -->
-  <section id="feed" class="section">
-    <h2 class="section-title">📰 Community Feed</h2>
-    <p class="section-sub">
-      Aacharyon ke vichar, kshetra ki khabrein aur sadasyon ki vichar-vimarsh — sab ek saath.
-    </p>
-    <div class="feed-container">
-      <div class="post-card">
-        <div class="post-header">
-          <div class="avatar">RS</div>
-          <div>
-            <div class="post-author">Rahul Sharma</div>
-            <div class="post-time">2 ghante pehle</div>
-          </div>
-        </div>
-        <div class="post-content">
-          Gau mata ke sanrakshan par chal rahe petition par aaj maine apna signature diya. Aap bhi samarthan karein. #GauSanrakshan #SanatanDharma
-        </div>
-        <div class="post-actions">
-          <div class="post-action">👍 234</div>
-          <div class="post-action">💬 45</div>
-          <div class="post-action">🔄 12</div>
-        </div>
-      </div>
-      <div class="post-card">
-        <div class="post-header">
-          <div class="avatar" style="background: linear-gradient(135deg, #f093fb, #f5576c);">PP</div>
-          <div>
-            <div class="post-author">Priya Patel</div>
-            <div class="post-time">5 ghante pehle</div>
-          </div>
-        </div>
-        <div class="post-content">
-          Apne kshetra ke prachin mandir ka daura kiya. Dharmik virasat ki raksha sabka kartavya hai. Awaaz uthayein! 🙏
-        </div>
-        <div class="post-actions">
-          <div class="post-action">👍 567</div>
-          <div class="post-action">💬 89</div>
-          <div class="post-action">🔄 34</div>
-        </div>
-      </div>
-      <div class="post-card">
-        <div class="post-header">
-          <div class="avatar" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">AG</div>
-          <div>
-            <div class="post-author">Amit Gupta</div>
-            <div class="post-time">1 din pehle</div>
-          </div>
-        </div>
-        <div class="post-content">
-          Kal subah Ganga aarti mein upasthit raha. Man mein ek nayi urja ka anubhav hua. Hamare nadiyon ka sanrakshan hamara kartavya hai. 🌊
-        </div>
-        <div class="post-actions">
-          <div class="post-action">👍 892</div>
-          <div class="post-action">💬 156</div>
-          <div class="post-action">🔄 67</div>
-        </div>
-      </div>
+  <section class="section cta">
+    <div class="banner">
+      <p class="eyebrow">Join 12,400+ members</p>
+      <h2>Your voice can be the next spark</h2>
+      <p>Start a petition in two minutes, or back a cause that moves you today.</p>
+      <div class="cta-row"><a class="btn btn-primary" href="#issues">Start a Petition</a><a class="btn btn-ghost" href="#features">Explore the platform</a></div>
     </div>
   </section>
+</div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>🙏 © 2026 Sampreshan.tech — Sanatan Voice Platform</p>
-    <p style="opacity: 0.85;">Yeh ek <strong>non-commercial</strong> digital manch hai. Yahan kisi bhi prakar ka paisa nahi liya jaata — na donation, na membership fee.</p>
-    <p style="opacity: 0.85;">Banaya gaya <a href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">Shivbodh Trust</a> ke netrtva mein. Aacharya/Peeth parichay ke liye dekhein <a href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">www.shivbodhtrust.org</a></p>
-    <p style="margin-top: 10px; opacity: 0.7; font-size: 0.9em;">Yeh ek demo page hai. Poora platform shighra aane
+<footer><div class="wrap">
+  <span>© 2026 SampreShan · A non-commercial initiative of <a href="https://shivbodhtrust.org">ShivBodh Trust</a></span>
+  <span>3D icons by <a href="https://icons8.com">Icons8</a></span>
+</div></footer>
+</body>
+</html>

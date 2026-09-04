@@ -1,0 +1,176 @@
+/**
+ * SampreShan × Digits — Native page integration
+ *
+ * The Digits plugin (unitedover) renders its own login page. We can't
+ * (and shouldn't) replace that form — Digits owns the OTP/email/WhatsApp
+ * flow. Instead we restyle Digits' markup so it inherits our 3D icon
+ * system, design tokens, and brand shell.
+ *
+ * Target selectors are based on Digits 9.x (confirmed in the public
+ * plugin markup): `.digits_login`, `.digits_register`, `.digits_forget`.
+ * Newer versions may use `.digits-login-flow` / `.digits_form`. Both
+ * are covered here.
+ *
+ * Loaded only when Digits is detected.
+ *
+ * @package SampreShan_Child
+ */
+
+body.digits_login,
+body.digits_register,
+body.digits_forget,
+body.digits-login-flow,
+body[class*="digits_"] {
+    background:
+        radial-gradient(ellipse 1200px 600px at 10% 10%, var(--saffron-100, #FFEDD5), transparent 60%),
+        radial-gradient(ellipse 1000px 500px at 90% 0%,  var(--saffron-50,  #FFF8F0), transparent 55%),
+        radial-gradient(ellipse 800px 400px at 50% 100%, rgba(30, 58, 138, 0.05), transparent 50%),
+        linear-gradient(180deg, var(--saffron-50, #FFF8F0) 0%, var(--bg-card, #fff) 100%) !important;
+    font-family: var(--font-body, 'Inter', system-ui, sans-serif) !important;
+    color: var(--text, #1A1A1A) !important;
+}
+
+/* Card container — Digits wraps the form in its own panel */
+.digits_login .digits_main_wrapper,
+.digits_register .digits_main_wrapper,
+.digits_forget .digits_main_wrapper,
+.digits-login-flow .digits_main_wrapper,
+.digits_form_main {
+    background: var(--glass-bg-strong, rgba(255,255,255,.85)) !important;
+    -webkit-backdrop-filter: saturate(200%) blur(28px) !important;
+    backdrop-filter: saturate(200%) blur(28px) !important;
+    border: 1px solid var(--glass-border, rgba(255,255,255,.4)) !important;
+    border-radius: var(--radius-lg, 20px) !important;
+    box-shadow: 0 20px 60px rgba(30, 58, 138, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+    padding: clamp(1.5rem, 4vw, 2.5rem) !important;
+}
+
+/* Digits input fields */
+.digits_login input.input,
+.digits_register input.input,
+.digits_forget input.input,
+.digits_form input.input,
+.digits_form input[type="text"],
+.digits_form input[type="email"],
+.digits_form input[type="password"],
+.digits_form input[type="tel"] {
+    width: 100% !important;
+    padding: var(--space-3, .75rem) var(--space-4, 1rem) !important;
+    font: inherit !important;
+    color: var(--text, #1A1A1A) !important;
+    background: var(--bg-card, #fff) !important;
+    border: 1px solid var(--border, #E8E2D5) !important;
+    border-radius: var(--radius, 10px) !important;
+    transition: border-color 250ms ease, box-shadow 250ms ease !important;
+    box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+.digits_login input.input:focus,
+.digits_form input.input:focus,
+.digits_form input:focus {
+    outline: none !important;
+    border-color: var(--saffron-500, #FF9933) !important;
+    box-shadow: 0 0 0 3px rgba(255, 153, 51, .25) !important;
+}
+
+/* Primary CTA buttons */
+.digits_login .digits_login_button,
+.digits_register .digits_register_button,
+.digits_forget .digits_send_otp_button,
+.digits_form button.digits_login_button,
+.digits_form button.digits_register_button,
+.digits_form button[type="submit"].button-primary {
+    width: 100% !important;
+    padding: var(--space-3, .75rem) var(--space-6, 1.5rem) !important;
+    font-family: var(--font-heading, 'Inter', sans-serif) !important;
+    font-size: var(--text-sm, .875rem) !important;
+    font-weight: var(--weight-semibold, 600) !important;
+    color: #fff !important;
+    background: var(--gradient-saffron, linear-gradient(135deg,#FFD9A8 0%,#FF9933 50%,#E0851A 100%)) !important;
+    border: 1px solid rgba(255,255,255,.2) !important;
+    border-radius: var(--radius, 10px) !important;
+    cursor: pointer !important;
+    box-shadow: 0 8px 24px rgba(30, 58, 138, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+    transition: transform 250ms ease, box-shadow 250ms ease !important;
+}
+.digits_login .digits_login_button:hover,
+.digits_form button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 16px 40px rgba(30, 58, 138, 0.14), inset 0 2px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Typography */
+.digits_login .digits_login_title,
+.digits_register .digits_register_title,
+.digits_form .digits_form_title,
+.digits-login-flow .digits_form_title {
+    font-family: var(--font-display, 'Cormorant Garamond', serif) !important;
+    font-size: var(--text-3xl, 1.875rem) !important;
+    color: var(--text, #1A1A1A) !important;
+    margin-bottom: var(--space-3, .75rem) !important;
+}
+
+/* Logo header — keep our dharma mark above the form if Digits exposes a logo */
+.digits_login_logo,
+.digits_register_logo,
+.digits_form_logo {
+    margin-bottom: var(--space-3, .75rem) !important;
+    text-align: center !important;
+}
+.digits_login_logo img,
+.digits_register_logo img,
+.digits_form_logo img {
+    max-height: 72px !important;
+    width: auto !important;
+    border-radius: var(--radius-md, 14px) !important;
+}
+
+/* Footer / "back to site" link */
+.digits_login a.digits_back_to_site,
+.digits_form .digits_back_to_site,
+.digits_form a[href*="wp-login.php?action=register"],
+.digits_form a[href*="wp-login.php"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: var(--space-2, .5rem) !important;
+    color: var(--text-muted, #5C5C5C) !important;
+    text-decoration: none !important;
+    font-size: var(--text-sm, .875rem) !important;
+}
+
+/* Country flag + phone field — soften the box */
+.digits_form .countrycode-input,
+.digits_form .digit-phone-wrap {
+    border-radius: var(--radius, 10px) !important;
+    border-color: var(--border, #E8E2D5) !important;
+}
+
+/* OTP input + timer */
+.digits_form .digits_otp_input,
+.digits_form input[name*="otp"] {
+    letter-spacing: 0.5em !important;
+    text-align: center !important;
+    font-family: var(--font-heading, 'Inter', sans-serif) !important;
+    font-weight: var(--weight-semibold, 600) !important;
+    font-size: var(--text-lg, 1.125rem) !important;
+}
+
+/* Inline notice (success / error) */
+.digits_form .digits_login_msg,
+.digits_form .digits_register_msg,
+.digits_form .digits_alert {
+    border-radius: var(--radius, 10px) !important;
+    padding: var(--space-3, .75rem) var(--space-4, 1rem) !important;
+    font-size: var(--text-sm, .875rem) !important;
+}
+.digits_form .digits_alert-success,
+.digits_form .digits_login_msg_success { background: var(--success-soft, #E8F3EC) !important; color: var(--success, #2D7A4D) !important; }
+.digits_form .digits_alert-error,
+.digits_form .digits_login_msg_error   { background: var(--danger-soft, #FAE8E8) !important; color: var(--danger, #B33A3A) !important; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .digits_form input,
+    .digits_form button { transition: none !important; }
+}

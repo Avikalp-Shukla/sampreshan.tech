@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Logout">
+  <defs>
+    <linearGradient id="loDoor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A9B9D5"/>
+      <stop offset="100%" stop-color="#0A1A3D"/>
+    </linearGradient>
+    <linearGradient id="loArrow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB877"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <filter id="loShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#loShadow)">
+    <rect x="6" y="10" width="32" height="44" rx="3" fill="url(#loDoor)"/>
+    <rect x="6" y="10" width="32" height="44" rx="3" fill="none" stroke="#0A1A3D" stroke-width="1" opacity="0.4"/>
+    <circle cx="14" cy="32" r="2" fill="#FFD9A8"/>
+    <path d="M28 32 L52 32 M44 24 L52 32 L44 40" fill="none" stroke="url(#loArrow)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

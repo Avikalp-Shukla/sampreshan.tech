@@ -1,0 +1,449 @@
+/* ============================================================
+   future.css — "Cosmic Dharma" futuristic skin
+   Dark space base + neon kesariya glow + haldi + mor-cyan accents.
+   Scoped to body.sp-future (added globally via body_class).
+   Loaded LAST so it wins over design-system / fusion / pages.
+   ============================================================ */
+
+body.sp-future {
+    --ft-bg: #060913;
+    --ft-bg2: #0B1124;
+    --ft-panel: rgba(255, 255, 255, 0.045);
+    --ft-panel-solid: #0D1428;
+    --ft-line: rgba(255, 153, 51, 0.18);
+    --ft-line-soft: rgba(255, 255, 255, 0.09);
+    --ft-neon: #FF8A00;
+    --ft-saffron: #FF9933;
+    --ft-gold: #F5C542;
+    --ft-cyan: #41E2FF;
+    --ft-text: #F5F0E6;
+    --ft-muted: #A79D8C;
+    --ft-faint: #6E665A;
+
+    background: var(--ft-bg);
+    color: var(--ft-text);
+}
+
+/* Aurora backdrop */
+body.sp-future::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(900px 480px at 12% -80px, rgba(255, 138, 0, 0.16), transparent 60%),
+        radial-gradient(800px 420px at 88% 8%, rgba(65, 226, 255, 0.08), transparent 60%),
+        radial-gradient(1000px 600px at 50% 110%, rgba(154, 27, 30, 0.22), transparent 60%),
+        linear-gradient(180deg, #060913 0%, #070B1A 100%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    body.sp-future::before {
+        animation: sp-ft-aurora 18s ease-in-out infinite alternate;
+    }
+}
+
+@keyframes sp-ft-aurora {
+    from { opacity: 0.85; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.06); }
+}
+
+/* ── Type ── */
+body.sp-future h1,
+body.sp-future h2,
+body.sp-future h3 {
+    color: var(--ft-text);
+}
+
+body.sp-future a {
+    color: #FFB35C;
+}
+
+body.sp-future a:hover {
+    color: var(--ft-gold);
+}
+
+/* Gradient display titles */
+body.sp-future .sp-hero__title,
+body.sp-future .sp-users__title,
+body.sp-future .sp-fu-sectitle,
+body.sp-future .sp-section__title,
+body.sp-future .sp-dash-name,
+body.sp-future .sp-fu-name,
+body.sp-future .home-hero__title {
+    background: linear-gradient(100deg, #FFF3DC 10%, var(--ft-saffron) 45%, var(--ft-gold) 70%, #FFF3DC 95%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    body.sp-future .sp-hero__title,
+    body.sp-future .home-hero__title {
+        animation: sp-ft-sheen 7s linear infinite;
+    }
+}
+
+@keyframes sp-ft-sheen {
+    to { background-position: 220% center; }
+}
+
+/* Tech eyebrows */
+body.sp-future .sp-section__eyebrow,
+body.sp-future .sp-fu-eyebrow,
+body.sp-future .sp-dash-eyebrow,
+body.sp-future .home-section__eyebrow {
+    color: var(--ft-cyan);
+    letter-spacing: 0.22em;
+}
+
+/* ── Header ── */
+body.sp-future .site-header {
+    background: rgba(6, 9, 19, 0.78);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid var(--ft-line);
+}
+
+body.sp-future .site-header__title {
+    color: var(--ft-text);
+}
+
+body.sp-future .site-header__nav-link {
+    color: var(--ft-muted);
+}
+
+body.sp-future .site-header__nav-link:hover,
+body.sp-future .site-header__nav-link.is-active {
+    color: var(--ft-gold);
+}
+
+/* ── Panels / cards → glass ── */
+body.sp-future .sp-hero,
+body.sp-future .home-hero,
+body.sp-future .sp-section,
+body.sp-future .sp-users__hero,
+body.sp-future .sp-dash-card,
+body.sp-future .sp-dash-stat,
+body.sp-future .sp-dash-top,
+body.sp-future .sp-pet-card,
+body.sp-future .sp-fu-pet,
+body.sp-future .sp-member-card,
+body.sp-future .sp-fu-post,
+body.sp-future .sp-fu-side,
+body.sp-future .sp-users__filters,
+body.sp-future .sp-login__card,
+body.sp-future .sp-petition-create__form-wrapper,
+body.sp-future .card,
+body.sp-future .glass {
+    background: var(--ft-panel);
+    border: 1px solid var(--ft-line-soft);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+/* Card hover: neon edge */
+body.sp-future .sp-pet-card:hover,
+body.sp-future .sp-fu-pet:hover,
+body.sp-future .sp-member-card:hover,
+body.sp-future .sp-dash-stat:hover {
+    border-color: rgba(255, 138, 0, 0.45);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 138, 0, 0.25), 0 0 32px rgba(255, 138, 0, 0.12);
+    transform: translateY(-3px);
+}
+
+/* ── Copy inside panels ── */
+body.sp-future .sp-hero__sub,
+body.sp-future .sp-section__sub,
+body.sp-future .sp-users__sub,
+body.sp-future .sp-dash-meta,
+body.sp-future .sp-pet-card__meta,
+body.sp-future .sp-fu-post__meta,
+body.sp-future .sp-feed__excerpt,
+body.sp-future .sp-dash-row__meta,
+body.sp-future .sp-member-card__bio,
+body.sp-future .sp-fu-trend__meta,
+body.sp-future .site-footer__tagline {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-pet-card__title,
+body.sp-future .sp-fu-pet__title,
+body.sp-future .sp-dash-row__title,
+body.sp-future .sp-member-card__name,
+body.sp-future .sp-feed__title,
+body.sp-future .sp-fu-post__title,
+body.sp-future .sp-fu-trend__title a {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-dash-stat__num,
+body.sp-future .sp-dash-stat__label,
+body.sp-future .home-stats__value,
+body.sp-future .home-stats__label {
+    color: var(--ft-text);
+}
+
+body.sp-future .home-stats__value {
+    background: linear-gradient(100deg, var(--ft-saffron), var(--ft-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ── Buttons: neon ── */
+body.sp-future .btn--primary,
+body.sp-future .sp-fu-btn--primary,
+body.sp-future .btn-3d:not(.btn-3d--royal) {
+    background: linear-gradient(135deg, #FF8A00 0%, #E04E00 100%);
+    border: 1px solid rgba(255, 200, 120, 0.5);
+    box-shadow: 0 0 0 1px rgba(255, 138, 0, 0.25), 0 8px 28px rgba(255, 138, 0, 0.35);
+    color: #fff;
+}
+
+body.sp-future .btn--primary:hover,
+body.sp-future .sp-fu-btn--primary:hover {
+    box-shadow: 0 0 0 1px rgba(255, 200, 120, 0.6), 0 10px 36px rgba(255, 138, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+body.sp-future .btn--ghost,
+body.sp-future .btn--outline,
+body.sp-future .sp-fu-btn--mor,
+body.sp-future .btn-3d--royal {
+    background: rgba(65, 226, 255, 0.06);
+    border: 1px solid rgba(65, 226, 255, 0.35);
+    color: #BDEFFF;
+}
+
+body.sp-future .btn--ghost:hover,
+body.sp-future .sp-fu-btn--mor:hover {
+    background: rgba(65, 226, 255, 0.12);
+    border-color: var(--ft-cyan);
+}
+
+/* ── Progress bars: neon tubes ── */
+body.sp-future .sp-dash-bar,
+body.sp-future .sp-progress-bar,
+body.sp-future .sp-fu-pet__bar,
+body.sp-future .petition-card__progress-bar,
+body.sp-future .sp-petition-single__progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.sp-future .sp-dash-bar__fill,
+body.sp-future .sp-progress-bar__fill,
+body.sp-future .sp-fu-pet__fill,
+body.sp-future .petition-card__progress-fill {
+    background: linear-gradient(90deg, var(--ft-gold), var(--ft-neon));
+    box-shadow: 0 0 12px rgba(255, 138, 0, 0.7);
+}
+
+/* ── Pills / tabs / chips ── */
+body.sp-future .sp-dash-pill--active,
+body.sp-future .sp-fu-tab.is-active {
+    color: var(--ft-gold);
+}
+
+body.sp-future .sp-fu-tab {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-fu-tab.is-active {
+    border-bottom-color: var(--ft-neon);
+}
+
+body.sp-future .sp-dash-filter {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--ft-line-soft);
+}
+
+body.sp-future .sp-dash-filter__btn {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-dash-filter__btn.is-active {
+    background: linear-gradient(135deg, #FF8A00, #E04E00);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(255, 138, 0, 0.4);
+}
+
+body.sp-future .sp-fu-chips li,
+body.sp-future .sp-dash-cause,
+body.sp-future .sp-fu-pet__cause {
+    background: rgba(255, 138, 0, 0.12);
+    border-color: rgba(255, 138, 0, 0.35);
+    color: #FFC46B;
+}
+
+/* ── Forms ── */
+body.sp-future .sp-form-input,
+body.sp-future .sp-form-select,
+body.sp-future .sp-form-textarea,
+body.sp-future .sp-login__card .input,
+body.sp-future .site-footer__newsletter-input,
+body.sp-future .sp-users__search {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--ft-line-soft);
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-form-input::placeholder,
+body.sp-future .sp-form-textarea::placeholder {
+    color: var(--ft-faint);
+}
+
+body.sp-future .sp-form-input:focus,
+body.sp-future .sp-form-select:focus,
+body.sp-future .sp-form-textarea:focus {
+    border-color: var(--ft-neon);
+    box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.22);
+    outline: none;
+}
+
+body.sp-future .sp-form-label {
+    color: var(--ft-text);
+}
+
+/* ── Dashboard / profile specifics ── */
+body.sp-future .sp-dashboard,
+body.sp-future .sp-users,
+body.sp-future .sp-page {
+    background: transparent;
+}
+
+body.sp-future .sp-dash-top {
+    background: linear-gradient(120deg, rgba(255, 138, 0, 0.1), rgba(65, 226, 255, 0.05)), var(--ft-panel);
+}
+
+body.sp-future .sp-fu-cover {
+    box-shadow: 0 0 60px rgba(255, 138, 0, 0.25);
+}
+
+body.sp-future .sp-fu-avatar {
+    border-color: var(--ft-bg);
+    box-shadow: 0 0 0 2px rgba(255, 138, 0, 0.55), 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+body.sp-future .sp-fu-stats {
+    background: rgba(255, 255, 255, 0.03);
+    border-top-color: var(--ft-line-soft);
+    border-bottom-color: var(--ft-line-soft);
+}
+
+body.sp-future .sp-fu-stats strong {
+    color: var(--ft-gold);
+}
+
+body.sp-future .sp-fu-stats span,
+body.sp-future .sp-fu-handle,
+body.sp-future .sp-fu-meta {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-fu-name,
+body.sp-future .sp-dash-row__title,
+body.sp-future .sp-dash-card__title {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-fu-tabs {
+    background: transparent;
+    border-bottom-color: var(--ft-line-soft);
+}
+
+body.sp-future .sp-dash-row:hover {
+    background: rgba(255, 138, 0, 0.06);
+    border-color: rgba(255, 138, 0, 0.3);
+}
+
+body.sp-future .sp-dash-link,
+body.sp-future .sp-fu-link {
+    color: #FFB35C;
+}
+
+/* ── Hero art / logo card ── */
+body.sp-future .sp-hero {
+    background: linear-gradient(180deg, rgba(255, 138, 0, 0.08), rgba(255, 255, 255, 0.02));
+    overflow: hidden;
+    position: relative;
+}
+
+body.sp-future .sp-hero::after {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: conic-gradient(from 0deg, transparent 70%, rgba(255, 138, 0, 0.07) 85%, transparent 100%);
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    body.sp-future .sp-hero::after {
+        animation: sp-ft-spin 24s linear infinite;
+    }
+}
+
+@keyframes sp-ft-spin {
+    to { transform: rotate(360deg); }
+}
+
+body.sp-future .sp-hero__logo-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 138, 0, 0.3);
+    box-shadow: 0 0 50px rgba(255, 138, 0, 0.18);
+}
+
+body.sp-future .sp-hero__logo-name {
+    color: var(--ft-text);
+}
+
+/* ── Trust banner ── */
+body.sp-future .sp-trust {
+    background: linear-gradient(135deg, #0A0618 0%, #2A0E04 55%, #083344 130%);
+    border: 1px solid rgba(255, 138, 0, 0.3);
+    box-shadow: 0 0 60px rgba(255, 138, 0, 0.12);
+}
+
+/* ── Footer / mobile nav / toast ── */
+body.sp-future .site-footer {
+    background: #04060F;
+    border-top: 1px solid var(--ft-line);
+}
+
+body.sp-future .mobile-tab-nav {
+    background: rgba(6, 9, 19, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid var(--ft-line);
+}
+
+body.sp-future .mobile-tab-nav__item {
+    color: var(--ft-muted);
+}
+
+body.sp-future .mobile-tab-nav__item.is-active {
+    color: var(--ft-gold);
+}
+
+body.sp-future .sp-toast {
+    background: #0D1428;
+    border: 1px solid rgba(255, 138, 0, 0.4);
+    box-shadow: 0 0 30px rgba(255, 138, 0, 0.25);
+}
+
+body.sp-future ::selection {
+    background: rgba(255, 138, 0, 0.85);
+    color: #1A0D00;
+}
+
+body.sp-future ::-webkit-scrollbar-track {
+    background: #0A0F22;
+}
+
+body.sp-future ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #FF8A00, #9A1B1E);
+}

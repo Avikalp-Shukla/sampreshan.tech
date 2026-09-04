@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Home">
+  <defs>
+    <linearGradient id="homeBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB877"/>
+      <stop offset="55%" stop-color="#FF9933"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <linearGradient id="homeRoof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </linearGradient>
+    <linearGradient id="homeDoor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A3380"/>
+      <stop offset="100%" stop-color="#0A1A3D"/>
+    </linearGradient>
+    <radialGradient id="homeGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFF8F0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFF8F0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="homeShadow" x="-30%" y="-10%" width="160%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.2"/>
+      <feOffset dy="1.5" result="off"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2.2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#homeShadow)">
+    <path d="M32 8 L8 28 L13 28 L13 54 L51 54 L51 28 L56 28 Z" fill="url(#homeBody)"/>
+    <path d="M32 8 L8 28 L13 28 L13 54 L51 54 L51 28 L56 28 Z" fill="url(#homeGlow)"/>
+    <path d="M32 8 L56 28 L51 28 L32 14 Z" fill="url(#homeRoof)" opacity="0.95"/>
+    <rect x="27" y="38" width="10" height="16" rx="1.5" fill="url(#homeDoor)"/>
+    <circle cx="34.5" cy="46" r="0.9" fill="#FFD9A8"/>
+    <rect x="18" y="34" width="6" height="6" rx="1" fill="#FFF8F0" opacity="0.45"/>
+    <rect x="40" y="34" width="6" height="6" rx="1" fill="#FFF8F0" opacity="0.45"/>
+    <line x1="32" y1="8" x2="32" y2="14" stroke="#FFF8F0" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  </g>
+</svg>

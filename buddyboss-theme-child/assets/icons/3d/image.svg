@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Image">
+  <defs>
+    <linearGradient id="imgFrame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F0E8"/>
+    </linearGradient>
+    <linearGradient id="imgSun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </linearGradient>
+    <linearGradient id="imgMtn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A9B9D5"/>
+      <stop offset="100%" stop-color="#0A1A3D"/>
+    </linearGradient>
+    <filter id="imgShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#imgShadow)">
+    <rect x="6" y="10" width="52" height="44" rx="5" fill="url(#imgFrame)"/>
+    <rect x="6" y="10" width="52" height="44" rx="5" fill="#FFB877" opacity="0.2"/>
+    <circle cx="20" cy="22" r="5" fill="url(#imgSun)"/>
+    <path d="M6 54 L22 36 L34 46 L46 30 L58 54 Z" fill="url(#imgMtn)"/>
+    <path d="M6 54 L58 54 L58 50 L6 50 Z" fill="#0A1A3D" opacity="0.5"/>
+    <rect x="6" y="10" width="52" height="44" rx="5" fill="none" stroke="#0A1A3D" stroke-width="1" opacity="0.3"/>
+  </g>
+</svg>

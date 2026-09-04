@@ -1,9 +1,7 @@
 <?php
 /**
- * Front Page (Homepage)
- * SampreShan — Sanatan Voice Platform
- * Truth Social + Change.org fusion layout
- * Premium, fully responsive, no AI content, no emojis
+ * Front Page (Homepage) — Ideal Landing Edition
+ * Clean storytelling flow: hero → stats → what/why → petitions → trust CTA.
  *
  * @package SampreShan_Child
  */
@@ -11,20 +9,11 @@
 get_header();
 ?>
 
-<main class="site-main" role="main">
-
-    <?php
-    /* === LEFT SIDEBAR (desktop only) === */
-    $left_tpl = get_stylesheet_directory() . '/template-parts/home/left-sidebar.php';
-    if ( file_exists( $left_tpl ) ) {
-        include $left_tpl;
-    }
-    ?>
-
-    <div class="site-main__content">
+<main class="site-main site-main--landing" role="main">
+    <div class="sp-landing">
 
         <?php
-        /* === HERO + MISSION === */
+        /* === HERO (what the site is, in one glance) === */
         $hero_tpl = get_stylesheet_directory() . '/template-parts/home/hero-mission.php';
         if ( file_exists( $hero_tpl ) ) {
             include $hero_tpl;
@@ -36,19 +25,48 @@ get_header();
             include $stats_tpl;
         }
 
-        /* === FEATURED PETITION (real page ID 94) === */
+        /* === WHAT IS SAMPRESHAN + HOW IT WORKS === */
+        $about_tpl = get_stylesheet_directory() . '/template-parts/home/about-site.php';
+        if ( file_exists( $about_tpl ) ) {
+            include $about_tpl;
+        }
+
+        /* === FEATURED PETITION === */
         $featured_tpl = get_stylesheet_directory() . '/template-parts/home/featured-petition.php';
         if ( file_exists( $featured_tpl ) ) {
             include $featured_tpl;
         }
 
-        /* === ACTIVE PETITIONS GRID === */
+        /* === ACTIVE PETITIONS === */
         $list_tpl = get_stylesheet_directory() . '/template-parts/home/petitions-list.php';
         if ( file_exists( $list_tpl ) ) {
             include $list_tpl;
         }
 
-        /* === WELCOME FEED POST (real post ID 99) === */
+        /* === COMMUNITY PULSE (social fusion: CTA + live + trending) === */
+        $pulse_tpl = get_stylesheet_directory() . '/template-parts/home/social-fusion.php';
+        if ( file_exists( $pulse_tpl ) ) {
+            include $pulse_tpl;
+        }
+        ?>
+
+        <!-- TRUST BANNER -->
+        <section class="sp-trust" aria-label="About the Trust">
+            <div class="sp-trust__inner">
+                <div class="sp-trust__copy">
+                    <p class="sp-section__eyebrow sp-section__eyebrow--light"><?php esc_html_e( 'By ShivBodh Trust', 'sampreshan-child' ); ?></p>
+                    <h2 class="sp-trust__title"><?php esc_html_e( 'Non-commercial. Community-first. For Dharma.', 'sampreshan-child' ); ?></h2>
+                    <p class="sp-trust__sub"><?php esc_html_e( 'No donations on this platform. No fees. Just a clean space for Sanatan voices to be heard — every sampradaya respected equally.', 'sampreshan-child' ); ?></p>
+                </div>
+                <div class="sp-trust__actions">
+                    <a class="btn btn--light btn--lg" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About the mission', 'sampreshan-child' ); ?></a>
+                    <a class="btn btn--outline-light btn--lg" href="<?php echo esc_url( home_url( '/login/' ) ); ?>"><?php esc_html_e( 'Join the community', 'sampreshan-child' ); ?></a>
+                </div>
+            </div>
+        </section>
+
+        <?php
+        /* === WELCOME FEED (community voice) === */
         $feed_tpl = get_stylesheet_directory() . '/template-parts/home/welcome-feed.php';
         if ( file_exists( $feed_tpl ) ) {
             include $feed_tpl;
@@ -56,15 +74,6 @@ get_header();
         ?>
 
     </div>
-
-    <?php
-    /* === RIGHT SIDEBAR (desktop + tablet) === */
-    $right_tpl = get_stylesheet_directory() . '/template-parts/home/right-sidebar.php';
-    if ( file_exists( $right_tpl ) ) {
-        include $right_tpl;
-    }
-    ?>
-
 </main>
 
 <?php

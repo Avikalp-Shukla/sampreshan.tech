@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Calendar">
+  <defs>
+    <linearGradient id="calHead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB877"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <linearGradient id="calBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F0E8"/>
+    </linearGradient>
+    <filter id="calShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#calShadow)">
+    <rect x="10" y="14" width="44" height="40" rx="4" fill="url(#calBody)"/>
+    <rect x="10" y="14" width="44" height="12" rx="4" fill="url(#calHead)"/>
+    <rect x="10" y="22" width="44" height="4" fill="#9A4F0B"/>
+    <rect x="18" y="10" width="4" height="10" rx="1" fill="#0A1A3D"/>
+    <rect x="42" y="10" width="4" height="10" rx="1" fill="#0A1A3D"/>
+    <circle cx="22" cy="36" r="2" fill="#E0851A"/>
+    <circle cx="32" cy="36" r="2" fill="#1E3A8A"/>
+    <circle cx="42" cy="36" r="2" fill="#E0851A"/>
+    <circle cx="22" cy="44" r="2" fill="#1E3A8A"/>
+    <circle cx="32" cy="44" r="2.6" fill="#E0851A"/>
+    <circle cx="42" cy="44" r="2" fill="#1E3A8A"/>
+  </g>
+</svg>

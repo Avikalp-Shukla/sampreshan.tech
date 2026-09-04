@@ -1,41 +1,53 @@
 <?php
 /**
- * Home: Hero / Mission Section
- * Premium saffron gradient hero with site tagline + mission.
- * No AI content. No emojis. Uses real blog info only.
+ * Home: Hero / Mission Section — Clean Edition
+ * Explains what Sampreshan is in one glance. Uses the original logo.
  *
  * @package SampreShan_Child
  */
 
-$site_name        = get_bloginfo( 'name' );
-$site_description = get_bloginfo( 'description' );
-$site_url         = home_url( '/' );
-$start_url        = function_exists( 'wc_get_page_id' ) ? '#' : home_url( '/start-a-petition/' );
-$about_url        = home_url( '/about/' );
+$site_name  = get_bloginfo( 'name' );
+$start_url  = home_url( '/start-a-petition/' );
+$about_url  = home_url( '/about/' );
+$feed_url   = function_exists( 'bp_get_activity_directory_permalink' ) ? bp_get_activity_directory_permalink() : home_url( '/activity/' );
+$logo_url   = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
+$is_logged_in = is_user_logged_in();
 ?>
-<section class="home-hero" aria-label="Welcome to <?php echo esc_attr( $site_name ); ?>">
-    <div class="home-hero__pattern" aria-hidden="true"></div>
-
-    <div class="home-hero__inner">
-        <p class="home-hero__eyebrow">
-            <?php echo esc_html__( 'Join the Sanatan Sampreshan', 'sampreshan-child' ); ?>
-        </p>
-
-        <h1 class="home-hero__title display">
-            <?php echo esc_html( $site_name ); ?>
-        </h1>
-
-        <p class="home-hero__sub">
-            <?php echo esc_html__( 'A non-commercial platform by ShivBodh Trust where Sanatana Dharma followers connect, raise local issues, share perspectives, and gather signatures to amplify a single voice into collective impact.', 'sampreshan-child' ); ?>
-        </p>
-
-        <div class="home-hero__actions">
-            <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $start_url ); ?>">
-                <?php echo esc_html__( 'Start a Petition', 'sampreshan-child' ); ?>
-            </a>
-            <a class="btn btn--outline btn--lg" href="<?php echo esc_url( $about_url ); ?>">
-                <?php echo esc_html__( 'Learn More', 'sampreshan-child' ); ?>
-            </a>
+<section class="sp-hero" aria-label="Welcome to <?php echo esc_attr( $site_name ); ?>">
+    <div class="sp-hero__inner">
+        <div class="sp-hero__copy">
+            <p class="sp-hero__badge">
+                <img class="sp-hero__badge-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="20" height="20" />
+                <?php esc_html_e( 'A non-commercial initiative of ShivBodh Trust', 'sampreshan-child' ); ?>
+            </p>
+            <h1 class="sp-hero__title">
+                <?php esc_html_e( 'One voice for', 'sampreshan-child' ); ?>
+                <span class="sp-hero__accent"><?php esc_html_e( 'Sanatan Dharma.', 'sampreshan-child' ); ?></span>
+            </h1>
+            <p class="sp-hero__sub">
+                <?php esc_html_e( 'Sampreshan is a community platform where you can raise local issues, start petitions, gather signatures, and connect with people who share Dharmic values — together turning a single voice into collective impact.', 'sampreshan-child' ); ?>
+            </p>
+            <div class="sp-hero__actions">
+                <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $start_url ); ?>">
+                    <?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?>
+                    <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>
+                </a>
+                <a class="btn btn--ghost btn--lg" href="<?php echo esc_url( $is_logged_in ? $feed_url : $about_url ); ?>">
+                    <?php echo $is_logged_in ? esc_html__( 'Explore Community', 'sampreshan-child' ) : esc_html__( 'What is Sampreshan?', 'sampreshan-child' ); ?>
+                </a>
+            </div>
+            <ul class="sp-hero__points">
+                <li><?php sp_icon_e( 'check', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'No donations, no fees', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_e( 'check', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Every tradition respected', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_e( 'check', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Hindi + English friendly', 'sampreshan-child' ); ?></li>
+            </ul>
+        </div>
+        <div class="sp-hero__art" aria-hidden="true">
+            <div class="sp-hero__logo-card">
+                <img class="sp-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
+                <p class="sp-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
+                <p class="sp-hero__logo-tag"><?php esc_html_e( 'Sampreshan · Samvad · Samarthan', 'sampreshan-child' ); ?></p>
+            </div>
         </div>
     </div>
 </section>

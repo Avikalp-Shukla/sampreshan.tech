@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Lock">
+  <defs>
+    <linearGradient id="lockBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <linearGradient id="lockShackle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A9B9D5"/>
+      <stop offset="100%" stop-color="#0A1A3D"/>
+    </linearGradient>
+    <radialGradient id="lockKeyhole" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#0A1A3D"/>
+      <stop offset="100%" stop-color="#1A3380"/>
+    </radialGradient>
+    <filter id="lockShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#lockShadow)">
+    <path d="M22 28 L22 22 C22 14, 26 8, 32 8 C38 8, 42 14, 42 22 L42 28" fill="none" stroke="url(#lockShackle)" stroke-width="5" stroke-linecap="round"/>
+    <rect x="14" y="28" width="36" height="28" rx="4" fill="url(#lockBody)"/>
+    <circle cx="32" cy="40" r="4" fill="url(#lockKeyhole)"/>
+    <rect x="30" y="40" width="4" height="10" rx="1" fill="url(#lockKeyhole)"/>
+    <ellipse cx="22" cy="34" rx="4" ry="2" fill="#FFF8F0" opacity="0.45"/>
+  </g>
+</svg>

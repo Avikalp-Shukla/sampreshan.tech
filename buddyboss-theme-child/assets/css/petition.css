@@ -1,0 +1,229 @@
+/**
+ * SampreShan Single Petition Page
+ * @package SampreShan_Child
+ */
+
+.sp-petition-single {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(1rem, 3vw, 2rem);
+    display: grid;
+    gap: var(--space-6, 1.5rem);
+}
+
+.sp-petition-single__hero {
+    padding: var(--space-8, 2rem);
+    border-radius: var(--radius-lg, 20px);
+    overflow: hidden;
+    box-shadow: var(--elev-3, 0 8px 24px rgba(30,58,138,.10));
+    position: relative;
+}
+
+.sp-petition-single__hero-inner {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: var(--space-6, 1.5rem);
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.sp-petition-single__cover {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md, 14px);
+    overflow: hidden;
+    background: var(--bg-card, #fff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--elev-2, 0 2px 6px rgba(30,58,138,.08));
+}
+
+.sp-petition-single__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.sp-petition-single__title {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-size: var(--text-4xl, 2.25rem);
+    line-height: 1.15;
+    margin: var(--space-3, .75rem) 0 var(--space-2, .5rem);
+}
+
+.sp-petition-single__champion {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+    font-size: var(--text-sm, .875rem);
+    color: var(--text-muted, #5C5C5C);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-4, 1rem);
+}
+
+.sp-petition-single__avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    object-fit: cover;
+}
+
+.sp-petition-single__progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-3, .75rem);
+    margin-bottom: var(--space-2, .5rem);
+    font-size: var(--text-sm, .875rem);
+    color: var(--text-muted, #5C5C5C);
+}
+
+.sp-petition-single__progress-count {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-size: var(--text-3xl, 1.875rem);
+    color: var(--text, #1A1A1A);
+}
+.sp-petition-single__progress-count small {
+    font-family: var(--font-body, 'Inter', sans-serif);
+    font-size: var(--text-sm, .875rem);
+    color: var(--text-muted, #5C5C5C);
+    font-weight: 400;
+    margin-left: var(--space-2, .5rem);
+}
+
+.sp-petition-single__progress-bar {
+    width: 100%;
+    height: 10px;
+    background: var(--bg-muted, #F4F0E8);
+    border-radius: var(--radius-full, 9999px);
+    overflow: hidden;
+}
+
+.sp-petition-single__progress-fill {
+    height: 100%;
+    background: var(--gradient-aurora, linear-gradient(135deg,#FFB877,#FF9933,#E0851A,#9A4F0B));
+    background-size: 200% auto;
+    border-radius: inherit;
+    transition: width 600ms var(--ease-out, ease-out);
+}
+
+.sp-petition-single__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3, .75rem);
+    margin-top: var(--space-4, 1rem);
+}
+
+.sp-petition-single__body {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: var(--space-4, 1rem);
+}
+
+.sp-petition-single__content,
+.sp-petition-single__signers {
+    padding: var(--space-5, 1.25rem);
+}
+
+.sp-petition-single__content :where(p, h2, h3, ul, ol, blockquote) {
+    margin: 0 0 var(--space-3, .75rem);
+    line-height: var(--leading-relaxed, 1.65);
+    color: var(--text, #1A1A1A);
+}
+.sp-petition-single__content h2 { font-family: var(--font-heading, 'Inter', sans-serif); font-size: var(--text-2xl, 1.5rem); margin-top: var(--space-6, 1.5rem); }
+.sp-petition-single__content h3 { font-family: var(--font-heading, 'Inter', sans-serif); font-size: var(--text-xl, 1.25rem); margin-top: var(--space-5, 1.25rem); }
+
+.sp-petition-single__signers-title {
+    font-family: var(--font-heading, 'Inter', sans-serif);
+    font-size: var(--text-lg, 1.125rem);
+    font-weight: var(--weight-semibold, 600);
+    margin: 0 0 var(--space-3, .75rem);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+}
+
+.sp-petition-single__signers-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, .75rem);
+}
+
+.sp-petition-single__signer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, .75rem);
+    font-size: var(--text-sm, .875rem);
+    color: var(--text, #1A1A1A);
+}
+
+.sp-petition-single__signer img {
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    object-fit: cover;
+}
+
+.sp-petition-single__signer time {
+    margin-left: auto;
+    color: var(--text-muted, #5C5C5C);
+    font-size: var(--text-xs, .75rem);
+}
+
+.sp-petition-single__signers-empty {
+    color: var(--text-muted, #5C5C5C);
+    font-style: italic;
+}
+
+/* Sign button — additional active state (color comes from .btn-3d). */
+.sp-sign-button.is-signed {
+    background: linear-gradient(135deg, #7CC598 0%, #2D7A4D 100%) !important;
+}
+
+/* Sign form — comment textarea + button */
+.sp-petition-single__sign-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+}
+
+.sp-petition-single__sign-form .sp-sign-comment {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated, #fff);
+    border: 1.5px solid var(--border-default, #e2e8f0);
+    border-radius: var(--radius-lg, 12px);
+    color: var(--text-primary, #1a1a1a);
+    font-family: var(--font-body, inherit);
+    font-size: var(--text-sm, 0.875rem);
+    resize: vertical;
+    min-height: 60px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.sp-petition-single__sign-form .sp-sign-comment:focus {
+    border-color: var(--saffron-400, #fb9f3f);
+    box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.12);
+}
+
+.sp-petition-single__sign-form .sp-sign-comment::placeholder {
+    color: var(--text-muted, #5c5c5c);
+}
+
+.sp-petition-single__sign-form .sp-sign-button {
+    align-self: flex-start;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 767px) {
+    .sp-petition-single__hero-inner { grid-template-columns: 1fr; }
+    .sp-petition-single__cover { max-width: 360px; margin: 0 auto; }
+    .sp-petition-single__body { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 1024px) {
+    .sp-petition-single__hero { padding: var(--space-10, 2.5rem); }
+}
+
+@media (min-width: 1536px) {
+    .sp-petition-single { max-width: 1280px; }
+}

@@ -1,0 +1,711 @@
+/* ============================================================
+   fusion.css — Truth Social × Change.org fusion
+   Indian religious style: sindoor, haldi, kesariya, mor-pankh
+   Layered AFTER the design system; wins on its own classes.
+   Prefix: sp-fu-  (fusion)
+   ============================================================ */
+
+:root {
+    /* Indian religious palette */
+    --fu-kesariya: #F97316;      /* saffron / kesar */
+    --fu-kesariya-deep: #C2410C;
+    --fu-sindoor: #9A1B1E;       /* deep temple red */
+    --fu-haldi: #C9A227;         /* turmeric gold */
+    --fu-haldi-soft: #FBF3D9;
+    --fu-cream: #FFF9F1;         /* ivory / chandan */
+    --fu-sand: #F5EAD8;
+    --fu-mor: #0E4D64;           /* peacock teal-blue */
+    --fu-mor-deep: #083344;
+    --fu-leaf: #1A7A2E;          /* sacred green */
+    --fu-ink: #231309;           /* warm dark brown-black */
+    --fu-ink-soft: #6B4A2F;
+}
+
+/* ── Page wash: warm cream behind fusion pages ── */
+.sp-fu-wash {
+    background:
+        radial-gradient(900px 320px at 12% -40px, rgba(249, 115, 22, 0.10), transparent 60%),
+        radial-gradient(760px 300px at 88% 0px, rgba(201, 162, 39, 0.10), transparent 60%),
+        var(--fu-cream);
+}
+
+/* ── Buttons: kesariya primary, mor outline ── */
+.sp-fu-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    line-height: 1;
+}
+
+.sp-fu-btn--primary {
+    background: linear-gradient(135deg, var(--fu-kesariya) 0%, var(--fu-kesariya-deep) 100%);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    box-shadow: 0 8px 22px rgba(194, 65, 12, 0.35);
+}
+
+.sp-fu-btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(194, 65, 12, 0.42);
+}
+
+.sp-fu-btn--mor {
+    background: #fff;
+    border-color: var(--fu-mor);
+    color: var(--fu-mor);
+    padding: 0.8rem 1.4rem;
+}
+
+.sp-fu-btn--mor:hover {
+    background: rgba(14, 77, 100, 0.06);
+}
+
+.sp-fu-btn--sm {
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+}
+
+.sp-fu-btn.is-signed {
+    background: var(--fu-leaf);
+    box-shadow: none;
+    pointer-events: none;
+}
+
+/* ============================================================
+   TRUTH-SOCIAL PROFILE
+   ============================================================ */
+
+.sp-fu-profile {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 1.5rem) 3.5rem;
+}
+
+/* cover banner: temple-gradient + subtle pattern */
+.sp-fu-cover {
+    position: relative;
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
+    min-height: 210px;
+    background:
+        radial-gradient(circle at 18% 30%, rgba(255, 255, 255, 0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 32% 62%, rgba(255, 255, 255, 0.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 66% 26%, rgba(255, 255, 255, 0.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 82% 60%, rgba(255, 255, 255, 0.12) 0 2px, transparent 3px),
+        linear-gradient(115deg, var(--fu-sindoor) 0%, var(--fu-kesariya-deep) 42%, var(--fu-kesariya) 72%, var(--fu-haldi) 110%);
+}
+
+.sp-fu-cover::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 46px;
+    background: linear-gradient(180deg, transparent, rgba(35, 19, 9, 0.22));
+}
+
+.sp-fu-cover__om {
+    position: absolute;
+    right: clamp(1rem, 4vw, 2.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: serif;
+    font-size: clamp(4rem, 10vw, 7rem);
+    color: rgba(255, 255, 255, 0.22);
+    line-height: 1;
+    user-select: none;
+}
+
+/* identity row: avatar overlaps cover */
+.sp-fu-id {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: -56px;
+    padding: 0 clamp(0.5rem, 2vw, 1rem);
+    flex-wrap: wrap;
+}
+
+.sp-fu-avatar {
+    width: 132px;
+    height: 132px;
+    border-radius: 50%;
+    border: 5px solid var(--fu-cream);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(35, 19, 9, 0.25);
+    flex-shrink: 0;
+}
+
+.sp-fu-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.sp-fu-id__actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    padding-bottom: 0.4rem;
+}
+
+.sp-fu-names {
+    padding: 0.7rem clamp(0.5rem, 2vw, 1rem) 0;
+}
+
+.sp-fu-name {
+    margin: 0;
+    font-family: var(--font-display, serif);
+    font-size: clamp(1.5rem, 3.4vw, 2rem);
+    color: var(--fu-ink);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.sp-fu-verified {
+    display: inline-flex;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--fu-haldi);
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 900;
+}
+
+.sp-fu-handle {
+    margin: 0.1rem 0 0.55rem;
+    color: var(--fu-ink-soft);
+    font-size: 0.92rem;
+}
+
+.sp-fu-bio {
+    margin: 0 0 0.6rem;
+    color: #3f2c1c;
+    line-height: 1.65;
+    max-width: 44rem;
+}
+
+.sp-fu-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    color: var(--fu-ink-soft);
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+}
+
+.sp-fu-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.sp-fu-chips {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 0 0 0.9rem;
+    padding: 0;
+}
+
+.sp-fu-chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff;
+    border: 1px solid #ecd9b8;
+    color: #7c4a12;
+    border-radius: 999px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* stats strip like Truth Social counts */
+.sp-fu-stats {
+    display: flex;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+    padding: 0.85rem clamp(0.5rem, 2vw, 1rem);
+    border-top: 1px solid #eddfc8;
+    border-bottom: 1px solid #eddfc8;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 14px;
+}
+
+.sp-fu-stats strong {
+    color: var(--fu-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.sp-fu-stats span {
+    color: var(--fu-ink-soft);
+    font-size: 0.88rem;
+}
+
+/* tabs */
+.sp-fu-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 2px solid #eddfc8;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background: var(--fu-cream);
+    z-index: 5;
+    padding-top: 0.25rem;
+}
+
+.sp-fu-tab {
+    background: none;
+    border: 0;
+    padding: 0.8rem 1.1rem;
+    font-weight: 800;
+    font-size: 0.92rem;
+    color: var(--fu-ink-soft);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.sp-fu-tab.is-active {
+    color: var(--fu-sindoor);
+    border-bottom-color: var(--fu-kesariya);
+}
+
+.sp-fu-pane {
+    display: none;
+}
+
+.sp-fu-pane.is-active {
+    display: block;
+}
+
+/* timeline post rows */
+.sp-fu-post {
+    background: #fff;
+    border: 1px solid #eee0c8;
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.sp-fu-post__head {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    margin-bottom: 0.55rem;
+}
+
+.sp-fu-post__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #faf0dd;
+    flex-shrink: 0;
+}
+
+.sp-fu-post__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sp-fu-post__who strong {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--fu-ink);
+}
+
+.sp-fu-post__who small {
+    color: #a0835f;
+    font-size: 0.78rem;
+}
+
+.sp-fu-post__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.02rem;
+    line-height: 1.45;
+}
+
+.sp-fu-post__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sp-fu-post__title a:hover {
+    color: var(--fu-kesariya-deep);
+}
+
+.sp-fu-post__meta {
+    font-size: 0.8rem;
+    color: #a0835f;
+    margin-bottom: 0.6rem;
+}
+
+.sp-fu-post__engage {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* completeness */
+.sp-fu-complete {
+    background: var(--fu-haldi-soft);
+    border: 1px solid #ecd9a0;
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    margin: 0 clamp(0.5rem, 2vw, 1rem) 1rem;
+    font-size: 0.86rem;
+    color: #7c5a10;
+}
+
+.sp-fu-complete__bar {
+    height: 7px;
+    background: #efe0bd;
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.sp-fu-complete__fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--fu-haldi), var(--fu-kesariya));
+    border-radius: 999px;
+}
+
+/* ============================================================
+   CHANGE.ORG PETITION CARDS (Indian style)
+   ============================================================ */
+
+.sp-fu-petgrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.sp-fu-pet {
+    background: #fff;
+    border: 1px solid #eee0c8;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.sp-fu-pet:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 38px rgba(154, 27, 30, 0.12);
+}
+
+.sp-fu-pet__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #fde9cf, #f8d9ac);
+    overflow: hidden;
+}
+
+.sp-fu-pet__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.sp-fu-pet__ph {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c97b1e;
+    font-size: 2rem;
+    font-family: serif;
+}
+
+.sp-fu-pet__cause {
+    position: absolute;
+    left: 0.7rem;
+    bottom: 0.7rem;
+    background: rgba(35, 19, 9, 0.85);
+    color: #ffe3b3;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+}
+
+.sp-fu-pet__body {
+    padding: 1rem 1.05rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.sp-fu-pet__title {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.42;
+    color: var(--fu-ink);
+}
+
+.sp-fu-pet__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sp-fu-pet__title a:hover {
+    color: var(--fu-sindoor);
+}
+
+.sp-fu-pet__by {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #a0835f;
+}
+
+/* signature row: avatars + count (Change.org pattern) */
+.sp-fu-pet__sigrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.sp-fu-avatars {
+    display: flex;
+    align-items: center;
+}
+
+.sp-fu-avatars img,
+.sp-fu-avatars span {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-left: -8px;
+    background: #f6e7cd;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.62rem;
+    font-weight: 800;
+    color: #7c4a12;
+    overflow: hidden;
+}
+
+.sp-fu-avatars img:first-child,
+.sp-fu-avatars span:first-child {
+    margin-left: 0;
+}
+
+.sp-fu-avatars img {
+    object-fit: cover;
+}
+
+.sp-fu-pet__count {
+    font-size: 0.82rem;
+    color: #6b4a2f;
+}
+
+.sp-fu-pet__count strong {
+    color: var(--fu-sindoor);
+    font-variant-numeric: tabular-nums;
+}
+
+.sp-fu-pet__bar {
+    height: 8px;
+    background: #f3e7d2;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.sp-fu-pet__fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--fu-haldi), var(--fu-kesariya) 55%, var(--fu-sindoor));
+    border-radius: 999px;
+}
+
+.sp-fu-pet__goal {
+    font-size: 0.76rem;
+    color: #a0835f;
+}
+
+.sp-fu-pet__foot {
+    margin-top: auto;
+    padding-top: 0.45rem;
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+}
+
+.sp-fu-pet__foot .sp-fu-btn {
+    flex: 1;
+    justify-content: center;
+}
+
+.sp-fu-link {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--fu-mor);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.sp-fu-link:hover {
+    text-decoration: underline;
+}
+
+/* ============================================================
+   HOMEPAGE SOCIAL FUSION (3 columns)
+   ============================================================ */
+
+.sp-fu-social {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr) 300px;
+    gap: 1rem;
+    align-items: start;
+}
+
+.sp-fu-side {
+    background: #fff;
+    border: 1px solid #eee0c8;
+    border-radius: 18px;
+    padding: 1rem;
+    position: sticky;
+    top: 84px;
+}
+
+.sp-fu-side h3 {
+    margin: 0 0 0.6rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a0835f;
+}
+
+.sp-fu-sidelink {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.65rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--fu-ink);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.sp-fu-sidelink:hover {
+    background: #fdf3e3;
+}
+
+.sp-fu-sidelink .sp-icon {
+    color: var(--fu-kesariya-deep);
+}
+
+/* trending list (right rail) */
+.sp-fu-trend {
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.65rem 0;
+    border-top: 1px solid #f3e7d2;
+    align-items: flex-start;
+}
+
+.sp-fu-trend:first-of-type {
+    border-top: 0;
+}
+
+.sp-fu-trend__rank {
+    font-family: var(--font-display, serif);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--fu-haldi);
+    min-width: 1.6rem;
+}
+
+.sp-fu-trend__title {
+    margin: 0 0 0.15rem;
+    font-size: 0.86rem;
+    line-height: 1.4;
+}
+
+.sp-fu-trend__title a {
+    color: var(--fu-ink);
+    text-decoration: none;
+}
+
+.sp-fu-trend__title a:hover {
+    color: var(--fu-sindoor);
+}
+
+.sp-fu-trend__meta {
+    font-size: 0.74rem;
+    color: #a0835f;
+}
+
+/* section heading in fusion voice */
+.sp-fu-sechead {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+    flex-wrap: wrap;
+}
+
+.sp-fu-eyebrow {
+    margin: 0 0 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fu-kesariya-deep);
+}
+
+.sp-fu-sectitle {
+    margin: 0;
+    font-family: var(--font-display, serif);
+    font-size: clamp(1.35rem, 3vw, 1.9rem);
+    color: var(--fu-ink);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .sp-fu-petgrid { grid-template-columns: repeat(2, 1fr); }
+    .sp-fu-social { grid-template-columns: minmax(0, 1fr) 280px; }
+    .sp-fu-side--nav { display: none; }
+}
+
+@media (max-width: 720px) {
+    .sp-fu-petgrid { grid-template-columns: 1fr; }
+    .sp-fu-social { grid-template-columns: 1fr; }
+    .sp-fu-side { position: static; }
+    .sp-fu-avatar { width: 104px; height: 104px; }
+    .sp-fu-id { margin-top: -46px; }
+}

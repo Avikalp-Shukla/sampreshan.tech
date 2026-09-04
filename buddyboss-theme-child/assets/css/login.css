@@ -1,0 +1,446 @@
+/**
+ * SampreShan Login Page
+ * Permanent, responsive, full-bleed.
+ * @package SampreShan_Child
+ */
+
+.sp-login-body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background:
+        radial-gradient(ellipse 1200px 600px at 10% 10%, var(--saffron-100, #FFEDD5), transparent 60%),
+        radial-gradient(ellipse 1000px 500px at 90% 0%,  var(--saffron-50,  #FFF8F0), transparent 55%),
+        radial-gradient(ellipse 800px 400px at 50% 100%, rgba(30, 58, 138, 0.05), transparent 50%),
+        linear-gradient(180deg, var(--saffron-50, #FFF8F0) 0%, var(--bg-card, #fff) 100%);
+    font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+    color: var(--text, #1A1A1A);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ====== Layout ====== */
+.sp-login {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: clamp(1rem, 3vw, 2rem);
+    gap: clamp(1rem, 3vw, 2rem);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sp-login__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3, .75rem);
+    text-decoration: none;
+    color: inherit;
+    width: fit-content;
+}
+
+.sp-login__brand-name {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-size: var(--text-2xl, 1.5rem);
+    font-weight: var(--weight-bold, 700);
+}
+
+.sp-login__card {
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 480px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--radius-lg, 20px);
+    box-shadow: var(--elev-4, 0 16px 40px rgba(30, 58, 138, .14));
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4, 1rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.sp-login__art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4, 1rem);
+    padding: var(--space-4, 1rem) 0 var(--space-2, .5rem);
+    border-bottom: 1px solid var(--border, #E8E2D5);
+    margin-bottom: var(--space-2, .5rem);
+}
+
+.sp-login__head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+}
+
+.sp-login__title {
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    font-size: var(--text-3xl, 1.875rem);
+    margin: 0;
+    color: var(--text, #1A1A1A);
+}
+
+.sp-login__sub,
+.sp-login__sub-title {
+    font-size: var(--text-sm, .875rem);
+    line-height: var(--leading-relaxed, 1.65);
+    color: var(--text-muted, #5C5C5C);
+    margin: 0;
+}
+
+.sp-login__sub-title {
+    font-family: var(--font-heading, 'Inter', sans-serif);
+    font-size: var(--text-base, 1rem);
+    font-weight: var(--weight-semibold, 600);
+    color: var(--text, #1A1A1A);
+    margin-top: var(--space-3, .75rem);
+}
+
+.sp-login__notice,
+.sp-login__error {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+    padding: var(--space-3, .75rem) var(--space-4, 1rem);
+    border-radius: var(--radius, 10px);
+    font-size: var(--text-sm, .875rem);
+}
+
+.sp-login__notice {
+    background: var(--info-soft, #E5EFF8);
+    color: var(--info, #2A6FB5);
+    border: 1px solid rgba(42, 111, 181, .25);
+}
+.sp-login__error {
+    background: var(--danger-soft, #FAE8E8);
+    color: var(--danger, #B33A3A);
+    border: 1px solid rgba(179, 58, 58, .25);
+}
+
+.sp-login__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3, .75rem);
+}
+
+.sp-login__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1, .25rem);
+}
+
+.sp-login__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+    font-size: var(--text-sm, .875rem);
+    font-weight: var(--weight-medium, 500);
+    color: var(--text, #1A1A1A);
+}
+
+.sp-login__field .input {
+    width: 100%;
+    padding: var(--space-3, .75rem) var(--space-4, 1rem);
+    font: inherit;
+    color: inherit;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border, #E8E2D5);
+    border-radius: var(--radius, 10px);
+    transition: border-color var(--transition, 250ms ease), box-shadow var(--transition, 250ms ease);
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.sp-login__field .input:focus {
+    outline: none;
+    border-color: var(--saffron-500, #FF9933);
+    box-shadow: 0 0 0 3px rgba(255, 153, 51, .25);
+}
+
+.sp-login__field .input:invalid:not(:placeholder-shown) {
+    border-color: var(--danger, #B33A3A);
+}
+
+.sp-login__remember {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+    font-size: var(--text-sm, .875rem);
+    color: var(--text-muted, #5C5C5C);
+    cursor: pointer;
+    user-select: none;
+}
+
+.sp-login__submit {
+    margin-top: var(--space-2, .5rem);
+    justify-content: center;
+    width: 100%;
+}
+
+.sp-login__alt-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2, .5rem);
+    padding-top: var(--space-3, .75rem);
+    border-top: 1px solid var(--border, #E8E2D5);
+    margin-top: var(--space-2, .5rem);
+}
+
+.sp-login__alt,
+.sp-login__alt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+    background: transparent;
+    border: 1px solid var(--border, #E8E2D5);
+    padding: var(--space-2, .5rem) var(--space-3, .75rem);
+    border-radius: var(--radius-full, 9999px);
+    color: var(--text, #1A1A1A);
+    text-decoration: none;
+    font-size: var(--text-sm, .875rem);
+    cursor: pointer;
+    transition: background var(--transition, 250ms ease), border-color var(--transition, 250ms ease);
+}
+
+.sp-login__alt:hover,
+.sp-login__alt-btn:hover,
+.sp-login__alt:focus,
+.sp-login__alt-btn:focus {
+    background: var(--bg-soft, #FAF8F4);
+    border-color: var(--saffron-500, #FF9933);
+    outline: none;
+}
+
+.sp-login__alt-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--space-2, .5rem);
+}
+
+.sp-login__alt-note {
+    font-size: var(--text-xs, .75rem);
+    color: var(--text-muted, #5C5C5C);
+    margin: var(--space-2, .5rem) 0 0;
+    text-align: center;
+}
+
+.sp-login__feature-list {
+    list-style: none;
+    margin: 0 0 var(--space-3, .75rem);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, .5rem);
+}
+.sp-login__feature-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+    font-size: var(--text-sm, .875rem);
+    color: var(--text, #1A1A1A);
+}
+
+.sp-login__card--digits { text-align: center; }
+.sp-login__card--digits .sp-login__art { padding: var(--space-3, .75rem) 0 var(--space-2, .5rem); }
+
+.sp-login__phone-panel {
+    margin-top: var(--space-3, .75rem);
+    padding: var(--space-3, .75rem);
+    background: var(--bg-soft, #FAF8F4);
+    border-radius: var(--radius-md, 14px);
+    border: 1px solid var(--border, #E8E2D5);
+}
+
+.sp-login__phone-panel[hidden] { display: none; }
+
+/* ====== Divider (OR) ====== */
+.sp-login__divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, .75rem);
+    margin: var(--space-3, .75rem) 0;
+}
+.sp-login__divider::before,
+.sp-login__divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border, #E8E2D5), transparent);
+}
+.sp-login__divider span {
+    font-size: var(--text-xs, .75rem);
+    font-weight: var(--weight-semibold, 600);
+    color: var(--text-muted, #5C5C5C);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ====== Firebase OTP Section ====== */
+.sp-firebase-otp-section {
+    text-align: center;
+}
+
+.sp-phone-input-group {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--border, #E8E2D5);
+    border-radius: var(--radius, 10px);
+    overflow: hidden;
+    background: var(--bg-card, #fff);
+    transition: border-color var(--transition, 250ms ease), box-shadow var(--transition, 250ms ease);
+}
+.sp-phone-input-group:focus-within {
+    border-color: var(--saffron-500, #FF9933);
+    box-shadow: 0 0 0 3px rgba(255, 153, 51, .25);
+}
+
+.sp-phone-prefix {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--space-3, .75rem);
+    background: var(--bg-soft, #FAF8F4);
+    font-size: var(--text-sm, .875rem);
+    font-weight: var(--weight-semibold, 600);
+    color: var(--text, #1A1A1A);
+    border-right: 1px solid var(--border, #E8E2D5);
+    white-space: nowrap;
+}
+
+.sp-phone-input {
+    flex: 1 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: var(--space-3, .75rem) var(--space-4, 1rem) !important;
+}
+.sp-phone-input:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+
+/* OTP input styling */
+.sp-otp-input {
+    text-align: center !important;
+    font-size: var(--text-2xl, 1.5rem) !important;
+    font-weight: var(--weight-bold, 700) !important;
+    letter-spacing: 0.4em !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.sp-otp-phone-display {
+    font-size: var(--text-sm, .875rem);
+    color: var(--text-muted, #5C5C5C);
+    margin-bottom: var(--space-3, .75rem);
+    padding: var(--space-2, .5rem) var(--space-3, .75rem);
+    background: var(--bg-soft, #FAF8F4);
+    border-radius: var(--radius-full, 9999px);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, .5rem);
+}
+.sp-otp-phone-display::before {
+    content: '📱';
+    font-size: 14px;
+}
+
+/* Firebase OTP buttons */
+.sp-otp-send-btn,
+.sp-otp-verify-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Loading state */
+.sp-otp-send-btn[disabled],
+.sp-otp-verify-btn[disabled] {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.sp-otp-resend a {
+    font-size: var(--text-sm, .875rem);
+    color: var(--saffron-700, #E0851A);
+    text-decoration: none;
+    font-weight: var(--weight-medium, 500);
+}
+.sp-otp-resend a:hover {
+    text-decoration: underline;
+    color: var(--saffron-500, #FF9933);
+}
+
+/* Firebase notice container */
+.sp-notice-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2, .5rem);
+}
+.sp-notice-container:empty {
+    display: none;
+}
+
+/* ====== Responsive — Firebase OTP ====== */
+@media (max-width: 479px) {
+    .sp-phone-input-group {
+        font-size: var(--text-sm, .875rem);
+    }
+    .sp-otp-input {
+        font-size: var(--text-xl, 1.25rem) !important;
+        letter-spacing: 0.3em !important;
+    }
+}
+
+.sp-login__footer {
+    text-align: center;
+    font-size: var(--text-xs, .75rem);
+    color: var(--text-muted, #5C5C5C);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sp-login__footer p { display: inline-flex; align-items: center; gap: var(--space-2, .5rem); margin: 0; }
+
+/* ====== Responsive ====== */
+
+/* Phones — full bleed, no max-width cap */
+@media (max-width: 479px) {
+    .sp-login { padding: var(--space-3, .75rem); }
+    .sp-login__card { padding: var(--space-4, 1rem); }
+    .sp-login__art { gap: var(--space-2, .5rem); padding: var(--space-2, .5rem) 0; }
+    .sp-login__alt-row { flex-direction: column; align-items: stretch; }
+    .sp-login__alt { justify-content: center; }
+}
+
+/* Tablets — center card, two columns with art on the side */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .sp-login__card { max-width: 520px; }
+}
+
+/* Desktop — wider card */
+@media (min-width: 1024px) {
+    .sp-login__card { max-width: 560px; }
+}
+
+/* Large desktop / 4K */
+@media (min-width: 1536px) {
+    .sp-login { max-width: 1440px; }
+}
+
+/* High-DPI */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .sp-login__card { box-shadow: var(--elev-4, 0 16px 40px rgba(30,58,138,.14)), inset 0 0 0 1px rgba(255,255,255,.4); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .sp-login__field .input,
+    .sp-login__alt,
+    .sp-login__alt-btn { transition: none !important; }
+}

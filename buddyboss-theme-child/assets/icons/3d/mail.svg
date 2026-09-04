@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Mail">
+  <defs>
+    <linearGradient id="mailEnv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F0E8"/>
+    </linearGradient>
+    <linearGradient id="mailFlap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB877"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <linearGradient id="mailSeal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF8A8A"/>
+      <stop offset="100%" stop-color="#B33A3A"/>
+    </linearGradient>
+    <filter id="mailShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="16" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#mailShadow)">
+    <rect x="8" y="16" width="48" height="32" rx="3" fill="url(#mailEnv)"/>
+    <path d="M8 18 L32 36 L56 18 L56 22 L32 40 L8 22 Z" fill="#E8E2D5"/>
+    <path d="M8 16 L32 32 L56 16 Z" fill="url(#mailFlap)"/>
+    <circle cx="48" cy="44" r="7" fill="url(#mailSeal)"/>
+    <path d="M45 44 L47 46 L51 42" stroke="#FFF8F0" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Verified">
+  <defs>
+    <radialGradient id="verBadge" cx="0.4" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#A9B9D5"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </radialGradient>
+    <linearGradient id="verCheck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFD9A8"/>
+    </linearGradient>
+    <filter id="verShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.45"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="16" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#verShadow)">
+    <path d="M32 6 L52 14 L52 32 C52 44, 42 54, 32 58 C22 54, 12 44, 12 32 L12 14 Z" fill="url(#verBadge)"/>
+    <path d="M32 6 L52 14 L52 32 C52 44, 42 54, 32 58 L32 6 Z" fill="#0A1A3D" opacity="0.35"/>
+    <path d="M22 32 L29 39 L42 24" fill="none" stroke="url(#verCheck)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="26" cy="20" rx="6" ry="4" fill="#FFF8F0" opacity="0.3"/>
+  </g>
+</svg>

@@ -1,0 +1,655 @@
+/* ============================================================
+   petition-form.css — Start a Petition form styles
+   ============================================================ */
+
+.sp-petition-create {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-6) var(--space-4);
+}
+
+.sp-petition-create__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+/* ── Hero ── */
+.sp-petition-create__hero {
+    text-align: center;
+    padding: var(--space-8) 0;
+}
+
+.sp-petition-create__hero-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-2xl);
+    background: linear-gradient(135deg, rgba(var(--saffron-500-rgb), 0.15), rgba(var(--saffron-500-rgb), 0.05));
+    margin-bottom: var(--space-4);
+    animation: float 4s ease-in-out infinite;
+}
+
+.sp-petition-create__hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--saffron-600), var(--saffron-500), var(--blue-700));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 var(--space-3);
+}
+
+.sp-petition-create__hero-sub {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* ── Form wrapper ── */
+.sp-petition-create__form-wrapper {
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+}
+
+/* ── Step indicators ── */
+.sp-petition-create__steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.sp-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2) var(--space-3);
+    transition: all 0.3s ease;
+}
+
+.sp-step__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: var(--bg-soft);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition: all 0.3s ease;
+}
+
+.sp-step.is-active .sp-step__num,
+.sp-step.is-complete .sp-step__num {
+    background: linear-gradient(135deg, var(--saffron-500), var(--saffron-600));
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(var(--saffron-500-rgb), 0.3);
+}
+
+.sp-step__label {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.sp-step.is-active .sp-step__label {
+    color: var(--saffron-600);
+    font-weight: 600;
+}
+
+.sp-step__connector {
+    width: 40px;
+    height: 2px;
+    background: var(--border-subtle);
+    margin: 0 var(--space-1);
+    flex-shrink: 0;
+}
+
+.sp-step.is-complete + .sp-step__connector {
+    background: var(--saffron-400);
+}
+
+/* ── Form steps ── */
+.sp-form-step {
+    display: none;
+    animation: slideUp 0.4s ease;
+}
+
+.sp-form-step.is-active {
+    display: block;
+}
+
+.sp-form-step__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-2);
+}
+
+.sp-form-step__desc {
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-6);
+}
+
+/* ── Form groups ── */
+.sp-form-group {
+    margin-bottom: var(--space-5);
+}
+
+.sp-form-group--half {
+    flex: 1;
+    min-width: 0;
+}
+
+.sp-form-row {
+    display: flex;
+    gap: var(--space-4);
+}
+
+.sp-form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+}
+
+.sp-form-label__required {
+    color: var(--saffron-500);
+    margin-left: 2px;
+}
+
+.sp-form-label--toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: var(--space-4);
+    background: var(--bg-soft);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    transition: all 0.2s ease;
+}
+
+.sp-form-label--toggle:hover {
+    border-color: var(--saffron-300);
+    background: rgba(var(--saffron-500-rgb), 0.03);
+}
+
+.sp-form-hint-inline {
+    display: block;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    margin-top: 2px;
+}
+
+.sp-form-input,
+.sp-form-select,
+.sp-form-textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.sp-form-input:focus,
+.sp-form-select:focus,
+.sp-form-textarea:focus {
+    border-color: var(--saffron-400);
+    box-shadow: 0 0 0 3px rgba(var(--saffron-500-rgb), 0.12);
+}
+
+.sp-form-input::placeholder,
+.sp-form-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.sp-form-textarea--lg {
+    min-height: 200px;
+    resize: vertical;
+}
+
+.sp-form-hint {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-1);
+}
+
+.sp-form-hint__count {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+}
+
+.sp-form-hint__tip {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ── Select ── */
+.sp-form-select-wrapper {
+    position: relative;
+}
+
+.sp-form-select {
+    appearance: none;
+    padding-right: var(--space-10);
+    cursor: pointer;
+}
+
+.sp-form-select__arrow {
+    position: absolute;
+    right: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+/* ── Input group ── */
+.sp-form-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.sp-form-input-group .sp-form-input {
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    border-right: none;
+}
+
+.sp-form-input-group__suffix {
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-soft);
+    border: 1.5px solid var(--border-default);
+    border-left: none;
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+}
+
+/* ── Toggle ── */
+.sp-form-toggle {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sp-form-toggle__track {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    background: var(--border-default);
+    border-radius: var(--radius-full);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.sp-form-toggle__track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: var(--radius-full);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.sp-form-toggle:checked + .sp-form-toggle__track {
+    background: var(--saffron-500);
+}
+
+.sp-form-toggle:checked + .sp-form-toggle__track::after {
+    transform: translateX(22px);
+}
+
+.sp-form-toggle:focus-visible + .sp-form-toggle__track {
+    outline: 2px solid var(--saffron-500);
+    outline-offset: 2px;
+}
+
+/* ── Upload ── */
+.sp-form-upload {
+    position: relative;
+    border: 2px dashed var(--border-default);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sp-form-upload:hover,
+.sp-form-upload.is-dragover {
+    border-color: var(--saffron-400);
+    background: rgba(var(--saffron-500-rgb), 0.03);
+}
+
+.sp-form-upload__input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.sp-form-upload__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-8) var(--space-4);
+    text-align: center;
+}
+
+.sp-form-upload__icon {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.sp-form-upload__text {
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.sp-form-upload__hint {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.sp-form-upload__preview {
+    position: relative;
+    max-height: 240px;
+    overflow: hidden;
+}
+
+.sp-form-upload__preview img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.sp-form-upload__remove {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    transition: background 0.2s ease;
+}
+
+.sp-form-upload__remove:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* ── Petition preview (step 4) ── */
+.sp-petition-preview {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+}
+
+.sp-petition-preview__cover {
+    height: 200px;
+    background: linear-gradient(135deg, var(--saffron-100), var(--blue-100));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--saffron-400);
+    overflow: hidden;
+}
+
+.sp-petition-preview__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sp-petition-preview__body {
+    padding: var(--space-6);
+}
+
+.sp-petition-preview__cause {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: rgba(var(--saffron-500-rgb), 0.1);
+    color: var(--saffron-600);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-3);
+}
+
+.sp-petition-preview__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-3);
+    line-height: 1.3;
+}
+
+.sp-petition-preview__summary {
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-4);
+    line-height: 1.6;
+}
+
+.sp-petition-preview__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.sp-petition-preview__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+}
+
+.sp-petition-preview__avatar {
+    border-radius: var(--radius-full);
+    object-fit: cover;
+}
+
+.sp-petition-preview__goal {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+/* ── Notice ── */
+.sp-form-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+}
+
+.sp-form-notice--info {
+    background: rgba(var(--blue-500-rgb), 0.06);
+    border: 1px solid rgba(var(--blue-500-rgb), 0.15);
+    color: var(--blue-700);
+}
+
+.sp-form-notice--success {
+    background: rgba(22, 163, 74, 0.06);
+    border: 1px solid rgba(22, 163, 74, 0.15);
+    color: var(--green-600);
+}
+
+.sp-form-notice--error {
+    background: rgba(220, 38, 38, 0.06);
+    border: 1px solid rgba(220, 38, 38, 0.15);
+    color: var(--red-600);
+}
+
+/* ── Nav buttons ── */
+.sp-form-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-6);
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--border-subtle);
+}
+
+/* ── Success ── */
+.sp-form-success {
+    text-align: center;
+    padding: var(--space-10) 0;
+}
+
+.sp-form-success__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.sp-form-success__icon {
+    color: var(--green-500);
+    animation: bounceIn 0.6s ease;
+}
+
+.sp-form-success__title {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.sp-form-success__desc {
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0;
+}
+
+.sp-form-success__actions {
+    display: flex;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+/* ── Spinner ── */
+.sp-spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: var(--radius-full);
+    animation: spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: var(--space-2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .sp-petition-create {
+        padding: var(--space-4) var(--space-3);
+    }
+
+    .sp-petition-create__form-wrapper {
+        padding: var(--space-5) var(--space-4);
+    }
+
+    .sp-petition-create__steps {
+        gap: 0;
+    }
+
+    .sp-step__label {
+        display: none;
+    }
+
+    .sp-step__connector {
+        width: 24px;
+    }
+
+    .sp-form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .sp-form-group--half {
+        min-width: 100%;
+    }
+
+    .sp-petition-preview__cover {
+        height: 140px;
+    }
+
+    .sp-form-success__actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .sp-form-success__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .sp-petition-create__form-wrapper {
+        padding: var(--space-4) var(--space-3);
+        border-radius: var(--radius-xl);
+    }
+
+    .sp-form-step__title {
+        font-size: var(--text-xl);
+    }
+}

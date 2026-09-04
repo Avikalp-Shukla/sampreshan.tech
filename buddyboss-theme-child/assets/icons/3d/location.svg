@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Location Pin">
+  <defs>
+    <linearGradient id="pinHead" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB877"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <radialGradient id="pinDot" cx="0.4" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F0E8"/>
+    </radialGradient>
+    <radialGradient id="pinGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFD9A8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFD9A8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="pinShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="10" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#pinShadow)">
+    <circle cx="32" cy="30" r="20" fill="url(#pinGlow)"/>
+    <path d="M32 6 C20 6, 12 14, 12 26 C12 38, 32 56, 32 56 C32 56, 52 38, 52 26 C52 14, 44 6, 32 6 Z" fill="url(#pinHead)"/>
+    <circle cx="32" cy="26" r="8" fill="url(#pinDot)"/>
+    <circle cx="32" cy="26" r="3" fill="#0A1A3D"/>
+    <ellipse cx="26" cy="20" rx="4" ry="2" fill="#FFF8F0" opacity="0.5"/>
+  </g>
+</svg>
