@@ -12,7 +12,7 @@ $guide_url = home_url( '/community-guidelines/' );
 <section class="sp-section" aria-labelledby="sp-what-h">
     <div class="sp-section__head">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'What is Sampreshan?', 'sampreshan-child' ); ?></p>
-        <h2 class="sp-section__title" id="sp-what-h"><?php esc_html_e( 'A simple place to raise what matters', 'sampreshan-child' ); ?></h2>
+        <h2 class="sp-section__title" id="sp-what-h"><?php sp_icon_auto( 'dharma', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'A simple place to raise what matters', 'sampreshan-child' ); ?></h2>
         <p class="sp-section__sub"><?php esc_html_e( 'Temple upkeep, cultural heritage, religious education, community welfare — if it affects the Dharmic community, it belongs here.', 'sampreshan-child' ); ?></p>
     </div>
     <div class="sp-steps">

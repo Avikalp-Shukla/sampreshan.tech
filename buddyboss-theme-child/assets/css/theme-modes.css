@@ -1,0 +1,136 @@
+/**
+ * SampreShan Theme Modes — Dashboard Dark Mode ("Ratri")
+ *
+ * Default (no class) is the current light dashboard on the Cosmic Dharma
+ * skin. Adding `sp-dark` to <body> (via the dashboard toggle, persisted in
+ * localStorage) turns every dashboard surface deep-space dark while keeping
+ * the 3D transparent icons untouched (they never get a background box).
+ *
+ * Loaded globally after future.css so it wins. Scoped to body.sp-dark +
+ * dashboard classes only — other pages are unaffected.
+ *
+ * @package SampreShan_Child
+ */
+
+/* Toggle button (lives in the dashboard profile bar). */
+.sp-theme-toggle__label { white-space: nowrap; }
+
+/* ── Surfaces ── */
+body.sp-dark .sp-dashboard { background: transparent; }
+
+body.sp-dark .sp-dash-top,
+body.sp-dark .sp-dash-stat,
+body.sp-dark .sp-dash-card {
+    background: #0d1428;
+    border-color: rgba(255, 153, 51, 0.18);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+body.sp-dark .sp-dash-card__head { border-bottom-color: rgba(255, 255, 255, 0.08); }
+body.sp-dark .sp-dash-activity__item { border-top-color: rgba(255, 255, 255, 0.08); }
+
+/* ── Text ── */
+body.sp-dark .sp-dash-name,
+body.sp-dark .sp-dash-card__title,
+body.sp-dark .sp-dash-stat__num,
+body.sp-dark .sp-dash-row__title,
+body.sp-dark .sp-dash-signed a,
+body.sp-dark .sp-dash-empty__title { color: #f5f0e6; }
+
+body.sp-dark .sp-dash-meta,
+body.sp-dark .sp-dash-card__sub,
+body.sp-dark .sp-dash-stat__label,
+body.sp-dark .sp-dash-row__meta,
+body.sp-dark .sp-dash-empty__desc,
+body.sp-dark .sp-dash-muted,
+body.sp-dark .sp-dash-action__text small,
+body.sp-dark .sp-dash-activity__text small,
+body.sp-dark .sp-dash-signed small,
+body.sp-dark .sp-dash-list__empty { color: #a79d8c; }
+
+body.sp-dark .sp-dash-activity__text { color: #d8cfc0; }
+body.sp-dark .sp-dash-activity__text a { color: #ffb35c; }
+body.sp-dark .sp-dash-row__title a:hover,
+body.sp-dark .sp-dash-signed a:hover { color: #ffb35c; }
+body.sp-dark .sp-dash-eyebrow { color: #ffb35c; }
+
+/* ── Icon chips + thumbs stay tinted, never boxed white ── */
+body.sp-dark .sp-dash-stat__icon--saffron { background: rgba(255, 153, 51, 0.14); color: #ffb35c; }
+body.sp-dark .sp-dash-stat__icon--rose { background: rgba(255, 120, 120, 0.12); color: #ff9d9d; }
+body.sp-dark .sp-dash-stat__icon--blue { background: rgba(65, 226, 255, 0.10); color: #7de9ff; }
+body.sp-dark .sp-dash-stat__icon--green { background: rgba(0, 208, 130, 0.12); color: #5fe3a5; }
+body.sp-dark .sp-dash-action__icon--saffron { background: rgba(255, 153, 51, 0.14); color: #ffb35c; }
+body.sp-dark .sp-dash-action__icon--blue { background: rgba(65, 226, 255, 0.10); color: #7de9ff; }
+body.sp-dark .sp-dash-action__icon--rose { background: rgba(255, 120, 120, 0.12); color: #ff9d9d; }
+body.sp-dark .sp-dash-action__icon--green { background: rgba(0, 208, 130, 0.12); color: #5fe3a5; }
+body.sp-dark .sp-dash-empty__icon { background: rgba(255, 153, 51, 0.14); color: #ffb35c; }
+body.sp-dark .sp-dash-row__thumb,
+body.sp-dark .sp-dash-avatar { background: rgba(255, 255, 255, 0.06); }
+body.sp-dark .sp-dash-row__thumb--ph { color: #ffb35c; }
+body.sp-dark .sp-dash-activity__avatar { background: rgba(255, 255, 255, 0.06); color: #a79d8c; }
+
+/* ── Controls ── */
+body.sp-dark .sp-dashboard .btn--ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #f5f0e6;
+}
+body.sp-dark .sp-dashboard .btn--ghost:hover {
+    border-color: rgba(255, 153, 51, 0.5);
+    background: rgba(255, 153, 51, 0.10);
+}
+body.sp-dark .sp-dash-filter { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.10); }
+body.sp-dark .sp-dash-filter__btn { color: #a79d8c; }
+body.sp-dark .sp-dash-filter__btn.is-active { background: #ff9933; color: #1a1005; }
+body.sp-dark .sp-dash-action { border-color: rgba(255, 255, 255, 0.08); color: #f5f0e6; }
+body.sp-dark .sp-dash-action:hover { border-color: rgba(255, 153, 51, 0.45); background: rgba(255, 153, 51, 0.08); }
+body.sp-dark .sp-dash-row:hover { background: rgba(255, 153, 51, 0.06); border-color: rgba(255, 153, 51, 0.20); }
+body.sp-dark .sp-dash-link { color: #ffb35c; }
+body.sp-dark .sp-dash-bar { background: rgba(255, 255, 255, 0.10); }
+body.sp-dark .sp-dash-cause { color: #ffb35c; }
+
+/* Pills keep their light tints so status stays readable on dark. */
+
+/* ── Share toolkit ── */
+.sp-dash-share p { margin: 0; }
+.sp-dash-share__title { overflow-wrap: anywhere; }
+.sp-dash-share__grid {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+    gap: 0.5rem;
+}
+.sp-dash-share__btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.7rem 0.4rem;
+    border-radius: 14px;
+    border: 1px solid #f3ece1;
+    background: #fff;
+    color: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.sp-dash-share__btn:hover {
+    border-color: #f0c98f;
+    background: #fffaf3;
+    transform: translateY(-2px);
+}
+body.sp-dark .sp-dash-share__btn { border-color: rgba(255, 255, 255, 0.10); background: rgba(255, 255, 255, 0.04); color: #f5f0e6; }
+body.sp-dark .sp-dash-share__btn:hover { border-color: rgba(255, 153, 51, 0.45); background: rgba(255, 153, 51, 0.08); }
+.sp-dash-share__note { margin-top: 0.75rem; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+    .sp-dash-share__btn,
+    .sp-dashboard .btn--ghost,
+    .sp-dash-action { transition: none !important; }
+}

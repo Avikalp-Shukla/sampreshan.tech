@@ -36,7 +36,7 @@ $dash_url  = home_url( '/dashboard/' );
 <main class="sp-page sp-users" role="main">
     <header class="sp-users__hero">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Your voice', 'sampreshan-child' ); ?></p>
-        <h1 class="sp-users__title"><?php esc_html_e( 'My Petitions', 'sampreshan-child' ); ?></h1>
+        <h1 class="sp-users__title"><?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'My Petitions', 'sampreshan-child' ); ?></h1>
         <p class="sp-users__sub"><?php esc_html_e( 'Everything you have started — track signatures, edit drafts, and share.', 'sampreshan-child' ); ?></p>
         <div class="sp-users__hero-actions">
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>">

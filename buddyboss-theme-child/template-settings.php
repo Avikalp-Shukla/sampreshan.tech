@@ -78,7 +78,7 @@ get_header();
 <main class="sp-page sp-users sp-users--narrow" role="main">
     <header class="sp-users__hero">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Your account', 'sampreshan-child' ); ?></p>
-        <h1 class="sp-users__title"><?php esc_html_e( 'Profile Settings', 'sampreshan-child' ); ?></h1>
+        <h1 class="sp-users__title"><?php sp_icon_auto( 'settings', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Profile Settings', 'sampreshan-child' ); ?></h1>
         <p class="sp-users__sub"><?php esc_html_e( 'Update how your name, intro and Sanatan details appear across the community.', 'sampreshan-child' ); ?></p>
     </header>
 

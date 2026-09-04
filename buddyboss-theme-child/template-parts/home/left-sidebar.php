@@ -8,7 +8,7 @@
 
 $petitions_url = home_url( '/start-a-petition/' );
 $dashboard_url = home_url( '/dashboard/' );
-$feed_url      = home_url( '/feed/' );
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
 $members_url   = home_url( '/community/' );
 $is_logged_in  = is_user_logged_in();
 ?>
@@ -62,7 +62,7 @@ $is_logged_in  = is_user_logged_in();
 
     <!-- QUICK LINKS -->
     <div class="card card--aside glass">
-        <h3 class="card__title card__title--aside"><?php echo esc_html__( 'Quick Links', 'sampreshan-child' ); ?></h3>
+        <h3 class="card__title card__title--aside"><?php sp_icon_auto( 'bookmark', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Quick Links', 'sampreshan-child' ); ?></h3>
         <ul class="home-aside__list">
             <?php if ( $is_logged_in ) : ?>
                 <li>

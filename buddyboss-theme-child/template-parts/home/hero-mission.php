@@ -9,7 +9,7 @@
 $site_name  = get_bloginfo( 'name' );
 $start_url  = home_url( '/start-a-petition/' );
 $about_url  = home_url( '/about/' );
-$feed_url   = function_exists( 'bp_get_activity_directory_permalink' ) ? bp_get_activity_directory_permalink() : home_url( '/feed/' );
+$feed_url   = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
 $logo_url   = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
 $is_logged_in = is_user_logged_in();
 ?>
@@ -72,7 +72,7 @@ $categories = array(
 <section class="sp-section sp-section--center" aria-labelledby="sp-causes-h">
     <div class="sp-section__head">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Quick Links · Categories', 'sampreshan-child' ); ?></p>
-        <h2 class="sp-section__title" id="sp-causes-h"><?php esc_html_e( 'Dharmic Causes', 'sampreshan-child' ); ?></h2>
+        <h2 class="sp-section__title" id="sp-causes-h"><?php sp_icon_auto( 'temple', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Dharmic Causes', 'sampreshan-child' ); ?></h2>
         <p class="sp-section__sub"><?php esc_html_e( 'Choose a cause, start a petition, and rally the community.', 'sampreshan-child' ); ?></p>
     </div>
     <div class="sp-cause-grid">
@@ -82,7 +82,7 @@ $categories = array(
             $color = 'sp-badge--' . $cat['color'];
         ?>
             <a href="<?php echo esc_url( $url ); ?>" class="sp-cause-card <?php echo esc_attr( $color ); ?>">
-                <span class="sp-cause-card__icon" aria-hidden="true"><?php sp_icon_e( $icon, 'sp-icon--lg', '' ); ?></span>
+                <span class="sp-cause-card__icon" aria-hidden="true"><?php sp_icon_auto( $icon, 'sp-icon--lg', '' ); ?></span>
                 <h3 class="sp-cause-card__title"><?php echo esc_html( $cat['title'] ); ?></h3>
                 <p class="sp-cause-card__desc"><?php echo esc_html( $cat['desc'] ); ?></p>
                 <span class="sp-cause-card__arrow" aria-hidden="true">&rarr;</span>
@@ -99,7 +99,7 @@ if ( is_user_logged_in() ) : ?>
     <section class="sp-section" aria-labelledby="sp-iconscout-h">
         <div class="sp-section__head">
             <p class="sp-section__eyebrow"><?php esc_html_e( 'Icon Library', 'sampreshan-child' ); ?></p>
-            <h2 class="sp-section__title" id="sp-iconscout-h"><?php esc_html_e( 'Search Icons, Illustrations & Lottie', 'sampreshan-child' ); ?></h2>
+            <h2 class="sp-section__title" id="sp-iconscout-h"><?php sp_icon_auto( 'search', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Search Icons, Illustrations & Lottie', 'sampreshan-child' ); ?></h2>
             <p class="sp-section__sub"><?php esc_html_e( 'Browse the IconScout collection directly in your dashboard.', 'sampreshan-child' ); ?></p>
         </div>
         <div class="sp-icon-scout">

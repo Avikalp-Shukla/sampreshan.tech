@@ -40,11 +40,17 @@
     display: block;
 }
 
-/* PNG imports (Icons8 3D Fluency, transparent) scale like SVGs.
-   object-fit keeps every size crisp on mobile / tablet / desktop. */
+/* PNG imports (Icons8 3D, transparent background) scale like SVGs.
+   object-fit keeps every size crisp on mobile / tablet / desktop.
+   Background is forced transparent so the 3D art never sits on a box. */
 .sp-icon img {
     object-fit: contain;
+    background: transparent;
+    border: 0;
 }
+
+.sp-icon svg,
+.sp-icon__svg {
     fill: currentColor;
     /* 3D depth shadow — transparent glass feel */
     filter:
@@ -54,6 +60,14 @@
     transition:
         transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
         filter 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3D pop for transparent PNG icons (no box, just depth). */
+.sp-icon--img img {
+    background: transparent;
+    filter:
+        drop-shadow(0 1px 1px rgba(10, 26, 61, 0.14))
+        drop-shadow(0 3px 6px rgba(10, 26, 61, 0.10));
 }
 
 /* Remove shadow class */
@@ -265,7 +279,8 @@ button:hover .sp-icon:not(.sp-icon--no-hover),
    HIGH-DPI / RETINA — crisper shadows
    ============================================================ */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .sp-icon svg {
+    .sp-icon svg,
+    .sp-icon--img img {
         filter:
             drop-shadow(0 0.5px 0.8px rgba(10, 26, 61, 0.14))
             drop-shadow(0 1px 2px rgba(10, 26, 61, 0.1));
@@ -273,7 +288,8 @@ button:hover .sp-icon:not(.sp-icon--no-hover),
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
-    .sp-icon svg {
+    .sp-icon svg,
+    .sp-icon--img img {
         filter:
             drop-shadow(0 0.4px 0.6px rgba(10, 26, 61, 0.16))
             drop-shadow(0 0.8px 1.5px rgba(10, 26, 61, 0.12));

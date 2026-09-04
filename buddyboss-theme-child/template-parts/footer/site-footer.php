@@ -11,6 +11,15 @@ $year         = date( 'Y' );
 $is_logged_in = is_user_logged_in();
 $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
 ?>
+<?php
+/* Close the BuddyBoss content wrappers opened in the parent header.php
+ * (#content > .container > .bb-grid). This partial bypasses the parent
+ * footer.php, so without these closes every page using it ships broken DOM.
+ */
+?>
+</div><!-- .bb-grid -->
+</div><!-- .container -->
+</div><!-- #content -->
 <footer class="site-footer" role="contentinfo">
     <div class="site-footer__inner">
         <div class="site-footer__grid">
@@ -45,7 +54,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
                     <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/petitions/' ) ); ?>">Petitions</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">Start a Petition</a></li>
-                    <li><a href="<?php echo esc_url( home_url( '/feed/' ) ); ?>">Feed</a></li>
+                    <li><a href="<?php echo esc_url( function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' ) ); ?>">Feed</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/community/' ) ); ?>">Community</a></li>
                     <?php if ( $is_logged_in ) : ?>
                         <li><a href="<?php echo esc_url( home_url( '/dashboard/' ) ); ?>">Dashboard</a></li>
@@ -97,6 +106,8 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
 <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
+
+</div><!-- #page -->
 
 <?php wp_footer(); ?>
 </body>

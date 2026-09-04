@@ -11,6 +11,9 @@ $site_tagline = get_bloginfo( 'description' );
 $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
 $current_user = wp_get_current_user();
 $is_logged_in = is_user_logged_in();
+// Community Feed page (never hardcode /feed/ — that slug serves RSS).
+$sp_feed_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
 ?>
 <header class="site-header" role="banner" id="site-header">
     <div class="site-header__inner">
@@ -33,8 +36,8 @@ $is_logged_in = is_user_logged_in();
                 <?php sp_icon_e( 'petition', 'sp-icon--xs', '' ); ?>
                 Petitions
             </a>
-            <a class="site-header__nav-link <?php echo is_page( 'feed' ) || is_page( 'activity-feeds' ) ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url( home_url( '/feed/' ) ); ?>">
+            <a class="site-header__nav-link <?php echo ( $sp_feed_id && is_page( $sp_feed_id ) ) ? 'is-active' : ''; ?>"
+               href="<?php echo esc_url( $sp_feed_url ); ?>">
                 <?php sp_icon_e( 'feed', 'sp-icon--xs', '' ); ?>
                 Feed
             </a>

@@ -20,6 +20,69 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 /**
+ * Firebase (sampreshan-login web app) configuration.
+ *
+ * Digits → Settings → Firebase reads this same "Config" snippet, so keep
+ * one canonical copy here and pass it to JS via `SampreshanFirebase`.
+ * Override in wp-config.php when needed:
+ *   define( 'SAMPRESHAN_FIREBASE_API_KEY', '...' );
+ *   define( 'SAMPRESHAN_FIREBASE_AUTH_DOMAIN', '...' );
+ *   define( 'SAMPRESHAN_FIREBASE_PROJECT_ID', '...' );
+ *   define( 'SAMPRESHAN_FIREBASE_STORAGE_BUCKET', '...' );
+ *   define( 'SAMPRESHAN_FIREBASE_MESSAGING_SENDER_ID', '...' );
+ *   define( 'SAMPRESHAN_FIREBASE_APP_ID', '...' );
+ *   define( 'SAMPRESHAN_FIREBASE_MEASUREMENT_ID', '...' );
+ */
+function sp_firebase_config() {
+    $config = array(
+        'apiKey'            => defined( 'SAMPRESHAN_FIREBASE_API_KEY' ) ? SAMPRESHAN_FIREBASE_API_KEY : 'AIzaSyBd_Hl4uaivSnm3Ue0N_xcKexKX4PIIUpI',
+        'authDomain'        => defined( 'SAMPRESHAN_FIREBASE_AUTH_DOMAIN' ) ? SAMPRESHAN_FIREBASE_AUTH_DOMAIN : 'sampreshan-tech.firebaseapp.com',
+        'projectId'         => defined( 'SAMPRESHAN_FIREBASE_PROJECT_ID' ) ? SAMPRESHAN_FIREBASE_PROJECT_ID : 'sampreshan-tech',
+        'storageBucket'     => defined( 'SAMPRESHAN_FIREBASE_STORAGE_BUCKET' ) ? SAMPRESHAN_FIREBASE_STORAGE_BUCKET : 'sampreshan-tech.firebasestorage.app',
+        'messagingSenderId' => defined( 'SAMPRESHAN_FIREBASE_MESSAGING_SENDER_ID' ) ? SAMPRESHAN_FIREBASE_MESSAGING_SENDER_ID : '780707453290',
+        'appId'             => defined( 'SAMPRESHAN_FIREBASE_APP_ID' ) ? SAMPRESHAN_FIREBASE_APP_ID : '1:780707453290:web:464c33fa9720bbe1e6ed13',
+        'measurementId'     => defined( 'SAMPRESHAN_FIREBASE_MEASUREMENT_ID' ) ? SAMPRESHAN_FIREBASE_MEASUREMENT_ID : 'G-TXRBLN47KQ',
+    );
+    return apply_filters( 'sampreshan_firebase_config', $config );
+}
+
+function sp_firebase_api_key() {
+    $config = sp_firebase_config();
+    return isset( $config['apiKey'] ) ? (string) $config['apiKey'] : '';
+}
+
+/**
+ * Community Feed page URL — single source of truth.
+ *
+ * Never hardcode home_url('/feed/'): the `feed` slug is reserved by
+ * WordPress and always serves the RSS feed. Our Feed experience is the
+ * published page using template-activity.php (slug `feed-2` on live).
+ * Resolves it dynamically so renames never break navigation again.
+ */
+function sp_feed_url() {
+    $ids = get_posts( array(
+        'post_type'      => 'page',
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'template-activity.php',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'fields'         => 'ids',
+        'orderby'        => 'ID',
+        'order'          => 'ASC',
+    ) );
+    if ( ! empty( $ids ) ) {
+        $url = get_permalink( (int) $ids[0] );
+        if ( $url ) { return $url; }
+    }
+    $by_path = get_page_by_path( 'feed-2' );
+    if ( $by_path ) {
+        $url = get_permalink( $by_path );
+        if ( $url ) { return $url; }
+    }
+    return home_url( '/feed-2/' );
+}
+
+/**
  * Load IconScout client.
  */
 require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
@@ -171,6 +234,15 @@ function sampreshan_child_enqueue_styles() {
         SAMPRESHAN_CHILD_VERSION
     );
 
+    // Theme modes (dashboard dark mode "Ratri" + share toolkit).
+    // Global so the stored preference applies on every page.
+    wp_enqueue_style(
+        'sampreshan-theme-modes',
+        get_stylesheet_directory_uri() . '/assets/css/theme-modes.css',
+        array( 'sampreshan-future' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
     // Shared page templates styles (About, Contact, Guidelines, Privacy, Terms, Disclaimer)
     if ( is_page_template( array( 'template-about.php', 'template-contact.php', 'template-guidelines.php', 'template-privacy.php', 'template-terms.php', 'template-disclaimer.php' ) ) ) {
         wp_enqueue_style(
@@ -204,6 +276,8 @@ function sampreshan_child_enqueue_styles() {
     // Custom login page styles — load on the /login page or when digit
     // is rendering its form. Detection is conservative to avoid a
     // global cost.
+    // NOTE: SampreshanAuth is also printed globally (see sp_global_ajax_localize).
+    // Keep every key here so the login page never loses the IconScout nonce.
     if ( is_page_template( 'template-login.php' ) || ( function_exists( 'sp_digits_is_active' ) && sp_digits_is_active() ) ) {
         wp_enqueue_style(
             'sampreshan-login',
@@ -219,8 +293,11 @@ function sampreshan_child_enqueue_styles() {
             true
         );
         wp_localize_script( 'sampreshan-login', 'SampreshanAuth', array(
-            'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-            'phoneNonce' => wp_create_nonce( 'sp_phone_login' ),
+            'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+            'phoneNonce'     => wp_create_nonce( 'sp_phone_login' ),
+            'iconscoutNonce' => wp_create_nonce( 'sp_iconscout_search' ),
+            'nonce'          => wp_create_nonce( 'sp_iconscout_search' ),
+            'isLoggedIn'     => is_user_logged_in() ? 1 : 0,
         ) );
     }
 
@@ -235,7 +312,10 @@ function sampreshan_child_enqueue_styles() {
         );
     }
 
-    // Firebase OTP phone login (loaded on login page + registration)
+    // Firebase OTP phone login (sampreshan-login web app). Loaded on the
+    // /login page as the Digits fallback so the mobile-number option is
+    // always visible. Config comes from sp_firebase_config() — the same
+    // snippet pasted into Digits → Settings → Firebase.
     if ( is_page_template( 'template-login.php' ) ) {
         wp_enqueue_script(
             'sampreshan-firebase-otp',
@@ -244,9 +324,10 @@ function sampreshan_child_enqueue_styles() {
             SAMPRESHAN_CHILD_VERSION,
             true
         );
-        wp_localize_script( 'sampreshan-firebase-otp', 'SampreshanAuth', array(
+        wp_localize_script( 'sampreshan-firebase-otp', 'SampreshanFirebase', array(
             'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
             'phoneNonce' => wp_create_nonce( 'sp_phone_login' ),
+            'config'     => sp_firebase_config(),
         ) );
     }
 
@@ -323,6 +404,15 @@ function sampreshan_child_enqueue_styles() {
         true
     );
 
+    // Theme toggle JS (dark mode, persisted) — global footer.
+    wp_enqueue_script(
+        'sampreshan-theme-toggle',
+        get_stylesheet_directory_uri() . '/assets/js/theme-toggle.js',
+        array(),
+        SAMPRESHAN_CHILD_VERSION,
+        true
+    );
+
     // Petition sign handler — only on pages that show the button
     if ( is_singular( 'petition' ) || is_page_template( array( 'template-profile.php', 'template-dashboard.php', 'template-petitions.php', 'template-my-petitions.php', 'template-signed.php', 'template-activity.php' ) ) || is_front_page() ) {
         wp_enqueue_script(
@@ -348,13 +438,17 @@ function sampreshan_child_future_body_class( $classes ) {
 add_filter( 'body_class', 'sampreshan_child_future_body_class', 20 );
 
 /**
- * Global localization for AJAX (includes IconScout nonce).
+ * Global localization for AJAX (includes IconScout + phone nonces).
+ * `phoneNonce` is included so IconScout-only pages and the login page
+ * share one SampreshanAuth shape; login-specific localizes extend it.
  */
 function sp_global_ajax_localize() {
     wp_add_inline_script( 'sampreshan-navigation', 'var SampreshanAuth = ' . wp_json_encode( array(
-        'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-        'nonce'     => wp_create_nonce( 'sp_iconscout_search' ),
-        'isLoggedIn'=> is_user_logged_in() ? 1 : 0,
+        'ajaxUrl'        => admin_url( 'admin-ajax.php' ),
+        'nonce'          => wp_create_nonce( 'sp_iconscout_search' ),
+        'iconscoutNonce' => wp_create_nonce( 'sp_iconscout_search' ),
+        'phoneNonce'     => wp_create_nonce( 'sp_phone_login' ),
+        'isLoggedIn'     => is_user_logged_in() ? 1 : 0,
     ) ) . ';', 'before' );
 }
 add_action( 'wp_enqueue_scripts', 'sp_global_ajax_localize', 999 );
@@ -457,6 +551,20 @@ function sampreshan_child_setup() {
     ) );
 }
 add_action( 'after_setup_theme', 'sampreshan_child_setup' );
+
+/**
+ * Remove BuddyBoss ReadyLaunch template override so our custom page templates render properly.
+ * Must run before the template_include filter fires.
+ */
+function sampreshan_child_disable_buddyboss_template_override() {
+    if ( class_exists( 'BB_Readylaunch' ) ) {
+        $readylaunch = BB_Readylaunch::instance();
+        if ( method_exists( $readylaunch, 'override_page_templates' ) ) {
+            remove_filter( 'template_include', array( $readylaunch, 'override_page_templates' ), PHP_INT_MAX );
+        }
+    }
+}
+add_action( 'init', 'sampreshan_child_disable_buddyboss_template_override', 1 );
 
 /**
  * Register favicon, apple-touch-icon, theme color, and manifest.
@@ -593,8 +701,8 @@ function sp_firebase_login_handler() {
         wp_send_json_error( array( 'message' => 'Missing Firebase ID token.' ) );
     }
 
-    // Verify the ID token with Firebase REST API
-    $api_key = 'AIzaSyBd_Hl4uaivSnm3Ue0N_xcKexKX4PIIUpI';
+    // Verify the ID token with Firebase REST API (sampreshan-login app).
+    $api_key = sp_firebase_api_key();
     $response = wp_remote_post( 'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=' . $api_key, array(
         'body' => json_encode( array( 'idToken' => $id_token ) ),
         'headers' => array( 'Content-Type' => 'application/json' ),

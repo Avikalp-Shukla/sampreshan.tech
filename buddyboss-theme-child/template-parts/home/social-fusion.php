@@ -8,7 +8,7 @@
 
 $start_url     = home_url( '/start-a-petition/' );
 $petitions_url = home_url( '/petitions/' );
-$feed_url      = home_url( '/feed/' );
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
 
 // Trending: most signatures.
 $trending = new WP_Query( array(
@@ -43,7 +43,7 @@ if ( function_exists( 'sp_petitions_table' ) ) {
     <div class="sp-fu-sechead">
         <div>
             <p class="sp-fu-eyebrow"><?php echo esc_html__( 'Community Pulse', 'sampreshan-child' ); ?></p>
-            <h2 id="home-pulse-heading" class="sp-fu-sectitle"><?php echo esc_html__( 'Live from the Sangha', 'sampreshan-child' ); ?></h2>
+            <h2 id="home-pulse-heading" class="sp-fu-sectitle"><?php sp_icon_auto( 'feed', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Live from the Sangha', 'sampreshan-child' ); ?></h2>
         </div>
         <a class="sp-fu-link" href="<?php echo esc_url( $feed_url ); ?>">
             <?php echo esc_html__( 'Open full feed', 'sampreshan-child' ); ?> &rarr;
@@ -53,7 +53,7 @@ if ( function_exists( 'sp_petitions_table' ) ) {
     <div class="sp-fu-social">
         <!-- Left: CTA -->
         <aside class="sp-fu-side sp-fu-side--nav" aria-label="<?php esc_attr_e( 'Take action', 'sampreshan-child' ); ?>">
-            <h3><?php esc_html_e( 'Take action', 'sampreshan-child' ); ?></h3>
+            <h3><?php sp_icon_auto( 'plus', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Take action', 'sampreshan-child' ); ?></h3>
             <p style="margin:0 0 0.8rem;font-size:0.86rem;line-height:1.6;color:var(--fu-ink-soft,#6B4A2F);">
                 <?php esc_html_e( 'Your voice matters. Start a cause in two minutes, or back one that moves you.', 'sampreshan-child' ); ?>
             </p>

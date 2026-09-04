@@ -36,7 +36,7 @@ $bb_members_url = function_exists( 'bp_get_members_directory_permalink' ) ? bp_g
 <main class="sp-page sp-users" role="main">
     <header class="sp-users__hero">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'The sangha', 'sampreshan-child' ); ?></p>
-        <h1 class="sp-users__title"><?php esc_html_e( 'Community Members', 'sampreshan-child' ); ?></h1>
+        <h1 class="sp-users__title"><?php sp_icon_auto( 'network', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Community Members', 'sampreshan-child' ); ?></h1>
         <p class="sp-users__sub">
             <?php
             printf(

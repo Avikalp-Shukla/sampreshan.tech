@@ -87,7 +87,7 @@ if ( ! function_exists( 'sp_icons8_map' ) ) {
             'send' => 'paper-plane', 'share' => 'forward',
             'bookmark' => 'bookmark', 'plus' => 'plus', 'pen' => 'edit',
             'settings' => 'gear', 'eye' => 'eye', 'download' => 'download',
-            'upload' => 'upload', 'lock' => 'lock', 'mail' => 'mail',
+            'upload' => 'upload', 'lock' => 'lock', 'mail' => 'mail', 'phone' => 'chat',
             'info' => 'info', 'check' => 'checkmark', 'close' => 'cancel',
             'star' => 'star', 'warning' => 'high-priority',
             'calendar' => 'calendar', 'location' => 'location',
@@ -110,7 +110,7 @@ if ( ! function_exists( 'sp_icons8_map' ) ) {
             'star-icon' => 'star', 'notification' => 'bell',
             'activity' => 'news', 'members' => 'conference',
             'settings-icon' => 'gear', 'dashboard-icon' => 'statistics',
-            'petition' => 'megaphone', 'start' => 'plus',
+            'petition' => 'megaphone', 'petitions' => 'megaphone', 'start' => 'plus',
             'sign' => 'checkmark', 'share-icon' => 'forward',
             'menu-icon' => 'menu', 'back' => 'undo',
             'close-icon' => 'cancel', 'check-icon' => 'checkmark',
@@ -1023,11 +1023,23 @@ if ( ! function_exists( 'sp_icon_img' ) ) {
         $map   = sp_icons8_map();
         if ( ! isset( $map[ $name ] ) ) { return ''; }
         $slug = $map[ $name ];
-        $dir  = get_stylesheet_directory() . '/assets/icons/icons8/';
-        $uri  = get_stylesheet_directory_uri() . '/assets/icons/icons8/';
-        foreach ( array( 48, 96, 192 ) as $s ) {
-            if ( ! file_exists( $dir . $slug . '-' . $s . '.png' ) ) { return ''; }
+        // Primary set first, Pin-style set as permanent fallback.
+        $sets = array( 'icons8', 'icons8-pin' );
+        $dir = '';
+        $uri = '';
+        foreach ( $sets as $set ) {
+            $d = get_stylesheet_directory() . '/assets/icons/' . $set . '/';
+            $ok = true;
+            foreach ( array( 48, 96, 192 ) as $s ) {
+                if ( ! file_exists( $d . $slug . '-' . $s . '.png' ) ) { $ok = false; break; }
+            }
+            if ( $ok ) {
+                $dir = $d;
+                $uri = get_stylesheet_directory_uri() . '/assets/icons/' . $set . '/';
+                break;
+            }
         }
+        if ( '' === $dir ) { return ''; }
         $srcset = esc_url( $uri . $slug . '-48.png' ) . ' 48w, '
                 . esc_url( $uri . $slug . '-96.png' ) . ' 96w, '
                 . esc_url( $uri . $slug . '-192.png' ) . ' 192w';

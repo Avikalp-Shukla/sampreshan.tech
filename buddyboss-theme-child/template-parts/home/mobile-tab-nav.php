@@ -9,7 +9,9 @@
 $home_url      = home_url( '/' );
 $petitions_url = home_url( '/petitions/' );
 $start_url     = home_url( '/start-a-petition/' );
-$feed_url      = home_url( '/feed/' );
+// Never hardcode /feed/ — that slug serves the RSS feed. Resolve our Feed page.
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$feed_page_id  = $feed_url ? url_to_postid( $feed_url ) : 0;
 $community_url = home_url( '/community/' );
 $is_logged_in  = is_user_logged_in();
 $dashboard_url = home_url( '/dashboard/' );
@@ -19,7 +21,7 @@ $current_slug = '';
 if ( is_front_page() ) { $current_slug = 'home'; }
 elseif ( is_page( 'petitions' ) || is_singular( 'petition' ) ) { $current_slug = 'petitions'; }
 elseif ( is_page( 'start-a-petition' ) ) { $current_slug = 'start'; }
-elseif ( is_page( 'feed' ) ) { $current_slug = 'feed'; }
+elseif ( $feed_page_id && is_page( $feed_page_id ) ) { $current_slug = 'feed'; }
 elseif ( is_page( array( 'community', 'members' ) ) ) { $current_slug = 'community'; }
 elseif ( is_page( array( 'dashboard', 'my-petitions', 'signed-petitions', 'settings', 'profile' ) ) ) { $current_slug = 'dashboard'; }
 

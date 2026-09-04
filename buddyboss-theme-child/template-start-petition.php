@@ -353,7 +353,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                 <div class="sp-form-step sp-form-success" data-step="success" style="display:none;">
                     <div class="sp-form-success__inner">
                         <span class="sp-form-success__icon" aria-hidden="true">
-                            <?php sp_icon_e( 'petitions', 'sp-icon--xl', '' ); ?>
+                            <?php sp_icon_auto( 'petitions', 'sp-icon--xl', '' ); ?>
                         </span>
                         <h2 class="sp-form-success__title"><?php echo esc_html__( 'Petition Published!', 'sampreshan-child' ); ?></h2>
                         <p class="sp-form-success__desc"><?php echo esc_html__( 'Your petition is now live. Share it to gather support.', 'sampreshan-child' ); ?></p>

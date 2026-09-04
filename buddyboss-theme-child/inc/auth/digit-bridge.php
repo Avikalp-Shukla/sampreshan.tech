@@ -18,6 +18,20 @@
  *      and the "redirect wp-login.php" change shipped in 8.6.1 means
  *      our `login_init` redirect is redundant).
  *
+ * Digits + Firebase setup (sampreshan-login web app):
+ *   1. Firebase console → sampreshan-tech → Authentication → Sign-in
+ *      method → enable "Phone".
+ *   2. Authentication → Settings → Authorized domains → add
+ *      "sampreshan.tech" (plus any staging domain).
+ *   3. Project settings (gear) → sampreshan-login → SDK setup →
+ *      Config → copy the snippet. It must match sp_firebase_config().
+ *   4. WP admin → Digits → Settings → Gateway → Firebase → paste the
+ *      Config snippet, save, and use "Test API"/send a test OTP.
+ *   5. Keep our /login page: it embeds [dm-login-page] when Digits is
+ *      active, so the mobile-number option renders inside our brand
+ *      shell. Fallback (no Digits) uses the same Firebase project via
+ *      assets/js/firebase-otp.js.
+ *
  * @package SampreShan_Child
  */
 
@@ -87,6 +101,52 @@ if ( ! function_exists( 'sp_digits_mirror_phone' ) ) {
             update_user_meta( $user_id, 'sp_phone',         $e164 );
             update_user_meta( $user_id, 'sp_phone_country', $country );
         }
+    }
+}
+
+if ( ! function_exists( 'sp_digits_login_url' ) ) {
+    /**
+     * Find Digits' native login page (meta flag, common slugs, wp-login).
+     */
+    function sp_digits_login_url() {
+        $digits_page = get_posts( array(
+            'post_type'      => 'page',
+            'meta_query'     => array( array( 'key' => '_digits_login_page', 'compare' => 'EXISTS' ) ),
+            'posts_per_page' => 1,
+            'post_status'    => 'publish',
+            'fields'         => 'ids',
+        ) );
+        if ( $digits_page ) {
+            $url = get_permalink( $digits_page[0] );
+            if ( $url ) { return $url; }
+        }
+        foreach ( array( 'login', 'sign-in', 'signin', 'otp-login' ) as $slug ) {
+            $p = get_page_by_path( $slug );
+            if ( $p ) {
+                $url = get_permalink( $p );
+                if ( $url ) { return $url; }
+            }
+        }
+        return home_url( '/wp-login.php' );
+    }
+}
+
+if ( ! function_exists( 'sp_digits_embed_login_form' ) ) {
+    /**
+     * Render Digits' own mobile-number form inside our /login brand shell.
+     * Uses the documented shortcodes ([dm-login-page] → [dm-page]) and only
+     * echoes when the shortcode actually exists, so a missing/inactive
+     * Digits install never prints a raw shortcode string.
+     */
+    function sp_digits_embed_login_form() {
+        if ( ! sp_digits_is_active() ) { return false; }
+        foreach ( array( 'dm-login-page', 'dm-page' ) as $tag ) {
+            if ( shortcode_exists( $tag ) ) {
+                echo do_shortcode( '[' . $tag . ']' );
+                return true;
+            }
+        }
+        return false;
     }
 }
 

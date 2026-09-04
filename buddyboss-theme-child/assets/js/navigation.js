@@ -240,8 +240,9 @@
             if (load) load.hidden = false;
             if (err) err.hidden = true;
             var asset = sel ? sel.value : 'icon';
+            var auth = (typeof SampreshanAuth !== 'undefined') ? SampreshanAuth : {};
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', SampreshanAuth.ajaxUrl);
+            xhr.open('POST', auth.ajaxUrl || '/wp-admin/admin-ajax.php');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.onload = function () {
                 if (load) load.hidden = true;
@@ -269,7 +270,8 @@
                 } catch (e) { /* ignore */ }
             };
             xhr.onerror = function () { if (load) load.hidden = true; };
-            xhr.send('action=sp_iconscout_search&nonce=' + SampreshanAuth.phoneNonce + '&query=' + encodeURIComponent(q) + '&asset=' + encodeURIComponent(asset) + '&page=' + (page || 1));
+            var iconscoutNonce = auth.iconscoutNonce || auth.nonce || auth.phoneNonce || '';
+            xhr.send('action=sp_iconscout_search&nonce=' + encodeURIComponent(iconscoutNonce) + '&query=' + encodeURIComponent(q) + '&asset=' + encodeURIComponent(asset) + '&page=' + (page || 1));
         }
 
         btn.addEventListener('click', function (e) { e.preventDefault(); doSearch(1); });

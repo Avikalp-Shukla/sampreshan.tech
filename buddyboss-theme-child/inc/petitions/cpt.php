@@ -46,7 +46,11 @@ if ( ! function_exists( 'sp_register_petition_cpt' ) ) {
             'menu_icon'          => 'dashicons-megaphone',
             'menu_position'      => 5,
             'supports'           => array( 'title', 'editor', 'excerpt', 'thumbnail', 'comments', 'author', 'revisions', 'custom-fields' ),
-            'has_archive'        => 'petitions',
+            // No CPT archive: the /petitions/ URL belongs to the "Petitions"
+            // page (template-petitions.php). An archive slug here would win
+            // the rewrite match (petitions/?$ => post_type=petition) and
+            // hijack the page. Singles stay at /petition/<slug>/.
+            'has_archive'        => false,
             'rewrite'            => array(
                 'slug'       => 'petition',
                 'with_front' => false,

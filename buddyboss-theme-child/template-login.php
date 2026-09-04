@@ -96,32 +96,23 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
             </ul>
 
             <?php
-            // Digits provides its own dedicated login page. Find it and link to it.
-            $digits_page = get_posts( array(
-                'post_type'      => 'page',
-                'meta_query'     => array( array( 'key' => '_digits_login_page', 'compare' => 'EXISTS' ) ),
-                'posts_per_page' => 1,
-                'post_status'    => 'publish',
-                'fields'         => 'ids',
-            ) );
-            $digits_login_url = '';
-            if ( $digits_page ) {
-                $digits_login_url = get_permalink( $digits_page[0] );
-            }
-            // Common Digits shortcode-based URL patterns.
-            if ( ! $digits_login_url ) {
-                foreach ( array( 'login', 'sign-in', 'signin', 'otp-login' ) as $slug ) {
-                    $p = get_page_by_path( $slug );
-                    if ( $p ) { $digits_login_url = get_permalink( $p ); break; }
-                }
-            }
-            // Fall back to the home URL — Digits replaces /wp-login.php too.
-            if ( ! $digits_login_url ) { $digits_login_url = home_url( '/wp-login.php' ); }
+            // Embed Digits' own mobile-number form (shortcodes [dm-login-page]
+            // / [dm-page]) so the number option renders inside our brand shell.
+            $digits_embedded = function_exists( 'sp_digits_embed_login_form' ) ? sp_digits_embed_login_form() : false;
+            $digits_login_url = function_exists( 'sp_digits_login_url' ) ? sp_digits_login_url() : home_url( '/wp-login.php' );
             ?>
-            <a class="sp-login__submit btn-3d btn-3d--lg" href="<?php echo esc_url( $digits_login_url ); ?>">
-                <?php sp_icon_e( 'check', 'sp-icon--sm sp-icon--white', __( 'Continue', 'sampreshan-child' ) ); ?>
-                <?php esc_html_e( 'Continue to sign in', 'sampreshan-child' ); ?>
-            </a>
+            <?php if ( ! $digits_embedded ) : ?>
+                <a class="sp-login__submit btn-3d btn-3d--lg" href="<?php echo esc_url( $digits_login_url ); ?>">
+                    <?php sp_icon_e( 'check', 'sp-icon--sm sp-icon--white', __( 'Continue', 'sampreshan-child' ) ); ?>
+                    <?php esc_html_e( 'Continue to sign in', 'sampreshan-child' ); ?>
+                </a>
+            <?php else : ?>
+                <p class="sp-login__alt-row" style="justify-content:center">
+                    <a class="sp-login__alt" href="<?php echo esc_url( $digits_login_url ); ?>">
+                        <?php esc_html_e( 'Open full Digits login page', 'sampreshan-child' ); ?>
+                    </a>
+                </p>
+            <?php endif; ?>
 
             <?php if ( is_user_logged_in() ) : ?>
                 <p class="sp-login__alt-row" style="margin-top:1rem;text-align:center">
@@ -199,22 +190,24 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
 
                     <?php do_action( 'sp_login_form_below' ); ?>
 
-                    <div class="sp-login__divider">
-                        <span><?php esc_html_e( 'OR', 'sampreshan-child' ); ?></span>
-                    </div>
+                </form>
 
-                    <!-- Firebase OTP Phone Login -->
-                    <div class="sp-firebase-otp-section">
-                        <h2 class="sp-login__sub-title"><?php esc_html_e( 'Sign in with Mobile OTP', 'sampreshan-child' ); ?></h2>
-                        <p class="sp-login__sub" style="font-size: 13px; margin-bottom: 16px;"><?php esc_html_e( 'No password needed. Get a one-time code on your phone.', 'sampreshan-child' ); ?></p>
+                <div class="sp-login__divider">
+                    <span><?php esc_html_e( 'OR', 'sampreshan-child' ); ?></span>
+                </div>
 
-                        <div class="sp-notice-container"></div>
+                <!-- Firebase OTP Phone Login (sibling form — never nested) -->
+                <div class="sp-firebase-otp-section">
+                    <h2 class="sp-login__sub-title"><?php esc_html_e( 'Sign in with Mobile OTP', 'sampreshan-child' ); ?></h2>
+                    <p class="sp-login__sub" style="font-size: 13px; margin-bottom: 16px;"><?php esc_html_e( 'No password needed. Get a one-time code on your phone.', 'sampreshan-child' ); ?></p>
 
-                        <form class="sp-firebase-phone-form sp-login__form">
+                    <div class="sp-notice-container"></div>
+
+                    <form class="sp-firebase-phone-form sp-login__form" novalidate>
                             <div class="sp-phone-section">
                                 <label class="sp-login__field">
                                     <span class="sp-login__label">
-                                        <?php sp_icon_e( 'phone', 'sp-icon--sm sp-icon--muted', __( 'Phone', 'sampreshan-child' ) ); ?>
+                                        <?php sp_icon_auto( 'phone', 'sp-icon--sm sp-icon--muted', __( 'Phone', 'sampreshan-child' ) ); ?>
                                         <?php esc_html_e( 'Mobile number', 'sampreshan-child' ); ?>
                                     </span>
                                     <div class="sp-phone-input-group">
@@ -247,20 +240,19 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                                     </a>
                                 </p>
                             </div>
-                        </form>
-                    </div>
+                    </form>
+                </div>
 
-                    <div class="sp-login__alt-row">
-                        <a class="sp-login__alt" href="<?php echo esc_url( add_query_arg( 'action', 'register', get_permalink() ) ); ?>">
-                            <?php sp_icon_e( 'plus', 'sp-icon--sm sp-icon--saffron', __( 'Register', 'sampreshan-child' ) ); ?>
-                            <?php esc_html_e( 'New here? Create an account', 'sampreshan-child' ); ?>
-                        </a>
-                        <a class="sp-login__alt" href="<?php echo esc_url( add_query_arg( 'action', 'lostpassword', get_permalink() ) ); ?>">
-                            <?php sp_icon_e( 'lock', 'sp-icon--sm sp-icon--muted', __( 'Reset', 'sampreshan-child' ) ); ?>
-                            <?php esc_html_e( 'Forgot password', 'sampreshan-child' ); ?>
-                        </a>
-                    </div>
-                </form>
+                <div class="sp-login__alt-row">
+                    <a class="sp-login__alt" href="<?php echo esc_url( add_query_arg( 'action', 'register', get_permalink() ) ); ?>">
+                        <?php sp_icon_e( 'plus', 'sp-icon--sm sp-icon--saffron', __( 'Register', 'sampreshan-child' ) ); ?>
+                        <?php esc_html_e( 'New here? Create an account', 'sampreshan-child' ); ?>
+                    </a>
+                    <a class="sp-login__alt" href="<?php echo esc_url( add_query_arg( 'action', 'lostpassword', get_permalink() ) ); ?>">
+                        <?php sp_icon_e( 'lock', 'sp-icon--sm sp-icon--muted', __( 'Reset', 'sampreshan-child' ) ); ?>
+                        <?php esc_html_e( 'Forgot password', 'sampreshan-child' ); ?>
+                    </a>
+                </div>
 
             <?php elseif ( 'register' === $action ) :
                 if ( ! get_option( 'users_can_register' ) ) {

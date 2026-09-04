@@ -7,12 +7,22 @@
  */
 get_header();
 $term = get_queried_object();
+// Per-category 3D hero icon (slugs match the cause pages).
+$cause_icons = array(
+    'category-temple-preservation'  => 'temple',
+    'category-cultural-heritage'    => 'collection',
+    'category-religious-education'  => 'book-open',
+    'category-environmental-causes' => 'leaf',
+    'category-community-welfare'    => 'hand-heart',
+);
+$cause_slug = ( $term && isset( $term->post_name ) ) ? (string) $term->post_name : '';
+$cause_icon = isset( $cause_icons[ $cause_slug ] ) ? $cause_icons[ $cause_slug ] : 'temple';
 ?>
 <main class="sp-page sp-page--cause" aria-label="<?php echo esc_attr( $term->post_title ?? __( 'Category', 'sampreshan-child' ) ); ?>">
     <div class="sp-page__hero sp-page__hero--cause" style="--cause-accent: var(--saffron-500);">
         <div class="sp-page__hero-mask"></div>
         <div class="sp-page__hero-inner">
-            <?php sp_icon_e( 'temple', 'sp-icon--2x sp-page__hero-icon', '' ); ?>
+            <?php sp_icon_auto( $cause_icon, 'sp-icon--2xl sp-page__hero-icon', '' ); ?>
             <h1 class="sp-page__title"><?php the_title(); ?></h1>
             <p class="sp-page__lead"><?php the_excerpt(); ?></p>
             <a class="btn btn--primary" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">
@@ -22,7 +32,7 @@ $term = get_queried_object();
     </div>
     <div class="sp-page__body sp-container">
         <section class="sp-section" aria-labelledby="sp-cause-petitions-h">
-            <h2 class="sp-section__title" id="sp-cause-petitions-h"><?php esc_html_e( 'Active Petitions in This Category', 'sampreshan-child' ); ?></h2>
+            <h2 class="sp-section__title" id="sp-cause-petitions-h"><?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Active Petitions in This Category', 'sampreshan-child' ); ?></h2>
             <?php
             $q = new WP_Query( array(
                 'post_type'      => 'petition',
@@ -72,7 +82,7 @@ $term = get_queried_object();
             <?php endif; ?>
         </section>
         <section class="sp-section sp-section--center" aria-labelledby="sp-cause-call-h">
-            <h2 class="sp-section__title" id="sp-cause-call-h"><?php esc_html_e( 'Make Your Voice Heard', 'sampreshan-child' ); ?></h2>
+            <h2 class="sp-section__title" id="sp-cause-call-h"><?php sp_icon_auto( 'plus', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Make Your Voice Heard', 'sampreshan-child' ); ?></h2>
             <p class="sp-section__sub"><?php printf( esc_html__( 'Every cause starts with one person. Start a petition under %s and rally the community.', 'sampreshan-child' ), '<strong>' . esc_html( get_the_title() ) . '</strong>' ); ?></p>
             <a class="btn btn--primary btn--lg" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">
                 <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>

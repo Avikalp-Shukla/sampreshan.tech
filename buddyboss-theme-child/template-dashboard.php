@@ -120,6 +120,27 @@ $signed_url    = home_url( '/signed-petitions/' );
 $settings_url  = home_url( '/settings/' );
 $guidelines_url = home_url( '/community-guidelines/' );
 $logout_url    = wp_logout_url( home_url( '/' ) );
+
+/* --- Truth Social tools: feed, people, notifications, messages --- */
+$feed_url      = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
+$community_url = home_url( '/community/' );
+$bp_domain     = function_exists( 'bp_loggedin_user_domain' ) ? (string) bp_loggedin_user_domain() : '';
+$notif_url     = ( '' !== $bp_domain && function_exists( 'bp_is_active' ) && bp_is_active( 'notifications' ) ) ? trailingslashit( $bp_domain ) . 'notifications/' : '';
+$messages_url  = ( '' !== $bp_domain && function_exists( 'bp_is_active' ) && bp_is_active( 'messages' ) ) ? trailingslashit( $bp_domain ) . 'messages/' : '';
+
+/* --- Change.org tool: amplify the newest live petition (share toolkit) --- */
+$share_candidates = get_posts( array(
+    'post_type'      => 'petition',
+    'author'         => $user_id,
+    'post_status'    => 'publish',
+    'posts_per_page' => 1,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+    'fields'         => 'ids',
+) );
+$share_pid   = ! empty( $share_candidates ) ? (int) $share_candidates[0] : 0;
+$share_url   = $share_pid > 0 ? (string) get_permalink( $share_pid ) : '';
+$share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
 ?>
 
 <main class="sp-page sp-dashboard" role="main">
@@ -143,10 +164,14 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
             </div>
             <div class="sp-dash-top__actions">
                 <a class="btn btn--primary" href="<?php echo esc_url( $petitions_url ); ?>">
-                    <?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?>
+                    <?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?>
                     <?php esc_html_e( 'New Petition', 'sampreshan-child' ); ?>
                 </a>
                 <a class="btn btn--ghost" href="<?php echo esc_url( $profile_url ); ?>"><?php esc_html_e( 'View Profile', 'sampreshan-child' ); ?></a>
+                <button id="sp-theme-toggle" class="btn btn--ghost sp-theme-toggle" type="button" aria-pressed="false" title="<?php esc_attr_e( 'Dark mode', 'sampreshan-child' ); ?>">
+                    <?php sp_icon_auto( 'spark', 'sp-icon--sm', '' ); ?>
+                    <span class="sp-theme-toggle__label"><?php esc_html_e( 'Dark mode', 'sampreshan-child' ); ?></span>
+                </button>
                 <a class="btn btn--ghost" href="<?php echo esc_url( $logout_url ); ?>"><?php esc_html_e( 'Log out', 'sampreshan-child' ); ?></a>
             </div>
         </section>
@@ -154,7 +179,7 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
         <!-- STATS -->
         <section class="sp-dash-stats" aria-label="Your statistics">
             <div class="sp-dash-stat">
-                <span class="sp-dash-stat__icon sp-dash-stat__icon--saffron" aria-hidden="true"><?php sp_icon_e( 'petition', 'sp-icon--md', '' ); ?></span>
+                <span class="sp-dash-stat__icon sp-dash-stat__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'petition', 'sp-icon--md', '' ); ?></span>
                 <span class="sp-dash-stat__num" data-count="<?php echo esc_attr( $petitions_count ); ?>"><?php echo esc_html( number_format_i18n( $petitions_count ) ); ?></span>
                 <span class="sp-dash-stat__label"><?php esc_html_e( 'My petitions', 'sampreshan-child' ); ?></span>
             </div>
@@ -164,12 +189,12 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
                 <span class="sp-dash-stat__label"><?php esc_html_e( 'Signatures received', 'sampreshan-child' ); ?></span>
             </div>
             <div class="sp-dash-stat">
-                <span class="sp-dash-stat__icon sp-dash-stat__icon--blue" aria-hidden="true"><?php sp_icon_e( 'check', 'sp-icon--md', '' ); ?></span>
+                <span class="sp-dash-stat__icon sp-dash-stat__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'check', 'sp-icon--md', '' ); ?></span>
                 <span class="sp-dash-stat__num" data-count="<?php echo esc_attr( $signed_count ); ?>"><?php echo esc_html( number_format_i18n( $signed_count ) ); ?></span>
                 <span class="sp-dash-stat__label"><?php esc_html_e( 'Petitions signed', 'sampreshan-child' ); ?></span>
             </div>
             <div class="sp-dash-stat">
-                <span class="sp-dash-stat__icon sp-dash-stat__icon--green" aria-hidden="true"><?php sp_icon_e( 'verified', 'sp-icon--md', '' ); ?></span>
+                <span class="sp-dash-stat__icon sp-dash-stat__icon--green" aria-hidden="true"><?php sp_icon_auto( 'verified', 'sp-icon--md', '' ); ?></span>
                 <span class="sp-dash-stat__num" data-count="<?php echo esc_attr( $published_count ); ?>"><?php echo esc_html( number_format_i18n( $published_count ) ); ?></span>
                 <span class="sp-dash-stat__label"><?php esc_html_e( 'Published', 'sampreshan-child' ); ?></span>
             </div>
@@ -181,7 +206,7 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
             <section class="sp-dash-card" aria-labelledby="sp-dash-petitions-h">
                 <div class="sp-dash-card__head">
                     <div>
-                        <h2 class="sp-dash-card__title" id="sp-dash-petitions-h"><?php esc_html_e( 'My petitions', 'sampreshan-child' ); ?></h2>
+                        <h2 class="sp-dash-card__title" id="sp-dash-petitions-h"><?php sp_icon_auto( 'petition', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'My petitions', 'sampreshan-child' ); ?></h2>
                         <p class="sp-dash-card__sub">
                             <?php
                             printf(
@@ -226,7 +251,7 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
                                     <?php if ( $cover ) : ?>
                                         <img src="<?php echo esc_url( $cover ); ?>" alt="" loading="lazy" width="96" height="96" />
                                     <?php else : ?>
-                                        <span class="sp-dash-row__thumb--ph"><?php sp_icon_e( 'petition', 'sp-icon--md', '' ); ?></span>
+                                        <span class="sp-dash-row__thumb--ph"><?php sp_icon_auto( 'petition', 'sp-icon--md', '' ); ?></span>
                                     <?php endif; ?>
                                 </a>
                                 <div class="sp-dash-row__main">
@@ -272,42 +297,81 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
                     <ul class="sp-dash-actions">
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $petitions_url ); ?>">
-                                <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?></span>
                                 <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Start a petition', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Raise a new cause', 'sampreshan-child' ); ?></small></span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $my_url ); ?>">
-                                <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_e( 'petition', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'petition', 'sp-icon--sm', '' ); ?></span>
                                 <span class="sp-dash-action__text"><strong><?php esc_html_e( 'My petitions', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Track and edit', 'sampreshan-child' ); ?></small></span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $signed_url ); ?>">
-                                <span class="sp-dash-action__icon sp-dash-action__icon--rose" aria-hidden="true"><?php sp_icon_e( 'heart', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__icon sp-dash-action__icon--rose" aria-hidden="true"><?php sp_icon_auto( 'heart', 'sp-icon--sm', '' ); ?></span>
                                 <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Signed petitions', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Causes you support', 'sampreshan-child' ); ?></small></span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
                         <li>
+                            <a class="sp-dash-action" href="<?php echo esc_url( $browse_url ); ?>">
+                                <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'search', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Discover petitions', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Find causes to sign', 'sampreshan-child' ); ?></small></span>
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sp-dash-action" href="<?php echo esc_url( $feed_url ); ?>">
+                                <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'feed', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Community feed', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Posts from the sangha', 'sampreshan-child' ); ?></small></span>
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="sp-dash-action" href="<?php echo esc_url( $community_url ); ?>">
+                                <span class="sp-dash-action__icon sp-dash-action__icon--rose" aria-hidden="true"><?php sp_icon_auto( 'network', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__text"><strong><?php esc_html_e( 'People & groups', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Follow the community', 'sampreshan-child' ); ?></small></span>
+                                <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </li>
+                        <?php if ( '' !== $notif_url ) : ?>
+                            <li>
+                                <a class="sp-dash-action" href="<?php echo esc_url( $notif_url ); ?>">
+                                    <span class="sp-dash-action__icon sp-dash-action__icon--saffron" aria-hidden="true"><?php sp_icon_auto( 'bell', 'sp-icon--sm', '' ); ?></span>
+                                    <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Notifications', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Mentions and updates', 'sampreshan-child' ); ?></small></span>
+                                    <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ( '' !== $messages_url ) : ?>
+                            <li>
+                                <a class="sp-dash-action" href="<?php echo esc_url( $messages_url ); ?>">
+                                    <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'comment', 'sp-icon--sm', '' ); ?></span>
+                                    <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Messages', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Private conversations', 'sampreshan-child' ); ?></small></span>
+                                    <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $profile_url ); ?>">
-                                <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_e( 'account', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__icon sp-dash-action__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'account', 'sp-icon--sm', '' ); ?></span>
                                 <span class="sp-dash-action__text"><strong><?php esc_html_e( 'View profile', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'How others see you', 'sampreshan-child' ); ?></small></span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $settings_url ); ?>">
-                                <span class="sp-dash-action__icon sp-dash-action__icon--green" aria-hidden="true"><?php sp_icon_e( 'settings', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__icon sp-dash-action__icon--green" aria-hidden="true"><?php sp_icon_auto( 'settings', 'sp-icon--sm', '' ); ?></span>
                                 <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Edit settings', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'Name, bio and password', 'sampreshan-child' ); ?></small></span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
                         </li>
                         <li>
                             <a class="sp-dash-action" href="<?php echo esc_url( $guidelines_url ); ?>">
-                                <span class="sp-dash-action__icon sp-dash-action__icon--green" aria-hidden="true"><?php sp_icon_e( 'verified', 'sp-icon--sm', '' ); ?></span>
+                                <span class="sp-dash-action__icon sp-dash-action__icon--green" aria-hidden="true"><?php sp_icon_auto( 'verified', 'sp-icon--sm', '' ); ?></span>
                                 <span class="sp-dash-action__text"><strong><?php esc_html_e( 'Community guidelines', 'sampreshan-child' ); ?></strong><small><?php esc_html_e( 'What is allowed', 'sampreshan-child' ); ?></small></span>
                                 <span aria-hidden="true">&rarr;</span>
                             </a>
@@ -315,8 +379,27 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
                     </ul>
                 </section>
 
+                <?php if ( '' !== $share_url ) :
+                    $wa_url = 'https://wa.me/?text=' . rawurlencode( $share_title . ' ' . $share_url );
+                    $x_url  = 'https://x.com/intent/tweet?text=' . rawurlencode( $share_title ) . '&url=' . rawurlencode( $share_url );
+                    $fb_url = 'https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $share_url );
+                ?>
+                    <section class="sp-dash-card sp-dash-card--pad sp-dash-share" aria-labelledby="sp-dash-share-h">
+                        <h2 class="sp-dash-card__title" id="sp-dash-share-h"><?php sp_icon_auto( 'share', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Amplify your cause', 'sampreshan-child' ); ?></h2>
+                        <p class="sp-dash-muted sp-dash-share__title"><?php echo esc_html( $share_title ); ?></p>
+                        <ul class="sp-dash-share__grid">
+                            <li><button class="sp-dash-share__btn" type="button" data-sp-copy="<?php echo esc_attr( $share_url ); ?>"><?php sp_icon_auto( 'link', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Copy link', 'sampreshan-child' ); ?></span></button></li>
+                            <li><button class="sp-dash-share__btn" type="button" data-sp-share="<?php echo esc_attr( $share_url ); ?>" data-sp-share-title="<?php echo esc_attr( $share_title ); ?>"><?php sp_icon_auto( 'send', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></span></button></li>
+                            <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'comment', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'WhatsApp', 'sampreshan-child' ); ?></span></a></li>
+                            <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $x_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'share', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Post on X', 'sampreshan-child' ); ?></span></a></li>
+                            <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $fb_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'globe', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Facebook', 'sampreshan-child' ); ?></span></a></li>
+                        </ul>
+                        <p class="sp-dash-muted sp-dash-share__note"><?php esc_html_e( 'Share your petition with friends and community to gather support faster.', 'sampreshan-child' ); ?></p>
+                    </section>
+                <?php endif; ?>
+
                 <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-support-h">
-                    <h2 class="sp-dash-card__title" id="sp-dash-support-h"><?php esc_html_e( 'Latest supporters', 'sampreshan-child' ); ?></h2>
+                    <h2 class="sp-dash-card__title" id="sp-dash-support-h"><?php sp_icon_auto( 'heart', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Latest supporters', 'sampreshan-child' ); ?></h2>
                     <?php if ( empty( $recent_signatures ) ) : ?>
                         <p class="sp-dash-muted"><?php esc_html_e( 'No signatures yet. Share a petition and supporters will appear here.', 'sampreshan-child' ); ?></p>
                     <?php else : ?>
@@ -331,7 +414,7 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
                                         <?php if ( ! $is_anon && ! empty( $sig->user_id ) ) : ?>
                                             <img src="<?php echo esc_url( get_avatar_url( (int) $sig->user_id, array( 'size' => 64 ) ) ); ?>" alt="" width="32" height="32" loading="lazy" />
                                         <?php else : ?>
-                                            <?php sp_icon_e( 'account', 'sp-icon--sm', '' ); ?>
+                                            <?php sp_icon_auto( 'account', 'sp-icon--sm', '' ); ?>
                                         <?php endif; ?>
                                     </span>
                                     <span class="sp-dash-activity__text">
@@ -348,7 +431,7 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
 
                 <?php if ( ! empty( $signed_recent ) ) : ?>
                     <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-signed-h">
-                        <h2 class="sp-dash-card__title" id="sp-dash-signed-h"><?php esc_html_e( 'Recently signed by you', 'sampreshan-child' ); ?></h2>
+                        <h2 class="sp-dash-card__title" id="sp-dash-signed-h"><?php sp_icon_auto( 'check', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Recently signed by you', 'sampreshan-child' ); ?></h2>
                         <ul class="sp-dash-signed">
                             <?php foreach ( $signed_recent as $s ) : ?>
                                 <li>
@@ -367,6 +450,50 @@ $logout_url    = wp_logout_url( home_url( '/' ) );
 
 <script>
 (function () {
+    /* Copy-link + native-share handlers (Amplify toolkit). */
+    document.querySelectorAll('[data-sp-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var url = btn.getAttribute('data-sp-copy') || '';
+            var done = function () {
+                var label = btn.querySelector('span');
+                if (!label) { return; }
+                var orig = label.textContent;
+                label.textContent = 'Copied';
+                setTimeout(function () { label.textContent = orig; }, 1600);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(done, function () { fallbackCopy(url); done(); });
+            } else { fallbackCopy(url); done(); }
+        });
+    });
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+        document.body.removeChild(ta);
+    }
+    document.querySelectorAll('[data-sp-share]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var url = btn.getAttribute('data-sp-share') || location.href;
+            var title = btn.getAttribute('data-sp-share-title') || document.title;
+            if (navigator.share) {
+                navigator.share({ title: title, text: title, url: url }).catch(function () { /* dismissed */ });
+            } else if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url);
+                var label = btn.querySelector('span');
+                if (label) {
+                    var orig = label.textContent;
+                    label.textContent = 'Link copied';
+                    setTimeout(function () { label.textContent = orig; }, 1600);
+                }
+            }
+        });
+    });
+
     var btns = document.querySelectorAll('.sp-dash-filter__btn');
     var list = document.getElementById('sp-dash-list');
     var empty = document.getElementById('sp-dash-list-empty');

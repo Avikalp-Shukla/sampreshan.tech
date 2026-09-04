@@ -26,7 +26,7 @@ $start_url = home_url( '/start-a-petition/' );
     <div class="sp-fu-sechead">
         <div>
             <p class="sp-fu-eyebrow"><?php echo esc_html__( 'Active Causes', 'sampreshan-child' ); ?></p>
-            <h2 id="home-petitions-heading" class="sp-fu-sectitle"><?php echo esc_html__( 'Petitions & Campaigns', 'sampreshan-child' ); ?></h2>
+            <h2 id="home-petitions-heading" class="sp-fu-sectitle"><?php sp_icon_auto( 'megaphone', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Petitions & Campaigns', 'sampreshan-child' ); ?></h2>
         </div>
         <a class="sp-fu-link" href="<?php echo esc_url( $all_url ); ?>">
             <?php echo esc_html__( 'View all', 'sampreshan-child' ); ?> &rarr;
