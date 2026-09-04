@@ -223,7 +223,7 @@ function sampreshan_child_enqueue_styles() {
     }
 
     // Firebase OTP phone login (loaded on login page + registration)
-    if ( is_page_template( 'template-login.php' ) || is_page_template( 'template-register.php' ) ) {
+    if ( is_page_template( 'template-login.php' ) ) {
         wp_enqueue_script(
             'sampreshan-firebase-otp',
             get_stylesheet_directory_uri() . '/assets/js/firebase-otp.js',
@@ -571,6 +571,21 @@ add_action( 'wp_ajax_sp_firebase_login', 'sp_firebase_login_handler' );
 add_action( 'wp_ajax_nopriv_sp_firebase_login', 'sp_firebase_login_handler' );
 
 /**
+ * Ensure an existing page uses our template.
+ * Non-destructive: only sets `_wp_page_template` meta, never touches content.
+ * Used when a slug already exists (e.g. legacy Elementor/HTML pages) so
+ * every page renders in the same style.
+ */
+function sampreshan_child_ensure_template( $page_id, $template ) {
+    $page_id = (int) $page_id;
+    if ( $page_id <= 0 || 'page' !== get_post_type( $page_id ) ) { return; }
+    $current = get_post_meta( $page_id, '_wp_page_template', true );
+    if ( $current !== $template ) {
+        update_post_meta( $page_id, '_wp_page_template', $template );
+    }
+}
+
+/**
  * Auto-create essential pages on theme activation.
  * Creates: About, Contact, Community Guidelines, Privacy Policy, Terms, Disclaimer.
  * Idempotent — skips if page already exists.
@@ -616,15 +631,17 @@ function sampreshan_child_create_essential_pages() {
     );
 
     foreach ( $pages as $page ) {
-        // Skip if already created
-        if ( get_option( $page['option'] ) ) { continue; }
-
-        // Skip if a page with this slug already exists
+        // If a page with this slug already exists (e.g. legacy import),
+        // make sure it renders with our template, then mark done.
         $existing = get_page_by_path( $page['slug'] );
         if ( $existing ) {
+            sampreshan_child_ensure_template( $existing->ID, $page['template'] );
             update_option( $page['option'], 1 );
             continue;
         }
+
+        // Skip if already created
+        if ( get_option( $page['option'] ) ) { continue; }
 
         // Skip if template is already assigned to another page
         $template_page = get_posts( array(
@@ -666,12 +683,15 @@ add_action( 'admin_init', function () {
         'sampreshan_terms_page_created',
         'sampreshan_disclaimer_page_created',
     );
-    $needs_run = false;
-    foreach ( $options as $opt ) {
-        if ( ! get_option( $opt ) ) { $needs_run = true; break; }
+    $needs_run = ! get_option( 'sampreshan_pages_template_fix_v2' );
+    if ( ! $needs_run ) {
+        foreach ( $options as $opt ) {
+            if ( ! get_option( $opt ) ) { $needs_run = true; break; }
+        }
     }
     if ( $needs_run ) {
         sampreshan_child_create_essential_pages();
+        update_option( 'sampreshan_pages_template_fix_v2', 1 );
     }
 } );
 
@@ -871,13 +891,16 @@ function sampreshan_child_create_all_user_pages() {
     );
 
     foreach ( $pages as $page ) {
-        if ( get_option( $page['option'] ) ) { continue; }
-
+        // If a page with this slug already exists (e.g. legacy import),
+        // make sure it renders with our template, then mark done.
         $existing = get_page_by_path( $page['slug'] );
         if ( $existing ) {
+            sampreshan_child_ensure_template( $existing->ID, $page['template'] );
             update_option( $page['option'], 1 );
             continue;
         }
+
+        if ( get_option( $page['option'] ) ) { continue; }
 
         $template_page = get_posts( array(
             'post_type'      => 'page',
@@ -921,12 +944,15 @@ add_action( 'admin_init', function () {
         'sampreshan_community_page_created',
         'sampreshan_feed_page_created',
     );
-    $needs_run = false;
-    foreach ( $options as $opt ) {
-        if ( ! get_option( $opt ) ) { $needs_run = true; break; }
+    $needs_run = ! get_option( 'sampreshan_pages_template_fix_v2' );
+    if ( ! $needs_run ) {
+        foreach ( $options as $opt ) {
+            if ( ! get_option( $opt ) ) { $needs_run = true; break; }
+        }
     }
     if ( $needs_run ) {
         sampreshan_child_create_all_user_pages();
+        update_option( 'sampreshan_pages_template_fix_v2', 1 );
     }
 } );
 

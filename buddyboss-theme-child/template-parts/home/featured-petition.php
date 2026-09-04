@@ -22,10 +22,23 @@ if ( $featured_q->have_posts() ) {
 }
 
 if ( ! $featured_id ) {
-    $featured_id = 94;
+    // Fallback: latest published petition (never a regular page).
+    $latest = new WP_Query( array(
+        'post_type'      => 'petition',
+        'post_status'    => 'publish',
+        'posts_per_page' => 1,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+        'fields'         => 'ids',
+    ) );
+    if ( $latest->have_posts() ) {
+        $featured_id = (int) $latest->posts[0];
+    }
+    wp_reset_postdata();
 }
+if ( ! $featured_id ) { return; }
 $petition = get_post( $featured_id );
-if ( ! $petition ) { return; }
+if ( ! $petition || 'petition' !== $petition->post_type ) { return; }
 
 $petition_id      = (int) $featured_id;
 $petition_url     = get_permalink( $petition_id );

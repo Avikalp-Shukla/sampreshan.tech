@@ -447,3 +447,145 @@ body.sp-future ::-webkit-scrollbar-track {
 body.sp-future ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #FF8A00, #9A1B1E);
 }
+
+/* ============================================================
+   INFO / LEGAL / AUTH / FORM PAGES — same futuristic voice
+   (About, Contact, Guidelines, Privacy, Terms, Disclaimer,
+   Login, Start-a-Petition, Settings)
+   ============================================================ */
+
+body.sp-future .sp-page {
+    background: transparent;
+}
+
+body.sp-future .sp-page__hero {
+    background: linear-gradient(180deg, rgba(255, 138, 0, 0.09), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--ft-line-soft);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+body.sp-future .sp-page__hero-title {
+    background: linear-gradient(100deg, #FFF3DC 10%, var(--ft-saffron) 45%, var(--ft-gold) 70%, #FFF3DC 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+body.sp-future .sp-page__hero-sub,
+body.sp-future .sp-page__content,
+body.sp-future .sp-page__content p,
+body.sp-future .sp-page__content li,
+body.sp-future .sp-login__sub,
+body.sp-future .sp-login__footer {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-page__card,
+body.sp-future .sp-login__card {
+    background: var(--ft-panel);
+    border: 1px solid var(--ft-line-soft);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+body.sp-future .sp-page__section-title,
+body.sp-future .sp-feature-card__title,
+body.sp-future .sp-login__title,
+body.sp-future .sp-form-step__title,
+body.sp-future .sp-timeline__title {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-feature-card__desc,
+body.sp-future .sp-timeline__desc,
+body.sp-future .sp-timeline__year {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--ft-line-soft);
+}
+
+body.sp-future .sp-feature-card:hover {
+    border-color: rgba(255, 138, 0, 0.4);
+}
+
+body.sp-future .sp-timeline__item {
+    border-left-color: rgba(255, 138, 0, 0.4);
+}
+
+body.sp-future .sp-page__cta {
+    background: linear-gradient(135deg, #0A0618 0%, #2A0E04 55%, #083344 130%);
+    border: 1px solid rgba(255, 138, 0, 0.3);
+}
+
+body.sp-future .sp-page__cta-title {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-page__cta-sub {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-login__label,
+body.sp-future .sp-login__brand-name {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-login__alt,
+body.sp-future .sp-page__content a {
+    color: #FFB35C;
+}
+
+body.sp-future .sp-form-notice--success {
+    background: rgba(26, 122, 46, 0.14);
+    border-color: rgba(26, 122, 46, 0.4);
+    color: #9BEBB4;
+}
+
+body.sp-future .sp-form-notice--error,
+body.sp-future .sp-login__error {
+    background: rgba(154, 27, 30, 0.16);
+    border-color: rgba(224, 96, 96, 0.4);
+    color: #FFB4B4;
+}
+
+body.sp-future .sp-login__notice {
+    background: rgba(65, 226, 255, 0.07);
+    border-color: rgba(65, 226, 255, 0.3);
+    color: #BDEFFF;
+}
+
+body.sp-future .sp-petition-create__hero-title {
+    background: linear-gradient(100deg, #FFF3DC 10%, var(--ft-saffron) 45%, var(--ft-gold) 70%, #FFF3DC 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+body.sp-future .sp-petition-create__hero-sub,
+body.sp-future .sp-form-step__desc,
+body.sp-future .sp-form-hint__count,
+body.sp-future .sp-form-hint__tip,
+body.sp-future .sp-form-upload__hint {
+    color: var(--ft-muted);
+}
+
+body.sp-future .sp-petition-preview {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--ft-line-soft);
+}
+
+body.sp-future .sp-petition-preview__title {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-petition-preview__summary {
+    color: var(--ft-muted);
+}

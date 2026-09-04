@@ -23,6 +23,7 @@ elseif ( is_page( 'feed' ) ) { $current_slug = 'feed'; }
 elseif ( is_page( array( 'community', 'members' ) ) ) { $current_slug = 'community'; }
 elseif ( is_page( array( 'dashboard', 'my-petitions', 'signed-petitions', 'settings', 'profile' ) ) ) { $current_slug = 'dashboard'; }
 
+if ( ! function_exists( 'sp_tab_item' ) ) {
 function sp_tab_item( $slug, $current, $url, $icon, $label ) {
     $active = $slug === $current ? ' is-active' : '';
     $aria   = $slug === $current ? ' aria-current="page"' : '';
@@ -35,6 +36,7 @@ function sp_tab_item( $slug, $current, $url, $icon, $label ) {
     <?php
     echo ob_get_clean();
 }
+} // end function_exists guard
 ?>
 <nav class="mobile-tab-nav" aria-label="Primary mobile navigation">
     <?php

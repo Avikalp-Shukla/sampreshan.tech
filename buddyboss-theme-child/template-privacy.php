@@ -88,7 +88,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Security', 'sampreshan-child' ); ?>
+                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Security', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Data Security', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">

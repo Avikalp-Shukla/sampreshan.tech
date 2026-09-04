@@ -64,7 +64,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Account', 'sampreshan-child' ); ?>
+                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Account', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'User Accounts', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -133,7 +133,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Termination', 'sampreshan-child' ); ?>
+                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Termination', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Termination', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">

@@ -9,7 +9,7 @@
 $site_name  = get_bloginfo( 'name' );
 $start_url  = home_url( '/start-a-petition/' );
 $about_url  = home_url( '/about/' );
-$feed_url   = function_exists( 'bp_get_activity_directory_permalink' ) ? bp_get_activity_directory_permalink() : home_url( '/activity/' );
+$feed_url   = function_exists( 'bp_get_activity_directory_permalink' ) ? bp_get_activity_directory_permalink() : home_url( '/feed/' );
 $logo_url   = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
 $is_logged_in = is_user_logged_in();
 ?>
