@@ -1123,3 +1123,81 @@ if ( ! function_exists( 'sp_logo_e' ) ) {
         );
     }
 }
+
+/**
+ * Messenger pigeon — 3D SVG dove with flapping wings.
+ *
+ * Sampreshan's "kabootar post": the bird carries the community's voice.
+ * Pure inline SVG (zero HTTP requests); flight + wing-flap motion comes
+ * from CSS classes in homepage.css (.sp-pigeon, .sp-pigeon__wing...).
+ *
+ * @param string $suffix Unique per instance on a page (gradient IDs).
+ * @param bool   $mail   Hang a saffron letter from the beak.
+ */
+if ( ! function_exists( 'sp_pigeon' ) ) {
+    function sp_pigeon( $suffix = 'a', $mail = true ) {
+        $s = preg_replace( '/[^a-z0-9]/', '', strtolower( (string) $suffix ) );
+        if ( '' === $s ) { $s = 'a'; }
+        ob_start();
+        ?>
+        <svg class="sp-pigeon__svg" viewBox="0 0 220 150" aria-hidden="true" focusable="false">
+            <defs>
+                <linearGradient id="pg-body-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#FFFFFF" />
+                    <stop offset="0.55" stop-color="#E9EDF3" />
+                    <stop offset="1" stop-color="#C6CEDA" />
+                </linearGradient>
+                <linearGradient id="pg-wing-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#FFFFFF" />
+                    <stop offset="1" stop-color="#BCC6D4" />
+                </linearGradient>
+                <linearGradient id="pg-wingback-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#D3D9E3" />
+                    <stop offset="1" stop-color="#A3AEC0" />
+                </linearGradient>
+                <linearGradient id="pg-env-<?php echo esc_attr( $s ); ?>" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#FFC46B" />
+                    <stop offset="1" stop-color="#E0851A" />
+                </linearGradient>
+            </defs>
+            <!-- tail feathers -->
+            <g fill="url(#pg-wingback-<?php echo esc_attr( $s ); ?>)" stroke="#8E99A8" stroke-width="1" stroke-opacity="0.55" stroke-linejoin="round">
+                <path d="M66,84 L20,64 L34,86 Z" />
+                <path d="M66,90 L14,88 L34,96 Z" />
+                <path d="M66,96 L24,114 L40,100 Z" />
+            </g>
+            <!-- far wing (darker, opposite phase) -->
+            <g class="sp-pigeon__wing sp-pigeon__wing--back">
+                <path d="M96,74 C90,60 80,44 62,36 C60,35 58,36 59,38 C72,56 82,68 90,78 C92,81 97,79 96,74 Z" fill="url(#pg-wingback-<?php echo esc_attr( $s ); ?>)" stroke="#8E99A8" stroke-width="1" stroke-opacity="0.5" />
+                <path d="M90,64 C82,56 74,49 66,44" fill="none" stroke="#8E99A8" stroke-width="1.2" stroke-opacity="0.55" stroke-linecap="round" />
+            </g>
+            <!-- body -->
+            <path d="M30,100 C55,88 70,78 92,74 C100,72 108,66 116,60 C124,52 136,50 144,56 C150,60 150,68 144,72 C138,78 140,84 136,90 C120,104 80,110 52,106 C40,104 32,102 30,100 Z" fill="url(#pg-body-<?php echo esc_attr( $s ); ?>)" />
+            <ellipse cx="100" cy="94" rx="34" ry="10" fill="#FFFFFF" opacity="0.65" />
+            <path d="M60,82 C85,70 115,68 138,74" fill="none" stroke="#AEB8C6" stroke-width="4" stroke-opacity="0.45" stroke-linecap="round" />
+            <!-- head details -->
+            <circle cx="140" cy="62" r="3" fill="#26303B" />
+            <circle cx="141" cy="61" r="1" fill="#FFFFFF" />
+            <path d="M152,62 L168,66 L151,71 Z" fill="#E0851A" />
+            <circle cx="152" cy="63" r="2.5" fill="#F5F7FA" />
+            <!-- near wing (big, leading) -->
+            <g class="sp-pigeon__wing sp-pigeon__wing--front">
+                <path d="M104,72 C96,52 80,30 52,18 C50,17 48,18 49,20 C66,44 82,62 94,78 C97,82 103,78 104,72 Z" fill="url(#pg-wing-<?php echo esc_attr( $s ); ?>)" stroke="#8E99A8" stroke-width="1" stroke-opacity="0.5" />
+                <path d="M92,60 C80,48 68,38 56,32" fill="none" stroke="#9AA5B5" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round" />
+                <path d="M98,66 C88,56 78,48 68,42" fill="none" stroke="#9AA5B5" stroke-width="1.2" stroke-opacity="0.5" stroke-linecap="round" />
+            </g>
+            <?php if ( $mail ) : ?>
+            <!-- letter on a string -->
+            <g class="sp-pigeon__mail">
+                <path d="M160,70 C166,82 172,92 178,100" fill="none" stroke="#8A6D3B" stroke-width="1.5" />
+                <rect x="160" y="100" width="36" height="25" rx="4" fill="url(#pg-env-<?php echo esc_attr( $s ); ?>)" stroke="#B45309" stroke-width="1" />
+                <path d="M160,104 L178,116 L196,104" fill="none" stroke="#B45309" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="178" cy="113" r="3" fill="#9A3412" />
+                <circle cx="177" cy="112" r="1" fill="#FFD9A8" />
+            </g>
+            <?php endif; ?>
+        </svg>
+        <?php
+        echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    }
+}

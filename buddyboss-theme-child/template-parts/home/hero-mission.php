@@ -50,6 +50,12 @@ $is_logged_in = is_user_logged_in();
             </div>
         </div>
     </div>
+    <?php /* Messenger pigeons — decorative flight layer (CSS-only motion). */ ?>
+    <div class="sp-pigeon-flight" aria-hidden="true">
+        <div class="sp-pigeon sp-pigeon--near"><div class="sp-pigeon__bob"><?php if ( function_exists( 'sp_pigeon' ) ) { sp_pigeon( 'near', true ); } ?></div></div>
+        <div class="sp-pigeon sp-pigeon--mid"><div class="sp-pigeon__bob"><?php if ( function_exists( 'sp_pigeon' ) ) { sp_pigeon( 'mid', false ); } ?></div></div>
+        <div class="sp-pigeon sp-pigeon--far"><div class="sp-pigeon__bob"><?php if ( function_exists( 'sp_pigeon' ) ) { sp_pigeon( 'far', false ); } ?></div></div>
+    </div>
 </section>
 
 <?php

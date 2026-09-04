@@ -1272,3 +1272,139 @@
     white-space: nowrap;
     max-width: 100%;
 }
+
+/* ============================================================
+   Messenger pigeons — 3D SVG doves with flap + flight paths.
+   Decorative layer over the hero (pointer-events: none).
+   Outer .sp-pigeon glides across (X), inner .sp-pigeon__bob bobs (Y),
+   wings flap around the shoulder pivot.
+   ============================================================ */
+.sp-hero { position: relative; }
+
+.sp-hero__inner { position: relative; z-index: 1; }
+
+.sp-pigeon-flight {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.sp-pigeon {
+    position: absolute;
+    left: 0;
+    will-change: transform;
+    animation-name: sp-pigeon-fly;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.sp-pigeon__bob {
+    will-change: transform;
+    animation-name: sp-pigeon-bob;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.sp-pigeon__svg {
+    display: block;
+    height: auto;
+    overflow: visible;
+    filter:
+        drop-shadow(0 10px 14px rgba(10, 26, 61, 0.16))
+        drop-shadow(0 3px 6px rgba(10, 26, 61, 0.10));
+}
+
+/* Near bird: big, fast, carries the letter. */
+.sp-pigeon--near { top: 8%; animation-duration: 26s; animation-delay: -9s; }
+.sp-pigeon--near .sp-pigeon__bob { animation-duration: 2.6s; }
+.sp-pigeon--near .sp-pigeon__svg { width: min(200px, 36vw); }
+.sp-pigeon--near .sp-pigeon__wing--front { animation-duration: 0.42s; }
+.sp-pigeon--near .sp-pigeon__wing--back { animation-duration: 0.42s; }
+
+/* Mid bird: glides back right-to-left for depth. */
+.sp-pigeon--mid {
+    top: 58%;
+    animation-duration: 38s;
+    animation-delay: -27s;
+    animation-direction: reverse;
+    opacity: 0.92;
+}
+.sp-pigeon--mid .sp-pigeon__bob { animation-duration: 3.4s; }
+/* Mid bird glides right-to-left, so face it left. */
+.sp-pigeon--mid .sp-pigeon__svg { transform: scaleX(-1); }
+.sp-pigeon--mid .sp-pigeon__svg { width: min(128px, 24vw); }
+.sp-pigeon--mid .sp-pigeon__wing--front { animation-duration: 0.54s; }
+.sp-pigeon--mid .sp-pigeon__wing--back { animation-duration: 0.54s; }
+
+/* Far bird: small, slow, hazy. */
+.sp-pigeon--far { top: 30%; animation-duration: 52s; animation-delay: -41s; opacity: 0.8; }
+.sp-pigeon--far .sp-pigeon__bob { animation-duration: 4.4s; }
+.sp-pigeon--far .sp-pigeon__svg { width: min(84px, 16vw); }
+.sp-pigeon--far .sp-pigeon__wing--front { animation-duration: 0.68s; }
+.sp-pigeon--far .sp-pigeon__wing--back { animation-duration: 0.68s; }
+
+@keyframes sp-pigeon-fly {
+    from { transform: translateX(-30vw); }
+    to { transform: translateX(112vw); }
+}
+
+@keyframes sp-pigeon-bob {
+    from { transform: translateY(-11px) rotate(-2deg); }
+    to { transform: translateY(11px) rotate(2deg); }
+}
+
+/* Wing flap around the shoulder. */
+.sp-pigeon__wing { transform-box: fill-box; }
+.sp-pigeon__wing--front {
+    transform-origin: 85% 90%;
+    animation-name: sp-pigeon-flap;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+.sp-pigeon__wing--back {
+    transform-origin: 85% 90%;
+    animation-name: sp-pigeon-flap-back;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-delay: -0.21s;
+}
+
+@keyframes sp-pigeon-flap {
+    from { transform: rotate(-16deg); }
+    to { transform: rotate(30deg); }
+}
+
+@keyframes sp-pigeon-flap-back {
+    from { transform: rotate(-8deg) scale(0.96); }
+    to { transform: rotate(20deg) scale(1); }
+}
+
+/* Letter swing from the beak string. */
+.sp-pigeon__mail {
+    transform-box: view-box;
+    transform-origin: 160px 70px;
+    animation: sp-pigeon-swing 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes sp-pigeon-swing {
+    from { transform: rotate(-6deg); }
+    to { transform: rotate(6deg); }
+}
+
+/* Small screens: keep birds clear of the headline. */
+@media (max-width: 640px) {
+    .sp-pigeon--near { top: 4%; }
+    .sp-pigeon--mid { top: 66%; }
+    .sp-pigeon--far { display: none; }
+}
+
+/* Reduced motion: calm sky. */
+@media (prefers-reduced-motion: reduce) {
+    .sp-pigeon-flight { display: none; }
+}
