@@ -280,6 +280,9 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
                                         <a class="sp-dash-link" href="<?php echo esc_url( $pet_url ); ?>"><?php esc_html_e( 'View', 'sampreshan-child' ); ?></a>
                                         <a class="sp-dash-link" href="<?php echo esc_url( get_edit_post_link( $pid, 'raw' ) ); ?>"><?php esc_html_e( 'Edit', 'sampreshan-child' ); ?></a>
                                         <button class="sp-dash-link sp-share-btn" type="button" data-url="<?php echo esc_url( $pet_url ); ?>" data-title="<?php echo esc_attr( $petition->post_title ); ?>"><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></button>
+                                        <?php if ( $is_live && 'victory' !== $status && ( (int) $petition->post_author === $user_id || current_user_can( 'edit_petition', $pid ) ) ) : ?>
+                                            <button class="sp-dash-link sp-victory-btn" type="button" data-petition-id="<?php echo esc_attr( $pid ); ?>"><?php esc_html_e( 'Declare victory', 'sampreshan-child' ); ?></button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </li>
@@ -450,6 +453,34 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
 
 <script>
 (function () {
+    /* Victory declarations (petition starter only, with confirm). */
+    document.querySelectorAll('.sp-victory-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            if (!window.confirm('Declare victory for this petition? Signing will close.')) { return; }
+            btn.disabled = true;
+            var body = new URLSearchParams();
+            body.append('action', 'sp_petition_victory');
+            body.append('nonce', (window.SampreshanPetition && window.SampreshanPetition.nonce) || '');
+            body.append('petition_id', btn.getAttribute('data-petition-id') || '0');
+            fetch((window.SampreshanPetition && window.SampreshanPetition.ajaxUrl) || '/wp-admin/admin-ajax.php', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: body.toString()
+            })
+                .then(function (r) { return r.json(); })
+                .then(function (res) {
+                    if (res && res.success) { window.location.reload(); return; }
+                    btn.disabled = false;
+                    alert((res && res.data && res.data.message) || 'Something went wrong.');
+                })
+                .catch(function () {
+                    btn.disabled = false;
+                    alert('Network error. Please try again.');
+                });
+        });
+    });
+
     /* Copy-link + native-share handlers (Amplify toolkit). */
     document.querySelectorAll('[data-sp-copy]').forEach(function (btn) {
         btn.addEventListener('click', function () {

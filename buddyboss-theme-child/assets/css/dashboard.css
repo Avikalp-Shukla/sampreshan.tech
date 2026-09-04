@@ -316,6 +316,7 @@
 }
 
 .sp-dash-pill--active { background: #e9f7ef; color: #15803d; }
+.sp-dash-pill--victory { background: #fef3e2; color: #b45309; }
 .sp-dash-pill--draft { background: #f5f5f4; color: #78716c; }
 .sp-dash-pill--closed { background: #fdeeee; color: #b91c1c; }
 .sp-dash-pill--pending { background: #fef6e0; color: #92600a; }

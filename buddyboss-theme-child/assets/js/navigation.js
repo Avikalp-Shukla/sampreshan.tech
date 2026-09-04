@@ -67,6 +67,65 @@
                 }
             }
         });
+
+        /* === LIVE PETITION SEARCH (public REST, debounced) === */
+        (function () {
+            var results = document.getElementById('search-results');
+            if (!searchInput || !results) return;
+            var hintHTML = results.innerHTML;
+            var timer = null;
+            var seq = 0;
+
+            function esc(s) {
+                return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+                    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+                });
+            }
+
+            function render(items, q) {
+                if (!items.length) {
+                    results.innerHTML = '<p class="sp-search-empty">No petitions found for &ldquo;' + esc(q) + '&rdquo;.</p>' +
+                        '<p><a class="sp-search-all" href="/petitions/?q=' + encodeURIComponent(q) + '">Search all petitions &rarr;</a></p>';
+                    return;
+                }
+                var html = '<ul class="sp-search-list">';
+                items.forEach(function (it) {
+                    html += '<li><a class="sp-search-item" href="' + esc(it.permalink) + '">' +
+                        '<span class="sp-search-item__title">' + esc(it.title) + '</span>' +
+                        '<span class="sp-search-item__meta">' + esc(it.signatures) + ' signatures</span>' +
+                        '</a></li>';
+                });
+                html += '</ul><p><a class="sp-search-all" href="/petitions/?q=' + encodeURIComponent(q) + '">See all results &rarr;</a></p>';
+                results.innerHTML = html;
+            }
+
+            searchInput.addEventListener('input', function () {
+                var q = searchInput.value.trim();
+                if (timer) { clearTimeout(timer); timer = null; }
+                if (q.length < 2) { results.innerHTML = hintHTML; return; }
+                timer = setTimeout(function () {
+                    var my = ++seq;
+                    results.innerHTML = '<p class="sp-search-loading">Searching&hellip;</p>';
+                    fetch('/wp-json/sampreshan/v1/petitions?search=' + encodeURIComponent(q) + '&per_page=6&status=all', { credentials: 'same-origin' })
+                        .then(function (r) { return r.json(); })
+                        .then(function (d) {
+                            if (my !== seq) return;
+                            render((d && d.items) || [], q);
+                        })
+                        .catch(function () {
+                            if (my !== seq) return;
+                            results.innerHTML = hintHTML;
+                        });
+                }, 280);
+            });
+
+            searchInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    window.location.href = '/petitions/?q=' + encodeURIComponent(searchInput.value.trim());
+                }
+            });
+        })();
     }
 
     /* === SCROLL TO TOP === */

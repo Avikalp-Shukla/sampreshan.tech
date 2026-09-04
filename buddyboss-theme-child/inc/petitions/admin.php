@@ -71,6 +71,7 @@ if ( ! function_exists( 'sp_petition_meta_box' ) ) {
             <label for="sp_petition_status"><strong><?php esc_html_e( 'Status', 'sampreshan-child' ); ?></strong></label><br>
             <select id="sp_petition_status" name="sampreshan_status" style="width:100%">
                 <option value="active"   <?php selected( $status, 'active' ); ?>><?php esc_html_e( 'Active — accepting signatures', 'sampreshan-child' ); ?></option>
+                <option value="victory"  <?php selected( $status, 'victory' ); ?>><?php esc_html_e( 'Victory — won, read-only', 'sampreshan-child' ); ?></option>
                 <option value="closed"   <?php selected( $status, 'closed' ); ?>><?php esc_html_e( 'Closed — read-only', 'sampreshan-child' ); ?></option>
                 <option value="draft"    <?php selected( $status, 'draft' ); ?>><?php esc_html_e( 'Draft — hidden', 'sampreshan-child' ); ?></option>
             </select>
@@ -127,6 +128,7 @@ if ( ! function_exists( 'sp_petition_admin_columns' ) ) {
                 $new['sp_signatures'] = __( 'Signatures', 'sampreshan-child' );
                 $new['sp_goal']       = __( 'Goal', 'sampreshan-child' );
                 $new['sp_status']     = __( 'Status', 'sampreshan-child' );
+                $new['sp_reports']    = __( 'Reports', 'sampreshan-child' );
             }
         }
         return $new;
@@ -146,12 +148,21 @@ if ( ! function_exists( 'sp_petition_admin_columns' ) ) {
             case 'sp_status':
                 $status = get_post_meta( $post_id, 'sampreshan_status', true ) ?: 'active';
                 $colors = array(
-                    'active' => '#2D7A4D',
-                    'closed' => '#5C5C5C',
-                    'draft'  => '#D4A017',
+                    'active'  => '#2D7A4D',
+                    'victory' => '#B45309',
+                    'closed'  => '#5C5C5C',
+                    'draft'   => '#D4A017',
                 );
                 $c = $colors[ $status ] ?? '#5C5C5C';
                 printf( '<span style="color:%s;font-weight:600">%s</span>', esc_attr( $c ), esc_html( ucfirst( $status ) ) );
+                break;
+            case 'sp_reports':
+                $n = (int) get_post_meta( $post_id, 'sp_report_count', true );
+                if ( $n > 0 ) {
+                    printf( '<strong style="color:#B91C1C">%s</strong>', esc_html( number_format_i18n( $n ) ) );
+                } else {
+                    echo '—';
+                }
                 break;
         }
     }

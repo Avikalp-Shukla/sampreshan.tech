@@ -227,3 +227,65 @@
 @media (min-width: 1536px) {
     .sp-petition-single { max-width: 1280px; }
 }
+
+/* ====== Victory banner ====== */
+.sp-victory-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 0.75rem);
+    margin: 0 0 var(--space-4, 1rem);
+    padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+    border-radius: var(--radius-lg, 16px);
+    background: linear-gradient(135deg, #e9f7ef 0%, #fff8ec 100%);
+    border: 1px solid #bfe6cd;
+    color: #14532d;
+}
+.sp-victory-banner strong { display: block; font-size: var(--text-base, 1rem); }
+.sp-victory-banner span { font-size: var(--text-sm, 0.875rem); color: #2d6a4f; }
+
+/* ====== Report tool ====== */
+.sp-report-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: 0;
+    padding: 0.5rem 0.25rem;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--text-muted, #78716c);
+    cursor: pointer;
+}
+.sp-report-toggle:hover { color: #b91c1c; text-decoration: underline; }
+.sp-report-form {
+    margin-top: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid #f3ece1;
+    border-radius: 14px;
+    background: #fffdf9;
+}
+.sp-report-form[hidden] { display: none; }
+.sp-report-form__label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+.sp-report-form__row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.sp-report-form__select {
+    flex: 1;
+    min-width: 180px;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e7e5e4;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.88rem;
+    background: #fff;
+}
+
+/* ====== Supporter reasons ====== */
+.sp-petition-single__signer-text { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+.sp-petition-single__signer-reason {
+    font-size: 0.85rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-muted, #57534e);
+    border-left: 2px solid var(--saffron-400, #fb9f3f);
+    padding-left: 0.6rem;
+    margin: 0.25rem 0;
+}

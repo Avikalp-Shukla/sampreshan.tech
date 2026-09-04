@@ -177,6 +177,58 @@
         });
     }
 
+    /* ── Report toggle + submit ── */
+    function bindReport() {
+        document.querySelectorAll('.sp-report-toggle').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var wrap = btn.closest('.sp-petition-single__actions, .sp-report') || btn.parentNode;
+                var form = wrap ? wrap.parentNode.querySelector('.sp-report-form') : null;
+                if (!form && btn.nextElementSibling && btn.nextElementSibling.classList.contains('sp-report-form')) {
+                    form = btn.nextElementSibling;
+                }
+                if (!form) { return; }
+                var open = !form.hidden;
+                form.hidden = open;
+                btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+                if (!open) {
+                    var sel = form.querySelector('select');
+                    if (sel) { sel.focus(); }
+                }
+            });
+        });
+        document.querySelectorAll('.sp-report-form[data-petition-id]').forEach(function (form) {
+            if (form.dataset.spBound === '1') { return; }
+            form.dataset.spBound = '1';
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var submit = form.querySelector('button[type="submit"]');
+                var reason = form.querySelector('select[name="reason"]');
+                if (submit) { submit.disabled = true; }
+                post('sp_report_petition', {
+                    petition_id: form.dataset.petitionId,
+                    reason: reason ? reason.value : ''
+                })
+                    .then(function (res) {
+                        if (!res || !res.success) {
+                            var msg = (res && res.data && res.data.message) || 'Something went wrong. Please try again.';
+                            showToast(msg, 'error');
+                            return;
+                        }
+                        showToast((res.data && res.data.message) || 'Report received. Thank you.', 'success');
+                        form.hidden = true;
+                        var toggle = document.querySelector('.sp-report-toggle');
+                        if (toggle) { toggle.disabled = true; toggle.style.opacity = '0.55'; }
+                    })
+                    .catch(function () {
+                        showToast('Network error. Please try again.', 'error');
+                    })
+                    .finally(function () {
+                        if (submit) { submit.disabled = false; }
+                    });
+            });
+        });
+    }
+
     /* ── Initialize ── */
     function init() {
         var nodes = document.querySelectorAll('.sp-sign-button[data-petition-id]');
@@ -184,6 +236,7 @@
             Array.prototype.forEach.call(nodes, bindButton);
         }
         bindShareButtons();
+        bindReport();
     }
 
     ready(init);

@@ -105,6 +105,15 @@ while ( have_posts() ) : the_post();
                             <div class="sp-petition-single__progress-fill" style="width: <?php echo esc_attr( $pct ); ?>%;"></div>
                         </div>
                     </div>
+                    <?php if ( 'victory' === $status ) : ?>
+                        <div class="sp-victory-banner" role="status">
+                            <?php sp_icon_auto( 'verified', 'sp-icon--md', '' ); ?>
+                            <div>
+                                <strong><?php esc_html_e( 'Victory! This petition won.', 'sampreshan-child' ); ?></strong>
+                                <span><?php esc_html_e( 'Thanks to every supporter who signed and shared this cause.', 'sampreshan-child' ); ?></span>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                     <div class="sp-petition-single__actions">
                         <?php if ( $can_sign ) : ?>
@@ -147,7 +156,32 @@ while ( have_posts() ) : the_post();
                             <?php sp_icon_e( 'share', 'sp-icon--sm sp-icon--white', __( 'Share', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Share', 'sampreshan-child' ); ?>
                         </button>
+                        <?php if ( is_user_logged_in() && get_current_user_id() !== (int) $author_id ) : ?>
+                            <button
+                                type="button"
+                                class="sp-report-toggle"
+                                aria-expanded="false"
+                            >
+                                <?php sp_icon_e( 'flag', 'sp-icon--sm', __( 'Report', 'sampreshan-child' ) ); ?>
+                                <?php esc_html_e( 'Report', 'sampreshan-child' ); ?>
+                            </button>
+                        <?php endif; ?>
                     </div>
+                    <?php if ( is_user_logged_in() && get_current_user_id() !== (int) $author_id ) : ?>
+                        <form class="sp-report-form" data-petition-id="<?php echo esc_attr( $pid ); ?>" hidden novalidate>
+                            <label class="sp-report-form__label" for="sp-report-reason-<?php echo esc_attr( $pid ); ?>">
+                                <?php esc_html_e( 'Why are you reporting this?', 'sampreshan-child' ); ?>
+                            </label>
+                            <div class="sp-report-form__row">
+                                <select id="sp-report-reason-<?php echo esc_attr( $pid ); ?>" name="reason" class="sp-report-form__select" required>
+                                    <?php foreach ( sp_petition_report_reasons() as $key => $label ) : ?>
+                                        <option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <button type="submit" class="btn-3d btn-3d--sm"><?php esc_html_e( 'Send report', 'sampreshan-child' ); ?></button>
+                            </div>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
         </article>
@@ -167,8 +201,13 @@ while ( have_posts() ) : the_post();
                         <?php foreach ( $signatures as $sig ) : ?>
                             <li class="sp-petition-single__signer">
                                 <?php echo get_avatar( $sig->user_id, 40 ); ?>
-                                <span><?php echo $sig->is_anonymous ? esc_html__( 'Anonymous supporter', 'sampreshan-child' ) : esc_html( $sig->display_name ?: $sig->user_display ); ?></span>
-                                <time datetime="<?php echo esc_attr( $sig->created_at ); ?>"><?php echo esc_html( human_time_diff( strtotime( $sig->created_at ), current_time( 'timestamp' ) ) ); ?></time>
+                                <div class="sp-petition-single__signer-text">
+                                    <span><?php echo $sig->is_anonymous ? esc_html__( 'Anonymous supporter', 'sampreshan-child' ) : esc_html( $sig->display_name ?: $sig->user_display ); ?></span>
+                                    <?php if ( ! empty( $sig->comment ) ) : ?>
+                                        <span class="sp-petition-single__signer-reason">&ldquo;<?php echo esc_html( wp_trim_words( $sig->comment, 30 ) ); ?>&rdquo;</span>
+                                    <?php endif; ?>
+                                    <time datetime="<?php echo esc_attr( $sig->created_at ); ?>"><?php echo esc_html( human_time_diff( strtotime( $sig->created_at ), current_time( 'timestamp' ) ) ); ?></time>
+                                </div>
                             </li>
                         <?php endforeach; ?>
                     </ul>
