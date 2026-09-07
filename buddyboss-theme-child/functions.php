@@ -373,6 +373,15 @@ function sampreshan_child_enqueue_styles() {
         SAMPRESHAN_CHILD_VERSION
     );
 
+    // 3D Art — mature neon-glow SVGs: waving flag, eye morph, I-badge.
+    // Loaded AFTER premium-3d so it wins on all art components.
+    wp_enqueue_style(
+        'sampreshan-3d-art',
+        get_stylesheet_directory_uri() . '/assets/css/3d-art.css',
+        array( 'sampreshan-premium-3d' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
     // Shared page templates styles (About, Contact, Guidelines, Privacy, Terms, Disclaimer)
     if ( is_page_template( array( 'template-about.php', 'template-contact.php', 'template-guidelines.php', 'template-privacy.php', 'template-terms.php', 'template-disclaimer.php' ) ) ) {
         wp_enqueue_style(

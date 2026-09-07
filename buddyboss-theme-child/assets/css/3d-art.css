@@ -1,0 +1,317 @@
+/* ═══════════════════════════════════════════════════════
+   3D ART — Mature neon-glow SVGs + continuous motion
+   Flag waving, Eye morph, I-badge glow
+   @package SampreShan_Child
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Neon glow tokens ── */
+:root {
+  --d3-neon-saffron: #FF9933;
+  --d3-neon-saffron-light: #FFD080;
+  --d3-neon-saffron-deep: #CC5500;
+  --d3-neon-gold: #F5C542;
+  --d3-neon-ember: #FF6B35;
+  --d3-glass-bg: rgba(255, 153, 51, 0.06);
+  --d3-glass-border: rgba(255, 153, 51, 0.15);
+  --d3-glow-sm: 0 0 8px rgba(255, 153, 51, 0.4);
+  --d3-glow-md: 0 0 16px rgba(255, 153, 51, 0.3), 0 0 40px rgba(255, 153, 51, 0.15);
+  --d3-glow-lg: 0 0 20px rgba(255, 153, 51, 0.5), 0 0 60px rgba(255, 153, 51, 0.2), 0 0 100px rgba(255, 153, 51, 0.1);
+}
+
+/* ═══════════════════════════════════════
+   1. FLAG — 3D waving saffron + glass
+   ═══════════════════════════════════════ */
+
+.sp-flag-3d {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  perspective: 900px;
+  transform-style: preserve-3d;
+}
+
+.sp-flag-3d__pole {
+  position: absolute;
+  left: 0;
+  top: -15%;
+  width: 6px;
+  height: 130%;
+  background: linear-gradient(to bottom, #e8d5a3, #c9a84c 30%, #8B7355 70%, #5c4a2e);
+  border-radius: 3px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4), inset 1px 0 2px rgba(255, 255, 255, 0.2);
+  z-index: 3;
+}
+
+.sp-flag-3d__pole::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 35%, #FFD700, #B8860B);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 153, 51, 0.3);
+}
+
+.sp-flag-3d__canvas {
+  position: relative;
+  margin-left: 12px;
+  width: calc(100% - 12px);
+  aspect-ratio: 3 / 2;
+  overflow: visible;
+}
+
+.sp-flag-3d__canvas svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 4px 20px rgba(255, 153, 51, 0.3));
+}
+
+/* Glass overlay on flag */
+.sp-flag-3d__glass {
+  position: absolute;
+  inset: 0;
+  margin-left: 12px;
+  width: calc(100% - 12px);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    rgba(255, 153, 51, 0.04) 60%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  pointer-events: none;
+  border-radius: 0 4px 4px 0;
+  backdrop-filter: blur(0.5px);
+}
+
+/* Neon glow behind flag */
+.sp-flag-3d__glow {
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 70%;
+  height: 80%;
+  background: radial-gradient(ellipse, rgba(255, 153, 51, 0.15) 0%, transparent 70%);
+  filter: blur(30px);
+  animation: flagGlow 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes flagGlow {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0.8; transform: scale(1.05); }
+}
+
+/* Om symbol floating on flag */
+.sp-flag-3d__om {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 20px rgba(255, 153, 51, 0.8), 0 0 40px rgba(255, 153, 51, 0.4);
+  animation: omFloat 3s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 2;
+  font-weight: 700;
+}
+
+@keyframes omFloat {
+  0% { transform: translate(-50%, -50%) translateY(0); }
+  100% { transform: translate(-50%, -50%) translateY(-4px); }
+}
+
+/* ═══════════════════════════════════════
+   2. EYE — 3D morph with neon iris
+   ═══════════════════════════════════════ */
+
+.sp-eye-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-eye-3d svg {
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(255, 153, 51, 0.5));
+}
+
+/* Continuous subtle pupil motion */
+.sp-eye-3d__pupil {
+  animation: pupilDrift 4s ease-in-out infinite alternate;
+}
+
+@keyframes pupilDrift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.8px, -0.5px); }
+  50% { transform: translate(-0.5px, 0.8px); }
+  75% { transform: translate(0.6px, 0.4px); }
+  100% { transform: translate(-0.3px, -0.6px); }
+}
+
+/* Neon iris pulse */
+.sp-eye-3d__iris {
+  animation: irisPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes irisPulse {
+  0% { opacity: 0.85; }
+  50% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+/* Eye outline drawing animation */
+.sp-eye-3d__outline {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: eyeDraw 1.5s ease-out forwards;
+}
+
+@keyframes eyeDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Glow ring around eye */
+.sp-eye-3d__glow-ring {
+  animation: glowRingPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes glowRingPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* ═══════════════════════════════════════
+   3. I-BADGE — neon saffron glow + 3D
+   ═══════════════════════════════════════ */
+
+.sp-ibadge-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-ibadge-3d svg {
+  overflow: visible;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* Neon glow halo behind badge */
+.sp-ibadge-3d::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 153, 51, 0.3) 0%, transparent 70%);
+  animation: badgeGlow 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes badgeGlow {
+  0% { opacity: 0.4; transform: scale(0.95); }
+  100% { opacity: 0.8; transform: scale(1.08); }
+}
+
+/* Breathing scale animation */
+.sp-ibadge-3d--animate {
+  animation: badgeBreathe 4s ease-in-out infinite;
+}
+
+@keyframes badgeBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* Neon stroke shimmer on the "I" letter */
+.sp-ibadge-3d__letter {
+  animation: letterShimmer 3s ease-in-out infinite alternate;
+}
+
+@keyframes letterShimmer {
+  0% { filter: drop-shadow(0 0 4px rgba(255, 153, 51, 0.6)); }
+  50% { filter: drop-shadow(0 0 10px rgba(255, 153, 51, 0.9)) drop-shadow(0 0 20px rgba(255, 107, 53, 0.4)); }
+  100% { filter: drop-shadow(0 0 6px rgba(255, 153, 51, 0.7)); }
+}
+
+/* ═══════════════════════════════════════
+   4. DEMO STAGE — i-showcase dark stage
+   ═══════════════════════════════════════ */
+
+.sp-i-stage {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 153, 51, 0.05) 0%, transparent 70%);
+}
+
+/* +1 pop bubbles */
+.sp-i-pop {
+  position: absolute;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--d3-neon-saffron);
+  text-shadow: 0 0 10px rgba(255, 153, 51, 0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sp-i-pop--1 { animation: popFloat1 3s ease-out 0.5s infinite; }
+.sp-i-pop--2 { animation: popFloat2 3s ease-out 1.2s infinite; }
+.sp-i-pop--3 { animation: popFloat3 3s ease-out 2s infinite; }
+
+@keyframes popFloat1 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  15% { opacity: 1; transform: translate(-20px, -25px) scale(1); }
+  80% { opacity: 0.6; transform: translate(-30px, -55px) scale(0.8); }
+  100% { opacity: 0; transform: translate(-35px, -70px) scale(0.6); }
+}
+
+@keyframes popFloat2 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  15% { opacity: 1; transform: translate(15px, -30px) scale(1); }
+  80% { opacity: 0.6; transform: translate(20px, -60px) scale(0.8); }
+  100% { opacity: 0; transform: translate(25px, -75px) scale(0.6); }
+}
+
+@keyframes popFloat3 {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  15% { opacity: 1; transform: translate(-5px, -35px) scale(1); }
+  80% { opacity: 0.6; transform: translate(-8px, -65px) scale(0.8); }
+  100% { opacity: 0; transform: translate(-10px, -80px) scale(0.6); }
+}
+
+/* ═══════════════════════════════════════
+   5. REDUCED MOTION
+   ═══════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-flag-3d__glow,
+  .sp-flag-3d__om,
+  .sp-eye-3d__pupil,
+  .sp-eye-3d__iris,
+  .sp-eye-3d__glow-ring,
+  .sp-ibadge-3d::after,
+  .sp-ibadge-3d--animate,
+  .sp-ibadge-3d__letter,
+  .sp-i-pop--1,
+  .sp-i-pop--2,
+  .sp-i-pop--3 {
+    animation: none !important;
+  }
+  .sp-flag-3d__canvas svg {
+    animation: none !important;
+  }
+}

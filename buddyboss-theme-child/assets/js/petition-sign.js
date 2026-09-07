@@ -80,31 +80,59 @@
 
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-    /* Eye that slowly forms after an I-badge click (identity moment). */
-    var EYE_SVG = '<svg class="sp-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-        + '<path class="sp-eye__outline" pathLength="100" d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/>'
-        + '<circle class="sp-eye__pupil" cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>';
+    /* 3D Eye that slowly forms after badge click — neon saffron glow, mature art. */
+    var EYE_SVG = '<svg class="sp-eye-3d" width="28" height="28" viewBox="0 0 180 180" style="overflow:visible;" aria-hidden="true">'
+        + '<defs>'
+        + '<filter id="eGlow" x="-40%" y="-40%" width="180%" height="180%">'
+        + '<feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b1"/>'
+        + '<feFlood flood-color="#FF9933" flood-opacity="0.5" result="c1"/>'
+        + '<feComposite in="c1" in2="b1" operator="in" result="g1"/>'
+        + '<feGaussianBlur in="SourceAlpha" stdDeviation="12" result="b2"/>'
+        + '<feFlood flood-color="#FF9933" flood-opacity="0.2" result="c2"/>'
+        + '<feComposite in="c2" in2="b2" operator="in" result="g2"/>'
+        + '<feMerge><feMergeNode in="g2"/><feMergeNode in="g1"/><feMergeNode in="SourceGraphic"/></feMerge>'
+        + '</filter>'
+        + '<radialGradient id="eIris" cx="50%" cy="50%" r="50%">'
+        + '<stop offset="0%" stop-color="#FFD080"/><stop offset="40%" stop-color="#FF9933"/><stop offset="80%" stop-color="#CC5500"/><stop offset="100%" stop-color="#8B3A00"/>'
+        + '</radialGradient>'
+        + '<radialGradient id="ePupil" cx="45%" cy="45%" r="50%">'
+        + '<stop offset="0%" stop-color="#1a0a00"/><stop offset="100%" stop-color="#000"/>'
+        + '</radialGradient>'
+        + '</defs>'
+        + '<path d="M18 90 C18 50,60 20,90 20 C120 20,162 50,162 90 C162 130,120 160,90 160 C60 160,18 130,18 90 Z" fill="#f5f0e8" stroke="rgba(139,58,0,0.3)" stroke-width="1.5" filter="url(#eGlow)"/>'
+        + '<circle cx="90" cy="90" r="32" fill="url(#eIris)"/>'
+        + '<circle cx="90" cy="90" r="14" fill="url(#ePupil)"/>'
+        + '<circle cx="78" cy="75" r="8" fill="rgba(255,255,255,0.85)"/>'
+        + '<circle cx="100" cy="100" r="3" fill="rgba(255,255,255,0.35)"/>'
+        + '<path d="M18 90 C18 50,60 20,90 20 C120 20,162 50,162 90" fill="none" stroke="rgba(255,153,51,0.3)" stroke-width="2" stroke-linecap="round"/>'
+        + '</svg>';
 
-    /* I-badge sticker (same art as the permanent ibadge icon). */
+    /* 3D I-badge — mature saffron with neon glow + 3D depth. */
     var ibadgeUID = 0;
     function ibadgeSVG() {
         ibadgeUID += 1;
         var u = 'j' + ibadgeUID;
-        return '<svg width="100%" height="100%" viewBox="0 0 64 64" aria-hidden="true">'
+        return '<svg width="100%" height="100%" viewBox="0 0 64 64" style="overflow:visible;" aria-hidden="true">'
             + '<defs>'
-            + '<linearGradient id="ibB' + u + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE9C4"/><stop offset="45%" stop-color="#F5C542"/><stop offset="100%" stop-color="#B8860B"/></linearGradient>'
+            + '<linearGradient id="ibB' + u + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE9C4"/><stop offset="35%" stop-color="#F5C542"/><stop offset="100%" stop-color="#B8860B"/></linearGradient>'
             + '<linearGradient id="ibS' + u + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFB877"/><stop offset="50%" stop-color="#FF9933"/><stop offset="100%" stop-color="#C2410C"/></linearGradient>'
+            + '<filter id="ibGlow' + u + '" x="-30%" y="-30%" width="160%" height="160%">'
+            + '<feGaussianBlur in="SourceAlpha" stdDeviation="3" result="b"/>'
+            + '<feFlood flood-color="#FF9933" flood-opacity="0.45" result="c"/>'
+            + '<feComposite in="c" in2="b" operator="in" result="g"/>'
+            + '<feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>'
+            + '</filter>'
             + '</defs>'
-            + '<rect x="14" y="8" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')"/>'
-            + '<rect x="26" y="17" width="12" height="30" rx="3" fill="url(#ibS' + u + ')"/>'
-            + '<rect x="14" y="47" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')"/>'
+            + '<rect x="14" y="8" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')" filter="url(#ibGlow' + u + ')"/>'
+            + '<rect x="26" y="17" width="12" height="30" rx="3" fill="url(#ibS' + u + ')" filter="url(#ibGlow' + u + ')"/>'
+            + '<rect x="14" y="47" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')" filter="url(#ibGlow' + u + ')"/>'
             + '<rect x="17" y="10" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
             + '<rect x="28" y="19" width="2.6" height="26" rx="1.3" fill="#FFFFFF" opacity="0.5"/>'
             + '<rect x="17" y="49" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
             + '</svg>';
     }
     function ibadgeWrap() {
-        return '<span style="display:inline-flex;width:1.15em;height:1.15em;vertical-align:-0.2em;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))">' + ibadgeSVG() + '</span> ';
+        return '<span style="display:inline-flex;width:1.15em;height:1.15em;vertical-align:-0.2em;filter:drop-shadow(0 2px 6px rgba(255,153,51,0.4)) drop-shadow(0 0 12px rgba(255,153,51,0.2))">' + ibadgeSVG() + '</span> ';
     }
 
     /* ── Bind sign/unsign button ── */
