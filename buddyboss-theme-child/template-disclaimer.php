@@ -17,7 +17,7 @@ get_header();
     <!-- HERO -->
     <header class="sp-page__hero">
         <div class="sp-page__hero-icon">
-            <?php sp_icon_e( 'warning', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Disclaimer', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'warning', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Disclaimer', 'sampreshan-child' ) ); ?>
         </div>
         <h1 class="sp-page__hero-title"><?php esc_html_e( 'Disclaimer', 'sampreshan-child' ); ?></h1>
         <p class="sp-page__hero-sub">
@@ -38,7 +38,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'info', 'sp-icon--md sp-icon--saffron', __( 'General', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'info', 'sp-icon--md sp-icon--saffron', __( 'General', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'General Disclaimer', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -48,7 +48,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'petition', 'sp-icon--md sp-icon--saffron', __( 'Petitions', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', __( 'Petitions', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Petition Disclaimer', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -60,7 +60,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'network', 'sp-icon--md sp-icon--saffron', __( 'External Links', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'network', 'sp-icon--md sp-icon--saffron', __( 'External Links', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'External Links', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -70,7 +70,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Professional Advice', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'lock', 'sp-icon--md sp-icon--blue', __( 'Professional Advice', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Professional Advice', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -80,7 +80,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Non-Commercial', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Non-Commercial', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Non-Commercial Nature', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -90,7 +90,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'verified', 'sp-icon--md sp-icon--saffron', __( 'Accuracy', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'verified', 'sp-icon--md sp-icon--saffron', __( 'Accuracy', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Content Accuracy', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -100,7 +100,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Contact', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Contact', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Contact Us', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">

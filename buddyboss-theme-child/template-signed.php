@@ -72,7 +72,7 @@ $browse_url = home_url( '/petitions/' );
                         <?php if ( $cover ) : ?>
                             <img src="<?php echo esc_url( $cover ); ?>" alt="" loading="lazy" width="84" height="84" />
                         <?php else : ?>
-                            <span class="sp-dash-row__thumb--ph"><?php sp_icon_e( 'check', 'sp-icon--md', '' ); ?></span>
+                            <span class="sp-dash-row__thumb--ph"><?php sp_icon_auto( 'check', 'sp-icon--md', '' ); ?></span>
                         <?php endif; ?>
                     </a>
                     <div class="sp-dash-row__main">
@@ -92,7 +92,7 @@ $browse_url = home_url( '/petitions/' );
         </ul>
     <?php else : ?>
         <div class="sp-dash-empty sp-dash-card">
-            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_e( 'heart', 'sp-icon--xl', '' ); ?></span>
+            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_e( 'ibadge', 'sp-icon--xl', '' ); ?></span>
             <h3 class="sp-dash-empty__title"><?php esc_html_e( 'Nothing signed yet', 'sampreshan-child' ); ?></h3>
             <p class="sp-dash-empty__desc"><?php esc_html_e( 'Browse community causes and add your first signature.', 'sampreshan-child' ); ?></p>
             <a class="btn btn--primary" href="<?php echo esc_url( $browse_url ); ?>"><?php esc_html_e( 'Browse Petitions', 'sampreshan-child' ); ?></a>

@@ -56,6 +56,7 @@ All animations auto-disable when `prefers-reduced-motion: reduce` is set.
 | **Brand / Mission** | `dharma`, `lotus`, `om`, `diya` |
 | **Dharmic Causes (premium 3D)** | `mandir` (Temple Preservation), `pothi` (Cultural Heritage), `vedagranth` (Religious Education + Sanskrit & Vedic Studies), `peepal` (Environment), `seva` (Community Welfare), `gaumata` (Gau Seva), `tirtha` (Pilgrimage & Tirtha) |
 | **Sacred Actions** | `shankh` (raise-your-voice / shankhnaad), `mobile` (OTP verification) |
+| **Support Identity** | `ibadge` (the 3D "I" badge — our pahchan; replaces hearts for support; click morphs I → eye 2s → I + count via petition-sign.js) |
 | **Navigation** | `home`, `feed`, `network`, `petition`, `account`, `group`, `menu`, `globe` |
 | **Truth Social tools** | `heart`, `comment`, `reply`, `repost`, `chart`, `share`, `send`, `bookmark`, `dots`, `plus`, `pen`, `bell`, `search`, `settings`, `eye`, `flag` |
 | **Change.org tools** | `megaphone`, `target`, `trending`, `hand`, `shield`, `link`, `spark`, `download`, `upload`, `logout` |
@@ -96,6 +97,11 @@ All files live in `assets/icons/3d/`. Adding a new icon: drop the SVG there, giv
 `srcset` when imported, else falls back to our custom SVG. Brand icons
 (`om`, `lotus`, `diya`, `dharma`, `petition`, `network`, `video`, `flag`,
 `image`, `warning`, `logout`, `share`, `users`) stay 100% custom SVG.
+
+**Usage rule (site-wide):** templates call `sp_icon_auto()` everywhere
+except monochrome-on-colour contexts (white glyphs on gradient buttons),
+which keep `sp_icon_e()`. `assets/css/icons-transparent.css` (loaded last)
+strips every box/chip behind glyphs and adds 3D depth in all modes.
 
 **License:** Icons8 free plan — PNG use requires attribution, credited in
 the site footer ("3D icons by Icons8" linking https://icons8.com).

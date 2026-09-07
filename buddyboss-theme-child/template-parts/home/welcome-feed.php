@@ -49,15 +49,15 @@ $wexcerpt     = wp_trim_words( strip_tags( $welcome->post_content ), 40, '...' )
 
     <footer class="post-card__actions">
         <a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>">
-            <?php sp_icon_e( 'heart', 'sp-icon--sm sp-icon--saffron', __( 'Support', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_e( 'ibadge', 'sp-icon--sm', __( 'Support', 'sampreshan-child' ) ); ?>
             <span><?php echo esc_html__( 'Support', 'sampreshan-child' ); ?></span>
         </a>
         <a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>#comments">
-            <?php sp_icon_e( 'comment', 'sp-icon--sm sp-icon--saffron', __( 'Discuss', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'comment', 'sp-icon--sm sp-icon--saffron', __( 'Discuss', 'sampreshan-child' ) ); ?>
             <span><?php echo esc_html__( 'Discuss', 'sampreshan-child' ); ?></span>
         </a>
         <a class="post-card__action" href="<?php echo esc_url( $wurl ); ?>">
-            <?php sp_icon_e( 'share', 'sp-icon--sm sp-icon--saffron', __( 'Share', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'share', 'sp-icon--sm sp-icon--saffron', __( 'Share', 'sampreshan-child' ) ); ?>
             <span><?php echo esc_html__( 'Share', 'sampreshan-child' ); ?></span>
         </a>
     </footer>

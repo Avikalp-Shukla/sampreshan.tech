@@ -133,8 +133,8 @@ while ( have_posts() ) : the_post();
                                     data-petition-id="<?php echo esc_attr( $pid ); ?>"
                                     data-signed="<?php echo $user_signed ? '1' : '0'; ?>"
                                 >
-                                    <?php sp_icon_e( $user_signed ? 'check' : 'pen', 'sp-icon--sm sp-icon--white', $user_signed ? __( 'Supported', 'sampreshan-child' ) : __( 'I Support', 'sampreshan-child' ) ); ?>
-                                    <?php echo $user_signed ? esc_html__( 'Your I is counted — thank you!', 'sampreshan-child' ) : esc_html__( 'I Support this issue', 'sampreshan-child' ); ?>
+                                    <?php sp_icon_e( 'ibadge', 'sp-icon--sm', '' ); ?>
+                                    <?php echo $user_signed ? esc_html__( 'Supported', 'sampreshan-child' ) : esc_html__( 'I Support this issue', 'sampreshan-child' ); ?>
                                 </button>
                             </div>
                         <?php elseif ( ! is_user_logged_in() ) : ?>
@@ -178,7 +178,7 @@ while ( have_posts() ) : the_post();
                                 class="sp-report-toggle"
                                 aria-expanded="false"
                             >
-                                <?php sp_icon_e( 'flag', 'sp-icon--sm', __( 'Report', 'sampreshan-child' ) ); ?>
+                                <?php sp_icon_auto( 'flag', 'sp-icon--sm', __( 'Report', 'sampreshan-child' ) ); ?>
                                 <?php esc_html_e( 'Report', 'sampreshan-child' ); ?>
                             </button>
                         <?php endif; ?>
@@ -209,7 +209,7 @@ while ( have_posts() ) : the_post();
 
             <aside class="sp-petition-single__signers card-3d" aria-labelledby="sp-petition-signers-heading">
                 <h2 id="sp-petition-signers-heading" class="sp-petition-single__signers-title">
-                    <?php sp_icon_e( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Supporters', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_e( 'ibadge', 'sp-icon--md', __( 'Supporters', 'sampreshan-child' ) ); ?>
                     <?php esc_html_e( 'Recent supporters', 'sampreshan-child' ); ?>
                 </h2>
                 <?php if ( $signatures ) : ?>

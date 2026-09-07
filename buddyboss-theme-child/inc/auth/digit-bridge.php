@@ -172,7 +172,7 @@ if ( ! function_exists( 'sp_digits_add_login_button' ) ) {
         if ( sp_digits_is_active() ) { return; }
         ?>
         <button type="button" class="sp-login__alt-btn" data-sp-open="phone-login" aria-controls="sp-phone-login-panel" aria-expanded="false">
-            <?php sp_icon_e( 'mail', 'sp-icon--sm sp-icon--saffron', __( 'Phone', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'mail', 'sp-icon--sm sp-icon--saffron', __( 'Phone', 'sampreshan-child' ) ); ?>
             <?php esc_html_e( 'Login with mobile number', 'sampreshan-child' ); ?>
         </button>
         <p class="sp-login__alt-note"><?php esc_html_e( 'We will email a one-time login link to the address on file (valid for 15 minutes).', 'sampreshan-child' ); ?></p>
@@ -262,7 +262,7 @@ if ( ! function_exists( 'sp_digits_consume_magic_login' ) ) {
         }
 
         $u = get_user_by( 'id', $user_id );
-        $dest = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $user_id ) : ( $u ? home_url( '/profile/' ) : home_url( '/' ) );
+        $dest = function_exists( 'sampreshan_dashboard_url' ) ? sampreshan_dashboard_url() : ( function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $user_id ) : ( $u ? home_url( '/profile/' ) : home_url( '/' ) ) );
         wp_safe_redirect( $dest );
         exit;
     }

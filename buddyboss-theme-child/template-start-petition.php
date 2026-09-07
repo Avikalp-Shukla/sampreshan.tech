@@ -34,7 +34,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
         <section class="sp-petition-create__hero">
             <div class="sp-petition-create__hero-content">
                 <span class="sp-petition-create__hero-icon" aria-hidden="true">
-                    <?php sp_icon_e( 'shankh', 'sp-icon--lg', '' ); ?>
+                    <?php sp_icon_auto( 'shankh', 'sp-icon--lg', '' ); ?>
                 </span>
                 <h1 class="sp-petition-create__hero-title">
                     <?php echo esc_html__( 'Start a Petition', 'sampreshan-child' ); ?>
@@ -268,7 +268,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                             </div>
                             <div class="sp-form-upload__placeholder" id="sp-cover-placeholder">
                                 <span class="sp-form-upload__icon" aria-hidden="true">
-                                    <?php sp_icon_e( 'image', 'sp-icon--lg', '' ); ?>
+                                    <?php sp_icon_auto( 'image', 'sp-icon--lg', '' ); ?>
                                 </span>
                                 <p class="sp-form-upload__text"><?php echo esc_html__( 'Click to upload or drag & drop', 'sampreshan-child' ); ?></p>
                                 <p class="sp-form-upload__hint"><?php echo esc_html__( 'PNG, JPG up to 5MB', 'sampreshan-child' ); ?></p>
@@ -353,7 +353,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                 <div class="sp-form-step sp-form-success" data-step="success" style="display:none;">
                     <div class="sp-form-success__inner">
                         <span class="sp-form-success__icon" aria-hidden="true">
-                            <?php sp_icon_e( 'verified', 'sp-icon--xl', '' ); ?>
+                            <?php sp_icon_auto( 'verified', 'sp-icon--xl', '' ); ?>
                         </span>
                         <h2 class="sp-form-success__title"><?php echo esc_html__( 'Petition Published!', 'sampreshan-child' ); ?></h2>
                         <p class="sp-form-success__desc"><?php echo esc_html__( 'Your petition is now live. Share it to gather support.', 'sampreshan-child' ); ?></p>

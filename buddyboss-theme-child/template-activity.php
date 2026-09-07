@@ -46,7 +46,7 @@ $start_url = home_url( '/start-a-petition/' );
                             <?php if ( $avatar ) : ?>
                                 <img src="<?php echo esc_url( $avatar ); ?>" alt="" width="36" height="36" loading="lazy" />
                             <?php else : ?>
-                                <?php sp_icon_e( 'account', 'sp-icon--sm', '' ); ?>
+                                <?php sp_icon_auto( 'account', 'sp-icon--sm', '' ); ?>
                             <?php endif; ?>
                         </span>
                         <div class="sp-feed__who">

@@ -166,7 +166,7 @@ get_header();
     </div>
 
     <div class="sp-danger-zone" aria-labelledby="sp-danger-h">
-        <h2 class="sp-settings__subhead" id="sp-danger-h"><?php esc_html_e( 'Danger zone', 'sampreshan-child' ); ?></h2>
+        <h2 class="sp-settings__subhead" id="sp-danger-h"><?php sp_icon_auto( 'warning', 'sp-icon--sm', '' ); ?> <?php esc_html_e( 'Danger zone', 'sampreshan-child' ); ?></h2>
         <p class="sp-dash-muted"><?php esc_html_e( 'Delete your account permanently. Your petitions stay with the community under site care; your Is keep their display name. This cannot be undone.', 'sampreshan-child' ); ?></p>
         <form method="post" action="<?php echo esc_url( get_permalink() ); ?>" class="sp-danger-zone__form" onsubmit="return window.confirm('Delete your account permanently? This cannot be undone.');">
             <?php wp_nonce_field( 'sp_delete_account', 'sp_delete_nonce' ); ?>

@@ -17,7 +17,7 @@ get_header();
     <!-- HERO -->
     <header class="sp-page__hero">
         <div class="sp-page__hero-icon">
-            <?php sp_icon_e( 'dharma', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'SampreShan', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'dharma', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'SampreShan', 'sampreshan-child' ) ); ?>
         </div>
         <h1 class="sp-page__hero-title"><?php esc_html_e( 'About SampreShan', 'sampreshan-child' ); ?></h1>
         <p class="sp-page__hero-sub">
@@ -30,7 +30,7 @@ get_header();
         <!-- MISSION -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Mission', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Mission', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Our Mission', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -46,7 +46,7 @@ get_header();
         <!-- VISION -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'star', 'sp-icon--md sp-icon--gold', __( 'Vision', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'star', 'sp-icon--md sp-icon--gold', __( 'Vision', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Our Vision', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -62,34 +62,34 @@ get_header();
         <!-- WHAT WE DO -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'petition', 'sp-icon--md sp-icon--saffron', __( 'What We Do', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', __( 'What We Do', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'What We Do', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__features">
                 <div class="sp-feature-card">
                     <div class="sp-feature-card__icon">
-                        <?php sp_icon_e( 'petition', 'sp-icon--2xl sp-icon--saffron', __( 'Petitions', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'petition', 'sp-icon--2xl sp-icon--saffron', __( 'Petitions', 'sampreshan-child' ) ); ?>
                     </div>
                     <h3 class="sp-feature-card__title"><?php esc_html_e( 'Raise Petitions', 'sampreshan-child' ); ?></h3>
                     <p class="sp-feature-card__desc"><?php esc_html_e( 'Start a petition on any social, religious, or cultural issue affecting the Dharmic community. Bring local problems to a wider audience.', 'sampreshan-child' ); ?></p>
                 </div>
                 <div class="sp-feature-card">
                     <div class="sp-feature-card__icon">
-                        <?php sp_icon_e( 'heart', 'sp-icon--2xl sp-icon--saffron', __( 'Support', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_e( 'ibadge', 'sp-icon--2xl', __( 'Support', 'sampreshan-child' ) ); ?>
                     </div>
                     <h3 class="sp-feature-card__title"><?php esc_html_e( 'Gather Support', 'sampreshan-child' ); ?></h3>
                     <p class="sp-feature-card__desc"><?php esc_html_e( 'Collect signatures and build momentum. Every signature amplifies your voice and brings you closer to collective impact.', 'sampreshan-child' ); ?></p>
                 </div>
                 <div class="sp-feature-card">
                     <div class="sp-feature-card__icon">
-                        <?php sp_icon_e( 'network', 'sp-icon--2xl sp-icon--saffron', __( 'Connect', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'network', 'sp-icon--2xl sp-icon--saffron', __( 'Connect', 'sampreshan-child' ) ); ?>
                     </div>
                     <h3 class="sp-feature-card__title"><?php esc_html_e( 'Connect & Discuss', 'sampreshan-child' ); ?></h3>
                     <p class="sp-feature-card__desc"><?php esc_html_e( 'Join a community of like-minded Sanatana Dharma followers. Share perspectives, discuss issues, and build meaningful connections.', 'sampreshan-child' ); ?></p>
                 </div>
                 <div class="sp-feature-card">
                     <div class="sp-feature-card__icon">
-                        <?php sp_icon_e( 'om', 'sp-icon--2xl sp-icon--saffron', __( 'Awareness', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'om', 'sp-icon--2xl sp-icon--saffron', __( 'Awareness', 'sampreshan-child' ) ); ?>
                     </div>
                     <h3 class="sp-feature-card__title"><?php esc_html_e( 'Acharya Awareness', 'sampreshan-child' ); ?></h3>
                     <p class="sp-feature-card__desc"><?php esc_html_e( 'Learn about the four sacred peethas, various sampradayas, and the wisdom of traditional spiritual institutions.', 'sampreshan-child' ); ?></p>
@@ -100,7 +100,7 @@ get_header();
         <!-- SHIVBODH TRUST -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'verified', 'sp-icon--md sp-icon--saffron', __( 'Trust', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'verified', 'sp-icon--md sp-icon--saffron', __( 'Trust', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'About ShivBodh Trust', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -117,7 +117,7 @@ get_header();
         <!-- TIMELINE -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'dharma', 'sp-icon--md sp-icon--gold', __( 'Journey', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'dharma', 'sp-icon--md sp-icon--gold', __( 'Journey', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Our Journey', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-timeline">

@@ -91,8 +91,76 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.4.1' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.5.1' );
 }
+
+/**
+ * Theme Dashboard URL — single source of truth (like sp_feed_url()).
+ * Members land here after login; never in wp-admin.
+ */
+function sampreshan_dashboard_url() {
+    $ids = get_posts( array(
+        'post_type'      => 'page',
+        'meta_key'       => '_wp_page_template',
+        'meta_value'     => 'template-dashboard.php',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'fields'         => 'ids',
+        'orderby'        => 'ID',
+        'order'          => 'ASC',
+    ) );
+    if ( ! empty( $ids ) ) {
+        $url = get_permalink( (int) $ids[0] );
+        if ( $url ) { return $url; }
+    }
+    $by_path = get_page_by_path( 'dashboard' );
+    if ( $by_path ) {
+        $url = get_permalink( $by_path );
+        if ( $url ) { return $url; }
+    }
+    return home_url( '/dashboard/' );
+}
+
+/**
+ * Members go to the theme dashboard after login — never wp-admin.
+ * Explicit front-end destinations (e.g. return-to-page after a gated
+ * support click) are honoured; only wp-admin/wp-login targets reroute.
+ */
+function sampreshan_login_redirect( $redirect_to, $requested_redirect_to, $user ) {
+    if ( $user instanceof WP_User && ! user_can( $user->ID, 'manage_options' ) ) {
+        if ( is_string( $requested_redirect_to ) && '' !== $requested_redirect_to
+            && false === strpos( $requested_redirect_to, 'wp-admin' )
+            && false === strpos( $requested_redirect_to, 'wp-login.php' )
+            && 0 === strpos( $requested_redirect_to, home_url( '/' ) ) ) {
+            return $requested_redirect_to;
+        }
+        return sampreshan_dashboard_url();
+    }
+    return $redirect_to;
+}
+add_filter( 'login_redirect', 'sampreshan_login_redirect', PHP_INT_MAX, 3 );
+
+/**
+ * Keep members out of wp-admin entirely (AJAX + posting endpoints stay open).
+ */
+function sampreshan_block_member_admin() {
+    if ( wp_doing_ajax() || ! is_user_logged_in() ) { return; }
+    if ( current_user_can( 'manage_options' ) ) { return; }
+    $script = isset( $_SERVER['SCRIPT_NAME'] ) ? basename( (string) $_SERVER['SCRIPT_NAME'] ) : '';
+    if ( in_array( $script, array( 'admin-ajax.php', 'async-upload.php', 'admin-post.php' ), true ) ) { return; }
+    wp_safe_redirect( sampreshan_dashboard_url() );
+    exit;
+}
+add_action( 'admin_init', 'sampreshan_block_member_admin', 1 );
+
+/**
+ * No WP toolbar on the frontend for members (app feel; admins keep it).
+ */
+function sampreshan_member_admin_bar( $show ) {
+    if ( is_user_logged_in() && ! current_user_can( 'manage_options' ) ) { return false; }
+    return $show;
+}
+add_filter( 'show_admin_bar', 'sampreshan_member_admin_bar', 20 );
 
 /**
  * Load the icon helper (sp_icon(), sp_icon_e(), sp_favicon_url()).
@@ -114,6 +182,8 @@ require_once get_stylesheet_directory() . '/inc/framer-embed.php';
 require_once get_stylesheet_directory() . '/inc/petitions/loader.php';
 require_once get_stylesheet_directory() . '/inc/profile/fields.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
+require_once get_stylesheet_directory() . '/inc/notifications/center.php';
+require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 
 /**
  * JS detector + no-JS fallback (prints first in <head>).
@@ -136,7 +206,7 @@ function sampreshan_child_enqueue_fonts() {    // Preconnect to Google Fonts ser
     // Load fonts: Cormorant Garamond (display/serif) + Inter (body/heading) + Tiro Devanagari (Hindi)
     wp_enqueue_style(
         'sampreshan-child-fonts',
-        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Tiro+Devanagari:wght@400;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Tiro+Devanagari:wght@400;700&display=swap',
         array(),
         null
     );
@@ -269,11 +339,37 @@ function sampreshan_child_enqueue_styles() {
     );
 
     // Mobile experience pack (phone-only palette, typography, alignment).
-    // Loaded last so it wins over every skin on small screens.
     wp_enqueue_style(
         'sampreshan-mobile',
         get_stylesheet_directory_uri() . '/assets/css/mobile.css',
         array( 'sampreshan-desktop' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    // Transparent icons (no boxes behind glyphs + 3D depth, all modes).
+    // Loaded absolutely last so it wins everywhere.
+    wp_enqueue_style(
+        'sampreshan-icons-transparent',
+        get_stylesheet_directory_uri() . '/assets/css/icons-transparent.css',
+        array( 'sampreshan-mobile' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    // Premium design system — Jeton/Awwwards-grade typography, spacing, reveals.
+    // Loaded AFTER icons-transparent so it wins globally.
+    wp_enqueue_style(
+        'sampreshan-premium',
+        get_stylesheet_directory_uri() . '/assets/css/premium.css',
+        array( 'sampreshan-icons-transparent' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    // Premium 3D Dark design system — dark immersive palette, CSS perspective,
+    // dramatic lighting, scroll-driven 3D reveals. Loaded AFTER premium.css.
+    wp_enqueue_style(
+        'sampreshan-premium-3d',
+        get_stylesheet_directory_uri() . '/assets/css/premium-3d.css',
+        array( 'sampreshan-premium' ),
         SAMPRESHAN_CHILD_VERSION
     );
 
@@ -453,6 +549,18 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-petition-sign',
             get_stylesheet_directory_uri() . '/assets/js/petition-sign.js',
             array( 'sampreshan-navigation' ),
+            SAMPRESHAN_CHILD_VERSION,
+            true
+        );
+    }
+
+    // Premium scroll engine — IntersectionObserver reveals, parallax, counters.
+    // Loaded on front page and petition pages for scroll-triggered animations.
+    if ( is_front_page() || is_singular( 'petition' ) || is_page_template( array( 'template-petitions.php', 'template-about.php' ) ) ) {
+        wp_enqueue_script(
+            'sampreshan-premium-scroll',
+            get_stylesheet_directory_uri() . '/assets/js/premium-scroll.js',
+            array(),
             SAMPRESHAN_CHILD_VERSION,
             true
         );
@@ -812,7 +920,7 @@ function sp_firebase_login_handler() {
 
     wp_send_json_success( array(
         'message'  => 'Login successful',
-        'redirect' => home_url( '/' ),
+        'redirect' => sampreshan_dashboard_url(),
         'userId'   => $user_id,
     ) );
 }

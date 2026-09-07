@@ -476,6 +476,23 @@
 .sp-dash-action__text strong { font-size: 0.9rem; }
 .sp-dash-action__text small { font-size: 0.78rem; color: var(--text-muted, #78716c); }
 
+.sp-dash-count {
+    flex-shrink: 0;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #fb9f3f, #ed7a1a);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 2px 8px rgba(237, 122, 26, 0.4);
+}
+
 .sp-dash-muted {
     margin: 0.75rem 0 0;
     font-size: 0.88rem;

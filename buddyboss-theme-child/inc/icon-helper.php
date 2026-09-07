@@ -1040,11 +1040,12 @@ if ( ! function_exists( 'sp_icon_img' ) ) {
             }
         }
         if ( '' === $dir ) { return ''; }
-        $srcset = esc_url( $uri . $slug . '-48.png' ) . ' 48w, '
-                . esc_url( $uri . $slug . '-96.png' ) . ' 96w, '
-                . esc_url( $uri . $slug . '-192.png' ) . ' 192w';
+        $ver = defined( 'SAMPRESHAN_CHILD_VERSION' ) ? SAMPRESHAN_CHILD_VERSION : '1.0.0';
+        $srcset = esc_url( $uri . $slug . '-48.png?ver=' . $ver ) . ' 48w, '
+                . esc_url( $uri . $slug . '-96.png?ver=' . $ver ) . ' 96w, '
+                . esc_url( $uri . $slug . '-192.png?ver=' . $ver ) . ' 192w';
         return '<span class="sp-icon sp-icon--img ' . esc_attr( $class ) . '" data-icon-img="' . esc_attr( $name ) . '">'
-            . '<img src="' . esc_url( $uri . $slug . '-96.png' ) . '" srcset="' . $srcset . '"'
+            . '<img src="' . esc_url( $uri . $slug . '-96.png?ver=' . $ver ) . '" srcset="' . $srcset . '"'
             . ' sizes="(max-width: 767px) 32px, 64px"'
             . ' alt="' . esc_attr( $label ) . '" loading="lazy" decoding="async" />'
             . '</span>';

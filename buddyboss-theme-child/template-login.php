@@ -65,7 +65,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
         <?php if ( function_exists( 'sp_logo_e' ) ) : ?>
             <?php sp_logo_e( 'sp-login__logo', 48 ); ?>
         <?php else : ?>
-            <?php sp_icon_e( 'dharma', 'sp-icon--xl sp-icon--saffron sp-icon--float', __( 'SampreShan', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'dharma', 'sp-icon--xl sp-icon--saffron sp-icon--float', __( 'SampreShan', 'sampreshan-child' ) ); ?>
         <?php endif; ?>
         <span class="sp-login__brand-name display"><?php bloginfo( 'name' ); ?></span>
     </a>
@@ -78,21 +78,21 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
              ====================================================== -->
         <main class="sp-login__card glass sp-login__card--digits" role="main">
             <div class="sp-login__art" aria-hidden="true">
-                <?php sp_icon_e( 'lotus', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Lotus', 'sampreshan-child' ) ); ?>
-                <?php sp_icon_e( 'om',    'sp-icon--2xl sp-icon--gold sp-icon--pulse',   __( 'Om',    'sampreshan-child' ) ); ?>
-                <?php sp_icon_e( 'diya',  'sp-icon--lg sp-icon--saffron sp-icon--bounce', __( 'Diya',  'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'lotus', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Lotus', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'om',    'sp-icon--2xl sp-icon--gold sp-icon--pulse',   __( 'Om',    'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'diya',  'sp-icon--lg sp-icon--saffron sp-icon--bounce', __( 'Diya',  'sampreshan-child' ) ); ?>
             </div>
 
             <header class="sp-login__head">
-                <?php sp_icon_e( 'lock', 'sp-icon--lg sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'lock', 'sp-icon--lg sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
                 <h1 class="sp-login__title display"><?php esc_html_e( 'Sign in with mobile OTP', 'sampreshan-child' ); ?></h1>
                 <p class="sp-login__sub"><?php esc_html_e( 'We use the Digits plugin to send a one-time passcode to your mobile number — no passwords, no email required.', 'sampreshan-child' ); ?></p>
             </header>
 
             <ul class="sp-login__feature-list">
-                <li><?php sp_icon_e( 'verified', 'sp-icon--sm sp-icon--success', __( 'Verified', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Mobile OTP via SMS, Email, or WhatsApp', 'sampreshan-child' ); ?></li>
-                <li><?php sp_icon_e( 'lock',     'sp-icon--sm sp-icon--blue',    __( 'Secure',  'sampreshan-child' ) ); ?><?php esc_html_e( 'No passwords to remember', 'sampreshan-child' ); ?></li>
-                <li><?php sp_icon_e( 'star',     'sp-icon--sm sp-icon--gold',    __( 'Instant', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Get signed in within seconds', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_auto( 'verified', 'sp-icon--sm sp-icon--success', __( 'Verified', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Mobile OTP via SMS, Email, or WhatsApp', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_auto( 'lock',     'sp-icon--sm sp-icon--blue',    __( 'Secure',  'sampreshan-child' ) ); ?><?php esc_html_e( 'No passwords to remember', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_auto( 'star',     'sp-icon--sm sp-icon--gold',    __( 'Instant', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Get signed in within seconds', 'sampreshan-child' ); ?></li>
             </ul>
 
             <?php
@@ -117,7 +117,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
             <?php if ( is_user_logged_in() ) : ?>
                 <p class="sp-login__alt-row" style="margin-top:1rem;text-align:center">
                     <a class="sp-login__alt" href="<?php echo esc_url( wp_logout_url( get_permalink() ) ); ?>">
-                        <?php sp_icon_e( 'logout', 'sp-icon--sm sp-icon--muted', __( 'Sign out', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'logout', 'sp-icon--sm sp-icon--muted', __( 'Sign out', 'sampreshan-child' ) ); ?>
                         <?php esc_html_e( 'Sign out', 'sampreshan-child' ); ?>
                     </a>
                 </p>
@@ -133,39 +133,39 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
         <main class="sp-login__card glass" role="main">
 
             <div class="sp-login__art" aria-hidden="true">
-                <?php sp_icon_e( 'lotus', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Lotus', 'sampreshan-child' ) ); ?>
-                <?php sp_icon_e( 'om',    'sp-icon--2xl sp-icon--gold sp-icon--pulse',   __( 'Om',    'sampreshan-child' ) ); ?>
-                <?php sp_icon_e( 'diya',  'sp-icon--lg sp-icon--saffron sp-icon--bounce', __( 'Diya',  'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'lotus', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Lotus', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'om',    'sp-icon--2xl sp-icon--gold sp-icon--pulse',   __( 'Om',    'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'diya',  'sp-icon--lg sp-icon--saffron sp-icon--bounce', __( 'Diya',  'sampreshan-child' ) ); ?>
             </div>
 
             <?php if ( $login_notice ) : ?>
                 <div class="sp-login__notice" role="alert">
-                    <?php sp_icon_e( 'warning', 'sp-icon--md sp-icon--warning', __( 'Notice', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'warning', 'sp-icon--md sp-icon--warning', __( 'Notice', 'sampreshan-child' ) ); ?>
                     <span><?php echo esc_html( $login_notice ); ?></span>
                 </div>
             <?php endif; ?>
             <?php if ( isset( $_GET['deleted'] ) && '1' === $_GET['deleted'] ) : ?>
                 <div class="sp-login__notice" role="status">
-                    <?php sp_icon_e( 'check', 'sp-icon--md sp-icon--success', __( 'Deleted', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'check', 'sp-icon--md sp-icon--success', __( 'Deleted', 'sampreshan-child' ) ); ?>
                     <span><?php esc_html_e( 'Your account has been deleted. Thank you for being part of SampreShan.', 'sampreshan-child' ); ?></span>
                 </div>
             <?php endif; ?>
 
             <?php if ( 'login' === $action ) : ?>
                 <header class="sp-login__head">
-                    <?php sp_icon_e( 'lock', 'sp-icon--lg sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'lock', 'sp-icon--lg sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
                     <h1 class="sp-login__title display"><?php esc_html_e( 'Sign In', 'sampreshan-child' ); ?></h1>
                     <p class="sp-login__sub"><?php esc_html_e( 'Welcome back. Sign in to support causes, sign petitions, and follow champions.', 'sampreshan-child' ); ?></p>
                 </header>
 
                 <?php if ( ! empty( $_GET['login'] ) && 'failed' === $_GET['login'] ) : ?>
                     <div class="sp-login__error" role="alert">
-                        <?php sp_icon_e( 'close', 'sp-icon--md sp-icon--danger', __( 'Error', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'close', 'sp-icon--md sp-icon--danger', __( 'Error', 'sampreshan-child' ) ); ?>
                         <span><?php esc_html_e( 'Invalid username or password. Please try again.', 'sampreshan-child' ); ?></span>
                     </div>
                 <?php elseif ( ! empty( $_GET['loggedout'] ) ) : ?>
                     <div class="sp-login__notice" role="status">
-                        <?php sp_icon_e( 'check', 'sp-icon--md sp-icon--success', __( 'Signed out', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'check', 'sp-icon--md sp-icon--success', __( 'Signed out', 'sampreshan-child' ) ); ?>
                         <span><?php esc_html_e( 'You have been signed out.', 'sampreshan-child' ); ?></span>
                     </div>
                 <?php endif; ?>
@@ -175,12 +175,12 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                     <input type="hidden" name="redirect_to" value="<?php echo esc_attr( home_url( '/profile/' ) ); ?>" />
 
                     <label class="sp-login__field">
-                        <span class="sp-login__label"><?php sp_icon_e( 'profile', 'sp-icon--sm sp-icon--muted', __( 'Username', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Username or email', 'sampreshan-child' ); ?></span>
+                        <span class="sp-login__label"><?php sp_icon_auto( 'profile', 'sp-icon--sm sp-icon--muted', __( 'Username', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Username or email', 'sampreshan-child' ); ?></span>
                         <input type="text" name="log" id="sp_user_login" class="input" required autocomplete="username" autofocus />
                     </label>
 
                     <label class="sp-login__field">
-                        <span class="sp-login__label"><?php sp_icon_e( 'lock', 'sp-icon--sm sp-icon--muted', __( 'Password', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Password', 'sampreshan-child' ); ?></span>
+                        <span class="sp-login__label"><?php sp_icon_auto( 'lock', 'sp-icon--sm sp-icon--muted', __( 'Password', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Password', 'sampreshan-child' ); ?></span>
                         <input type="password" name="pwd" id="sp_user_pass" class="input" required autocomplete="current-password" />
                     </label>
 
@@ -213,7 +213,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                             <div class="sp-phone-section">
                                 <label class="sp-login__field">
                                     <span class="sp-login__label">
-                                        <?php sp_icon_e( 'mobile', 'sp-icon--sm sp-icon--muted', __( 'Phone', 'sampreshan-child' ) ); ?>
+                                        <?php sp_icon_auto( 'mobile', 'sp-icon--sm sp-icon--muted', __( 'Phone', 'sampreshan-child' ) ); ?>
                                         <?php esc_html_e( 'Mobile number', 'sampreshan-child' ); ?>
                                     </span>
                                     <div class="sp-phone-input-group">
@@ -231,7 +231,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                                 <div class="sp-otp-phone-display"></div>
                                 <label class="sp-login__field">
                                     <span class="sp-login__label">
-                                        <?php sp_icon_e( 'verified', 'sp-icon--sm sp-icon--muted', __( 'OTP', 'sampreshan-child' ) ); ?>
+                                        <?php sp_icon_auto( 'verified', 'sp-icon--sm sp-icon--muted', __( 'OTP', 'sampreshan-child' ) ); ?>
                                         <?php esc_html_e( 'Enter 6-digit OTP', 'sampreshan-child' ); ?>
                                     </span>
                                     <input type="text" name="otp" class="input sp-otp-input" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000" />
@@ -251,11 +251,11 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
 
                 <div class="sp-login__alt-row">
                     <a class="sp-login__alt" href="<?php echo esc_url( add_query_arg( 'action', 'register', get_permalink() ) ); ?>">
-                        <?php sp_icon_e( 'plus', 'sp-icon--sm sp-icon--saffron', __( 'Register', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'plus', 'sp-icon--sm sp-icon--saffron', __( 'Register', 'sampreshan-child' ) ); ?>
                         <?php esc_html_e( 'New here? Create an account', 'sampreshan-child' ); ?>
                     </a>
                     <a class="sp-login__alt" href="<?php echo esc_url( add_query_arg( 'action', 'lostpassword', get_permalink() ) ); ?>">
-                        <?php sp_icon_e( 'lock', 'sp-icon--sm sp-icon--muted', __( 'Reset', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'lock', 'sp-icon--sm sp-icon--muted', __( 'Reset', 'sampreshan-child' ) ); ?>
                         <?php esc_html_e( 'Forgot password', 'sampreshan-child' ); ?>
                     </a>
                 </div>
@@ -266,7 +266,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                 } else {
             ?>
                 <header class="sp-login__head">
-                    <?php sp_icon_e( 'plus', 'sp-icon--lg sp-icon--saffron', __( 'Join', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'plus', 'sp-icon--lg sp-icon--saffron', __( 'Join', 'sampreshan-child' ) ); ?>
                     <h1 class="sp-login__title display"><?php esc_html_e( 'Join SampreShan', 'sampreshan-child' ); ?></h1>
                     <p class="sp-login__sub"><?php esc_html_e( 'Create your Sanatan profile, sign petitions, and champion causes that matter.', 'sampreshan-child' ); ?></p>
                 </header>
@@ -275,12 +275,12 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                     <?php wp_nonce_field( 'sp_register_attempt', 'sp_register_nonce' ); ?>
 
                     <label class="sp-login__field">
-                        <span class="sp-login__label"><?php sp_icon_e( 'profile', 'sp-icon--sm sp-icon--muted', __( 'Username', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Username', 'sampreshan-child' ); ?></span>
+                        <span class="sp-login__label"><?php sp_icon_auto( 'profile', 'sp-icon--sm sp-icon--muted', __( 'Username', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Username', 'sampreshan-child' ); ?></span>
                         <input type="text" name="user_login" class="input" required autocomplete="username" />
                     </label>
 
                     <label class="sp-login__field">
-                        <span class="sp-login__label"><?php sp_icon_e( 'mail', 'sp-icon--sm sp-icon--muted', __( 'Email', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Email', 'sampreshan-child' ); ?></span>
+                        <span class="sp-login__label"><?php sp_icon_auto( 'mail', 'sp-icon--sm sp-icon--muted', __( 'Email', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Email', 'sampreshan-child' ); ?></span>
                         <input type="email" name="user_email" class="input" required autocomplete="email" />
                     </label>
 
@@ -293,7 +293,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
 
                     <div class="sp-login__alt-row">
                         <a class="sp-login__alt" href="<?php echo esc_url( remove_query_arg( 'action' ) ); ?>">
-                            <?php sp_icon_e( 'check', 'sp-icon--sm sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
+                            <?php sp_icon_auto( 'check', 'sp-icon--sm sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Already have an account? Sign in', 'sampreshan-child' ); ?>
                         </a>
                     </div>
@@ -302,7 +302,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
 
             <?php elseif ( 'lostpassword' === $action ) : ?>
                 <header class="sp-login__head">
-                    <?php sp_icon_e( 'lock', 'sp-icon--lg sp-icon--saffron', __( 'Reset', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'lock', 'sp-icon--lg sp-icon--saffron', __( 'Reset', 'sampreshan-child' ) ); ?>
                     <h1 class="sp-login__title display"><?php esc_html_e( 'Reset Password', 'sampreshan-child' ); ?></h1>
                     <p class="sp-login__sub"><?php esc_html_e( 'Enter your email and we will send you a link to set a new password.', 'sampreshan-child' ); ?></p>
                 </header>
@@ -311,7 +311,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                     <?php wp_nonce_field( 'sp_lostpassword', 'sp_lostpassword_nonce' ); ?>
 
                     <label class="sp-login__field">
-                        <span class="sp-login__label"><?php sp_icon_e( 'mail', 'sp-icon--sm sp-icon--muted', __( 'Email', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Email or username', 'sampreshan-child' ); ?></span>
+                        <span class="sp-login__label"><?php sp_icon_auto( 'mail', 'sp-icon--sm sp-icon--muted', __( 'Email', 'sampreshan-child' ) ); ?><?php esc_html_e( 'Email or username', 'sampreshan-child' ); ?></span>
                         <input type="text" name="user_login" class="input" required autocomplete="username" />
                     </label>
 
@@ -322,7 +322,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
 
                     <div class="sp-login__alt-row">
                         <a class="sp-login__alt" href="<?php echo esc_url( remove_query_arg( 'action' ) ); ?>">
-                            <?php sp_icon_e( 'check', 'sp-icon--sm sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
+                            <?php sp_icon_auto( 'check', 'sp-icon--sm sp-icon--saffron', __( 'Sign in', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Back to sign in', 'sampreshan-child' ); ?>
                         </a>
                     </div>
@@ -334,7 +334,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
 
     <footer class="sp-login__footer">
         <p>
-            <?php sp_icon_e( 'dharma', 'sp-icon--sm sp-icon--saffron', __( 'SampreShan', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'dharma', 'sp-icon--sm sp-icon--saffron', __( 'SampreShan', 'sampreshan-child' ) ); ?>
             <?php
             printf(
                 /* translators: %s = site name */

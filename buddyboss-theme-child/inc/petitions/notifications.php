@@ -140,7 +140,7 @@ if ( ! function_exists( 'sp_petition_check_milestones' ) ) {
         if ( ! $author ) { return; }
         $pct = (int) ( $milestone * 100 );
         $subject = sprintf(
-            '[%s] 🎉 %d%% of goal reached on "%s"',
+            '[%s] %d%% of goal reached on "%s"',
             wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ),
             $pct,
             $petition->post_title

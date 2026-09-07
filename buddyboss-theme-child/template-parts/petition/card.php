@@ -56,7 +56,7 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
             <span class="sp-fu-pet__ph" aria-hidden="true">ॐ</span>
         <?php endif; ?>
         <?php if ( $cause_nm ) : ?>
-            <span class="sp-fu-pet__cause"><?php sp_icon_e( $cause_icon, 'sp-icon sp-icon--xs', '' ); ?><?php echo esc_html( $cause_nm ); ?></span>
+            <span class="sp-fu-pet__cause"><?php sp_icon_e( $cause_icon, 'sp-icon sp-icon--xs', '' ); ?><span class="sp-fu-pet__cause-text"><?php echo esc_html( $cause_nm ); ?></span></span>
         <?php endif; ?>
     </a>
     <div class="sp-fu-pet__body">
@@ -94,10 +94,10 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
         <div class="sp-fu-pet__foot">
             <?php if ( $can_sign ) : ?>
                 <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
-                    <?php echo $signed ? esc_html__( 'Supported ✓', 'sampreshan-child' ) : esc_html__( 'I Support', 'sampreshan-child' ); ?>
+                    <?php if ( $signed ) : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Supported', 'sampreshan-child' ); ?><?php else : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'I Support', 'sampreshan-child' ); ?><?php endif; ?>
                 </button>
             <?php else : ?>
-                <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'I Support', 'sampreshan-child' ); ?></a>
+                <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php esc_html_e( 'I Support', 'sampreshan-child' ); ?></a>
             <?php endif; ?>
             <a class="sp-fu-link" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Read', 'sampreshan-child' ); ?></a>
             <?php if ( is_user_logged_in() ) : ?>

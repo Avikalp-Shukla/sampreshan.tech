@@ -17,7 +17,7 @@ get_header();
     <!-- HERO -->
     <header class="sp-page__hero">
         <div class="sp-page__hero-icon">
-            <?php sp_icon_e( 'pen', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Terms', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'pen', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Terms', 'sampreshan-child' ) ); ?>
         </div>
         <h1 class="sp-page__hero-title"><?php esc_html_e( 'Terms & Conditions', 'sampreshan-child' ); ?></h1>
         <p class="sp-page__hero-sub">
@@ -38,7 +38,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'info', 'sp-icon--md sp-icon--saffron', __( 'Acceptance', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'info', 'sp-icon--md sp-icon--saffron', __( 'Acceptance', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Acceptance of Terms', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -48,7 +48,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'info', 'sp-icon--md sp-icon--saffron', __( 'Platform', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'info', 'sp-icon--md sp-icon--saffron', __( 'Platform', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Platform Description', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -64,7 +64,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Account', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'lock', 'sp-icon--md sp-icon--blue', __( 'Account', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'User Accounts', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -81,7 +81,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'petition', 'sp-icon--md sp-icon--saffron', __( 'Petitions', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', __( 'Petitions', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Petitions & Content', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -98,7 +98,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Conduct', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Conduct', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Prohibited Conduct', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -117,7 +117,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'warning', 'sp-icon--md sp-icon--warning', __( 'Liability', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'warning', 'sp-icon--md sp-icon--warning', __( 'Liability', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Limitation of Liability', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -133,7 +133,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'lock', 'sp-icon--md sp-icon--blue', __( 'Termination', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'lock', 'sp-icon--md sp-icon--blue', __( 'Termination', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Termination', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -144,7 +144,7 @@ get_header();
 
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Contact', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Contact', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Contact Us', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">

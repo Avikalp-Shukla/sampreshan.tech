@@ -17,7 +17,7 @@ get_header();
     <!-- HERO -->
     <header class="sp-page__hero">
         <div class="sp-page__hero-icon">
-            <?php sp_icon_e( 'verified', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Guidelines', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'verified', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Guidelines', 'sampreshan-child' ) ); ?>
         </div>
         <h1 class="sp-page__hero-title"><?php esc_html_e( 'Community Guidelines', 'sampreshan-child' ); ?></h1>
         <p class="sp-page__hero-sub">
@@ -30,7 +30,7 @@ get_header();
         <!-- GUIDELINES -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Respect', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'heart', 'sp-icon--md sp-icon--saffron', __( 'Respect', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Core Principles', 'sampreshan-child' ); ?>
             </h2>
             <ol class="sp-rules-list">
@@ -96,7 +96,7 @@ get_header();
         <!-- CONSEQUENCES -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'warning', 'sp-icon--md sp-icon--warning', __( 'Enforcement', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'warning', 'sp-icon--md sp-icon--warning', __( 'Enforcement', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Enforcement', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">
@@ -114,7 +114,7 @@ get_header();
         <!-- REPORT -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Report', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Report', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Report a Violation', 'sampreshan-child' ); ?>
             </h2>
             <div class="sp-page__content">

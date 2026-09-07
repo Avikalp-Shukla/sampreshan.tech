@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Veda Granth — Religious Education">
+  <defs>
+    <linearGradient id="vedPageL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#EFE3CB"/>
+      <stop offset="100%" stop-color="#FFFDF8"/>
+    </linearGradient>
+    <linearGradient id="vedPageR" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFDF8"/>
+      <stop offset="100%" stop-color="#EFE3CB"/>
+    </linearGradient>
+    <linearGradient id="vedCover" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ED7A1A"/>
+      <stop offset="100%" stop-color="#9A4F0B"/>
+    </linearGradient>
+    <radialGradient id="vedGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFE9C4" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFE9C4" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="vedShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="17" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#vedShadow)">
+    <circle cx="32" cy="28" r="18" fill="url(#vedGlow)"/>
+    <g stroke="#D4A017" stroke-width="2" stroke-linecap="round">
+      <line x1="32" y1="4" x2="32" y2="9"/>
+      <line x1="21" y1="7.5" x2="24" y2="11.5"/>
+      <line x1="43" y1="7.5" x2="40" y2="11.5"/>
+    </g>
+    <path d="M6 30 Q19 25 32 30 L32 52 Q19 47 6 52 Z" fill="url(#vedCover)"/>
+    <path d="M58 30 Q45 25 32 30 L32 52 Q45 47 58 52 Z" fill="url(#vedCover)"/>
+    <path d="M9 31 Q20 27 31 31.5 L31 49.5 Q20 45.5 9 49 Z" fill="url(#vedPageL)"/>
+    <path d="M55 31 Q44 27 33 31.5 L33 49.5 Q44 45.5 55 49 Z" fill="url(#vedPageR)"/>
+    <line x1="32" y1="31.5" x2="32" y2="49.5" stroke="#9A4F0B" stroke-width="1.4"/>
+    <text x="32" y="44" text-anchor="middle" font-size="11" fill="#9A1B1E" font-family="serif" font-weight="bold">ॐ</text>
+  </g>
+</svg>

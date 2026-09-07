@@ -58,15 +58,15 @@ if ( function_exists( 'sp_petitions_table' ) ) {
                 <?php esc_html_e( 'Your voice matters. Start a cause in two minutes, or back one that moves you.', 'sampreshan-child' ); ?>
             </p>
             <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $start_url ); ?>" style="width:100%;justify-content:center;margin-bottom:0.5rem;">
-                <?php sp_icon_e( 'plus', 'sp-icon--xs', '' ); ?>
+                <?php sp_icon_auto( 'plus', 'sp-icon--xs', '' ); ?>
                 <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>
             </a>
             <a class="sp-fu-sidelink" href="<?php echo esc_url( $petitions_url ); ?>">
-                <?php sp_icon_e( 'petition', 'sp-icon--sm', '' ); ?>
+                <?php sp_icon_auto( 'petition', 'sp-icon--sm', '' ); ?>
                 <?php esc_html_e( 'Browse petitions', 'sampreshan-child' ); ?>
             </a>
             <a class="sp-fu-sidelink" href="<?php echo esc_url( $feed_url ); ?>">
-                <?php sp_icon_e( 'feed', 'sp-icon--sm', '' ); ?>
+                <?php sp_icon_auto( 'feed', 'sp-icon--sm', '' ); ?>
                 <?php esc_html_e( 'Community feed', 'sampreshan-child' ); ?>
             </a>
         </aside>

@@ -3,7 +3,7 @@
  *
  * Listens for clicks on `.sp-sign-button[data-petition-id]` and posts to
  * admin-ajax.php with the SampreshanPetition nonce exposed in the page.
- * On success, swaps the button for a "Supported ✓" state and updates the
+ * On success, swaps the button for a "Supported" state and updates the
  * I count badge. Shows toast notifications instead of alerts.
  *
  * @package SampreShan_Child
@@ -78,6 +78,35 @@
         try { return new Intl.NumberFormat().format(n); } catch (e) { return String(n); }
     }
 
+    var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+    /* Eye that slowly forms after an I-badge click (identity moment). */
+    var EYE_SVG = '<svg class="sp-eye" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        + '<path class="sp-eye__outline" pathLength="100" d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z"/>'
+        + '<circle class="sp-eye__pupil" cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/></svg>';
+
+    /* I-badge sticker (same art as the permanent ibadge icon). */
+    var ibadgeUID = 0;
+    function ibadgeSVG() {
+        ibadgeUID += 1;
+        var u = 'j' + ibadgeUID;
+        return '<svg width="100%" height="100%" viewBox="0 0 64 64" aria-hidden="true">'
+            + '<defs>'
+            + '<linearGradient id="ibB' + u + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE9C4"/><stop offset="45%" stop-color="#F5C542"/><stop offset="100%" stop-color="#B8860B"/></linearGradient>'
+            + '<linearGradient id="ibS' + u + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FFB877"/><stop offset="50%" stop-color="#FF9933"/><stop offset="100%" stop-color="#C2410C"/></linearGradient>'
+            + '</defs>'
+            + '<rect x="14" y="8" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')"/>'
+            + '<rect x="26" y="17" width="12" height="30" rx="3" fill="url(#ibS' + u + ')"/>'
+            + '<rect x="14" y="47" width="36" height="9" rx="4.5" fill="url(#ibB' + u + ')"/>'
+            + '<rect x="17" y="10" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
+            + '<rect x="28" y="19" width="2.6" height="26" rx="1.3" fill="#FFFFFF" opacity="0.5"/>'
+            + '<rect x="17" y="49" width="30" height="2" rx="1" fill="#FFFFFF" opacity="0.65"/>'
+            + '</svg>';
+    }
+    function ibadgeWrap() {
+        return '<span style="display:inline-flex;width:1.15em;height:1.15em;vertical-align:-0.2em;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))">' + ibadgeSVG() + '</span> ';
+    }
+
     /* ── Bind sign/unsign button ── */
     function bindButton(btn) {
         if (btn.dataset.spBound === '1') { return; }
@@ -93,58 +122,79 @@
 
             btn.disabled = true;
             var oldHTML = btn.innerHTML;
-            var label = (window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signing) || 'Supporting\u2026';
-            btn.innerHTML = '<span class="sp-spinner sp-spinner--sm"></span> ' + label;
+            var startedAt = Date.now();
+            var isUnsign = btn.dataset.signed === '1';
+            var animate = !reduceMotion && !isUnsign;
 
-            var action = btn.dataset.signed === '1' ? 'sp_unsign_petition' : 'sp_sign_petition';
+            if (animate) {
+                // I → eye morph: lock width so layout never jumps.
+                btn.style.minWidth = btn.offsetWidth + 'px';
+                btn.classList.add('is-animating');
+                btn.innerHTML = EYE_SVG;
+            } else {
+                var label = (window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signing) || 'Supporting\u2026';
+                btn.innerHTML = '<span class="sp-spinner sp-spinner--sm"></span> ' + label;
+            }
+
+            var action = isUnsign ? 'sp_unsign_petition' : 'sp_sign_petition';
             var payload = { petition_id: btn.dataset.petitionId };
             if (comment) { payload.comment = comment; }
 
-            post(action, payload)
-                .then(function (res) {
-                    if (!res || !res.success) {
-                        btn.disabled = false;
-                        btn.innerHTML = oldHTML;
-                        var msg = (res && res.data && res.data.message) || 'Something went wrong. Please try again.';
-                        showToast(msg, 'error');
-                        return;
-                    }
-
-                    // Update button state
-                    var isSigned = action === 'sp_sign_petition';
-                    btn.dataset.signed = isSigned ? '1' : '0';
-                    btn.classList.toggle('is-signed', isSigned);
-
-                    if (isSigned) {
-                        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ' +
-                            ((window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signed) || 'Supported \u2713');
-                        showToast('Thank you — your I is counted!', 'success');
-                    } else {
-                        btn.innerHTML = oldHTML;
-                        showToast('I removed.', 'info');
-                    }
-
-                    // Update count badge
-                    var count = (res.data && typeof res.data.count !== 'undefined') ? res.data.count : null;
-                    if (count !== null) {
-                        var parentCard = btn.closest('.petition-card, .sp-sign-card, [data-petition-card], .sp-petition-single__hero');
-                        if (parentCard) {
-                            var badges = parentCard.querySelectorAll('[data-sp-signature-count]');
-                            badges.forEach(function (badge) {
-                                badge.textContent = fmt(count);
-                            });
-                        }
-                    }
-
-                    // Clear comment field
-                    if (commentField) { commentField.value = ''; }
-
-                    btn.disabled = false;
-                })
-                .catch(function () {
+            function applyResult(ok, res) {
+                btn.classList.remove('is-animating');
+                btn.style.minWidth = '';
+                if (!ok || !res || !res.success) {
                     btn.disabled = false;
                     btn.innerHTML = oldHTML;
-                    showToast('Network error. Please try again.', 'error');
+                    var msg = (ok && res && res.data && res.data.message) || 'Something went wrong. Please try again.';
+                    showToast(msg, 'error');
+                    return;
+                }
+
+                // Update button state
+                var isSigned = action === 'sp_sign_petition';
+                btn.dataset.signed = isSigned ? '1' : '0';
+                btn.classList.toggle('is-signed', isSigned);
+
+                if (isSigned) {
+                    btn.innerHTML = ibadgeWrap() +
+                        ((window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signed) || 'Supported');
+                    showToast('Thank you — your I is counted!', 'success');
+                } else {
+                    btn.innerHTML = oldHTML;
+                    showToast('I removed.', 'info');
+                }
+
+                // Update count badge with a pop
+                var count = (res.data && typeof res.data.count !== 'undefined') ? res.data.count : null;
+                if (count !== null) {
+                    var parentCard = btn.closest('.petition-card, .sp-sign-card, [data-petition-card], .sp-petition-single__hero');
+                    if (parentCard) {
+                        var badges = parentCard.querySelectorAll('[data-sp-signature-count]');
+                        badges.forEach(function (badge) {
+                            badge.textContent = fmt(count);
+                            badge.classList.remove('sp-count-pop');
+                            void badge.offsetWidth;
+                            badge.classList.add('sp-count-pop');
+                        });
+                    }
+                }
+
+                // Clear comment field
+                if (commentField) { commentField.value = ''; }
+
+                btn.disabled = false;
+            }
+
+            post(action, payload)
+                .then(function (res) {
+                    // Eye holds a full 2 seconds from click before the I returns.
+                    var wait = animate ? Math.max(0, 2000 - (Date.now() - startedAt)) : 0;
+                    setTimeout(function () { applyResult(true, res); }, wait);
+                })
+                .catch(function () {
+                    var wait = animate ? Math.max(0, 2000 - (Date.now() - startedAt)) : 0;
+                    setTimeout(function () { applyResult(false, null); }, wait);
                 });
         });
     }

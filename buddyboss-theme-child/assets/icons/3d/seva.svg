@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Seva — Community Welfare helping hands">
+  <defs>
+    <linearGradient id="sevHand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#E0851A"/>
+    </linearGradient>
+    <radialGradient id="sevFlame" cx="0.5" cy="0.4" r="0.6">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="40%" stop-color="#FFD9A8"/>
+      <stop offset="100%" stop-color="#FF9933"/>
+    </radialGradient>
+    <radialGradient id="sevGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFD9A8" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#FFD9A8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sevShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="16" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#sevShadow)">
+    <circle cx="32" cy="28" r="18" fill="url(#sevGlow)"/>
+    <path d="M8 36 Q10 48 24 51 Q30 52.5 32 50 Q34 52.5 40 51 Q54 48 56 36 Q48 42 40 41 Q36 40.5 32 42 Q28 40.5 24 41 Q16 42 8 36 Z" fill="url(#sevHand)"/>
+    <path d="M14 38 Q24 43 32 42.5 Q40 43 50 38" stroke="#9A4F0B" stroke-width="1.2" fill="none" opacity="0.5" stroke-linecap="round"/>
+    <path d="M32 34 C29.5 30.5, 29.5 27, 32 23.5 C34.5 27, 34.5 30.5, 32 34 Z" fill="url(#sevFlame)"/>
+    <ellipse cx="32" cy="29" rx="1.1" ry="2.6" fill="#FFFFFF" opacity="0.7"/>
+    <path d="M24 33 Q32 30 40 33" stroke="#B33A3A" stroke-width="1.4" fill="none" opacity="0.55" stroke-linecap="round"/>
+  </g>
+</svg>

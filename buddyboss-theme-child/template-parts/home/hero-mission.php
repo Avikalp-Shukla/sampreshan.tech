@@ -1,7 +1,8 @@
 <?php
 /**
- * Home: Hero / Mission Section — Clean Edition
- * Explains what Sampreshan is in one glance. Uses the original logo.
+ * Home: Hero / Mission — Premium 3D Dark Edition
+ * Full-viewport dark immersive, CSS perspective 3D floating object,
+ * dramatic lighting, scroll-triggered reveals.
  *
  * @package SampreShan_Child
  */
@@ -13,116 +14,90 @@ $feed_url   = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/fee
 $logo_url   = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 'uploads/2026/06/sampreshan-logo-svg.svg' );
 $is_logged_in = is_user_logged_in();
 ?>
-<section class="sp-hero" aria-label="Welcome to <?php echo esc_attr( $site_name ); ?>">
-    <div class="sp-hero__inner">
-        <div class="sp-hero__copy">
-            <p class="sp-hero__badge">
-                <img class="sp-hero__badge-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="20" height="20" />
-                <?php esc_html_e( 'Dedicated to all who have faith in Sanatan Dharma', 'sampreshan-child' ); ?>
+<section class="d3-hero" aria-label="Welcome to <?php echo esc_attr( $site_name ); ?>">
+    <div class="d3-hero__light" aria-hidden="true"></div>
+    <div class="d3-hero__grid" aria-hidden="true"></div>
+
+    <div class="d3-hero__grid-inner">
+        <div class="d3-hero__copy">
+            <p class="d3-hero__eyebrow">
+                <?php esc_html_e( 'Sanatan Voice Platform', 'sampreshan-child' ); ?>
             </p>
-            <h1 class="sp-hero__title">
+            <h1 class="d3-hero__title">
                 <?php esc_html_e( 'One voice for', 'sampreshan-child' ); ?>
-                <span class="sp-hero__accent"><?php esc_html_e( 'Sanatan Dharma.', 'sampreshan-child' ); ?></span>
+                <span class="d3-hero__accent"><?php esc_html_e( 'Sanatan Dharma.', 'sampreshan-child' ); ?></span>
             </h1>
-            <p class="sp-hero__sub">
-                <?php esc_html_e( 'Sampreshan is a community platform where you can raise local issues, start petitions, gather Is, and connect with people who share Dharmic values — a worldwide Sanatani social media with every Facebook-Twitter tool, plus Issue Sampreshan for Dharma.', 'sampreshan-child' ); ?>
+            <p class="d3-hero__sub">
+                <?php esc_html_e( 'A worldwide community platform where Sanatanis connect, raise issues, start petitions, and gather support — every tool of social media, plus Issue Sampreshan for Dharma.', 'sampreshan-child' ); ?>
             </p>
-            <div class="sp-hero__actions">
-                <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $start_url ); ?>">
-                    <?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?>
+            <div class="d3-hero__actions">
+                <a class="d3-btn d3-btn--primary d3-btn--lg" href="<?php echo esc_url( $start_url ); ?>">
+                    <?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?>
                     <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>
                 </a>
-                <a class="btn btn--ghost btn--lg" href="<?php echo esc_url( $is_logged_in ? $feed_url : $about_url ); ?>">
+                <a class="d3-btn d3-btn--ghost d3-btn--lg" href="<?php echo esc_url( $is_logged_in ? $feed_url : $about_url ); ?>">
                     <?php echo $is_logged_in ? esc_html__( 'Explore Community', 'sampreshan-child' ) : esc_html__( 'What is Sampreshan?', 'sampreshan-child' ); ?>
                 </a>
             </div>
-            <ul class="sp-hero__points">
-                <li><?php sp_icon_e( 'dharma', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'One platform for Sanatanis worldwide', 'sampreshan-child' ); ?></li>
-                <li><?php sp_icon_e( 'shankh', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Issue Sampreshan — raise your voice', 'sampreshan-child' ); ?></li>
+            <ul class="d3-hero__points">
+                <li><?php sp_icon_auto( 'dharma', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'One platform for Sanatanis worldwide', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_auto( 'shankh', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Issue Sampreshan — raise your voice', 'sampreshan-child' ); ?></li>
                 <li><span class="sp-ibadge sp-ibadge--sm" aria-hidden="true">I</span><?php esc_html_e( 'Every support is an I', 'sampreshan-child' ); ?></li>
             </ul>
         </div>
-        <div class="sp-hero__art" aria-hidden="true">
-            <div class="sp-hero__logo-card">
-                <img class="sp-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
-                <p class="sp-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
-                <p class="sp-hero__logo-tag"><?php esc_html_e( 'Voice · Dialogue · Support', 'sampreshan-child' ); ?></p>
+
+        <div class="d3-hero__art" aria-hidden="true">
+            <div class="d3-hero__object">
+                <div class="d3-hero__card">
+                    <img class="d3-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
+                    <p class="d3-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
+                    <p class="d3-hero__logo-tag"><?php esc_html_e( 'Voice · Dialogue · Support', 'sampreshan-child' ); ?></p>
+                </div>
             </div>
         </div>
     </div>
-    <?php /* Messenger pigeons — decorative flight layer (CSS-only motion). */ ?>
-    <div class="sp-pigeon-flight" aria-hidden="true">
-        <div class="sp-pigeon sp-pigeon--near"><div class="sp-pigeon__bob"><?php if ( function_exists( 'sp_pigeon' ) ) { sp_pigeon( 'near', true ); } ?></div></div>
-        <div class="sp-pigeon sp-pigeon--mid"><div class="sp-pigeon__bob"><?php if ( function_exists( 'sp_pigeon' ) ) { sp_pigeon( 'mid', false ); } ?></div></div>
-        <div class="sp-pigeon sp-pigeon--far"><div class="sp-pigeon__bob"><?php if ( function_exists( 'sp_pigeon' ) ) { sp_pigeon( 'far', false ); } ?></div></div>
+
+    <div class="d3-hero__scroll" aria-hidden="true">
+        <span><?php esc_html_e( 'Scroll', 'sampreshan-child' ); ?></span>
+        <div class="d3-hero__scroll-line"></div>
     </div>
 </section>
 
 <?php
 /**
- * What Sampreshan is: worldwide Sanatani social media + Issue Sampreshan.
- * One topic = one symbol: network (connect), shankh (raise voice),
- * I-badge (support, like a Like).
+ * What Sampreshan is — dark immersive section with 3D cards.
  */
 ?>
-<section class="sp-section sp-section--center" aria-labelledby="sp-platform-h">
-    <div class="sp-section__head">
-        <p class="sp-section__eyebrow"><?php esc_html_e( 'This is Sampreshan', 'sampreshan-child' ); ?></p>
-        <h2 class="sp-section__title" id="sp-platform-h"><?php sp_icon_e( 'dharma', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'One worldwide social media for Sanatanis', 'sampreshan-child' ); ?></h2>
-        <p class="sp-section__sub"><?php esc_html_e( 'Hindus — and everyone across the world living by Sanatan Dharma — connect here. Every tool of Facebook and Twitter, among your own people. Plus one special tool: Issue Sampreshan — like Change.org, only for Dharma.', 'sampreshan-child' ); ?></p>
-    </div>
-    <div class="sp-steps">
-        <div class="sp-step-card">
-            <span class="sp-step-card__num" aria-hidden="true">1</span>
-            <span class="sp-step-card__icon" aria-hidden="true"><?php sp_icon_e( 'network', 'sp-icon--md', '' ); ?></span>
-            <h3><?php esc_html_e( 'Connect Like Family', 'sampreshan-child' ); ?></h3>
-            <p><?php esc_html_e( 'Make friends, post, share photos and videos, like, comment and discuss. The whole world\u2019s Sanatani family, on one platform.', 'sampreshan-child' ); ?></p>
+<section class="d3-section" aria-labelledby="sp-platform-h">
+    <div class="d3-section__light" aria-hidden="true"></div>
+    <div class="d3-section__inner">
+        <div class="d3-reveal" style="text-align:center; max-width:640px; margin:0 auto clamp(2rem, 5vw, 4rem);">
+            <p class="d3-section__eyebrow" style="justify-content:center;"><?php esc_html_e( 'This is Sampreshan', 'sampreshan-child' ); ?></p>
+            <h2 class="d3-section__title" id="sp-platform-h"><?php esc_html_e( 'One worldwide social media for Sanatanis', 'sampreshan-child' ); ?></h2>
+            <p class="d3-section__sub" style="margin-left:auto;margin-right:auto;"><?php esc_html_e( 'Hindus — and everyone across the world living by Sanatan Dharma — connect here. Every tool of Facebook and Twitter, among your own people. Plus one special tool: Issue Sampreshan — like Change.org, only for Dharma.', 'sampreshan-child' ); ?></p>
         </div>
-        <div class="sp-step-card">
-            <span class="sp-step-card__num" aria-hidden="true">2</span>
-            <span class="sp-step-card__icon" aria-hidden="true"><?php sp_icon_e( 'shankh', 'sp-icon--md', '' ); ?></span>
-            <h3><?php esc_html_e( 'Issue Sampreshan', 'sampreshan-child' ); ?></h3>
-            <p><?php esc_html_e( 'Raise any Dharma-related problem directly on the platform. People sign up with email, read your issue and carry it forward.', 'sampreshan-child' ); ?></p>
+
+        <div class="d3-grid-3 d3-stagger">
+            <div class="d3-card">
+                <div class="d3-card__icon"><?php sp_icon_auto( 'network', 'sp-icon--md', '' ); ?></div>
+                <h3 class="d3-card__title"><?php esc_html_e( 'Connect Like Family', 'sampreshan-child' ); ?></h3>
+                <p class="d3-card__text"><?php esc_html_e( 'Make friends, post, share photos and videos, like, comment and discuss. The whole world\u2019s Sanatani family, on one platform.', 'sampreshan-child' ); ?></p>
+            </div>
+            <div class="d3-card">
+                <div class="d3-card__icon"><?php sp_icon_auto( 'shankh', 'sp-icon--md', '' ); ?></div>
+                <h3 class="d3-card__title"><?php esc_html_e( 'Issue Sampreshan', 'sampreshan-child' ); ?></h3>
+                <p class="d3-card__text"><?php esc_html_e( 'Raise any Dharma-related problem directly on the platform. People sign up with email, read your issue and carry it forward.', 'sampreshan-child' ); ?></p>
+            </div>
+            <div class="d3-card">
+                <div class="d3-card__icon"><span class="sp-ibadge" aria-hidden="true">I</span></div>
+                <h3 class="d3-card__title"><?php esc_html_e( 'I — The Badge of Support', 'sampreshan-child' ); ?></h3>
+                <p class="d3-card__text"><?php esc_html_e( 'Every support is an I badge — just like a Like. The more people share and support, the more Is you collect. More Is, louder voice.', 'sampreshan-child' ); ?></p>
+            </div>
         </div>
-        <div class="sp-step-card">
-            <span class="sp-step-card__num" aria-hidden="true">3</span>
-            <span class="sp-step-card__icon" aria-hidden="true"><span class="sp-ibadge" aria-hidden="true">I</span></span>
-            <h3><?php esc_html_e( 'I — The Badge of Support', 'sampreshan-child' ); ?></h3>
-            <p><?php esc_html_e( 'Every support is an I badge — just like a Like. The more people share and support, the more Is you collect. More Is, louder voice.', 'sampreshan-child' ); ?></p>
+
+        <div class="d3-reveal" style="text-align:center; margin-top:clamp(2rem, 4vw, 3rem);">
+            <a class="d3-btn d3-btn--primary d3-btn--lg" href="<?php echo esc_url( $start_url ); ?>"><?php esc_html_e( 'Start an Issue Sampreshan', 'sampreshan-child' ); ?></a>
+            <a class="d3-btn d3-btn--ghost d3-btn--lg" href="<?php echo esc_url( wp_registration_url() ); ?>" style="margin-left:0.75rem;"><?php esc_html_e( 'Join with Email', 'sampreshan-child' ); ?></a>
         </div>
-    </div>
-    <div class="sp-section__actions">
-        <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $start_url ); ?>"><?php esc_html_e( 'Start an Issue Sampreshan', 'sampreshan-child' ); ?></a>
-        <a class="btn btn--ghost btn--lg" href="<?php echo esc_url( wp_registration_url() ); ?>"><?php esc_html_e( 'Join with Email', 'sampreshan-child' ); ?></a>
     </div>
 </section>
-
-<?php
-/**
- * IconScout search widget — only visible to logged-in users.
- */
-if ( is_user_logged_in() ) : ?>
-    <section class="sp-section" aria-labelledby="sp-iconscout-h">
-        <div class="sp-section__head">
-            <p class="sp-section__eyebrow"><?php esc_html_e( 'Icon Library', 'sampreshan-child' ); ?></p>
-            <h2 class="sp-section__title" id="sp-iconscout-h"><?php sp_icon_auto( 'search', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Search Icons, Illustrations & Lottie', 'sampreshan-child' ); ?></h2>
-            <p class="sp-section__sub"><?php esc_html_e( 'Browse the IconScout collection directly in your dashboard.', 'sampreshan-child' ); ?></p>
-        </div>
-        <div class="sp-icon-scout">
-            <div class="sp-icon-scout__search">
-                <input type="search" id="sp-icon-scout-input" class="sp-icon-scout__input" placeholder="<?php esc_attr_e( 'Search icons, illustrations, lottie…', 'sampreshan-child' ); ?>" aria-label="<?php esc_attr_e( 'Search icons', 'sampreshan-child' ); ?>" />
-                <select id="sp-icon-scout-asset" class="sp-icon-scout__select" aria-label="<?php esc_attr_e( 'Asset type', 'sampreshan-child' ); ?>">
-                    <option value="icon"><?php esc_html_e( 'Icons', 'sampreshan-child' ); ?></option>
-                    <option value="illustration"><?php esc_html_e( 'Illustrations', 'sampreshan-child' ); ?></option>
-                    <option value="lottie"><?php esc_html_e( 'Lottie', 'sampreshan-child' ); ?></option>
-                </select>
-                <button type="button" id="sp-icon-scout-btn" class="btn btn--primary btn--sm"><?php esc_html_e( 'Search', 'sampreshan-child' ); ?></button>
-            </div>
-            <div id="sp-icon-scout-results" class="sp-icon-scout__results" aria-live="polite"></div>
-            <div id="sp-icon-scout-loading" class="sp-icon-scout__loading" hidden>
-                <span class="sp-spinner"></span> <?php esc_html_e( 'Searching IconScout…', 'sampreshan-child' ); ?>
-            </div>
-            <p id="sp-icon-scout-error" class="sp-icon-scout__error" hidden></p>
-        </div>
-    </section>
-<?php endif; ?>

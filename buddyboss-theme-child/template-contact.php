@@ -61,7 +61,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
     <!-- HERO -->
     <header class="sp-page__hero">
         <div class="sp-page__hero-icon">
-            <?php sp_icon_e( 'mail', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Contact', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'mail', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Contact', 'sampreshan-child' ) ); ?>
         </div>
         <h1 class="sp-page__hero-title"><?php esc_html_e( 'Contact Us', 'sampreshan-child' ); ?></h1>
         <p class="sp-page__hero-sub">
@@ -75,7 +75,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
         <div class="sp-contact-info">
             <div class="sp-contact-info__item">
                 <div class="sp-contact-info__item-icon">
-                    <?php sp_icon_e( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Email', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'mail', 'sp-icon--md sp-icon--saffron', __( 'Email', 'sampreshan-child' ) ); ?>
                 </div>
                 <div>
                     <div class="sp-contact-info__item-label"><?php esc_html_e( 'Email', 'sampreshan-child' ); ?></div>
@@ -86,7 +86,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
             </div>
             <div class="sp-contact-info__item">
                 <div class="sp-contact-info__item-icon">
-                    <?php sp_icon_e( 'verified', 'sp-icon--md sp-icon--saffron', __( 'Trust', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'verified', 'sp-icon--md sp-icon--saffron', __( 'Trust', 'sampreshan-child' ) ); ?>
                 </div>
                 <div>
                     <div class="sp-contact-info__item-label"><?php esc_html_e( 'Organization', 'sampreshan-child' ); ?></div>
@@ -97,7 +97,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
             </div>
             <div class="sp-contact-info__item">
                 <div class="sp-contact-info__item-icon">
-                    <?php sp_icon_e( 'location', 'sp-icon--md sp-icon--saffron', __( 'Location', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'location', 'sp-icon--md sp-icon--saffron', __( 'Location', 'sampreshan-child' ) ); ?>
                 </div>
                 <div>
                     <div class="sp-contact-info__item-label"><?php esc_html_e( 'Website', 'sampreshan-child' ); ?></div>
@@ -111,13 +111,13 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
         <!-- CONTACT FORM -->
         <section class="sp-page__card">
             <h2 class="sp-page__section-title">
-                <?php sp_icon_e( 'pen', 'sp-icon--md sp-icon--saffron', __( 'Message', 'sampreshan-child' ) ); ?>
+                <?php sp_icon_auto( 'pen', 'sp-icon--md sp-icon--saffron', __( 'Message', 'sampreshan-child' ) ); ?>
                 <?php esc_html_e( 'Send us a Message', 'sampreshan-child' ); ?>
             </h2>
 
             <?php if ( $form_sent ) : ?>
                 <div class="sp-page__content" style="text-align: center; padding: 2rem 0;">
-                    <?php sp_icon_e( 'check', 'sp-icon--3xl sp-icon--success', __( 'Sent', 'sampreshan-child' ) ); ?>
+                    <?php sp_icon_auto( 'check', 'sp-icon--3xl sp-icon--success', __( 'Sent', 'sampreshan-child' ) ); ?>
                     <h3 style="margin: 1rem 0 0.5rem; color: var(--success, #2D7A4D);"><?php esc_html_e( 'Message Sent!', 'sampreshan-child' ); ?></h3>
                     <p><?php esc_html_e( 'Thank you for reaching out. We will get back to you within 48 hours.', 'sampreshan-child' ); ?></p>
                 </div>
@@ -125,7 +125,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
 
                 <?php if ( $form_error ) : ?>
                     <div class="sp-login__error" role="alert" style="margin-bottom: 1rem;">
-                        <?php sp_icon_e( 'close', 'sp-icon--md sp-icon--danger', __( 'Error', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_auto( 'close', 'sp-icon--md sp-icon--danger', __( 'Error', 'sampreshan-child' ) ); ?>
                         <span><?php echo esc_html( $form_error ); ?></span>
                     </div>
                 <?php endif; ?>
@@ -136,14 +136,14 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
                     <div class="sp-contact-form__row">
                         <div class="sp-contact-form__field">
                             <label class="sp-contact-form__label" for="sp-contact-name">
-                                <?php sp_icon_e( 'profile', 'sp-icon--sm sp-icon--muted', __( 'Name', 'sampreshan-child' ) ); ?>
+                                <?php sp_icon_auto( 'profile', 'sp-icon--sm sp-icon--muted', __( 'Name', 'sampreshan-child' ) ); ?>
                                 <?php esc_html_e( 'Name', 'sampreshan-child' ); ?> *
                             </label>
                             <input type="text" id="sp-contact-name" name="name" class="sp-contact-form__input" required autocomplete="name" value="<?php echo esc_attr( $contact_name ); ?>" />
                         </div>
                         <div class="sp-contact-form__field">
                             <label class="sp-contact-form__label" for="sp-contact-email">
-                                <?php sp_icon_e( 'mail', 'sp-icon--sm sp-icon--muted', __( 'Email', 'sampreshan-child' ) ); ?>
+                                <?php sp_icon_auto( 'mail', 'sp-icon--sm sp-icon--muted', __( 'Email', 'sampreshan-child' ) ); ?>
                                 <?php esc_html_e( 'Email', 'sampreshan-child' ); ?> *
                             </label>
                             <input type="email" id="sp-contact-email" name="email" class="sp-contact-form__input" required autocomplete="email" value="<?php echo esc_attr( $contact_email ); ?>" />
@@ -152,7 +152,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
 
                     <div class="sp-contact-form__field">
                         <label class="sp-contact-form__label" for="sp-contact-subject">
-                            <?php sp_icon_e( 'document', 'sp-icon--sm sp-icon--muted', __( 'Subject', 'sampreshan-child' ) ); ?>
+                            <?php sp_icon_auto( 'document', 'sp-icon--sm sp-icon--muted', __( 'Subject', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Subject', 'sampreshan-child' ); ?>
                         </label>
                         <select id="sp-contact-subject" name="subject" class="sp-contact-form__select">
@@ -168,7 +168,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
 
                     <div class="sp-contact-form__field">
                         <label class="sp-contact-form__label" for="sp-contact-message">
-                            <?php sp_icon_e( 'pen', 'sp-icon--sm sp-icon--muted', __( 'Message', 'sampreshan-child' ) ); ?>
+                            <?php sp_icon_auto( 'pen', 'sp-icon--sm sp-icon--muted', __( 'Message', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Message', 'sampreshan-child' ); ?> *
                         </label>
                         <textarea id="sp-contact-message" name="message" class="sp-contact-form__textarea" required placeholder="<?php esc_attr_e( 'Tell us how we can help...', 'sampreshan-child' ); ?>"><?php echo esc_textarea( $contact_message ); ?></textarea>

@@ -50,7 +50,7 @@ $start_url = home_url( '/start-a-petition/' );
         <p class="sp-users__sub"><?php esc_html_e( 'Browse every cause the community is rallying behind. Give an I to what moves you — or start your own.', 'sampreshan-child' ); ?></p>
         <div class="sp-users__hero-actions">
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>">
-                <?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?>
+                <?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?>
                 <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>
             </a>
         </div>
@@ -59,7 +59,7 @@ $start_url = home_url( '/start-a-petition/' );
     <form class="sp-users__filters" method="get" action="<?php echo esc_url( get_permalink() ); ?>" role="search">
         <label class="sp-users__search">
             <span class="screen-reader-text"><?php esc_html_e( 'Search petitions', 'sampreshan-child' ); ?></span>
-            <?php sp_icon_e( 'search', 'sp-icon--sm', '' ); ?>
+            <?php sp_icon_auto( 'search', 'sp-icon--sm', '' ); ?>
             <input type="search" name="q" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Search petitions…', 'sampreshan-child' ); ?>" />
         </label>
         <label class="sp-users__select">
@@ -107,7 +107,7 @@ $start_url = home_url( '/start-a-petition/' );
         </nav>
     <?php else : ?>
         <div class="sp-dash-empty sp-dash-card">
-            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_e( 'petition', 'sp-icon--xl', '' ); ?></span>
+            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_auto( 'petition', 'sp-icon--xl', '' ); ?></span>
             <h3 class="sp-dash-empty__title"><?php esc_html_e( 'No petitions found', 'sampreshan-child' ); ?></h3>
             <p class="sp-dash-empty__desc"><?php esc_html_e( 'Try a different search — or be the first to raise this cause.', 'sampreshan-child' ); ?></p>
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>"><?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?></a>

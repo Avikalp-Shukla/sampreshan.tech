@@ -1,0 +1,630 @@
+/**
+ * Mobile Experience Pack — Premium Edition
+ * Phone-only layer (max-width: 768px + 480px refinements).
+ * Loaded LAST so it wins over every skin: darker + richer mobile
+ * palette, a mobile-only typography system, and full-screen
+ * page-by-page alignment. Nothing here may leak to desktop —
+ * every rule lives inside a mobile media query.
+ *
+ * @package SampreShan_Child
+ */
+
+/* ============================================================
+   MOBILE (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+
+    /* ── §0. DARKER + RICHER mobile palette ────────────────
+       Only future-skin tokens are deepened. Base --bg/--text
+       vars are untouched — pale chips/inputs rely on them. */
+    body.sp-future {
+        --ft-bg: #030509;
+        --ft-bg2: #070C1D;
+        --ft-panel: rgba(255, 255, 255, 0.06);
+        --ft-panel-solid: #0A1020;
+        --ft-line: rgba(255, 153, 51, 0.28);
+        --ft-line-soft: rgba(255, 255, 255, 0.13);
+        --ft-neon: #FF9500;
+        --ft-saffron: #FFA03D;
+        --ft-gold: #FFD34D;
+        --ft-cyan: #4FE6FF;
+        --ft-text: #FFF8EC;
+        --ft-muted: #C9BC9F;
+        --ft-faint: #8F8471;
+
+        background: #030509;
+    }
+
+    body.sp-future::before {
+        background:
+            radial-gradient(700px 380px at 12% -60px, rgba(255, 138, 0, 0.20), transparent 60%),
+            radial-gradient(620px 340px at 88% 8%, rgba(79, 230, 255, 0.10), transparent 60%),
+            radial-gradient(800px 480px at 50% 110%, rgba(154, 27, 30, 0.28), transparent 60%),
+            linear-gradient(180deg, #030509 0%, #05080F 100%);
+    }
+
+    body.sp-future .site-header {
+        background: rgba(3, 5, 12, 0.88);
+        border-bottom-color: rgba(255, 153, 51, 0.28);
+    }
+
+    body.sp-future .site-footer {
+        background: #020409;
+    }
+
+    body.sp-future .mobile-tab-nav {
+        background: rgba(3, 5, 12, 0.94);
+        border-top-color: rgba(255, 153, 51, 0.28);
+    }
+
+    body.sp-future .sp-mobile-menu {
+        background: rgba(3, 5, 12, 0.98);
+    }
+
+    body.sp-future .sp-trust {
+        background: linear-gradient(135deg, #060312 0%, #220B03 55%, #062A3A 130%);
+        border-color: rgba(255, 153, 51, 0.38);
+    }
+
+    body.sp-future .btn--primary,
+    body.sp-future .sp-fu-btn--primary {
+        background: linear-gradient(135deg, #FF9500 0%, #E04E00 100%);
+        box-shadow: 0 0 0 1px rgba(255, 200, 120, 0.35), 0 10px 30px rgba(255, 138, 0, 0.45);
+    }
+
+    /* ── §1. MOBILE TYPOGRAPHY SYSTEM ─────────────────────
+       Distinct from desktop/tablet: tighter display tracking,
+       roomier body leading, chunkier buttons, balanced heads. */
+    :root {
+        --text-7xl: 2.6rem;
+        --text-6xl: 2.2rem;
+        --text-5xl: 1.9rem;
+        --text-4xl: 1.75rem;
+        --text-3xl: 1.5rem;
+        --text-2xl: 1.3rem;
+        --text-xl: 1.12rem;
+        --text-lg: 1.02rem;
+        --text-base: 1rem;
+        --text-sm: 0.875rem;
+        --text-xs: 0.78rem;
+        --leading-normal: 1.7;
+        --leading-relaxed: 1.78;
+        --leading-snug: 1.4;
+    }
+
+    body {
+        font-size: 1rem;
+        line-height: 1.7;
+        letter-spacing: 0.002em;
+    }
+
+    h1, h2, h3,
+    .sp-hero__title,
+    .home-hero__title,
+    .sp-section__title,
+    .sp-users__title,
+    .sp-page__hero-title,
+    .sp-dash-name,
+    .sp-petition-single__title {
+        letter-spacing: -0.018em;
+        text-wrap: balance;
+        line-height: 1.18;
+    }
+
+    .sp-hero__sub,
+    .sp-section__sub,
+    .sp-users__sub,
+    .sp-page__hero-sub,
+    .home-hero__sub,
+    .sp-page__content p,
+    .post-card__content,
+    .sp-feed__excerpt,
+    .sp-petition-single__content p {
+        text-wrap: pretty;
+        line-height: 1.78;
+    }
+
+    .sp-section__eyebrow,
+    .sp-fu-eyebrow,
+    .home-section__eyebrow,
+    .sp-dash-eyebrow,
+    .mobile-tab-nav__item {
+        letter-spacing: 0.16em;
+    }
+
+    .btn,
+    .sp-fu-btn,
+    .btn-3d {
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+    }
+
+    .sp-fu-pet__title,
+    .sp-pet-card__title,
+    .petition-card__title {
+        font-size: 1.02rem;
+        line-height: 1.5;
+    }
+
+    .post-card__content {
+        font-size: 0.98rem;
+    }
+
+    /* ── §2. GLOBAL MOBILE ALIGNMENT ────────────────────── */
+    html, body {
+        overflow-x: clip;
+    }
+
+    .sp-landing,
+    .sp-page,
+    .sp-page.sp-users,
+    .sp-dashboard__inner,
+    .sp-petition-single,
+    .sp-profile,
+    .sp-users__hero,
+    .sp-users__filters,
+    .sp-pet-grid,
+    .sp-member-grid,
+    .sp-login {
+        max-width: 100%;
+    }
+
+    .sp-landing,
+    .sp-dashboard__inner,
+    .sp-petition-single,
+    .sp-profile {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    img, video, iframe {
+        max-width: 100%;
+    }
+
+    .sp-page__content iframe,
+    .sp-petition-single__content iframe,
+    .sp-feed iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    /* iOS auto-zoom guard: inputs stay at 16px on phones */
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+
+    .sp-contact-form__input,
+    .sp-contact-form__textarea,
+    .sp-contact-form__select,
+    .sp-form-input,
+    .sp-form-select,
+    .sp-form-textarea,
+    .sp-login__field .input,
+    .search-overlay__input,
+    .sp-users__search input {
+        font-size: 16px;
+    }
+
+    /* Thumb-friendly targets */
+    .sp-dash-link,
+    .sp-fu-link,
+    .sp-text-link,
+    .sp-dash-row__actions .sp-dash-link {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .site-header__menu-toggle,
+    .site-header__search-btn,
+    .site-header__notification-btn,
+    .sp-form-upload__remove {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* ── §3. NAV / SEARCH / FOOTER / TOAST ───────────────── */
+    .search-overlay {
+        padding: 0;
+        align-items: flex-start;
+    }
+
+    .search-overlay__inner {
+        margin: 0;
+        max-width: 100%;
+        border-radius: 0 0 20px 20px;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+    }
+
+    .search-overlay__input-wrap {
+        padding: 14px;
+    }
+
+    .search-overlay__results {
+        max-height: 62dvh;
+    }
+
+    .site-footer__social-link {
+        width: 44px;
+        height: 44px;
+    }
+
+    .site-footer__list a {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    /* ── §4. LANDING + HOME SECTIONS ─────────────────────── */
+    .sp-hero__inner {
+        text-align: left;
+    }
+
+    .sp-hero__title {
+        font-size: clamp(1.9rem, 9vw, 2.5rem);
+        font-weight: 800;
+    }
+
+    .sp-hero__badge {
+        font-size: 0.72rem;
+        max-width: 100%;
+    }
+
+    .sp-hero__logo-card {
+        margin-inline: auto;
+    }
+
+    .home-hero__title {
+        font-size: clamp(1.7rem, 8.5vw, 2.4rem);
+        font-weight: 800;
+    }
+
+    .home-stats__inner {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-stats__value {
+        font-size: 1.55rem;
+    }
+
+    .home-stats__label {
+        font-size: 0.68rem;
+    }
+
+    .sp-steps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sp-step-card {
+        padding: 1.1rem 1rem;
+    }
+
+    /* ── §5. PETITION LISTS + CARDS ──────────────────────── */
+    .sp-pet-grid,
+    .sp-fu-petgrid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sp-fu-pet__media {
+        aspect-ratio: 16 / 10;
+    }
+
+    .sp-fu-pet__body {
+        padding: 0.95rem 0.95rem 1rem;
+    }
+
+    .sp-fu-pet__foot {
+        flex-wrap: wrap;
+    }
+
+    .sp-fu-pet__foot .sp-fu-btn {
+        flex: 1 1 140px;
+    }
+
+    .petition-card__body {
+        padding: 1.1rem 1rem;
+    }
+
+    .petition-card__title {
+        overflow-wrap: break-word;
+    }
+
+    /* ── §6. SINGLE PETITION ─────────────────────────────── */
+    .sp-petition-single__hero {
+        padding: 1.15rem 1rem;
+        border-radius: 18px;
+    }
+
+    .sp-petition-single__cover {
+        max-width: 100%;
+    }
+
+    .sp-petition-single__title {
+        font-size: clamp(1.45rem, 6.5vw, 1.9rem);
+    }
+
+    .sp-petition-single__progress-count {
+        font-size: 1.5rem;
+    }
+
+    .sp-petition-single__content,
+    .sp-petition-single__signers {
+        padding: 1.1rem 1rem;
+        min-width: 0;
+    }
+
+    .sp-petition-single__signer {
+        gap: 0.65rem;
+    }
+
+    .sp-petition-single__signer time {
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .sp-victory-banner {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .sp-petition-single__comments .comment-body {
+        padding: 0.85rem;
+    }
+
+    /* ── §7. DASHBOARD ───────────────────────────────────── */
+    .sp-dash-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.6rem;
+    }
+
+    .sp-dash-stat {
+        padding: 0.85rem 0.8rem;
+    }
+
+    .sp-dash-stat__num {
+        font-size: 1.3rem;
+    }
+
+    .sp-dash-stat__label {
+        font-size: 0.74rem;
+    }
+
+    .sp-dash-filter {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sp-dash-filter__btn {
+        white-space: nowrap;
+        min-height: 40px;
+    }
+
+    .sp-dash-card__head {
+        padding: 1.1rem 1rem 0.9rem;
+    }
+
+    .sp-dash-row {
+        align-items: flex-start;
+    }
+
+    .sp-dash-share__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    /* ── §8. USERS / MEMBERS / FEED ──────────────────────── */
+    .sp-users__hero {
+        padding: 1.4rem 1.1rem;
+        text-align: left;
+    }
+
+    .sp-users__title {
+        font-size: clamp(1.5rem, 7vw, 2rem);
+    }
+
+    .sp-users__hero-actions .btn {
+        flex: 1 1 150px;
+        justify-content: center;
+    }
+
+    .sp-member-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.7rem;
+    }
+
+    .sp-member-card {
+        padding: 1rem 0.7rem;
+    }
+
+    .sp-member-card__avatar {
+        width: 64px;
+        height: 64px;
+    }
+
+    .sp-member-card__bio {
+        font-size: 0.8rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .sp-feed__title {
+        font-size: 1rem;
+    }
+
+    /* ── §9. PROFILE ─────────────────────────────────────── */
+    .sp-profile__hero {
+        padding: 1.4rem 1.1rem;
+    }
+
+    .sp-profile__name {
+        font-size: clamp(1.5rem, 7vw, 1.9rem);
+    }
+
+    .sp-profile__stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.7rem;
+    }
+
+    .sp-profile__actions .btn,
+    .sp-profile__actions .sp-fu-btn {
+        flex: 1 1 150px;
+        justify-content: center;
+    }
+
+    /* ── §10. LOGIN ──────────────────────────────────────── */
+    .sp-login {
+        padding: 0.9rem;
+        gap: 1rem;
+    }
+
+    .sp-login__card {
+        padding: 1.4rem 1.1rem;
+        border-radius: 18px;
+    }
+
+    .sp-login__title {
+        font-size: 1.6rem;
+    }
+
+    .sp-login__submit,
+    .sp-otp-send-btn,
+    .sp-otp-verify-btn {
+        min-height: 50px;
+        font-size: 1rem;
+    }
+
+    /* ── §11. START-FORM ─────────────────────────────────── */
+    .sp-petition-create {
+        padding: 1rem 0.65rem 2.5rem;
+    }
+
+    .sp-petition-create__hero {
+        padding: 1.25rem 0;
+    }
+
+    .sp-petition-create__hero-title {
+        font-size: clamp(1.7rem, 8vw, 2.4rem);
+    }
+
+    .sp-petition-create__steps {
+        gap: 0;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .sp-step {
+        flex-shrink: 0;
+    }
+
+    .sp-form-textarea--lg {
+        min-height: 160px;
+    }
+
+    /* ── §12. INFO / LEGAL / CATEGORY PAGES ───────────────── */
+    .sp-page__hero {
+        padding: 1.6rem 1.1rem;
+        border-radius: 18px;
+    }
+
+    .sp-page__hero-title {
+        font-size: clamp(1.55rem, 7vw, 2.1rem);
+    }
+
+    .sp-page__card {
+        padding: 1.2rem 1rem;
+        border-radius: 16px;
+    }
+
+    .sp-page__features {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sp-timeline {
+        padding-left: 1.6rem;
+    }
+
+    .sp-faq-item__question {
+        font-size: 0.95rem;
+        text-align: left;
+    }
+
+    .sp-page__cta {
+        padding: 1.75rem 1.1rem;
+        border-radius: 18px;
+    }
+
+    .sp-contact-info__item {
+        align-items: center;
+    }
+}
+
+/* ============================================================
+   SMALL MOBILE (max-width: 480px) — tighter + bolder
+   ============================================================ */
+@media (max-width: 480px) {
+
+    body.sp-future {
+        --ft-panel: rgba(255, 255, 255, 0.065);
+    }
+
+    .sp-landing,
+    .sp-dashboard__inner,
+    .sp-petition-single,
+    .sp-profile {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    h1, .sp-hero__title {
+        letter-spacing: -0.022em;
+    }
+
+    .sp-hero__title {
+        font-size: clamp(1.75rem, 10vw, 2.2rem);
+    }
+
+    .sp-hero__sub {
+        font-size: 0.96rem;
+    }
+
+    .home-stats__value {
+        font-size: 1.4rem;
+    }
+
+    .sp-dash-stat__num {
+        font-size: 1.2rem;
+    }
+
+    .sp-dash-share__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.45rem;
+    }
+
+    .sp-member-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.6rem;
+    }
+
+    .sp-login__card {
+        padding: 1.2rem 0.95rem;
+    }
+
+    .sp-petition-create {
+        padding: 0.9rem 0.55rem 2.25rem;
+    }
+
+    .mobile-tab-nav__item {
+        font-size: 10px;
+    }
+}
+
+/* Reduced motion stays untouched — future.css governs it. */

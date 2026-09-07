@@ -48,7 +48,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
             </div>
 
             <div>
-                <h4 class="site-footer__col-title">Platform</h4>
+                <h4 class="site-footer__col-title"><?php sp_icon_auto( 'spark', 'sp-icon--xs', '' ); ?> Platform</h4>
                 <ul class="site-footer__list">
                     <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li>
@@ -66,7 +66,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
             </div>
 
             <div>
-                <h4 class="site-footer__col-title">Community</h4>
+                <h4 class="site-footer__col-title"><?php sp_icon_auto( 'heart', 'sp-icon--xs', '' ); ?> Community</h4>
                 <ul class="site-footer__list">
                     <li><a href="<?php echo esc_url( home_url( '/community-guidelines/' ) ); ?>">Guidelines</a></li>
                     <li><a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy</a></li>
@@ -76,7 +76,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
             </div>
 
             <div>
-                <h4 class="site-footer__col-title">ShivBodh Trust</h4>
+                <h4 class="site-footer__col-title"><?php sp_icon_e( 'dharma', 'sp-icon--xs', '' ); ?> ShivBodh Trust</h4>
                 <ul class="site-footer__list">
                     <li><a href="https://shivbodhtrust.org" target="_blank" rel="noopener">shivbodhtrust.org</a></li>
                     <li><a href="https://shivbodhtrust.org/about/" target="_blank" rel="noopener">About the Trust</a></li>

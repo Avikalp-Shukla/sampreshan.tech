@@ -1,0 +1,1419 @@
+/**
+ * PREMIUM DESIGN SYSTEM — Jeton/Awwwards Grade
+ * Global overlay: typography, spacing, scroll reveals, parallax, horizontal scroll
+ * Loaded LAST — highest specificity wins.
+ * @package SampreShan_Child
+ */
+
+/* ============================================================
+   1. TYPOGRAPHY — Awwwards-grade display system
+   ============================================================ */
+:root {
+    --prem-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --prem-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --prem-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    --prem-space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+    --prem-space-sm: clamp(0.5rem, 1vw, 0.75rem);
+    --prem-space-md: clamp(1rem, 2vw, 1.5rem);
+    --prem-space-lg: clamp(1.5rem, 3vw, 2.5rem);
+    --prem-space-xl: clamp(2rem, 5vw, 4rem);
+    --prem-space-2xl: clamp(3rem, 8vw, 7rem);
+    --prem-space-3xl: clamp(4rem, 12vw, 10rem);
+
+    --prem-text-hero: clamp(2.8rem, 7vw, 5.5rem);
+    --prem-text-display: clamp(2rem, 5vw, 3.8rem);
+    --prem-text-h1: clamp(1.8rem, 4vw, 3rem);
+    --prem-text-h2: clamp(1.5rem, 3.5vw, 2.4rem);
+    --prem-text-h3: clamp(1.15rem, 2.5vw, 1.6rem);
+    --prem-text-body: clamp(0.95rem, 1.8vw, 1.1rem);
+    --prem-text-small: clamp(0.8rem, 1.4vw, 0.9rem);
+    --prem-text-xs: clamp(0.7rem, 1.2vw, 0.78rem);
+    --prem-text-label: clamp(0.65rem, 1vw, 0.72rem);
+
+    --prem-leading-tight: 1.05;
+    --prem-leading-snug: 1.2;
+    --prem-leading-normal: 1.6;
+    --prem-leading-relaxed: 1.8;
+
+    --prem-tracking-tight: -0.03em;
+    --prem-tracking-normal: -0.01em;
+    --prem-tracking-wide: 0.06em;
+    --prem-tracking-wider: 0.12em;
+    --prem-tracking-widest: 0.2em;
+
+    --prem-radius-sm: 8px;
+    --prem-radius-md: 14px;
+    --prem-radius-lg: 20px;
+    --prem-radius-xl: 28px;
+    --prem-radius-2xl: 36px;
+    --prem-radius-full: 9999px;
+
+    --prem-transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    --prem-transition-base: 320ms cubic-bezier(0.4, 0, 0.2, 1);
+    --prem-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --prem-transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --prem-shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --prem-shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+    --prem-shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+    --prem-shadow-xl: 0 24px 64px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.08);
+    --prem-shadow-2xl: 0 40px 96px rgba(0,0,0,0.16), 0 12px 32px rgba(0,0,0,0.10);
+    --prem-shadow-glow: 0 0 60px rgba(255, 153, 51, 0.15);
+}
+
+/* ============================================================
+   2. SCROLL-TRIGGERED REVEAL SYSTEM
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered children */
+.reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(7) { transition-delay: 480ms; opacity: 1; transform: none; }
+.reveal-stagger.is-visible > *:nth-child(8) { transition-delay: 560ms; opacity: 1; transform: none; }
+
+/* Slide variants */
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.is-visible,
+.reveal-right.is-visible,
+.reveal-scale.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ============================================================
+   3. HERO — Full-viewport immersive (Jeton pattern)
+   ============================================================ */
+.prem-hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #faf8f5;
+    padding: var(--prem-space-xl) var(--prem-space-lg);
+}
+
+/* Gradient mesh background */
+.prem-hero__mesh {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 153, 51, 0.07), transparent),
+        radial-gradient(ellipse 60% 50% at 80% 70%, rgba(30, 58, 138, 0.04), transparent),
+        radial-gradient(ellipse 50% 40% at 50% 10%, rgba(255, 211, 77, 0.06), transparent);
+    pointer-events: none;
+}
+
+/* Floating particles */
+.prem-hero__particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.prem-hero__particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: prem-float-up var(--dur, 18s) var(--del, 0s) linear infinite;
+}
+
+.prem-hero__particle:nth-child(1) { width: 4px; height: 4px; left: 12%; bottom: -5%; background: rgba(255,153,51,0.3); --dur: 20s; --del: 0s; }
+.prem-hero__particle:nth-child(2) { width: 6px; height: 6px; left: 28%; bottom: -5%; background: rgba(30,58,138,0.15); --dur: 24s; --del: 3s; }
+.prem-hero__particle:nth-child(3) { width: 3px; height: 3px; left: 48%; bottom: -5%; background: rgba(255,211,77,0.35); --dur: 18s; --del: 6s; }
+.prem-hero__particle:nth-child(4) { width: 5px; height: 5px; left: 65%; bottom: -5%; background: rgba(255,153,51,0.2); --dur: 22s; --del: 2s; }
+.prem-hero__particle:nth-child(5) { width: 3px; height: 3px; left: 82%; bottom: -5%; background: rgba(30,58,138,0.12); --dur: 26s; --del: 5s; }
+.prem-hero__particle:nth-child(6) { width: 4px; height: 4px; left: 35%; bottom: -5%; background: rgba(255,153,51,0.18); --dur: 21s; --del: 8s; }
+
+@keyframes prem-float-up {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+/* Hero content grid */
+.prem-hero__grid {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--prem-space-xl);
+    align-items: center;
+}
+
+/* Hero text side */
+.prem-hero__copy {
+    max-width: 600px;
+}
+
+.prem-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--prem-text-label);
+    font-weight: 700;
+    letter-spacing: var(--prem-tracking-widest);
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: var(--prem-space-md);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: prem-hero-text-in 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prem-hero__title {
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-hero);
+    font-weight: 800;
+    line-height: var(--prem-leading-tight);
+    letter-spacing: var(--prem-tracking-tight);
+    color: #1c1917;
+    margin: 0 0 var(--prem-space-md);
+    opacity: 0;
+    transform: translateY(24px);
+    animation: prem-hero-text-in 0.9s 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prem-hero__accent {
+    display: block;
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #9a3412 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: prem-gradient-shift 5s ease infinite;
+}
+
+@keyframes prem-gradient-shift {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+.prem-hero__sub {
+    font-size: var(--prem-text-body);
+    line-height: var(--prem-leading-relaxed);
+    color: #57534e;
+    margin: 0 0 var(--prem-space-lg);
+    max-width: 480px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: prem-hero-text-in 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prem-hero__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: var(--prem-space-lg);
+    opacity: 0;
+    transform: translateY(16px);
+    animation: prem-hero-text-in 0.7s 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prem-hero__points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: prem-hero-text-in 0.7s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.prem-hero__points li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: var(--prem-text-small);
+    color: #44403c;
+}
+
+.prem-hero__points .sp-icon { color: #15803d; }
+
+@keyframes prem-hero-text-in {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero art — floating 3D logo card */
+.prem-hero__art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: prem-hero-art-in 1s 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes prem-hero-art-in {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.prem-hero__card {
+    position: relative;
+    width: min(380px, 100%);
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--prem-radius-2xl);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow:
+        var(--prem-shadow-2xl),
+        0 0 0 1px rgba(255,255,255,0.8) inset;
+    transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prem-hero__card:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+/* Glow behind card */
+.prem-hero__card::before {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(circle at 50% 40%, rgba(255,153,51,0.12), transparent 65%);
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.prem-hero__logo {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 1.2rem;
+    filter: drop-shadow(0 8px 24px rgba(180, 100, 10, 0.2));
+    animation: prem-logo-float 4s ease-in-out infinite;
+}
+
+@keyframes prem-logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.prem-hero__logo-name {
+    margin: 0;
+    font-family: var(--prem-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1c1917;
+    letter-spacing: var(--prem-tracking-tight);
+}
+
+.prem-hero__logo-tag {
+    margin: 0.4rem 0 0;
+    font-size: var(--prem-text-xs);
+    letter-spacing: var(--prem-tracking-wider);
+    text-transform: uppercase;
+    color: #a16207;
+    font-weight: 600;
+}
+
+/* Scroll indicator */
+.prem-hero__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #a8a29e;
+    font-size: var(--prem-text-xs);
+    letter-spacing: var(--prem-tracking-wide);
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0;
+    animation: prem-hero-text-in 0.6s 1.2s ease forwards;
+    z-index: 2;
+}
+
+.prem-hero__scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, #a8a29e, transparent);
+    animation: prem-scroll-pulse 2s ease-in-out infinite;
+}
+
+@keyframes prem-scroll-pulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+}
+
+/* ============================================================
+   4. STATS — Premium glass counters
+   ============================================================ */
+.prem-stats {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: calc(-1 * var(--prem-space-xl)) auto 0;
+    padding: 0 var(--prem-space-lg);
+}
+
+.prem-stats__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(0,0,0,0.06);
+    border-radius: var(--prem-radius-xl);
+    overflow: hidden;
+    box-shadow: var(--prem-shadow-xl);
+}
+
+.prem-stats__item {
+    background: rgba(255,255,255,0.92);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    padding: var(--prem-space-lg) var(--prem-space-md);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    transition: background var(--prem-transition-base);
+}
+
+.prem-stats__item:hover {
+    background: rgba(255,255,255,1);
+}
+
+.prem-stats__number {
+    font-family: var(--prem-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #1c1917;
+    line-height: 1;
+    letter-spacing: var(--prem-tracking-tight);
+    font-variant-numeric: tabular-nums;
+}
+
+.prem-stats__label {
+    font-size: var(--prem-text-label);
+    font-weight: 700;
+    letter-spacing: var(--prem-tracking-widest);
+    text-transform: uppercase;
+    color: #78716c;
+}
+
+.prem-stats__item--accent .prem-stats__number {
+    color: #ea580c;
+}
+
+/* ============================================================
+   5. SECTION — Full-viewport immersive panels
+   ============================================================ */
+.prem-section {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: var(--prem-space-3xl) var(--prem-space-lg);
+    overflow: hidden;
+}
+
+.prem-section--center {
+    justify-content: center;
+    text-align: center;
+}
+
+.prem-section--dark {
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+.prem-section--warm {
+    background: linear-gradient(180deg, #fffaf2 0%, #ffffff 100%);
+}
+
+.prem-section--gradient {
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 80%, rgba(255,153,51,0.06), transparent),
+        linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
+}
+
+.prem-section__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.prem-section__eyebrow {
+    font-size: var(--prem-text-label);
+    font-weight: 700;
+    letter-spacing: var(--prem-tracking-widest);
+    text-transform: uppercase;
+    color: #b45309;
+    margin-bottom: var(--prem-space-sm);
+}
+
+.prem-section--dark .prem-section__eyebrow {
+    color: #fbbf24;
+}
+
+.prem-section__title {
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-display);
+    font-weight: 800;
+    line-height: var(--prem-leading-tight);
+    letter-spacing: var(--prem-tracking-tight);
+    color: #1c1917;
+    margin: 0 0 var(--prem-space-md);
+}
+
+.prem-section--dark .prem-section__title {
+    color: #f8fafc;
+}
+
+.prem-section__sub {
+    font-size: var(--prem-text-body);
+    line-height: var(--prem-leading-relaxed);
+    color: #57534e;
+    margin: 0;
+    max-width: 560px;
+}
+
+.prem-section--center .prem-section__sub {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prem-section--dark .prem-section__sub {
+    color: #94a3b8;
+}
+
+/* ============================================================
+   6. CARDS — Premium glass + depth
+   ============================================================ */
+.prem-card {
+    background: rgba(255,255,255,0.85);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--prem-radius-lg);
+    padding: var(--prem-space-lg);
+    box-shadow: var(--prem-shadow-md);
+    transition:
+        transform var(--prem-transition-base),
+        box-shadow var(--prem-transition-base);
+}
+
+.prem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--prem-shadow-lg);
+}
+
+.prem-card--dark {
+    background: rgba(15,23,42,0.85);
+    border-color: rgba(255,255,255,0.08);
+}
+
+.prem-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--prem-radius-md);
+    background: linear-gradient(135deg, rgba(255,153,51,0.12), rgba(255,153,51,0.04));
+    margin-bottom: var(--prem-space-md);
+    color: #ea580c;
+}
+
+.prem-card__title {
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-h3);
+    font-weight: 700;
+    color: #1c1917;
+    margin: 0 0 var(--prem-space-sm);
+    line-height: var(--prem-leading-snug);
+}
+
+.prem-card--dark .prem-card__title {
+    color: #f1f5f9;
+}
+
+.prem-card__text {
+    font-size: var(--prem-text-small);
+    line-height: var(--prem-leading-normal);
+    color: #57534e;
+    margin: 0;
+}
+
+.prem-card--dark .prem-card__text {
+    color: #94a3b8;
+}
+
+/* 3-column grid */
+.prem-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--prem-space-md);
+}
+
+/* ============================================================
+   7. HORIZONTAL SCROLL CAROUSEL (Jeton signature pattern)
+   ============================================================ */
+.prem-hscroll {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.prem-hscroll__track {
+    display: flex;
+    gap: var(--prem-space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: var(--prem-space-md) 0;
+    scrollbar-width: none;
+}
+
+.prem-hscroll__track::-webkit-scrollbar {
+    display: none;
+}
+
+.prem-hscroll__item {
+    flex: 0 0 auto;
+    width: clamp(280px, 30vw, 360px);
+    scroll-snap-align: start;
+}
+
+/* Nav arrows */
+.prem-hscroll__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: var(--prem-shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: all var(--prem-transition-fast);
+    color: #1c1917;
+    font-size: 1.1rem;
+}
+
+.prem-hscroll__nav:hover {
+    background: #fff;
+    box-shadow: var(--prem-shadow-lg);
+    transform: translateY(-50%) scale(1.08);
+}
+
+.prem-hscroll__nav--prev { left: 0.5rem; }
+.prem-hscroll__nav--next { right: 0.5rem; }
+
+/* Dots */
+.prem-hscroll__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: var(--prem-space-md);
+}
+
+.prem-hscroll__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d6d3d1;
+    border: none;
+    cursor: pointer;
+    transition: all var(--prem-transition-fast);
+    padding: 0;
+}
+
+.prem-hscroll__dot.is-active {
+    background: #ea580c;
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* ============================================================
+   8. FEATURED PETITION — Cinematic hero card
+   ============================================================ */
+.prem-featured {
+    position: relative;
+    border-radius: var(--prem-radius-2xl);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--prem-shadow-2xl);
+}
+
+.prem-featured__media {
+    position: relative;
+    aspect-ratio: 21/9;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.prem-featured__media-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 40%, #9a3412 100%);
+}
+
+.prem-featured__media-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.2), transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1), transparent 50%);
+}
+
+.prem-featured__media-icon {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 12px 32px rgba(0,0,0,0.3));
+    animation: prem-featured-float 3.5s ease-in-out infinite;
+}
+
+@keyframes prem-featured-float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+.prem-featured__badge {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255,255,255,0.95);
+    border-radius: var(--prem-radius-full);
+    font-size: var(--prem-text-xs);
+    font-weight: 700;
+    color: #b45309;
+    box-shadow: var(--prem-shadow-sm);
+}
+
+.prem-featured__body {
+    padding: var(--prem-space-xl) var(--prem-space-xl) var(--prem-space-lg);
+}
+
+.prem-featured__author {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: var(--prem-space-md);
+    font-size: var(--prem-text-small);
+    color: #78716c;
+}
+
+.prem-featured__author img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.prem-featured__title {
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-h2);
+    font-weight: 800;
+    color: #1c1917;
+    margin: 0 0 var(--prem-space-sm);
+    line-height: var(--prem-leading-snug);
+}
+
+.prem-featured__title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--prem-transition-fast);
+}
+
+.prem-featured__title a:hover {
+    color: #ea580c;
+}
+
+.prem-featured__desc {
+    font-size: var(--prem-text-body);
+    color: #57534e;
+    line-height: var(--prem-leading-normal);
+    margin: 0 0 var(--prem-space-lg);
+}
+
+/* Progress bar */
+.prem-featured__progress {
+    margin-bottom: var(--prem-space-lg);
+}
+
+.prem-featured__progress-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+}
+
+.prem-featured__progress-count {
+    font-size: var(--prem-text-h3);
+    font-weight: 800;
+    color: #1c1917;
+}
+
+.prem-featured__progress-count small {
+    font-size: var(--prem-text-small);
+    font-weight: 600;
+    color: #78716c;
+    margin-left: 0.25rem;
+}
+
+.prem-featured__progress-goal {
+    font-size: var(--prem-text-xs);
+    color: #78716c;
+}
+
+.prem-featured__bar {
+    height: 6px;
+    background: #f5f5f4;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.prem-featured__bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f59e0b, #ea580c);
+    border-radius: 3px;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Actions */
+.prem-featured__actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   9. CTA SECTION — Dark immersive
+   ============================================================ */
+.prem-cta {
+    position: relative;
+    padding: var(--prem-space-3xl) var(--prem-space-lg);
+    background: #0f172a;
+    color: #f8fafc;
+    overflow: hidden;
+    text-align: center;
+}
+
+.prem-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(255,153,51,0.12), transparent),
+        radial-gradient(ellipse 40% 40% at 20% 20%, rgba(30,58,138,0.15), transparent);
+    pointer-events: none;
+}
+
+.prem-cta__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.prem-cta__title {
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-display);
+    font-weight: 800;
+    line-height: var(--prem-leading-tight);
+    margin: 0 0 var(--prem-space-md);
+}
+
+.prem-cta__sub {
+    font-size: var(--prem-text-body);
+    color: #94a3b8;
+    line-height: var(--prem-leading-relaxed);
+    margin: 0 0 var(--prem-space-xl);
+}
+
+.prem-cta__actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   10. BUTTONS — Premium system
+   ============================================================ */
+.prem-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: var(--prem-radius-md);
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-small);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all var(--prem-transition-base);
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.prem-btn--primary {
+    background: linear-gradient(135deg, #f59e0b, #ea580c);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
+}
+
+.prem-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(234, 88, 12, 0.4);
+}
+
+.prem-btn--ghost {
+    background: rgba(255,255,255,0.9);
+    color: #1c1917;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: var(--prem-shadow-sm);
+}
+
+.prem-btn--ghost:hover {
+    background: #fff;
+    border-color: rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+    box-shadow: var(--prem-shadow-md);
+}
+
+.prem-btn--light {
+    background: #fff;
+    color: #1c1917;
+    box-shadow: var(--prem-shadow-md);
+}
+
+.prem-btn--light:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--prem-shadow-lg);
+}
+
+.prem-btn--outline-light {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.prem-btn--outline-light:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.prem-btn--lg {
+    padding: 1rem 2rem;
+    font-size: var(--prem-text-body);
+    border-radius: var(--prem-radius-lg);
+}
+
+.prem-btn--sm {
+    padding: 0.5rem 1rem;
+    font-size: var(--prem-text-xs);
+}
+
+/* ============================================================
+   11. PETITION CARDS — Premium grid
+   ============================================================ */
+.prem-petgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--prem-space-md);
+}
+
+.prem-petcard {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--prem-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--prem-shadow-sm);
+    transition: all var(--prem-transition-base);
+    display: flex;
+    flex-direction: column;
+}
+
+.prem-petcard:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--prem-shadow-xl);
+}
+
+.prem-petcard__header {
+    position: relative;
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.prem-petcard__header-bg {
+    position: absolute;
+    inset: 0;
+}
+
+.prem-petcard__header-icon {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.2));
+}
+
+.prem-petcard__cause {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.6rem;
+    background: rgba(255,255,255,0.92);
+    border-radius: var(--prem-radius-full);
+    font-size: var(--prem-text-xs);
+    font-weight: 700;
+    color: #44403c;
+    box-shadow: var(--prem-shadow-sm);
+}
+
+.prem-petcard__body {
+    padding: var(--prem-space-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.prem-petcard__title {
+    font-family: var(--prem-display);
+    font-size: var(--prem-text-h3);
+    font-weight: 700;
+    color: #1c1917;
+    margin: 0 0 var(--prem-space-sm);
+    line-height: var(--prem-leading-snug);
+}
+
+.prem-petcard__title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.prem-petcard__title a:hover {
+    color: #ea580c;
+}
+
+.prem-petcard__desc {
+    font-size: var(--prem-text-small);
+    color: #57534e;
+    line-height: var(--prem-leading-normal);
+    margin: 0 0 var(--prem-space-md);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.prem-petcard__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--prem-space-sm);
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.prem-petcard__count {
+    font-weight: 800;
+    font-size: var(--prem-text-small);
+    color: #1c1917;
+}
+
+.prem-petcard__count small {
+    font-weight: 600;
+    color: #78716c;
+    font-size: var(--prem-text-xs);
+    margin-left: 0.2rem;
+}
+
+.prem-petcard__link {
+    font-size: var(--prem-text-xs);
+    font-weight: 700;
+    color: #ea580c;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap var(--prem-transition-fast);
+}
+
+.prem-petcard__link:hover {
+    gap: 0.5rem;
+}
+
+/* ============================================================
+   12. FOOTER — Premium minimal
+   ============================================================ */
+.prem-footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: var(--prem-space-2xl) var(--prem-space-lg) var(--prem-space-lg);
+}
+
+.prem-footer__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: var(--prem-space-xl);
+    padding-bottom: var(--prem-space-xl);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.prem-footer__brand p {
+    font-size: var(--prem-text-small);
+    line-height: var(--prem-leading-normal);
+    margin: var(--prem-space-sm) 0 0;
+    max-width: 280px;
+}
+
+.prem-footer__col-title {
+    font-size: var(--prem-text-xs);
+    font-weight: 700;
+    letter-spacing: var(--prem-tracking-widest);
+    text-transform: uppercase;
+    color: #e2e8f0;
+    margin: 0 0 var(--prem-space-md);
+}
+
+.prem-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.prem-footer__links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: var(--prem-text-small);
+    transition: color var(--prem-transition-fast);
+}
+
+.prem-footer__links a:hover {
+    color: #f8fafc;
+}
+
+.prem-footer__bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: var(--prem-space-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--prem-text-xs);
+}
+
+/* ============================================================
+   13. RESPONSIVE — Mobile / Tablet / Desktop
+   ============================================================ */
+
+/* --- MOBILE (≤768px) --- */
+@media (max-width: 768px) {
+    .prem-hero {
+        min-height: auto;
+        padding: var(--prem-space-xl) var(--prem-space-md) var(--prem-space-lg);
+    }
+
+    .prem-hero__grid {
+        grid-template-columns: 1fr;
+        gap: var(--prem-space-lg);
+        text-align: center;
+    }
+
+    .prem-hero__copy {
+        max-width: 100%;
+    }
+
+    .prem-hero__sub {
+        max-width: 100%;
+    }
+
+    .prem-hero__actions {
+        justify-content: center;
+    }
+
+    .prem-hero__actions .prem-btn {
+        width: 100%;
+    }
+
+    .prem-hero__points {
+        justify-content: center;
+    }
+
+    .prem-hero__art {
+        order: -1;
+    }
+
+    .prem-hero__card {
+        width: min(280px, 100%);
+        padding: 1.5rem 1.25rem;
+        transform: none;
+    }
+
+    .prem-hero__card:hover {
+        transform: none;
+    }
+
+    .prem-hero__logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .prem-hero__scroll {
+        display: none;
+    }
+
+    .prem-stats {
+        margin-top: calc(-1 * var(--prem-space-md));
+    }
+
+    .prem-stats__inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prem-section {
+        min-height: auto;
+        padding: var(--prem-space-2xl) var(--prem-space-md);
+    }
+
+    .prem-grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .prem-hscroll__item {
+        width: clamp(260px, 80vw, 320px);
+    }
+
+    .prem-hscroll__nav {
+        display: none;
+    }
+
+    .prem-featured__media {
+        aspect-ratio: 16/9;
+        min-height: 180px;
+    }
+
+    .prem-featured__body {
+        padding: var(--prem-space-lg) var(--prem-space-md);
+    }
+
+    .prem-featured__actions {
+        flex-direction: column;
+    }
+
+    .prem-featured__actions .prem-btn {
+        width: 100%;
+    }
+
+    .prem-petgrid {
+        grid-template-columns: 1fr;
+    }
+
+    .prem-footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--prem-space-lg);
+    }
+
+    .prem-footer__bottom {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .prem-cta {
+        padding: var(--prem-space-2xl) var(--prem-space-md);
+    }
+
+    .prem-cta__actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .prem-cta__actions .prem-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* --- TABLET (769px–1024px) --- */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .prem-hero__grid {
+        gap: var(--prem-space-lg);
+    }
+
+    .prem-hero__card {
+        width: min(300px, 100%);
+        transform: none;
+    }
+
+    .prem-hero__card:hover {
+        transform: none;
+    }
+
+    .prem-stats__inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prem-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .prem-hscroll__item {
+        width: clamp(260px, 40vw, 320px);
+    }
+
+    .prem-footer__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* --- DESKTOP (≥1025px) --- */
+@media (min-width: 1025px) {
+    .prem-hero__grid {
+        gap: var(--prem-space-2xl);
+    }
+}
+
+/* --- ULTRA-WIDE (≥1440px) --- */
+@media (min-width: 1440px) {
+    .prem-hero__grid {
+        max-width: 1400px;
+    }
+
+    .prem-section__inner {
+        max-width: 1400px;
+    }
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale,
+    .reveal-stagger > * {
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .prem-hero__eyebrow,
+    .prem-hero__title,
+    .prem-hero__sub,
+    .prem-hero__actions,
+    .prem-hero__points,
+    .prem-hero__art,
+    .prem-hero__scroll {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .prem-hero__particle,
+    .prem-logo-float,
+    .prem-featured-float,
+    .prem-scroll-pulse {
+        animation: none !important;
+    }
+}
+
+/* --- Print --- */
+@media print {
+    .prem-hero,
+    .prem-stats,
+    .prem-section,
+    .prem-cta {
+        min-height: auto !important;
+        padding: 1rem !important;
+    }
+
+    .prem-hero__particles,
+    .prem-hero__scroll,
+    .prem-hscroll__nav {
+        display: none !important;
+    }
+}

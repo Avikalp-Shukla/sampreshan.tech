@@ -1,0 +1,256 @@
+/**
+ * Transparent Icons — site-wide icon background removal + 3D depth.
+ * Loaded LAST so it wins in every mode (future skin, Ratri dark,
+ * mobile/tablet/desktop) on every page. Rules:
+ *  1. No box, chip, pill or tint may sit behind an icon glyph.
+ *     Layout (size/flex) is preserved; only paint is removed.
+ *  2. Every icon keeps a transparent backdrop with layered
+ *     3D depth shadows, tuned per colour mode.
+ * Avatars, logo marks, labelled pills and buttons are NOT icons
+ * and keep their surfaces.
+ *
+ * @package SampreShan_Child
+ */
+
+/* === 1. Neutralise boxed icon treatments =================== */
+.sp-icon--glass,
+.sp-icon--glass-dark,
+.sp-icon--depth,
+.sp-dash-stat__icon,
+.sp-dash-stat__icon--saffron,
+.sp-dash-stat__icon--rose,
+.sp-dash-stat__icon--blue,
+.sp-dash-stat__icon--green,
+.sp-dash-action__icon,
+.sp-dash-action__icon--saffron,
+.sp-dash-action__icon--blue,
+.sp-dash-action__icon--rose,
+.sp-dash-action__icon--green,
+.sp-dash-empty__icon,
+.home-aside__link-icon,
+.home-aside__create-icon,
+.home-aside__create-icon--saffron,
+.home-aside__create-icon--blue,
+.home-aside__create-icon--gold,
+.sp-step-card__icon,
+.sp-cause-card__icon,
+.sp-petition-create__hero-icon,
+.mobile-tab-nav__icon-wrap {
+    background: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    outline: none !important;
+}
+
+.sp-icon--glass:hover,
+.sp-icon--depth:hover {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Active mobile tab keeps colour only — no pill. */
+.mobile-tab-nav__item.is-active .mobile-tab-nav__icon-wrap {
+    background: transparent !important;
+}
+
+/* Tinted glyph colours deepen slightly now that chips are gone,
+   so small icons stay legible on any surface. */
+.sp-dash-stat__icon,
+.sp-dash-action__icon,
+.home-aside__link-icon,
+.sp-step-card__icon,
+.sp-petition-create__hero-icon {
+    filter: saturate(1.15);
+}
+
+/* === 2. Transparent 3D depth for every icon ================= */
+.sp-icon svg,
+.sp-icon__svg {
+    filter:
+        drop-shadow(0 1px 1px rgba(10, 26, 61, 0.16))
+        drop-shadow(0 3px 6px rgba(10, 26, 61, 0.12))
+        drop-shadow(0 8px 16px rgba(10, 26, 61, 0.08));
+}
+
+.sp-icon--img img {
+    background: transparent;
+    filter:
+        drop-shadow(0 2px 3px rgba(10, 26, 61, 0.20))
+        drop-shadow(0 6px 14px rgba(10, 26, 61, 0.14));
+}
+
+a:hover .sp-icon:not(.sp-icon--no-hover) svg,
+button:hover .sp-icon:not(.sp-icon--no-hover) svg,
+a:hover .sp-icon--img img,
+button:hover .sp-icon--img img {
+    filter:
+        drop-shadow(0 3px 5px rgba(10, 26, 61, 0.22))
+        drop-shadow(0 10px 22px rgba(255, 138, 0, 0.20));
+}
+
+/* Dark skins: depth reads through soft light rims. */
+body.sp-future .sp-icon svg,
+body.sp-future .sp-icon__svg,
+body.sp-dark .sp-icon svg,
+body.sp-dark .sp-icon__svg {
+    filter:
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 2px rgba(255, 255, 255, 0.14));
+}
+
+body.sp-future .sp-icon--img img,
+body.sp-dark .sp-icon--img img {
+    background: transparent;
+    filter:
+        drop-shadow(0 3px 8px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 14px rgba(255, 138, 0, 0.14));
+}
+
+body.sp-future a:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-future button:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-dark a:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-dark button:hover .sp-icon:not(.sp-icon--no-hover) svg,
+body.sp-future a:hover .sp-icon--img img,
+body.sp-future button:hover .sp-icon--img img {
+    filter:
+        drop-shadow(0 3px 8px rgba(0, 0, 0, 0.6))
+        drop-shadow(0 0 18px rgba(255, 138, 0, 0.30));
+}
+
+/* Footer column headings carry a mini icon — align the row. */
+.site-footer__col-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ============================================================
+   GLOBAL CONTAINMENT SYSTEM — permanent anti-overflow layer.
+   Must stay in the last-loaded stylesheet: these rules beat
+   component sizing so text can NEVER escape a box/card on any
+   device, in any mode.
+   1. Every shell descendant may shrink (kills flex/grid blowout
+      from min-width:auto), except deliberate tap-target minimums
+      which carry higher specificity and survive.
+   2. Long words/URLs wrap instead of overflowing (inherited).
+   3. Tables scroll inside their card instead of breaking it.
+   ============================================================ */
+body .site-header *,
+body .site-footer *,
+body .site-main *,
+body .sp-landing *,
+body .sp-page *,
+body .sp-dashboard *,
+body .sp-profile *,
+body .sp-petition-single *,
+body .sp-petition-create *,
+body .sp-users *,
+body .sp-login *,
+body .mobile-tab-nav *,
+body .sp-mobile-menu *,
+body .search-overlay *,
+body .sp-toast *,
+body .toast * {
+    min-width: 0;
+}
+
+body .site-header,
+body .site-footer,
+body .site-main,
+body .sp-landing,
+body .sp-page,
+body .sp-dashboard,
+body .sp-profile,
+body .sp-petition-single,
+body .sp-petition-create,
+body .sp-users,
+body .sp-login,
+body .mobile-tab-nav,
+body .sp-mobile-menu,
+body .search-overlay {
+    overflow-wrap: break-word;
+}
+
+/* Tables never break their card — scroll instead, every viewport. */
+body .site-main table,
+body .sp-landing table,
+body .sp-page table,
+body .sp-dashboard table,
+body .sp-profile table,
+body .sp-petition-single table,
+body .sp-petition-create table,
+body .sp-users table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Flex rows that must wrap instead of pushing content out. */
+.petition-card__actions,
+.sp-fu-pet__foot,
+.sp-petition-preview__meta,
+.sp-form-input-group,
+.search-overlay__input-wrap,
+.site-footer__newsletter-form,
+.sp-users__search,
+.sp-contact-form__field {
+    flex-wrap: wrap;
+}
+
+.sp-form-input-group .sp-form-input,
+.search-overlay__input,
+.site-footer__newsletter-input,
+.sp-users__search input,
+.sp-contact-form__input,
+.sp-contact-form__textarea,
+.sp-contact-form__select {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Absolute/floating labels clamp inside their card. */
+.sp-fu-pet__cause {
+    max-width: calc(100% - 1.4rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sp-fu-pet__cause-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.sp-hero__badge {
+    max-width: 100%;
+}
+
+.chip-3d,
+.sp-dash-cause,
+.sp-dash-pill,
+.sp-profile__chips li {
+    max-width: 100%;
+}
+
+/* Motion + print stay calm. */
+@media (prefers-reduced-motion: reduce) {
+    .sp-icon svg,
+    .sp-icon--img img {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media print {
+    .sp-icon svg,
+    .sp-icon--img img {
+        filter: none !important;
+    }
+}

@@ -754,3 +754,56 @@
     text-decoration: none;
 }
 .sp-search-all:hover { text-decoration: underline; }
+
+/* === I-EYE MORPH (support identity animation) ===
+   Click the I badge → an eye slowly forms (~2s) → I returns
+   with the updated count. Width is locked during the morph so
+   surrounding layout never jumps. */
+.sp-sign-button.is-animating {
+    pointer-events: none;
+}
+
+.sp-eye {
+    width: 1.5em;
+    height: 1.5em;
+    overflow: visible;
+}
+
+.sp-eye__outline {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: sp-eye-draw 0.9s ease-out forwards;
+}
+
+.sp-eye__pupil {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: sp-eye-pupil 0.45s ease 0.75s forwards;
+}
+
+@keyframes sp-eye-draw {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes sp-eye-pupil {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.sp-count-pop {
+    display: inline-block;
+    animation: sp-count-pop 0.5s ease;
+}
+
+@keyframes sp-count-pop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-eye__outline { animation: none; stroke-dashoffset: 0; }
+    .sp-eye__pupil { animation: none; opacity: 1; }
+    .sp-count-pop { animation: none; }
+}

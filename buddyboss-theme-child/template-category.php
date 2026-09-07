@@ -85,6 +85,7 @@ $cause_icon = isset( $cause_icons[ $cause_slug ] ) ? $cause_icons[ $cause_slug ]
             <h2 class="sp-section__title" id="sp-cause-call-h"><?php sp_icon_e( 'shankh', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Make Your Voice Heard', 'sampreshan-child' ); ?></h2>
             <p class="sp-section__sub"><?php printf( esc_html__( 'Every cause starts with one person. Start a petition under %s and rally the community.', 'sampreshan-child' ), '<strong>' . esc_html( get_the_title() ) . '</strong>' ); ?></p>
             <a class="btn btn--primary btn--lg" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">
+                <?php sp_icon_e( 'plus', 'sp-icon--sm sp-icon--white', '' ); ?>
                 <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>
             </a>
         </section>

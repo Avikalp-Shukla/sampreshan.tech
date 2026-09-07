@@ -1,0 +1,185 @@
+/**
+ * Tablet Identity — "Compact Ink" (769px–1024px only)
+ * Between phone and desktop: cooler ink-tinted surfaces, denser
+ * tablet typography, 64px header, roomier 2×2 stat grids.
+ * Nothing here may leak outside this breakpoint.
+ *
+ * @package SampreShan_Child
+ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* ── §0. Tablet palette: cooler + calmer than phone/desktop ── */
+    body.sp-future {
+        --ft-bg: #05070F;
+        --ft-bg2: #0A0F22;
+        --ft-panel: rgba(216, 226, 244, 0.055);
+        --ft-panel-solid: #0B1122;
+        --ft-line: rgba(255, 153, 51, 0.22);
+        --ft-line-soft: rgba(216, 226, 244, 0.11);
+        --ft-neon: #FF9933;
+        --ft-saffron: #FF9933;
+        --ft-gold: #F5C542;
+        --ft-cyan: #41E2FF;
+        --ft-text: #F5F0E6;
+        --ft-muted: #B3A88F;
+        --ft-faint: #7E7462;
+
+        background: #05070F;
+    }
+
+    body.sp-future::before {
+        background:
+            radial-gradient(800px 420px at 12% -60px, rgba(255, 138, 0, 0.13), transparent 60%),
+            radial-gradient(700px 380px at 88% 8%, rgba(65, 226, 255, 0.07), transparent 60%),
+            radial-gradient(900px 520px at 50% 110%, rgba(154, 27, 30, 0.18), transparent 60%),
+            linear-gradient(180deg, #05070F 0%, #060913 100%);
+    }
+
+    body.sp-future .site-header {
+        background: rgba(5, 7, 15, 0.84);
+    }
+
+    body.sp-future .site-footer {
+        background: #03050B;
+    }
+
+    /* ── §1. Tablet typography: denser than desktop ─────────── */
+    :root {
+        --header-height: 64px;
+        --text-7xl: 3.4rem;
+        --text-6xl: 2.9rem;
+        --text-5xl: 2.4rem;
+        --text-4xl: 2rem;
+        --text-3xl: 1.65rem;
+        --text-2xl: 1.4rem;
+        --text-xl: 1.18rem;
+        --text-lg: 1.06rem;
+        --text-base: 0.98rem;
+        --text-sm: 0.85rem;
+        --text-xs: 0.74rem;
+        --leading-normal: 1.65;
+        --leading-relaxed: 1.7;
+    }
+
+    body {
+        font-size: 0.98rem;
+        letter-spacing: 0.001em;
+    }
+
+    h1, h2, h3,
+    .sp-hero__title,
+    .home-hero__title,
+    .sp-section__title,
+    .sp-users__title,
+    .sp-page__hero-title,
+    .sp-dash-name {
+        letter-spacing: -0.02em;
+        line-height: 1.22;
+    }
+
+    .btn,
+    .sp-fu-btn {
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+
+    .sp-hero__title {
+        font-size: clamp(2rem, 4.6vw, 2.9rem);
+    }
+
+    .home-hero__title {
+        font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+    }
+
+    .sp-section__title {
+        font-size: clamp(1.4rem, 3vw, 1.8rem);
+    }
+
+    .sp-users__title {
+        font-size: clamp(1.6rem, 3.6vw, 2.2rem);
+    }
+
+    /* ── §2. Tablet spacing: tighter radii + gutters ────────── */
+    .sp-landing {
+        max-width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        gap: 1.6rem;
+    }
+
+    .sp-hero,
+    .home-hero {
+        border-radius: 20px;
+    }
+
+    .sp-hero__inner {
+        padding: clamp(1.6rem, 3.5vw, 2.4rem);
+    }
+
+    .sp-section,
+    .sp-page__hero {
+        border-radius: 20px;
+    }
+
+    .sp-page {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .sp-dashboard__inner,
+    .sp-petition-single,
+    .sp-profile {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* ── §3. Tablet layouts: roomy 2-up grids ───────────────── */
+    .sp-dash-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+    }
+
+    .sp-dash-stat {
+        padding: 1rem 1.1rem;
+    }
+
+    .sp-dash-stat__num {
+        font-size: 1.4rem;
+    }
+
+    .home-stats__inner {
+        gap: 1.25rem;
+    }
+
+    .sp-fu-petgrid,
+    .sp-pet-grid {
+        gap: 0.9rem;
+    }
+
+    .sp-member-grid {
+        gap: 0.85rem;
+    }
+
+    /* ── §4. Tablet header/footer polish ────────────────────── */
+    .site-header__title {
+        font-size: 1.25rem;
+    }
+
+    .site-header__logo {
+        height: 36px;
+    }
+
+    .site-footer__inner {
+        padding-top: 3.5rem;
+    }
+
+    .sp-mobile-menu a {
+        font-size: 0.92rem;
+        padding: 0.85rem 0.9rem;
+    }
+
+    .search-overlay__inner {
+        max-width: 600px;
+    }
+}

@@ -40,7 +40,7 @@ $dash_url  = home_url( '/dashboard/' );
         <p class="sp-users__sub"><?php esc_html_e( 'Everything you have started — track Is, edit drafts, and share.', 'sampreshan-child' ); ?></p>
         <div class="sp-users__hero-actions">
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>">
-                <?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?>
+                <?php sp_icon_auto( 'plus', 'sp-icon--sm', '' ); ?>
                 <?php esc_html_e( 'New Petition', 'sampreshan-child' ); ?>
             </a>
             <a class="btn btn--ghost" href="<?php echo esc_url( $dash_url ); ?>"><?php esc_html_e( 'Back to Dashboard', 'sampreshan-child' ); ?></a>
@@ -63,7 +63,7 @@ $dash_url  = home_url( '/dashboard/' );
                         <?php if ( $cover ) : ?>
                             <img src="<?php echo esc_url( $cover ); ?>" alt="" loading="lazy" width="84" height="84" />
                         <?php else : ?>
-                            <span class="sp-dash-row__thumb--ph"><?php sp_icon_e( 'petition', 'sp-icon--md', '' ); ?></span>
+                            <span class="sp-dash-row__thumb--ph"><?php sp_icon_auto( 'petition', 'sp-icon--md', '' ); ?></span>
                         <?php endif; ?>
                     </a>
                     <div class="sp-dash-row__main">
@@ -100,7 +100,7 @@ $dash_url  = home_url( '/dashboard/' );
         </nav>
     <?php else : ?>
         <div class="sp-dash-empty sp-dash-card">
-            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_e( 'petition', 'sp-icon--xl', '' ); ?></span>
+            <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_auto( 'petition', 'sp-icon--xl', '' ); ?></span>
             <h3 class="sp-dash-empty__title"><?php esc_html_e( 'No petitions yet', 'sampreshan-child' ); ?></h3>
             <p class="sp-dash-empty__desc"><?php esc_html_e( 'Start your first petition and it will appear here.', 'sampreshan-child' ); ?></p>
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>"><?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?></a>

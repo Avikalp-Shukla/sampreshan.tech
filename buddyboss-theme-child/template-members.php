@@ -51,7 +51,7 @@ $bb_members_url = function_exists( 'bp_get_members_directory_permalink' ) ? bp_g
     <form class="sp-users__filters" method="get" action="<?php echo esc_url( get_permalink() ); ?>" role="search">
         <label class="sp-users__search">
             <span class="screen-reader-text"><?php esc_html_e( 'Search members', 'sampreshan-child' ); ?></span>
-            <?php sp_icon_e( 'search', 'sp-icon--sm', '' ); ?>
+            <?php sp_icon_auto( 'search', 'sp-icon--sm', '' ); ?>
             <input type="search" name="q" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Search members…', 'sampreshan-child' ); ?>" />
         </label>
         <button class="btn btn--ghost" type="submit"><?php esc_html_e( 'Search', 'sampreshan-child' ); ?></button>
@@ -81,7 +81,7 @@ $bb_members_url = function_exists( 'bp_get_members_directory_permalink' ) ? bp_g
                     <h2 class="sp-member-card__name"><a href="<?php echo esc_url( $prof_url ); ?>"><?php echo esc_html( $m->display_name ); ?></a></h2>
                     <p class="sp-member-card__handle">@<?php echo esc_html( $m->user_nicename ); ?></p>
                     <?php if ( $loc ) : ?>
-                        <p class="sp-member-card__loc"><?php sp_icon_e( 'location', 'sp-icon--xs', '' ); ?> <?php echo esc_html( $loc ); ?></p>
+                        <p class="sp-member-card__loc"><?php sp_icon_auto( 'location', 'sp-icon--xs', '' ); ?> <?php echo esc_html( $loc ); ?></p>
                     <?php endif; ?>
                     <?php if ( $bio ) : ?>
                         <p class="sp-member-card__bio"><?php echo esc_html( mb_substr( $bio, 0, 90 ) ); ?></p>

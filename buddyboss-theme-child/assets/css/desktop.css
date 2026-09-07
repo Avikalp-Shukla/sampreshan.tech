@@ -1,0 +1,204 @@
+/**
+ * Desktop Identity — "Grand Immersive" (min-width: 1025px only)
+ * Airier spacing, grander type scale, richer aurora + glows,
+ * deeper hover craft. Distinct from tablet (compact) and
+ * phone (dense). Nothing here may leak below desktop.
+ *
+ * @package SampreShan_Child
+ */
+
+@media (min-width: 1025px) {
+
+    /* ── §0. Desktop palette: rich + luminous ───────────────── */
+    body.sp-future {
+        --ft-bg: #060913;
+        --ft-bg2: #0B1124;
+        --ft-panel: rgba(255, 255, 255, 0.05);
+        --ft-panel-solid: #0D1428;
+        --ft-line: rgba(255, 153, 51, 0.22);
+        --ft-line-soft: rgba(255, 255, 255, 0.10);
+        --ft-neon: #FF8A00;
+        --ft-saffron: #FF9933;
+        --ft-gold: #FFD34D;
+        --ft-cyan: #41E2FF;
+        --ft-text: #F7F2E7;
+        --ft-muted: #AEA288;
+    }
+
+    body.sp-future::before {
+        background:
+            radial-gradient(950px 500px at 12% -80px, rgba(255, 138, 0, 0.18), transparent 60%),
+            radial-gradient(850px 440px at 88% 8%, rgba(65, 226, 255, 0.09), transparent 60%),
+            radial-gradient(1050px 620px at 50% 110%, rgba(154, 27, 30, 0.24), transparent 60%),
+            linear-gradient(180deg, #060913 0%, #070B1A 100%);
+    }
+
+    body.sp-future .btn--primary,
+    body.sp-future .sp-fu-btn--primary {
+        box-shadow: 0 0 0 1px rgba(255, 200, 120, 0.35), 0 10px 32px rgba(255, 138, 0, 0.42);
+    }
+
+    body.sp-future .sp-trust {
+        box-shadow: 0 0 80px rgba(255, 138, 0, 0.16);
+    }
+
+    /* ── §1. Desktop typography: grand scale ────────────────── */
+    :root {
+        --text-7xl: 4.75rem;
+        --text-6xl: 4rem;
+        --text-5xl: 3.25rem;
+        --text-4xl: 2.5rem;
+        --text-3xl: 2rem;
+        --text-2xl: 1.6rem;
+        --text-xl: 1.3rem;
+        --text-lg: 1.14rem;
+        --text-base: 1.02rem;
+        --text-sm: 0.9rem;
+        --text-xs: 0.78rem;
+        --leading-normal: 1.7;
+        --leading-relaxed: 1.75;
+    }
+
+    body {
+        font-size: 1.02rem;
+    }
+
+    h1, h2, h3,
+    .sp-hero__title,
+    .home-hero__title,
+    .sp-section__title,
+    .sp-users__title,
+    .sp-page__hero-title,
+    .sp-dash-name,
+    .sp-petition-single__title {
+        letter-spacing: -0.03em;
+        line-height: 1.12;
+    }
+
+    .sp-hero__title {
+        font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+        font-weight: 800;
+    }
+
+    .home-hero__title {
+        font-size: clamp(2.4rem, 4vw, 4rem);
+    }
+
+    .sp-section__title {
+        font-size: clamp(1.7rem, 2.8vw, 2.15rem);
+    }
+
+    .sp-users__title {
+        font-size: clamp(2rem, 3vw, 2.7rem);
+    }
+
+    .sp-page__hero-title {
+        font-size: clamp(2rem, 3.4vw, 3rem);
+    }
+
+    .sp-dash-name {
+        font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    }
+
+    .btn,
+    .sp-fu-btn {
+        font-size: 0.92rem;
+    }
+
+    /* ── §2. Desktop spacing: airier canvas ─────────────────── */
+    .sp-landing {
+        max-width: 1220px;
+        gap: 2.5rem;
+        padding-bottom: 4.5rem;
+    }
+
+    .sp-hero,
+    .home-hero {
+        border-radius: 28px;
+    }
+
+    .sp-hero__inner {
+        padding: clamp(2.5rem, 4vw, 3.5rem);
+        gap: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .sp-section {
+        border-radius: 26px;
+        padding: clamp(2.25rem, 3.5vw, 3rem);
+    }
+
+    .sp-page {
+        padding-bottom: 4rem;
+    }
+
+    .sp-dashboard__inner {
+        max-width: 1200px;
+        gap: 1.75rem;
+    }
+
+    .sp-users__hero,
+    .sp-users__filters,
+    .sp-pet-grid,
+    .sp-member-grid,
+    .sp-dash-list.sp-dash-card {
+        max-width: 1200px;
+    }
+
+    .home-stats {
+        padding: 1.75rem 2.5rem;
+    }
+
+    .sp-fu-petgrid,
+    .sp-pet-grid {
+        gap: 1.25rem;
+    }
+
+    .sp-member-grid {
+        gap: 1.1rem;
+    }
+
+    .site-footer__inner {
+        padding-top: 5.5rem;
+    }
+
+    .site-footer__grid {
+        gap: 3.5rem;
+    }
+
+    /* ── §3. Desktop hover craft ────────────────────────────── */
+    .sp-fu-pet:hover,
+    .sp-pet-card:hover,
+    .sp-member-card:hover,
+    .sp-cause-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .sp-dash-stat:hover {
+        transform: translateY(-3px);
+    }
+}
+
+/* ============================================================
+   ULTRA-WIDE (min-width: 1440px) — stretch the canvas
+   ============================================================ */
+@media (min-width: 1440px) {
+
+    .sp-landing {
+        max-width: 1280px;
+    }
+
+    .sp-dashboard__inner {
+        max-width: 1240px;
+    }
+
+    .sp-users__hero,
+    .sp-users__filters,
+    .sp-pet-grid,
+    .sp-member-grid {
+        max-width: 1240px;
+    }
+
+    .sp-hero__title {
+        font-size: clamp(2.6rem, 4vw, 4.2rem);
+    }
+}

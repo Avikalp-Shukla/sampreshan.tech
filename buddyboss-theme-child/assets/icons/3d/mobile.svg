@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Mobile OTP verification">
+  <defs>
+    <linearGradient id="mobBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5374AB"/>
+      <stop offset="100%" stop-color="#0A1A3D"/>
+    </linearGradient>
+    <linearGradient id="mobScreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFDF8"/>
+      <stop offset="100%" stop-color="#F6E8CE"/>
+    </linearGradient>
+    <radialGradient id="mobGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#BDEFFF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#BDEFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="mobShadow" x="-20%" y="-10%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
+      <feOffset dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="32" cy="58" rx="14" ry="2" fill="#1A3380" opacity="0.18"/>
+  <g filter="url(#mobShadow)">
+    <circle cx="32" cy="30" r="19" fill="url(#mobGlow)"/>
+    <rect x="20" y="6" width="24" height="50" rx="7" fill="url(#mobBody)"/>
+    <rect x="23.5" y="12" width="17" height="36" rx="2.5" fill="url(#mobScreen)"/>
+    <line x1="28" y1="9" x2="36" y2="9" stroke="#F5F0E6" stroke-width="1.6" stroke-linecap="round"/>
+    <g>
+      <circle cx="27.5" cy="24" r="2.6" fill="#FF9933"/>
+      <circle cx="36.5" cy="24" r="2.6" fill="#FF9933"/>
+      <circle cx="27.5" cy="32" r="2.6" fill="#FF9933"/>
+      <circle cx="36.5" cy="32" r="2.6" fill="none" stroke="#E0851A" stroke-width="1.6"/>
+    </g>
+    <path d="M28.5 41.5 L30.8 43.8 L35.5 39.5" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="29" y1="52" x2="35" y2="52" stroke="#F5F0E6" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+</svg>

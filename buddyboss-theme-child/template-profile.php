@@ -32,7 +32,7 @@ if ( $user_id <= 0 ) {
     ?>
     <main class="site-main sp-profile sp-profile--guest sp-fu-wash" role="main">
         <div class="sp-container sp-empty">
-            <?php sp_icon_e( 'lock', 'sp-icon--3xl sp-icon--saffron', __( 'Locked', 'sampreshan-child' ) ); ?>
+            <?php sp_icon_auto( 'lock', 'sp-icon--3xl sp-icon--saffron', __( 'Locked', 'sampreshan-child' ) ); ?>
             <h1 class="sp-empty__title"><?php esc_html_e( 'Sign in to view your profile', 'sampreshan-child' ); ?></h1>
             <p class="sp-empty__body"><?php esc_html_e( 'Your Sanatan profile, petitions, and signatures live behind the sign-in door.', 'sampreshan-child' ); ?></p>
             <a class="sp-fu-btn sp-fu-btn--primary" href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>">
@@ -108,14 +108,14 @@ $start_url    = home_url( '/start-a-petition/' );
                 <?php if ( $avatar_url ) : ?>
                     <img src="<?php echo esc_url( $avatar_url ); ?>" alt="<?php echo esc_attr( $display_name ); ?>" width="132" height="132" />
                 <?php else : ?>
-                    <?php sp_icon_e( 'account', 'sp-icon--3xl', '' ); ?>
+                    <?php sp_icon_auto( 'account', 'sp-icon--3xl', '' ); ?>
                 <?php endif; ?>
             </div>
             <div class="sp-fu-id__actions">
                 <?php if ( $is_me ) : ?>
                     <a class="sp-fu-btn sp-fu-btn--mor sp-fu-btn--sm" href="<?php echo esc_url( $settings_url ); ?>"><?php esc_html_e( 'Edit profile', 'sampreshan-child' ); ?></a>
                     <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $start_url ); ?>">
-                        <?php sp_icon_e( 'plus', 'sp-icon--xs', '' ); ?>
+                        <?php sp_icon_auto( 'plus', 'sp-icon--xs', '' ); ?>
                         <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>
                     </a>
                 <?php else : ?>
@@ -129,7 +129,7 @@ $start_url    = home_url( '/start-a-petition/' );
             <h1 class="sp-fu-name">
                 <?php echo esc_html( $display_name ); ?>
                 <?php if ( $completeness >= 70 ) : ?>
-                    <span class="sp-fu-verified" title="<?php esc_attr_e( 'Established voice', 'sampreshan-child' ); ?>">✓</span>
+                    <span class="sp-fu-verified" title="<?php esc_attr_e( 'Established voice', 'sampreshan-child' ); ?>" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
                 <?php endif; ?>
             </h1>
             <p class="sp-fu-handle">@<?php echo esc_html( $nicename ); ?></p>
@@ -138,14 +138,14 @@ $start_url    = home_url( '/start-a-petition/' );
             <?php endif; ?>
             <div class="sp-fu-meta">
                 <?php if ( $location ) : ?>
-                    <span><?php sp_icon_e( 'location', 'sp-icon--xs', '' ); ?><?php echo esc_html( $location ); ?></span>
+                    <span><?php sp_icon_auto( 'location', 'sp-icon--xs', '' ); ?><?php echo esc_html( $location ); ?></span>
                 <?php endif; ?>
-                <span><?php sp_icon_e( 'calendar', 'sp-icon--xs', '' ); ?><?php echo esc_html( sprintf( __( 'Joined %s', 'sampreshan-child' ), $joined ) ); ?></span>
+                <span><?php sp_icon_auto( 'calendar', 'sp-icon--xs', '' ); ?><?php echo esc_html( sprintf( __( 'Joined %s', 'sampreshan-child' ), $joined ) ); ?></span>
             </div>
             <?php if ( $sampradaya || $gotra ) : ?>
                 <ul class="sp-fu-chips">
                     <?php if ( $sampradaya ) : ?>
-                        <li><?php sp_icon_e( 'om', 'sp-icon--xs', '' ); ?><?php echo esc_html( $sampradaya ); ?></li>
+                        <li><?php sp_icon_auto( 'om', 'sp-icon--xs', '' ); ?><?php echo esc_html( $sampradaya ); ?></li>
                     <?php endif; ?>
                     <?php if ( $gotra ) : ?>
                         <li><?php echo esc_html( sprintf( __( 'Gotra: %s', 'sampreshan-child' ), $gotra ) ); ?></li>
@@ -204,7 +204,7 @@ $start_url    = home_url( '/start-a-petition/' );
                         <div class="sp-fu-post__engage">
                             <?php if ( is_user_logged_in() && current_user_can( 'sign_petitions' ) ) : ?>
                                 <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
-                                    <?php echo $signed ? esc_html__( 'Supported ✓', 'sampreshan-child' ) : esc_html__( 'I Support', 'sampreshan-child' ); ?>
+                                    <?php if ( $signed ) : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Supported', 'sampreshan-child' ); ?><?php else : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'I Support', 'sampreshan-child' ); ?><?php endif; ?>
                                 </button>
                             <?php endif; ?>
                             <a class="sp-fu-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>
