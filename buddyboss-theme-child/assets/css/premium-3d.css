@@ -122,7 +122,34 @@
 .d3-stagger.is-visible > *:nth-child(6) { transition-delay: 500ms; opacity: 1; transform: none; }
 
 /* ============================================================
-   4. HERO — Full-viewport dark immersive
+   2. GLOBAL DARK OVERRIDES — Override BuddyBoss light defaults
+   ============================================================ */
+body,
+body.home-page,
+body.front-page,
+body.page-template-front-page-php {
+    background: var(--d-bg-deep) !important;
+    color: var(--d-text) !important;
+}
+
+/* Override BuddyBoss inline CSS custom properties */
+body {
+    --bb-body-background-color: #08090c !important;
+    --bb-body-background-color-rgb: 8, 9, 12 !important;
+    --bb-body-text-color: #ffffff !important;
+    --bb-body-text-color-rgb: 255, 255, 255 !important;
+    --bb-content-background-color: #12151e !important;
+    --bb-content-alternate-background-color: #181c28 !important;
+}
+
+.site-main--landing,
+.site-main--landing .sp-landing,
+.sp-landing {
+    background: transparent !important;
+}
+
+/* ============================================================
+   3. HERO — Full-viewport dark immersive
    ============================================================ */
 .d3-hero {
     position: relative;
