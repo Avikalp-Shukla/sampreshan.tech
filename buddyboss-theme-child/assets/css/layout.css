@@ -403,6 +403,18 @@ a:hover { color: var(--blue-700); }
     width: 100%;
 }
 
+/* Custom page shells manage their own layout — they must NEVER inherit
+   the 3-column app grid above (it squeezes heroes/cards into side
+   columns on desktop). Single column here; inner grids live in each
+   component stylesheet with their own tablet/mobile rules. */
+.site-main.sp-page,
+.site-main.sp-profile,
+.site-main.sp-petition-single,
+.site-main.sp-dashboard,
+.site-main.sp-petition-create {
+    grid-template-columns: minmax(0, 1fr);
+}
+
 /* === SITE FOOTER (premium) === */
 .site-footer {
     position: relative;

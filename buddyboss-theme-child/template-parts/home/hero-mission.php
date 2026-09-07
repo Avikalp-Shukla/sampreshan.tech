@@ -46,7 +46,7 @@ $is_logged_in = is_user_logged_in();
             <div class="sp-hero__logo-card">
                 <img class="sp-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />
                 <p class="sp-hero__logo-name"><?php echo esc_html( $site_name ); ?></p>
-                <p class="sp-hero__logo-tag"><?php esc_html_e( 'Sampreshan · Samvad · Samarthan', 'sampreshan-child' ); ?></p>
+                <p class="sp-hero__logo-tag"><?php esc_html_e( 'Voice · Dialogue · Support', 'sampreshan-child' ); ?></p>
             </div>
         </div>
     </div>

@@ -91,7 +91,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.3.7' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.4.1' );
 }
 
 /**
@@ -250,6 +250,30 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-theme-modes',
         get_stylesheet_directory_uri() . '/assets/css/theme-modes.css',
         array( 'sampreshan-future' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    // Tablet identity (769–1024px only) + desktop identity (1025px+).
+    // Non-overlapping bands; both win over skins, mobile pack stays last.
+    wp_enqueue_style(
+        'sampreshan-tablet',
+        get_stylesheet_directory_uri() . '/assets/css/tablet.css',
+        array( 'sampreshan-theme-modes' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+    wp_enqueue_style(
+        'sampreshan-desktop',
+        get_stylesheet_directory_uri() . '/assets/css/desktop.css',
+        array( 'sampreshan-tablet' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    // Mobile experience pack (phone-only palette, typography, alignment).
+    // Loaded last so it wins over every skin on small screens.
+    wp_enqueue_style(
+        'sampreshan-mobile',
+        get_stylesheet_directory_uri() . '/assets/css/mobile.css',
+        array( 'sampreshan-desktop' ),
         SAMPRESHAN_CHILD_VERSION
     );
 

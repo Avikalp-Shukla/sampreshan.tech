@@ -7,7 +7,7 @@
  * @package SampreShan_Child
  */
 
-$post_id = 99; // "Sampreshan Mein Aapka Swagat Hai" — real existing post
+$post_id = 99; // "Welcome to Sampreshan" — real existing post
 $post = get_post( $post_id );
 
 if ( ! $post ) {
