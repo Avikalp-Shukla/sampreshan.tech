@@ -1,122 +1,531 @@
 /**
- * Responsive Design — Premium Edition
- * Desktop (default), Tablet, Mobile — Framer-quality
+ * Responsive Design — Premium Edition (v2: full-site overhaul)
+ * Breakpoints: 1280 / 1024 / 900 / 768 / 640 / 480 / 360
+ * Covers: global safeguards, BuddyBoss shells, header+mobile menu,
+ * landing, fusion, users, dashboard, petition, profile, pages,
+ * forms, login, footer, overlays.
  * @package SampreShan_Child
  */
 
-/* === TABLET (max-width: 1024px) === */
+/* ============================================================
+   0. GLOBAL SAFEGUARDS (all viewports)
+   ============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    overflow-x: clip;
+}
+
+img,
+video,
+svg,
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+img {
+    border-style: none;
+}
+
+iframe,
+embed,
+object {
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Wide tables scroll horizontally on small screens only —
+   desktop keeps native table layout. */
+@media (max-width: 768px) {
+    .sp-page__content table,
+    .post-card table,
+    .petition-card table,
+    .sp-petition-single__content table,
+    .entry-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+pre,
+code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* BuddyBoss / WP shells must never cause horizontal scroll */
+#page,
+#content,
+.site-content,
+.bb-grid,
+.container,
+.site-main__content,
+.sp-landing,
+.sp-page,
+.sp-dashboard__inner,
+.sp-users,
+.sp-profile,
+.sp-petition-single,
+.sp-petition-create {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+#content > .container,
+.bb-grid {
+    max-width: 100%;
+}
+
+/* Long URLs / titles wrap everywhere */
+a,
+p,
+h1, h2, h3, h4, h5, h6,
+.sp-fu-pet__title,
+.sp-pet-card__title,
+.petition-card__title,
+.sp-feed__title {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Grid items must be allowed to shrink (prevents 1fr blowout on
+   long words / fixed-width children on tablet + mobile) */
+.site-main > *,
+.sp-pet-grid > *,
+.sp-fu-petgrid > *,
+.sp-member-grid > *,
+.sp-dash-stats > *,
+.sp-dash-grid > *,
+.sp-fu-social > *,
+.sp-steps > *,
+.grid3 > *,
+.peeth-grid > *,
+.mission > *,
+.stats > *,
+.home-stats__inner > *,
+.sp-cause-grid > *,
+.sp-team-grid > *,
+.site-footer__grid > * {
+    min-width: 0;
+}
+
+/* Touch targets: minimum 40px on coarse pointers */
+@media (pointer: coarse) {
+    .btn,
+    .sp-fu-btn,
+    .btn-3d,
+    .site-header__search-btn,
+    .site-header__notification-btn,
+    .mobile-tab-nav__item,
+    .sp-users__pagination .page-numbers,
+    button,
+    input[type="submit"] {
+        min-height: 40px;
+    }
+}
+
+/* Mobile bottom tab nav: hidden on desktop by default.
+   Shown only <=768px (see media query below). */
+.mobile-tab-nav {
+    display: none;
+}
+
+/* Hamburger: hidden on desktop by default, shown <=1024px */
+.site-header__menu-toggle,
+.sp-mobile-menu {
+    display: none;
+}
+
+/* Reveal hiding is scoped to html.js in animations.css / design-system-v2.css,
+   so without JS everything stays visible — no fallback rule needed here. */
+
+/* ============================================================
+   1. LARGE DESKTOP (min-width: 1440px)
+   ============================================================ */
+@media (min-width: 1440px) {
+    .site-header__inner {
+        max-width: var(--container-2xl, 1440px);
+    }
+    .sp-landing {
+        max-width: 1200px;
+    }
+    .sp-pet-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1536px) {
+    .site-main {
+        gap: var(--space-10);
+        max-width: 1500px;
+    }
+    .home-hero {
+        padding: var(--space-16) var(--space-12) var(--space-14);
+    }
+    .home-hero__art {
+        width: 200px;
+        height: 200px;
+    }
+    .sp-petition-single {
+        max-width: 1280px;
+    }
+    .sp-page {
+        max-width: 1200px;
+    }
+}
+
+/* ============================================================
+   2. SMALL DESKTOP / LANDSCAPE TABLET (max-width: 1280px)
+   ============================================================ */
+@media (max-width: 1280px) {
+    .site-main {
+        grid-template-columns: var(--sidebar-width, 280px) minmax(0, 1fr) 300px;
+        gap: var(--space-6);
+        padding: var(--space-6);
+    }
+    .sp-fu-social {
+        grid-template-columns: 220px minmax(0, 1fr) 280px;
+    }
+    .sp-pet-grid,
+    .sp-fu-petgrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .sp-member-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ============================================================
+   3. TABLET (max-width: 1024px)
+   ============================================================ */
 @media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 240px;
+    }
+
+    /* --- Shell: drop left sidebar, keep content + right rail --- */
     .site-main {
         grid-template-columns: minmax(0, 1fr) 300px;
         gap: var(--space-6);
+        padding: var(--space-6) var(--space-4);
     }
-
     .site-main__sidebar-left,
     .home-aside--left {
         display: none;
     }
 
+    /* --- Header: compress, show hamburger --- */
+    .site-header__inner {
+        gap: var(--space-3);
+        padding: 0 var(--space-4);
+    }
+    .site-header__nav {
+        gap: 0;
+    }
     .site-header__nav-link {
         padding: var(--space-2) var(--space-3);
         font-size: var(--text-xs);
+    }
+    .site-header__menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-full, 9999px);
+        border: 1px solid var(--border, #e7e5e4);
+        background: var(--bg-card, #fff);
+        color: var(--text, #1c1917);
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .site-header__menu-toggle:hover {
+        border-color: var(--saffron-500, #ff9933);
+    }
+    .site-header__menu-toggle .sp-icon {
+        pointer-events: none;
+    }
+
+    /* Mobile drawer menu (toggled by [data-menu-toggle]) */
+    .sp-mobile-menu {
+        display: block;
+        position: fixed;
+        top: var(--header-height, 72px);
+        left: 0;
+        right: 0;
+        z-index: var(--z-overlay, 500);
+        background: var(--bg-card, #fff);
+        border-bottom: 1px solid var(--border, #e7e5e4);
+        box-shadow: var(--elev-3, 0 8px 24px rgba(10,26,61,.1));
+        padding: var(--space-3) var(--space-4) var(--space-4);
+        transform: translateY(-8px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+        max-height: calc(100dvh - var(--header-height, 72px));
+        overflow-y: auto;
+    }
+    .sp-mobile-menu.is-open {
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+    }
+    .sp-mobile-menu a {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-3) var(--space-3);
+        border-radius: var(--radius, 10px);
+        color: var(--text, #1c1917);
+        font-weight: 600;
+        font-size: var(--text-sm);
+        text-decoration: none;
+    }
+    .sp-mobile-menu a:hover,
+    .sp-mobile-menu a.is-active {
+        background: var(--saffron-50, #fff8f0);
+        color: var(--saffron-700, #e0851a);
+    }
+    body.menu-open {
+        overflow: hidden;
     }
 
     .search-overlay__inner {
         margin: 0 var(--space-4);
     }
+
+    /* --- Landing --- */
+    .sp-landing {
+        padding: clamp(1rem, 3vw, 1.75rem) clamp(0.9rem, 3vw, 1.25rem) 3rem;
+    }
+    .sp-hero__inner {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+        gap: 1.5rem;
+        padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    }
+    .sp-steps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .sp-section {
+        padding: clamp(1.25rem, 3vw, 2rem);
+    }
+
+    /* --- Fusion --- */
+    .sp-fu-petgrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .sp-fu-social {
+        grid-template-columns: minmax(0, 1fr) 280px;
+    }
+    .sp-fu-side--nav {
+        display: none;
+    }
+
+    /* --- Users / dashboard --- */
+    .sp-pet-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .sp-member-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .sp-dash-grid {
+        grid-template-columns: 1fr;
+    }
+    .sp-dash-rail {
+        position: static;
+    }
+    .sp-dash-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* --- Petition single --- */
+    .sp-petition-single__hero-inner {
+        grid-template-columns: 200px minmax(0, 1fr);
+    }
+    .sp-petition-single__body {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    }
+
+    /* --- Footer --- */
+    .site-footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+    }
+    .site-footer__inner {
+        padding: var(--space-12) var(--space-6) var(--space-6);
+    }
 }
 
-/* === MOBILE (max-width: 768px) === */
+/* ============================================================
+   4. SMALL TABLET / LARGE PHONE LANDSCAPE (max-width: 900px)
+   ============================================================ */
+@media (max-width: 900px) {
+    .sp-hero__inner {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+    .sp-hero__art {
+        order: -1;
+        justify-content: flex-start;
+    }
+    .sp-hero__logo-card {
+        width: min(240px, 100%);
+        padding: 1.25rem 1rem;
+    }
+    .sp-steps {
+        grid-template-columns: 1fr;
+    }
+    .sp-trust__inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .home-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .home-hero__inner {
+        margin: 0 auto;
+    }
+    .home-hero__art {
+        margin: 0 auto;
+    }
+}
+
+/* ============================================================
+   5. MOBILE (max-width: 768px) — phones + portrait tablets
+   ============================================================ */
 @media (max-width: 768px) {
     :root {
         --header-height: 60px;
     }
 
+    /* --- Header --- */
     .site-header__inner {
-        padding: 0 var(--space-4);
-        gap: var(--space-3);
+        padding: 0 var(--space-3);
+        gap: var(--space-2);
     }
-
     .site-header__nav {
         display: none;
     }
-
     .site-header__title {
         font-size: var(--text-lg);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 38vw;
     }
-
+    .site-header__logo {
+        height: 32px;
+    }
+    .site-header__actions {
+        gap: var(--space-2);
+        margin-left: auto;
+    }
+    /* Keep header to one row: hide Join on small, keep Sign In compact */
+    .site-header__actions .btn--primary.site-header__start {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-xs);
+    }
+    .site-header__actions .btn--outline {
+        display: none;
+    }
     .site-header__search-btn,
     .site-header__notification-btn {
         width: 36px;
         height: 36px;
     }
-
-    .site-main {
-        grid-template-columns: 1fr;
-        padding: var(--space-4);
-        gap: var(--space-4);
+    .site-header__avatar {
+        width: 32px;
+        height: 32px;
     }
 
+    /* --- Shell: single column --- */
+    .site-main {
+        grid-template-columns: minmax(0, 1fr);
+        padding: var(--space-4) var(--space-3);
+        gap: var(--space-4);
+    }
     .site-main__sidebar-left,
     .site-main__sidebar-right,
     .home-aside--left,
-    .home-aside--right {
+    .home-aside--right,
+    .home-aside {
         display: none;
     }
-
-    /* Reserve space for fixed bottom tab nav */
     body {
-        padding-bottom: 72px;
+        padding-bottom: 76px; /* room for bottom tab nav */
     }
-
     .site-main__content {
         max-width: 100%;
     }
 
-    /* Mobile bottom tab nav */
+    /* --- Bottom tab nav (mobile only) --- */
     .mobile-tab-nav {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(255, 255, 255, 0.92);
-        -webkit-backdrop-filter: var(--glass-blur);
-        backdrop-filter: var(--glass-blur);
-        border-top: 1px solid var(--glass-border-subtle);
+        background: rgba(255, 255, 255, 0.94);
+        -webkit-backdrop-filter: var(--glass-blur, blur(20px));
+        backdrop-filter: var(--glass-blur, blur(20px));
+        border-top: 1px solid var(--border, #e7e5e4);
         padding: var(--space-2) 0;
         padding-bottom: env(safe-area-inset-bottom, var(--space-2));
         display: flex;
         justify-content: space-around;
-        align-items: center;
-        z-index: var(--z-sticky);
+        align-items: stretch;
+        z-index: var(--z-sticky, 100);
         box-shadow: 0 -4px 20px rgba(10, 26, 61, 0.08);
     }
-
     .mobile-tab-nav__item {
-        flex: 1;
+        flex: 1 1 0;
+        min-width: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: var(--space-1);
-        padding: var(--space-2);
-        color: var(--text-soft);
+        justify-content: center;
+        gap: 2px;
+        padding: var(--space-1) var(--space-1);
+        color: var(--text-soft, #64748b);
         text-decoration: none;
         font-size: 10px;
-        font-weight: var(--weight-medium);
-        border-radius: var(--radius);
-        transition: color var(--transition-fast);
+        font-weight: var(--weight-medium, 500);
+        line-height: 1.2;
+        border-radius: var(--radius, 10px);
+        transition: color var(--transition-fast, 150ms ease);
         -webkit-tap-highlight-color: transparent;
+        text-align: center;
     }
-
+    .mobile-tab-nav__item span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
     .mobile-tab-nav__item.is-active,
     .mobile-tab-nav__item:hover {
-        color: var(--saffron-700);
+        color: var(--saffron-700, #e0851a);
     }
-
     .mobile-tab-nav__item.is-active {
         position: relative;
     }
-
     .mobile-tab-nav__item.is-active::before {
         content: "";
         position: absolute;
@@ -125,107 +534,661 @@
         transform: translateX(-50%);
         width: 24px;
         height: 2px;
-        background: var(--saffron-500);
+        background: var(--saffron-500, #ff9933);
         border-radius: 0 0 2px 2px;
     }
-
-    .mobile-tab-nav__item.is-active .mobile-tab-nav__icon-wrap {
-        background: var(--saffron-50);
-    }
-
-    .mobile-tab-nav__icon-wrap {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 28px;
-        border-radius: var(--radius-full);
-        transition: background var(--transition-fast);
-    }
-
     .mobile-tab-nav__icon {
         width: 22px;
         height: 22px;
+        flex-shrink: 0;
+    }
+    .mobile-tab-nav__item--start {
+        color: var(--saffron-600, #ed7a1a);
     }
 
-    /* Spacing adjustments */
+    /* --- Landing --- */
+    .sp-landing {
+        padding: 0.9rem 0.8rem 2.5rem;
+        gap: 1rem;
+    }
+    .sp-hero {
+        border-radius: 18px;
+    }
+    .sp-hero__inner {
+        padding: 1.4rem 1.1rem;
+        gap: 1.1rem;
+    }
+    .sp-hero__title {
+        font-size: clamp(1.7rem, 8vw, 2.3rem);
+    }
+    .sp-hero__sub {
+        font-size: 0.98rem;
+    }
+    .sp-hero__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sp-hero__actions .btn,
+    .sp-hero__actions .sp-fu-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .sp-hero__points {
+        gap: 0.6rem 1rem;
+        font-size: 0.82rem;
+    }
+    .sp-section {
+        border-radius: 18px;
+        padding: 1.25rem 1rem;
+    }
+    .sp-section__title {
+        font-size: clamp(1.3rem, 5.5vw, 1.6rem);
+    }
+    .sp-section__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sp-section__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .sp-trust__inner {
+        padding: 1.5rem 1.1rem;
+    }
+    .sp-trust__actions {
+        width: 100%;
+    }
+    .sp-trust__actions .btn {
+        flex: 1 1 140px;
+        justify-content: center;
+    }
+
+    /* --- Home hero / stats --- */
+    .home-hero {
+        padding: var(--space-8) var(--space-5) var(--space-6);
+        border-radius: var(--radius-lg, 20px);
+        margin-bottom: var(--space-4);
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--space-4);
+    }
+    .home-hero__inner {
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    .home-hero__art {
+        display: none;
+    }
+    .home-hero__particles {
+        display: none;
+    }
+    .home-hero__actions {
+        justify-content: center;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .home-hero__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .home-hero__title {
+        font-size: clamp(1.625rem, 7vw, 2.25rem);
+    }
+    .home-hero__sub {
+        font-size: var(--text-base);
+    }
+    .home-stats {
+        padding: var(--space-4);
+        border-radius: var(--radius-lg, 20px);
+    }
+    .home-stats__inner {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+        overflow: visible;
+    }
+    .home-stats__divider {
+        display: none;
+    }
+    .home-stats__value {
+        font-size: var(--text-2xl);
+    }
+    .home-section {
+        margin-top: var(--space-8);
+    }
+    .home-section__head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-2);
+    }
+    .petition-card--featured .petition-card__image {
+        aspect-ratio: 16 / 9;
+        min-height: 160px;
+    }
+    .petition-card--featured .petition-card__body {
+        padding: var(--space-5);
+    }
+    .petition-card--featured .petition-card__title {
+        font-size: var(--text-xl);
+    }
+    .petition-card--featured .petition-card__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .petition-card--featured .petition-card__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* --- Fusion --- */
+    .sp-fu-petgrid {
+        grid-template-columns: 1fr;
+    }
+    .sp-fu-social {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .sp-fu-side {
+        position: static;
+    }
+    .sp-fu-avatar {
+        width: 104px;
+        height: 104px;
+    }
+    .sp-fu-id {
+        margin-top: -46px;
+    }
+    .sp-fu-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .sp-fu-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    .sp-fu-tab {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* --- Users --- */
+    .sp-pet-grid {
+        grid-template-columns: 1fr;
+    }
+    .sp-member-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .sp-users__filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sp-users__select select {
+        max-width: none;
+        width: 100%;
+    }
+    .sp-users__search {
+        min-width: 0;
+    }
+    .sp-page.sp-users {
+        padding: 1rem 0.8rem 2.5rem;
+    }
+
+    /* --- Dashboard --- */
+    .sp-dash-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .sp-dash-top__actions {
+        width: 100%;
+    }
+    .sp-dash-top__actions .btn {
+        flex: 1;
+        justify-content: center;
+    }
+    .sp-dash-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+    }
+    .sp-dash-stat {
+        padding: 0.9rem;
+    }
+    .sp-dash-row__thumb {
+        width: 68px;
+        height: 68px;
+    }
+    .sp-dash-row__actions {
+        flex-wrap: wrap;
+        gap: 0.5rem 1rem;
+    }
+
+    /* --- Petition single --- */
+    .sp-petition-single {
+        padding: 1rem 0.8rem;
+    }
+    .sp-petition-single__hero {
+        padding: 1.25rem 1rem;
+    }
+    .sp-petition-single__hero-inner {
+        grid-template-columns: 1fr;
+    }
+    .sp-petition-single__cover {
+        max-width: 360px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .sp-petition-single__title {
+        font-size: clamp(1.4rem, 6vw, 1.8rem);
+    }
+    .sp-petition-single__body {
+        grid-template-columns: 1fr;
+    }
+    .sp-petition-single__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sp-petition-single__actions .btn,
+    .sp-petition-single__sign-form .sp-sign-button {
+        width: 100%;
+        justify-content: center;
+        align-self: stretch;
+    }
+
+    /* --- Pages --- */
+    .sp-page {
+        padding: 1rem 0.8rem;
+        padding-top: clamp(4.5rem, 8vw, 5.5rem);
+    }
+    .sp-page__hero {
+        padding: 1.75rem 1rem;
+    }
+    .sp-page__card {
+        padding: 1.25rem 1rem;
+    }
+    .sp-page__features {
+        grid-template-columns: 1fr;
+    }
+    .sp-contact-form__row {
+        grid-template-columns: 1fr;
+    }
+    .sp-contact-info {
+        grid-template-columns: 1fr;
+    }
+    .sp-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .sp-page__cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sp-page__cta-actions .btn-3d,
+    .sp-page__cta-actions .btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* --- Forms --- */
+    .sp-petition-create {
+        padding: var(--space-4) var(--space-3);
+    }
+    .sp-petition-create__form-wrapper {
+        padding: var(--space-5) var(--space-4);
+    }
+    .sp-step__label {
+        display: none;
+    }
+    .sp-step__connector {
+        width: 24px;
+    }
+    .sp-form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    .sp-form-group--half {
+        min-width: 100%;
+    }
+    .sp-form-nav {
+        flex-direction: column-reverse;
+        gap: var(--space-3);
+        align-items: stretch;
+    }
+    .sp-form-nav .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .sp-form-success__actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    .sp-form-success__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* --- Cards / posts --- */
     .post-card,
     .petition-card {
         padding: var(--space-4);
-        border-radius: var(--radius-md);
+        border-radius: var(--radius-md, 14px);
+    }
+    .petition-card__body {
+        padding: var(--space-4);
+    }
+    .petition-card__actions {
+        flex-wrap: wrap;
+    }
+    .petition-card__actions .btn {
+        flex: 1 1 140px;
+        justify-content: center;
+    }
+    .post-card__actions {
+        flex-wrap: wrap;
+    }
+    .card__body {
+        padding: var(--space-4);
     }
 
+    /* --- Footer --- */
     .site-footer__grid {
         grid-template-columns: 1fr 1fr;
         gap: var(--space-8);
     }
-
     .site-footer__bottom {
         flex-direction: column;
         align-items: flex-start;
     }
-
     .site-footer__newsletter-form {
         flex-direction: column;
+        align-items: stretch;
+    }
+    .site-footer__newsletter-btn {
+        width: 100%;
     }
 
+    /* --- Type scale --- */
     h1 { font-size: var(--text-3xl); }
     h2 { font-size: var(--text-2xl); }
     h3 { font-size: var(--text-xl); }
 
-    /* Toast responsive */
+    /* --- Overlays --- */
     .toast {
         left: var(--space-4);
         right: var(--space-4);
-        bottom: 80px;
+        bottom: 84px;
         max-width: none;
     }
-
-    /* Scroll to top — above mobile nav */
+    .sp-toast {
+        left: var(--space-3);
+        right: var(--space-3);
+        transform: translateY(120%);
+        white-space: normal;
+        text-align: center;
+        justify-content: center;
+    }
+    .sp-toast.is-visible {
+        transform: translateY(0);
+    }
     .scroll-top {
         bottom: 84px;
+        right: var(--space-4);
+        width: 44px;
+        height: 44px;
     }
-
-    /* Search overlay mobile */
     .search-overlay {
+        padding: var(--space-4) var(--space-3) 0;
         padding-top: var(--space-8);
+        align-items: flex-start;
+    }
+    .search-overlay__inner {
+        margin: 0;
+    }
+    .search-overlay__input {
+        font-size: var(--text-base);
     }
 }
 
-/* === SMALL MOBILE (max-width: 480px) === */
+/* ============================================================
+   6. COMPACT MOBILE (max-width: 640px)
+   ============================================================ */
+@media (max-width: 640px) {
+    .sp-pigeon--near { top: 4%; }
+    .sp-pigeon--mid { top: 66%; }
+    .sp-pigeon--far { display: none; }
+
+    .sp-dashboard__inner {
+        padding: 1rem 0.8rem 3rem;
+    }
+    .sp-dash-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .sp-profile__body {
+        grid-template-columns: 1fr;
+    }
+    .sp-profile__stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .sp-profile__hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .sp-profile__avatar {
+        margin: 0 auto;
+    }
+}
+
+/* ============================================================
+   7. SMALL MOBILE (max-width: 480px)
+   ============================================================ */
 @media (max-width: 480px) {
     .site-main {
-        padding: var(--space-3);
+        padding: var(--space-3) var(--space-2);
+    }
+    .site-header__title {
+        max-width: 32vw;
+        font-size: var(--text-base);
+    }
+    .site-header__actions .btn--primary.site-header__start {
+        display: none; /* Start lives in bottom tab nav on tiny screens */
     }
 
     .post-card,
     .petition-card {
         padding: var(--space-3);
     }
-
+    .home-hero {
+        padding: var(--space-6) var(--space-4) var(--space-5);
+    }
+    .home-hero__eyebrow,
+    .home-hero__badge {
+        font-size: 10px;
+    }
+    .home-stats__inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .home-stats__label {
+        font-size: 10px;
+    }
+    .sp-hero__eyebrow {
+        font-size: 10px;
+    }
+    .sp-fu-pet__foot {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sp-fu-pet__foot .sp-fu-btn {
+        width: 100%;
+    }
+    .sp-member-grid {
+        grid-template-columns: 1fr;
+    }
+    .sp-dash-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+    .sp-dash-stat {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+    }
+    .sp-dash-stat__icon {
+        grid-row: auto;
+    }
+    .sp-dash-row {
+        padding: 0.7rem;
+        gap: 0.7rem;
+    }
+    .sp-petition-create__form-wrapper {
+        padding: var(--space-4) var(--space-3);
+        border-radius: var(--radius-xl, 28px);
+    }
+    .sp-form-step__title {
+        font-size: var(--text-xl);
+    }
+    .sp-login {
+        padding: var(--space-3);
+    }
+    .sp-login__card {
+        padding: var(--space-4) var(--space-3);
+    }
     .site-footer__grid {
         grid-template-columns: 1fr;
         gap: var(--space-6);
     }
-
+    .site-footer__inner {
+        padding: var(--space-10) var(--space-4) var(--space-6);
+    }
     .btn--lg {
         padding: var(--space-3) var(--space-5);
         font-size: var(--text-sm);
+        width: 100%;
+        justify-content: center;
+    }
+    .sp-trust__actions .btn {
+        width: 100%;
+    }
+    .sp-users__pagination .page-numbers {
+        min-width: 44px;
+        height: 44px;
     }
 }
 
-/* === LARGE DESKTOP (min-width: 1536px) === */
-@media (min-width: 1536px) {
+/* ============================================================
+   8. VERY SMALL (max-width: 360px)
+   ============================================================ */
+@media (max-width: 360px) {
+    :root {
+        --text-3xl: 1.5rem;
+        --text-2xl: 1.25rem;
+    }
+    .site-header__inner {
+        padding: 0 var(--space-2);
+    }
+    .site-header__logo {
+        height: 28px;
+    }
+    .sp-landing,
+    .sp-page.sp-users,
+    .sp-petition-single {
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+    }
+    .sp-dash-stats,
+    .sp-profile__stats,
+    .home-stats__inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+    .mobile-tab-nav__item {
+        font-size: 9px;
+    }
+}
+
+/* ============================================================
+   9. TABLET-ONLY TOUCH-UPS (769px–1024px)
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .home-stats__inner {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    .sp-users__filters {
+        flex-wrap: nowrap;
+    }
+    .sp-users__search {
+        min-width: 180px;
+    }
+}
+
+/* ============================================================
+   10. DESKTOP-ONLY (min-width: 1025px)
+   ============================================================ */
+@media (min-width: 1025px) {
+    .sp-mobile-menu {
+        display: none !important;
+    }
+    body.menu-open {
+        overflow: visible;
+    }
+}
+
+/* ============================================================
+   11. SHORT LANDSCAPE PHONES (height <= 500px)
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    .home-hero,
+    .sp-hero__inner,
+    .sp-page__hero {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+    .home-hero__art,
+    .sp-pigeon-flight {
+        display: none;
+    }
+    .search-overlay {
+        padding-top: var(--space-4);
+    }
+    .search-overlay__results {
+        max-height: 50vh;
+    }
+}
+
+/* ============================================================
+   12. REDUCED MOTION + PRINT
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .js .reveal, .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .sp-pigeon-flight {
+        display: none;
+    }
+}
+
+@media print {
+    .site-header,
+    .mobile-tab-nav,
+    .sp-mobile-menu,
+    .scroll-top,
+    .site-header__actions,
+    .sp-toast,
+    .toast,
+    .search-overlay {
+        display: none !important;
+    }
+    body {
+        padding-bottom: 0;
+        background: #fff;
+    }
     .site-main {
-        gap: var(--space-10);
-    }
-
-    .home-hero {
-        padding: var(--space-16) var(--space-12) var(--space-14);
-    }
-
-    .home-hero__art {
-        width: 200px;
-        height: 200px;
+        display: block;
+        max-width: 100%;
     }
 }

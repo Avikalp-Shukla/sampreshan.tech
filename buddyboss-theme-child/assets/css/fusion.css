@@ -448,6 +448,9 @@
     position: absolute;
     left: 0.7rem;
     bottom: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     background: rgba(35, 19, 9, 0.85);
     color: #ffe3b3;
     font-size: 0.68rem;
@@ -456,6 +459,10 @@
     text-transform: uppercase;
     padding: 0.28rem 0.7rem;
     border-radius: 999px;
+}
+
+.sp-fu-pet__cause .sp-icon {
+    --sp-icon-size: 14px;
 }
 
 .sp-fu-pet__body {

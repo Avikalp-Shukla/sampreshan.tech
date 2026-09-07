@@ -34,7 +34,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
         <section class="sp-petition-create__hero">
             <div class="sp-petition-create__hero-content">
                 <span class="sp-petition-create__hero-icon" aria-hidden="true">
-                    <?php sp_icon_e( 'megaphone', 'sp-icon--lg', '' ); ?>
+                    <?php sp_icon_e( 'shankh', 'sp-icon--lg', '' ); ?>
                 </span>
                 <h1 class="sp-petition-create__hero-title">
                     <?php echo esc_html__( 'Start a Petition', 'sampreshan-child' ); ?>
@@ -219,14 +219,14 @@ $upload_url     = wp_upload_dir()['baseurl'];
                         <?php echo esc_html__( 'Set your goal', 'sampreshan-child' ); ?>
                     </h2>
                     <p class="sp-form-step__desc">
-                        <?php echo esc_html__( 'Set a signature goal and optional deadline to create urgency.', 'sampreshan-child' ); ?>
+                        <?php echo esc_html__( 'Set an I goal and optional deadline to create urgency.', 'sampreshan-child' ); ?>
                     </p>
 
                     <div class="sp-form-row">
                         <div class="sp-form-group sp-form-group--half">
                             <label class="sp-form-label" for="petition-goal">
                                 <?php sp_icon_auto( 'target', 'sp-icon--sm', '' ); ?>
-                                <?php echo esc_html__( 'Signature Goal', 'sampreshan-child' ); ?>
+                                <?php echo esc_html__( 'I Goal', 'sampreshan-child' ); ?>
                             </label>
                             <div class="sp-form-input-group">
                                 <input
@@ -239,7 +239,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                                     value="1000"
                                     step="100"
                                 >
-                                <span class="sp-form-input-group__suffix"><?php echo esc_html__( 'signatures', 'sampreshan-child' ); ?></span>
+                                <span class="sp-form-input-group__suffix"><?php echo esc_html__( 'I', 'sampreshan-child' ); ?></span>
                             </div>
                         </div>
                         <div class="sp-form-group sp-form-group--half">
@@ -268,7 +268,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                             </div>
                             <div class="sp-form-upload__placeholder" id="sp-cover-placeholder">
                                 <span class="sp-form-upload__icon" aria-hidden="true">
-                                    <?php sp_icon_e( 'heart', 'sp-icon--lg', '' ); ?>
+                                    <?php sp_icon_e( 'image', 'sp-icon--lg', '' ); ?>
                                 </span>
                                 <p class="sp-form-upload__text"><?php echo esc_html__( 'Click to upload or drag & drop', 'sampreshan-child' ); ?></p>
                                 <p class="sp-form-upload__hint"><?php echo esc_html__( 'PNG, JPG up to 5MB', 'sampreshan-child' ); ?></p>
@@ -279,7 +279,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                     <div class="sp-form-group">
                         <label class="sp-form-label sp-form-label--toggle">
                             <span>
-                                <?php echo esc_html__( 'Sign as anonymous', 'sampreshan-child' ); ?>
+                                <?php echo esc_html__( 'Support anonymously', 'sampreshan-child' ); ?>
                                 <span class="sp-form-hint-inline"><?php echo esc_html__( '(your name won\'t be shown publicly)', 'sampreshan-child' ); ?></span>
                             </span>
                             <input type="checkbox" class="sp-form-toggle" name="petition_anonymous" value="1">
@@ -353,7 +353,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                 <div class="sp-form-step sp-form-success" data-step="success" style="display:none;">
                     <div class="sp-form-success__inner">
                         <span class="sp-form-success__icon" aria-hidden="true">
-                            <?php sp_icon_auto( 'petitions', 'sp-icon--xl', '' ); ?>
+                            <?php sp_icon_e( 'verified', 'sp-icon--xl', '' ); ?>
                         </span>
                         <h2 class="sp-form-success__title"><?php echo esc_html__( 'Petition Published!', 'sampreshan-child' ); ?></h2>
                         <p class="sp-form-success__desc"><?php echo esc_html__( 'Your petition is now live. Share it to gather support.', 'sampreshan-child' ); ?></p>

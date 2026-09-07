@@ -152,7 +152,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
 
                     <div class="sp-contact-form__field">
                         <label class="sp-contact-form__label" for="sp-contact-subject">
-                            <?php sp_icon_e( 'petition', 'sp-icon--sm sp-icon--muted', __( 'Subject', 'sampreshan-child' ) ); ?>
+                            <?php sp_icon_e( 'document', 'sp-icon--sm sp-icon--muted', __( 'Subject', 'sampreshan-child' ) ); ?>
                             <?php esc_html_e( 'Subject', 'sampreshan-child' ); ?>
                         </label>
                         <select id="sp-contact-subject" name="subject" class="sp-contact-form__select">

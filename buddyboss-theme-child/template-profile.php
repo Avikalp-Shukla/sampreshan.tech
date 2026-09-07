@@ -164,14 +164,14 @@ $start_url    = home_url( '/start-a-petition/' );
         <!-- Stats -->
         <div class="sp-fu-stats" aria-label="<?php esc_attr_e( 'Activity stats', 'sampreshan-child' ); ?>">
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['petitions_started'] ) ); ?></strong> <?php esc_html_e( 'Petitions', 'sampreshan-child' ); ?></span>
-            <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['signatures_given'] ) ); ?></strong> <?php esc_html_e( 'Signatures given', 'sampreshan-child' ); ?></span>
+            <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['signatures_given'] ) ); ?></strong> <?php esc_html_e( 'Is given', 'sampreshan-child' ); ?></span>
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['supporters_received'] ) ); ?></strong> <?php esc_html_e( 'Supporters', 'sampreshan-child' ); ?></span>
         </div>
 
         <!-- Tabs -->
         <div class="sp-fu-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Profile sections', 'sampreshan-child' ); ?>">
             <button class="sp-fu-tab is-active" type="button" role="tab" aria-selected="true" data-pane="posts"><?php esc_html_e( 'Posts', 'sampreshan-child' ); ?></button>
-            <button class="sp-fu-tab" type="button" role="tab" aria-selected="false" data-pane="signatures"><?php esc_html_e( 'Signatures', 'sampreshan-child' ); ?></button>
+            <button class="sp-fu-tab" type="button" role="tab" aria-selected="false" data-pane="signatures"><?php esc_html_e( 'Is', 'sampreshan-child' ); ?></button>
         </div>
 
         <!-- Pane: posts (their petitions as timeline) -->
@@ -198,13 +198,13 @@ $start_url    = home_url( '/start-a-petition/' );
                         </div>
                         <h2 class="sp-fu-post__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
                         <p class="sp-fu-post__meta">
-                            <?php echo esc_html( sprintf( _n( '%s signature', '%s signatures', $count, 'sampreshan-child' ), number_format_i18n( $count ) ) ); ?>
+                            <?php echo esc_html( sprintf( _n( '%s I', '%s Is', $count, 'sampreshan-child' ), number_format_i18n( $count ) ) ); ?>
                             <?php if ( $goal > 0 ) : ?>&middot; <?php echo esc_html( sprintf( __( 'goal %s', 'sampreshan-child' ), number_format_i18n( $goal ) ) ); ?><?php endif; ?>
                         </p>
                         <div class="sp-fu-post__engage">
                             <?php if ( is_user_logged_in() && current_user_can( 'sign_petitions' ) ) : ?>
                                 <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
-                                    <?php echo $signed ? esc_html__( 'Signed ✓', 'sampreshan-child' ) : esc_html__( 'Sign', 'sampreshan-child' ); ?>
+                                    <?php echo $signed ? esc_html__( 'Supported ✓', 'sampreshan-child' ) : esc_html__( 'I Support', 'sampreshan-child' ); ?>
                                 </button>
                             <?php endif; ?>
                             <a class="sp-fu-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>
@@ -228,13 +228,13 @@ $start_url    = home_url( '/start-a-petition/' );
                     <article class="sp-fu-post">
                         <h2 class="sp-fu-post__title"><a href="<?php echo esc_url( get_permalink( (int) $sig->petition_id ) ); ?>"><?php echo esc_html( $sig->post_title ); ?></a></h2>
                         <p class="sp-fu-post__meta">
-                            <?php echo esc_html( sprintf( __( 'Signed %s ago', 'sampreshan-child' ), human_time_diff( strtotime( $sig->created_at ), current_time( 'timestamp' ) ) ) ); ?>
+                            <?php echo esc_html( sprintf( __( 'Supported %s ago', 'sampreshan-child' ), human_time_diff( strtotime( $sig->created_at ), current_time( 'timestamp' ) ) ) ); ?>
                         </p>
                     </article>
                 <?php endforeach; ?>
             <?php else : ?>
                 <div class="sp-fu-post">
-                    <p class="sp-fu-post__meta" style="margin:0;"><?php esc_html_e( 'No signatures yet.', 'sampreshan-child' ); ?></p>
+                    <p class="sp-fu-post__meta" style="margin:0;"><?php esc_html_e( 'No Is yet.', 'sampreshan-child' ); ?></p>
                 </div>
             <?php endif; ?>
         </div>

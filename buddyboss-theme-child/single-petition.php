@@ -35,6 +35,8 @@ while ( have_posts() ) : the_post();
     $signatures = function_exists( 'sp_petition_get_signatures' ) ? sp_petition_get_signatures( array( 'petition_id' => $pid, 'per_page' => 12, 'page' => 1 ) ) : array();
 
     $categories = wp_list_pluck( wp_get_post_terms( $pid, 'cause_category' ), 'name' );
+    // Cover placeholder + category chips show the cause's own symbol.
+    $single_cause_icon = ( $categories && function_exists( 'sp_cause_icon' ) ) ? sp_cause_icon( $categories[0] ) : 'petition';
     ?>
     <main class="site-main sp-petition-single" role="main">
 
@@ -46,7 +48,7 @@ while ( have_posts() ) : the_post();
                     </div>
                 <?php else : ?>
                     <div class="sp-petition-single__cover sp-petition-single__cover--icon">
-                        <?php sp_icon_e( 'dharma', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Petition', 'sampreshan-child' ) ); ?>
+                        <?php sp_icon_e( $single_cause_icon, 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Petition', 'sampreshan-child' ) ); ?>
                     </div>
                 <?php endif; ?>
 
@@ -55,7 +57,7 @@ while ( have_posts() ) : the_post();
                         <ul class="sp-profile__chips">
                             <?php foreach ( $categories as $cat ) : ?>
                                 <li class="chip-3d">
-                                    <?php sp_icon_e( 'verified', 'sp-icon--sm sp-icon--saffron', __( 'Category', 'sampreshan-child' ) ); ?>
+                                    <?php sp_icon_e( function_exists( 'sp_cause_icon' ) ? sp_cause_icon( $cat ) : 'petition', 'sp-icon--sm sp-icon--saffron', __( 'Category', 'sampreshan-child' ) ); ?>
                                     <?php echo esc_html( $cat ); ?>
                                 </li>
                             <?php endforeach; ?>
@@ -90,7 +92,7 @@ while ( have_posts() ) : the_post();
                         <div class="sp-petition-single__progress-label">
                             <span class="sp-petition-single__progress-count">
                                 <span data-sp-signature-count><?php echo esc_html( number_format_i18n( $count ) ); ?></span>
-                                <small><?php echo esc_html__( 'supporters', 'sampreshan-child' ); ?></small>
+                                <small><?php echo esc_html__( 'I', 'sampreshan-child' ); ?></small>
                             </span>
                             <span><?php
                                 printf(
@@ -110,7 +112,7 @@ while ( have_posts() ) : the_post();
                             <?php sp_icon_auto( 'verified', 'sp-icon--md', '' ); ?>
                             <div>
                                 <strong><?php esc_html_e( 'Victory! This petition won.', 'sampreshan-child' ); ?></strong>
-                                <span><?php esc_html_e( 'Thanks to every supporter who signed and shared this cause.', 'sampreshan-child' ); ?></span>
+                                <span><?php esc_html_e( 'Thanks to every supporter who supported and shared this cause.', 'sampreshan-child' ); ?></span>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -131,8 +133,8 @@ while ( have_posts() ) : the_post();
                                     data-petition-id="<?php echo esc_attr( $pid ); ?>"
                                     data-signed="<?php echo $user_signed ? '1' : '0'; ?>"
                                 >
-                                    <?php sp_icon_e( $user_signed ? 'check' : 'pen', 'sp-icon--sm sp-icon--white', $user_signed ? __( 'Signed', 'sampreshan-child' ) : __( 'Sign', 'sampreshan-child' ) ); ?>
-                                    <?php echo $user_signed ? esc_html__( 'You signed — thank you!', 'sampreshan-child' ) : esc_html__( 'Sign this petition', 'sampreshan-child' ); ?>
+                                    <?php sp_icon_e( $user_signed ? 'check' : 'pen', 'sp-icon--sm sp-icon--white', $user_signed ? __( 'Supported', 'sampreshan-child' ) : __( 'I Support', 'sampreshan-child' ) ); ?>
+                                    <?php echo $user_signed ? esc_html__( 'Your I is counted — thank you!', 'sampreshan-child' ) : esc_html__( 'I Support this issue', 'sampreshan-child' ); ?>
                                 </button>
                             </div>
                         <?php elseif ( ! is_user_logged_in() ) : ?>

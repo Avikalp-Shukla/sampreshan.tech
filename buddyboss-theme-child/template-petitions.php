@@ -47,7 +47,7 @@ $start_url = home_url( '/start-a-petition/' );
     <header class="sp-users__hero">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Community causes', 'sampreshan-child' ); ?></p>
         <h1 class="sp-users__title"><?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'All Petitions', 'sampreshan-child' ); ?></h1>
-        <p class="sp-users__sub"><?php esc_html_e( 'Browse every cause the community is rallying behind. Sign what moves you — or start your own.', 'sampreshan-child' ); ?></p>
+        <p class="sp-users__sub"><?php esc_html_e( 'Browse every cause the community is rallying behind. Give an I to what moves you — or start your own.', 'sampreshan-child' ); ?></p>
         <div class="sp-users__hero-actions">
             <a class="btn btn--primary" href="<?php echo esc_url( $start_url ); ?>">
                 <?php sp_icon_e( 'plus', 'sp-icon--sm', '' ); ?>

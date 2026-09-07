@@ -11,7 +11,7 @@ $guidelines_url = home_url( '/community-guidelines/' );
 ?>
 <aside class="home-aside home-aside--right" aria-label="About and guidelines">
     <div class="card card--aside card--aside-accent">
-        <h3 class="card__title card__title--aside"><?php sp_icon_auto( 'info', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'About SampreShan', 'sampreshan-child' ); ?></h3>
+        <h3 class="card__title card__title--aside"><?php sp_icon_e( 'dharma', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'About SampreShan', 'sampreshan-child' ); ?></h3>
         <p class="home-aside__text">
             <?php echo esc_html__( 'A non-commercial digital initiative by ShivBodh Trust, dedicated to preserving, protecting, and promoting Sanatana Dharma through respectful community participation, petitions, and constructive dialogue.', 'sampreshan-child' ); ?>
         </p>
@@ -21,7 +21,7 @@ $guidelines_url = home_url( '/community-guidelines/' );
     </div>
 
     <div class="card card--aside">
-        <h3 class="card__title card__title--aside"><?php sp_icon_auto( 'shield', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Community Guidelines', 'sampreshan-child' ); ?></h3>
+        <h3 class="card__title card__title--aside"><?php sp_icon_e( 'verified', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Community Guidelines', 'sampreshan-child' ); ?></h3>
         <p class="home-aside__text">
             <?php echo esc_html__( 'This platform is built on respect, dharmic values, and constructive dialogue. All members are expected to participate with civility, factual accuracy, and a spirit of service to the community.', 'sampreshan-child' ); ?>
         </p>
@@ -31,7 +31,7 @@ $guidelines_url = home_url( '/community-guidelines/' );
     </div>
 
     <div class="card card--aside card--aside-cta">
-        <h3 class="card__title card__title--aside"><?php sp_icon_auto( 'megaphone', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Raise Your Voice', 'sampreshan-child' ); ?></h3>
+        <h3 class="card__title card__title--aside"><?php sp_icon_e( 'shankh', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Raise Your Voice', 'sampreshan-child' ); ?></h3>
         <p class="home-aside__text">
             <?php echo esc_html__( 'Anyone can sign up, start a petition, and collect signatures. Bring local issues to the wider community and amplify your message.', 'sampreshan-child' ); ?>
         </p>

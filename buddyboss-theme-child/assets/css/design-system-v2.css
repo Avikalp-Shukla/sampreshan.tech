@@ -569,8 +569,8 @@ button:hover .icon-3d,
 .scale-in { animation: var(--anim-scale-in); }
 .blur-in { animation: var(--anim-blur-in); }
 
-/* === SCROLL REVEAL === */
-.reveal {
+/* === SCROLL REVEAL (hidden state needs html.js — no JS means visible) === */
+.js .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
@@ -764,7 +764,7 @@ button:hover .icon-3d,
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-    .reveal { opacity: 1; transform: none; }
+    .js .reveal, .reveal { opacity: 1 !important; transform: none !important; }
 }
 
 @media (max-width: 768px) {

@@ -186,12 +186,12 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
             <div class="sp-dash-stat">
                 <span class="sp-dash-stat__icon sp-dash-stat__icon--rose" aria-hidden="true"><?php sp_icon_auto( 'hand', 'sp-icon--md', '' ); ?></span>
                 <span class="sp-dash-stat__num" data-count="<?php echo esc_attr( $total_signatures_received ); ?>"><?php echo esc_html( number_format_i18n( $total_signatures_received ) ); ?></span>
-                <span class="sp-dash-stat__label"><?php esc_html_e( 'Signatures received', 'sampreshan-child' ); ?></span>
+                <span class="sp-dash-stat__label"><?php esc_html_e( 'Is received', 'sampreshan-child' ); ?></span>
             </div>
             <div class="sp-dash-stat">
                 <span class="sp-dash-stat__icon sp-dash-stat__icon--blue" aria-hidden="true"><?php sp_icon_auto( 'check', 'sp-icon--md', '' ); ?></span>
                 <span class="sp-dash-stat__num" data-count="<?php echo esc_attr( $signed_count ); ?>"><?php echo esc_html( number_format_i18n( $signed_count ) ); ?></span>
-                <span class="sp-dash-stat__label"><?php esc_html_e( 'Petitions signed', 'sampreshan-child' ); ?></span>
+                <span class="sp-dash-stat__label"><?php esc_html_e( 'Supported', 'sampreshan-child' ); ?></span>
             </div>
             <div class="sp-dash-stat">
                 <span class="sp-dash-stat__icon sp-dash-stat__icon--green" aria-hidden="true"><?php sp_icon_auto( 'verified', 'sp-icon--md', '' ); ?></span>
@@ -227,7 +227,7 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
 
                 <?php if ( empty( $my_petitions ) ) : ?>
                     <div class="sp-dash-empty">
-                        <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_auto( 'megaphone', 'sp-icon--xl', '' ); ?></span>
+                        <span class="sp-dash-empty__icon" aria-hidden="true"><?php sp_icon_e( 'petition', 'sp-icon--xl', '' ); ?></span>
                         <h3 class="sp-dash-empty__title"><?php esc_html_e( 'You have not started a petition yet', 'sampreshan-child' ); ?></h3>
                         <p class="sp-dash-empty__desc"><?php esc_html_e( 'Describe a local issue, set a signature goal, and share it with the community.', 'sampreshan-child' ); ?></p>
                         <a class="btn btn--primary" href="<?php echo esc_url( $petitions_url ); ?>"><?php esc_html_e( 'Start your first petition', 'sampreshan-child' ); ?></a>
@@ -268,7 +268,7 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
                                     </h3>
                                     <p class="sp-dash-row__meta">
                                         <?php echo esc_html( get_the_date( '', $petition ) ); ?> &middot;
-                                        <?php echo esc_html( sprintf( _n( '%s signature', '%s signatures', $sig_count, 'sampreshan-child' ), number_format_i18n( $sig_count ) ) ); ?>
+                                        <?php echo esc_html( sprintf( _n( '%s I', '%s Is', $sig_count, 'sampreshan-child' ), number_format_i18n( $sig_count ) ) ); ?>
                                         <?php if ( $goal > 0 ) : ?>
                                             &middot; <?php echo esc_html( sprintf( __( 'goal %s', 'sampreshan-child' ), number_format_i18n( $goal ) ) ); ?>
                                         <?php endif; ?>
@@ -395,7 +395,7 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
                             <li><button class="sp-dash-share__btn" type="button" data-sp-share="<?php echo esc_attr( $share_url ); ?>" data-sp-share-title="<?php echo esc_attr( $share_title ); ?>"><?php sp_icon_auto( 'send', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Share', 'sampreshan-child' ); ?></span></button></li>
                             <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $wa_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'comment', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'WhatsApp', 'sampreshan-child' ); ?></span></a></li>
                             <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $x_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'share', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Post on X', 'sampreshan-child' ); ?></span></a></li>
-                            <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $fb_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'globe', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Facebook', 'sampreshan-child' ); ?></span></a></li>
+                            <li><a class="sp-dash-share__btn" href="<?php echo esc_url( $fb_url ); ?>" target="_blank" rel="noopener"><?php sp_icon_auto( 'share', 'sp-icon--sm', '' ); ?><span><?php esc_html_e( 'Facebook', 'sampreshan-child' ); ?></span></a></li>
                         </ul>
                         <p class="sp-dash-muted sp-dash-share__note"><?php esc_html_e( 'Share your petition with friends and community to gather support faster.', 'sampreshan-child' ); ?></p>
                     </section>
@@ -404,7 +404,7 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
                 <section class="sp-dash-card sp-dash-card--pad" aria-labelledby="sp-dash-support-h">
                     <h2 class="sp-dash-card__title" id="sp-dash-support-h"><?php sp_icon_auto( 'heart', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Latest supporters', 'sampreshan-child' ); ?></h2>
                     <?php if ( empty( $recent_signatures ) ) : ?>
-                        <p class="sp-dash-muted"><?php esc_html_e( 'No signatures yet. Share a petition and supporters will appear here.', 'sampreshan-child' ); ?></p>
+                        <p class="sp-dash-muted"><?php esc_html_e( 'No Is yet. Share an issue and supporters will appear here.', 'sampreshan-child' ); ?></p>
                     <?php else : ?>
                         <ul class="sp-dash-activity">
                             <?php foreach ( $recent_signatures as $sig ) :

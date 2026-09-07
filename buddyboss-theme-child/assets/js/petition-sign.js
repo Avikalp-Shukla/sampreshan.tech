@@ -3,8 +3,8 @@
  *
  * Listens for clicks on `.sp-sign-button[data-petition-id]` and posts to
  * admin-ajax.php with the SampreshanPetition nonce exposed in the page.
- * On success, swaps the button for a "Signed ✓" state and updates the
- * signature count badge. Shows toast notifications instead of alerts.
+ * On success, swaps the button for a "Supported ✓" state and updates the
+ * I count badge. Shows toast notifications instead of alerts.
  *
  * @package SampreShan_Child
  */
@@ -93,7 +93,7 @@
 
             btn.disabled = true;
             var oldHTML = btn.innerHTML;
-            var label = (window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signing) || 'Signing\u2026';
+            var label = (window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signing) || 'Supporting\u2026';
             btn.innerHTML = '<span class="sp-spinner sp-spinner--sm"></span> ' + label;
 
             var action = btn.dataset.signed === '1' ? 'sp_unsign_petition' : 'sp_sign_petition';
@@ -117,11 +117,11 @@
 
                     if (isSigned) {
                         btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ' +
-                            ((window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signed) || 'Signed \u2713');
-                        showToast('Thank you for your support!', 'success');
+                            ((window.SampreshanPetition && window.SampreshanPetition.i18n && window.SampreshanPetition.i18n.signed) || 'Supported \u2713');
+                        showToast('Thank you — your I is counted!', 'success');
                     } else {
                         btn.innerHTML = oldHTML;
-                        showToast('Signature removed.', 'info');
+                        showToast('I removed.', 'info');
                     }
 
                     // Update count badge

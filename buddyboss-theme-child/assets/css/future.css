@@ -5,25 +5,12 @@
     Loaded LAST so it wins over design-system / fusion / pages.
     ============================================================ */
 
-/* === FORCE VISIBLE: Override any plugin CSS that hides content === */
-body.sp-future,
-body.sp-future * {
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: block !important;
-}
-body.sp-future .sp-hero,
-body.sp-future .sp-landing,
-body.sp-future .sp-section,
-body.sp-future .site-main,
-body.sp-future .site-content,
-body.sp-future .site-footer {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
+/* === VISIBILITY SAFETY: only neutralize BuddyBoss skeleton loaders,
+   never force display on every element (that breaks flex/grid/none) === */
 body.sp-future .skeleton-card,
-body.sp-future .bb-loading-bg {
+body.sp-future .bb-loading-bg,
+body.sp-future .bb-skeleton,
+body.sp-future [class*="skeleton-"]:empty {
     display: none !important;
 }
 
@@ -610,4 +597,222 @@ body.sp-future .sp-petition-preview__title {
 
 body.sp-future .sp-petition-preview__summary {
     color: var(--ft-muted);
+}
+
+/* ============================================================
+   READABILITY PACK — light text on white surfaces + dark text
+   on dark glass, fixed for every custom component, all pages.
+   Rule: every surface below becomes dark glass; every text on it
+   becomes ft-text (titles) or ft-muted (soft/meta). Light chips
+   that keep their own pale background are left untouched.
+   ============================================================ */
+
+/* ── 1. Missed light surfaces → dark glass ── */
+body.sp-future .sp-step-card,
+body.sp-future .sp-cause-card,
+body.sp-future .petition-card,
+body.sp-future .post-card,
+body.sp-future .sp-dash-action,
+body.sp-future .sp-team-member,
+body.sp-future .sp-contact-info__item,
+body.sp-future .sp-rules-list__item,
+body.sp-future .sp-faq-item,
+body.sp-future .sp-login__phone-panel,
+body.sp-future .sp-form-label--toggle,
+body.sp-future .sp-report-form,
+body.sp-future .sp-petition-single__comments .comment-body,
+body.sp-future .sp-profile__list-link,
+body.sp-future .sp-dash-share__btn,
+body.sp-future .sp-users__pagination .page-numbers,
+body.sp-future .search-overlay__inner {
+    background: var(--ft-panel);
+    border: 1px solid var(--ft-line-soft);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+/* Accent-tinted cards keep a hint of their identity on dark */
+body.sp-future .card--aside-accent {
+    background: linear-gradient(180deg, rgba(255, 138, 0, 0.10), var(--ft-panel));
+    border-color: rgba(255, 138, 0, 0.30);
+}
+body.sp-future .card--aside-cta {
+    background: linear-gradient(180deg, rgba(65, 226, 255, 0.08), var(--ft-panel));
+    border-color: rgba(65, 226, 255, 0.28);
+}
+
+/* Danger zone stays red-tinted, but dark + readable */
+body.sp-future .sp-danger-zone {
+    background: rgba(154, 27, 30, 0.14);
+    border-color: rgba(224, 96, 96, 0.4);
+    color: var(--ft-text);
+}
+
+/* Blockquote keeps saffron edge, dark body */
+body.sp-future .sp-page__content blockquote {
+    background: rgba(255, 138, 0, 0.08);
+    border-left-color: var(--ft-neon);
+    color: var(--ft-muted);
+}
+
+/* ── 2. Titles on dark glass → light ── */
+body.sp-future .sp-step-card h3,
+body.sp-future .sp-cause-card__title,
+body.sp-future .home-section__title,
+body.sp-future .petition-card__title,
+body.sp-future .post-card__author-name,
+body.sp-future .sp-team-member__name,
+body.sp-future .sp-rules-list__item-title,
+body.sp-future .sp-faq-item__question,
+body.sp-future .sp-profile__name,
+body.sp-future .sp-profile__section-title,
+body.sp-future .sp-profile__list-title,
+body.sp-future .sp-contact-form__label,
+body.sp-future .sp-login__sub-title,
+body.sp-future .sp-login__feature-list li,
+body.sp-future .sp-petition-single__title,
+body.sp-future .sp-petition-single__progress-count,
+body.sp-future .sp-petition-single__signers-title,
+body.sp-future .sp-petition-single__content h2,
+body.sp-future .sp-petition-single__content h3,
+body.sp-future .sp-page__content h2,
+body.sp-future .sp-page__content h3,
+body.sp-future .sp-page__content strong,
+body.sp-future .sp-fu-post__who strong,
+body.sp-future .sp-fu-side h3,
+body.sp-future .sp-fu-sidelink,
+body.sp-future .sp-contact-info__item-value,
+body.sp-future .sp-login__alt,
+body.sp-future .sp-mobile-menu a,
+body.sp-future .empty-state__title {
+    color: var(--ft-text);
+}
+
+body.sp-future .sp-page__content a {
+    color: #FFB35C;
+}
+
+/* ── 3. Soft / meta / desc text on dark glass → muted light ── */
+body.sp-future .sp-step-card p,
+body.sp-future .sp-cause-card__desc,
+body.sp-future .home-hero__sub,
+body.sp-future .petition-card__desc,
+body.sp-future .petition-card__champion,
+body.sp-future .petition-card__progress-label,
+body.sp-future .post-card__meta,
+body.sp-future .post-card__content,
+body.sp-future .post-card__action,
+body.sp-future .sp-team-member__role,
+body.sp-future .sp-rules-list__item-desc,
+body.sp-future .sp-faq-item__answer,
+body.sp-future .sp-profile__bio,
+body.sp-future .sp-profile__stat-num,
+body.sp-future .sp-profile__stat-label,
+body.sp-future .sp-profile__list-meta,
+body.sp-future .sp-profile__empty,
+body.sp-future .sp-contact-info__item-label,
+body.sp-future .sp-petition-single__champion,
+body.sp-future .sp-petition-single__progress-label,
+body.sp-future .sp-petition-single__content p,
+body.sp-future .sp-petition-single__content li,
+body.sp-future .sp-petition-single__signer,
+body.sp-future .sp-petition-single__signer time,
+body.sp-future .sp-petition-single__signers-empty,
+body.sp-future .sp-petition-single__comments .comment-meta,
+body.sp-future .sp-petition-single__comments .comment-content p,
+body.sp-future .sp-fu-post__who small,
+body.sp-future .home-aside__text,
+body.sp-future .home-aside__link,
+body.sp-future .home-aside__cats li a,
+body.sp-future .sp-hero__points li,
+body.sp-future .sp-dash-card__sub,
+body.sp-future .sp-dash-empty__desc,
+body.sp-future .sp-dash-activity__text,
+body.sp-future .sp-dash-activity__text small,
+body.sp-future .sp-dash-signed small,
+body.sp-future .sp-dash-list__empty,
+body.sp-future .sp-dash-action__text small,
+body.sp-future .sp-login__alt-note,
+body.sp-future .sp-login__remember,
+body.sp-future .sp-form-upload__hint,
+body.sp-future .sp-petition-preview__goal,
+body.sp-future .sp-member-card__handle,
+body.sp-future .sp-member-card__loc,
+body.sp-future .sp-member-card__stats,
+body.sp-future .sp-form-upload__icon,
+body.sp-future .sp-form-upload__text,
+body.sp-future .sp-step__label,
+body.sp-future .sp-feed__who small,
+body.sp-future .sp-users__count,
+body.sp-future .sp-search-empty,
+body.sp-future .sp-search-item__meta,
+body.sp-future .empty-state__desc,
+body.sp-future .sp-report-toggle {
+    color: var(--ft-muted);
+}
+
+/* ── 4. Specials: keep contrast on small accents ── */
+body.sp-future .sp-step-card__num {
+    color: rgba(255, 200, 120, 0.28);
+}
+body.sp-future .sp-hero__logo-tag {
+    color: var(--ft-gold);
+}
+body.sp-future .sp-fu-sidelink:hover {
+    background: rgba(255, 138, 0, 0.08);
+}
+body.sp-future .home-aside__link:hover,
+body.sp-future .home-aside__cats li a:hover {
+    background: rgba(255, 138, 0, 0.08);
+    color: var(--ft-gold);
+}
+body.sp-future .sp-profile__list-link:hover,
+body.sp-future .sp-dash-action:hover {
+    background: rgba(255, 138, 0, 0.07);
+    border-color: rgba(255, 138, 0, 0.3);
+}
+body.sp-future .sp-fu-tab {
+    color: var(--ft-muted);
+}
+body.sp-future .sp-mobile-menu {
+    background: rgba(6, 9, 19, 0.96);
+    border-bottom: 1px solid var(--ft-line);
+}
+body.sp-future .sp-mobile-menu a:hover,
+body.sp-future .sp-mobile-menu a.is-active {
+    background: rgba(255, 138, 0, 0.10);
+    color: var(--ft-gold);
+}
+body.sp-future .search-overlay__input {
+    color: var(--ft-text);
+}
+body.sp-future .search-overlay__input::placeholder {
+    color: var(--ft-faint);
+}
+body.sp-future .search-overlay__result {
+    color: var(--ft-text);
+}
+body.sp-future .search-overlay__result:hover {
+    background: rgba(255, 138, 0, 0.08);
+}
+body.sp-future .sp-search-item__title {
+    color: var(--ft-text);
+}
+body.sp-future .sp-users__pagination .page-numbers {
+    color: var(--ft-muted);
+}
+body.sp-future .sp-users__pagination .page-numbers.current {
+    background: linear-gradient(135deg, #FF8A00, #E04E00);
+    border-color: rgba(255, 200, 120, 0.5);
+    color: #fff;
+}
+body.sp-future .post-card__action:hover {
+    background: rgba(255, 138, 0, 0.08);
+    color: var(--ft-gold);
+}
+body.sp-future .toast {
+    background: #0D1428;
+    border: 1px solid rgba(255, 138, 0, 0.4);
+    color: var(--ft-text);
 }

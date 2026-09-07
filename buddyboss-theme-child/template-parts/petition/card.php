@@ -30,6 +30,8 @@ $goal      = (int) get_post_meta( $pid, 'sampreshan_goal', true );
 $progress  = $goal > 0 ? min( 100, round( ( $sig_count / $goal ) * 100 ) ) : 0;
 $terms     = get_the_terms( $pid, 'cause_category' );
 $cause_nm  = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
+$cause_slug = ( $terms && ! is_wp_error( $terms ) && isset( $terms[0]->slug ) ) ? $terms[0]->slug : '';
+$cause_icon = function_exists( 'sp_cause_icon' ) ? sp_cause_icon( $cause_slug ? $cause_slug : $cause_nm ) : 'petition';
 $cover     = get_the_post_thumbnail_url( $pid, 'medium' );
 $signed    = is_user_logged_in() && function_exists( 'sp_petition_user_has_signed' ) && sp_petition_user_has_signed( $pid );
 $can_sign  = is_user_logged_in() && current_user_can( 'sign_petitions' );
@@ -54,7 +56,7 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
             <span class="sp-fu-pet__ph" aria-hidden="true">ॐ</span>
         <?php endif; ?>
         <?php if ( $cause_nm ) : ?>
-            <span class="sp-fu-pet__cause"><?php echo esc_html( $cause_nm ); ?></span>
+            <span class="sp-fu-pet__cause"><?php sp_icon_e( $cause_icon, 'sp-icon sp-icon--xs', '' ); ?><?php echo esc_html( $cause_nm ); ?></span>
         <?php endif; ?>
     </a>
     <div class="sp-fu-pet__body">
@@ -76,7 +78,7 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
             <?php endif; ?>
             <span class="sp-fu-pet__count" data-sp-signature-count-wrap>
                 <strong data-sp-signature-count><?php echo esc_html( number_format_i18n( $sig_count ) ); ?></strong>
-                <?php esc_html_e( 'signatures', 'sampreshan-child' ); ?>
+                <?php esc_html_e( 'I', 'sampreshan-child' ); ?>
             </span>
         </div>
         <div class="sp-fu-pet__bar" role="progressbar" aria-valuenow="<?php echo esc_attr( $progress ); ?>" aria-valuemin="0" aria-valuemax="100" aria-label="<?php esc_attr_e( 'Signature progress', 'sampreshan-child' ); ?>">
@@ -86,16 +88,16 @@ if ( function_exists( 'sp_petition_get_signatures' ) ) {
             <?php if ( $goal > 0 ) : ?>
                 <?php echo esc_html( sprintf( __( '%s%% of %s goal', 'sampreshan-child' ), number_format_i18n( $progress ), number_format_i18n( $goal ) ) ); ?>
             <?php else : ?>
-                <?php esc_html_e( 'Every signature counts', 'sampreshan-child' ); ?>
+                <?php esc_html_e( 'Every I counts', 'sampreshan-child' ); ?>
             <?php endif; ?>
         </p>
         <div class="sp-fu-pet__foot">
             <?php if ( $can_sign ) : ?>
                 <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
-                    <?php echo $signed ? esc_html__( 'Signed ✓', 'sampreshan-child' ) : esc_html__( 'Sign', 'sampreshan-child' ); ?>
+                    <?php echo $signed ? esc_html__( 'Supported ✓', 'sampreshan-child' ) : esc_html__( 'I Support', 'sampreshan-child' ); ?>
                 </button>
             <?php else : ?>
-                <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Sign', 'sampreshan-child' ); ?></a>
+                <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'I Support', 'sampreshan-child' ); ?></a>
             <?php endif; ?>
             <a class="sp-fu-link" href="<?php echo esc_url( $purl ); ?>"><?php esc_html_e( 'Read', 'sampreshan-child' ); ?></a>
             <?php if ( is_user_logged_in() ) : ?>

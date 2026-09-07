@@ -1073,6 +1073,66 @@ if ( ! function_exists( 'sp_icon_auto' ) ) {
 }
 
 /**
+ * Cause → icon map (single source of truth).
+ *
+ * RULE: one topic = one symbol, everywhere. The same icon repeats ONLY
+ * when the same cause/topic is published again (another card, page hero,
+ * badge, or column) — never for a different topic.
+ *
+ * Custom premium 3D transparent SVGs (assets/icons/3d/):
+ *   mandir     → Temple Preservation
+ *   pothi      → Cultural Heritage (prachin pothi manuscript)
+ *   vedagranth → Religious Education + Sanskrit & Vedic Studies (same learning topic)
+ *   peepal     → Environmental Causes
+ *   seva       → Community Welfare (helping hands + flame)
+ *   gaumata    → Gau Seva
+ *   tirtha     → Pilgrimage & Tirtha (ghat at sunrise)
+ *   shankh     → Raise-your-voice actions (shankhnaad)
+ *   mobile     → Mobile / OTP verification
+ *
+ * @param string $slug_or_name Cause slug, term name, or page slug.
+ * @return string Icon name for sp_icon_e() / sp_icon_auto().
+ */
+if ( ! function_exists( 'sp_cause_icon' ) ) {
+    function sp_cause_icon( $slug_or_name ) {
+        $s = strtolower( (string) $slug_or_name );
+        $s = preg_replace( '/[^a-z]/', '', $s );
+
+        if ( false !== strpos( $s, 'temple' ) || false !== strpos( $s, 'mandir' ) ) {
+            return 'mandir';
+        }
+        if ( false !== strpos( $s, 'cultur' ) || false !== strpos( $s, 'heritage' ) || false !== strpos( $s, 'virasat' ) || false !== strpos( $s, 'pothi' ) || false !== strpos( $s, 'manuscript' ) ) {
+            return 'pothi';
+        }
+        if ( false !== strpos( $s, 'educat' ) || false !== strpos( $s, 'sanskrit' ) || false !== strpos( $s, 'vedic' ) || false !== strpos( $s, 'vidya' ) || false !== strpos( $s, 'grantha' ) ) {
+            return 'vedagranth';
+        }
+        if ( false !== strpos( $s, 'welfar' ) || false !== strpos( $s, 'seva' ) || false !== strpos( $s, 'community' ) || false !== strpos( $s, 'samaj' ) ) {
+            return 'seva';
+        }
+        if ( false !== strpos( $s, 'environ' ) || false !== strpos( $s, 'nature' ) || false !== strpos( $s, 'green' ) || false !== strpos( $s, 'peepal' ) || false !== strpos( $s, 'tree' ) || false !== strpos( $s, 'van' ) ) {
+            return 'peepal';
+        }
+        if ( false !== strpos( $s, 'gau' ) || false !== strpos( $s, 'cow' ) || false !== strpos( $s, 'dhenu' ) ) {
+            return 'gaumata';
+        }
+        if ( false !== strpos( $s, 'pilgrim' ) || false !== strpos( $s, 'tirth' ) || false !== strpos( $s, 'teerth' ) || false !== strpos( $s, 'yatra' ) || false !== strpos( $s, 'dham' ) ) {
+            return 'tirtha';
+        }
+        return 'petition';
+    }
+}
+
+/**
+ * Cause icon (echo variant).
+ */
+if ( ! function_exists( 'sp_cause_icon_e' ) ) {
+    function sp_cause_icon_e( $slug_or_name, $class = 'sp-icon sp-icon--md', $label = '' ) {
+        sp_icon_e( sp_cause_icon( $slug_or_name ), $class, $label );
+    }
+}
+
+/**
  * SampreShan Logo URL — single source of truth.
  *
  * Priority:

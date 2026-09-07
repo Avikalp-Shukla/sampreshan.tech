@@ -54,6 +54,8 @@ All animations auto-disable when `prefers-reduced-motion: reduce` is set.
 | Category | Icons |
 |----------|-------|
 | **Brand / Mission** | `dharma`, `lotus`, `om`, `diya` |
+| **Dharmic Causes (premium 3D)** | `mandir` (Temple Preservation), `pothi` (Cultural Heritage), `vedagranth` (Religious Education + Sanskrit & Vedic Studies), `peepal` (Environment), `seva` (Community Welfare), `gaumata` (Gau Seva), `tirtha` (Pilgrimage & Tirtha) |
+| **Sacred Actions** | `shankh` (raise-your-voice / shankhnaad), `mobile` (OTP verification) |
 | **Navigation** | `home`, `feed`, `network`, `petition`, `account`, `group`, `menu`, `globe` |
 | **Truth Social tools** | `heart`, `comment`, `reply`, `repost`, `chart`, `share`, `send`, `bookmark`, `dots`, `plus`, `pen`, `bell`, `search`, `settings`, `eye`, `flag` |
 | **Change.org tools** | `megaphone`, `target`, `trending`, `hand`, `shield`, `link`, `spark`, `download`, `upload`, `logout` |
@@ -61,6 +63,17 @@ All animations auto-disable when `prefers-reduced-motion: reduce` is set.
 | **Content** | `document`, `image`, `video` |
 | **Status** | `check`, `close`, `info`, `warning`, `star` |
 | **Time / Place** | `calendar`, `location` |
+
+## One topic = one symbol (house rule)
+
+A symbol repeats **only** when the *same* topic, menu, or point is published
+again — a cause card, a category hero, a petition badge, a section heading
+for that same cause. Never reuse a topic's symbol for a different topic.
+
+`sp_cause_icon( $slug_or_name )` in `inc/icon-helper.php` is the single
+source of truth: cause term slug/name → icon name. Templates must call it
+instead of hardcoding cause icons, so the mapping can never drift between
+the homepage grid, category heroes, petition cards, and single-petition pages.
 
 All files live in `assets/icons/3d/`. Adding a new icon: drop the SVG there, give it a unique gradient `id` (since they're inlined together, ids must not clash).
 

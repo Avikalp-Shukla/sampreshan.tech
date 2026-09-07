@@ -55,7 +55,7 @@ get_header();
             <div class="sp-trust__inner">
                 <div class="sp-trust__copy">
                     <p class="sp-section__eyebrow sp-section__eyebrow--light"><?php esc_html_e( 'By ShivBodh Trust', 'sampreshan-child' ); ?></p>
-                    <h2 class="sp-trust__title"><?php sp_icon_auto( 'shield', 'sp-icon--md sp-icon--gold', '' ); ?> <?php esc_html_e( 'Non-commercial. Community-first. For Dharma.', 'sampreshan-child' ); ?></h2>
+                    <h2 class="sp-trust__title"><?php sp_icon_auto( 'shield', 'sp-icon--md sp-icon--gold', '' ); ?> <?php esc_html_e( 'Dedicated to all who have faith in Sanatan Dharma.', 'sampreshan-child' ); ?></h2>
                     <p class="sp-trust__sub"><?php esc_html_e( 'No donations on this platform. No fees. Just a clean space for Sanatan voices to be heard — every sampradaya respected equally.', 'sampreshan-child' ); ?></p>
                 </div>
                 <div class="sp-trust__actions">

@@ -25,7 +25,7 @@ $is_logged_in = is_user_logged_in();
                 <span class="sp-hero__accent"><?php esc_html_e( 'Sanatan Dharma.', 'sampreshan-child' ); ?></span>
             </h1>
             <p class="sp-hero__sub">
-                <?php esc_html_e( 'Sampreshan is a community platform where you can raise local issues, start petitions, gather signatures, and connect with people who share Dharmic values — together turning a single voice into collective impact.', 'sampreshan-child' ); ?>
+                <?php esc_html_e( 'Sampreshan is a community platform where you can raise local issues, start petitions, gather Is, and connect with people who share Dharmic values — a worldwide Sanatani social media with every Facebook-Twitter tool, plus Issue Sampreshan for Dharma.', 'sampreshan-child' ); ?>
             </p>
             <div class="sp-hero__actions">
                 <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $start_url ); ?>">
@@ -60,40 +60,40 @@ $is_logged_in = is_user_logged_in();
 
 <?php
 /**
- * Quick Links + Categories section.
+ * What Sampreshan is: worldwide Sanatani social media + Issue Sampreshan.
+ * One topic = one symbol: network (connect), shankh (raise voice),
+ * I-badge (support, like a Like).
  */
-$categories = array(
-    array( 'slug' => 'category-temple-preservation',  'icon' => 'temple',        'title' => __( 'Temple Preservation', 'sampreshan-child' ),
-           'desc' => __( 'Preserve ancient temples and sacred sites.', 'sampreshan-child' ), 'color' => 'kesariya' ),
-    array( 'slug' => 'category-cultural-heritage',    'icon' => 'scroll',        'title' => __( 'Cultural Heritage', 'sampreshan-child' ),
-           'desc' => __( 'Protect art, manuscripts, and traditions.', 'sampreshan-child' ), 'color' => 'saffron' ),
-    array( 'slug' => 'category-religious-education',  'icon' => 'book-open',     'title' => __( 'Religious Education', 'sampreshan-child' ),
-           'desc' => __( 'Spread Vedic knowledge and Dharmic learning.', 'sampreshan-child' ), 'color' => 'haldi' ),
-    array( 'slug' => 'category-environmental-causes', 'icon' => 'leaf',          'title' => __( 'Environmental Causes', 'sampreshan-child' ),
-           'desc' => __( 'Protect rivers, forests, and nature.', 'sampreshan-child' ), 'color' => 'green' ),
-    array( 'slug' => 'category-community-welfare',    'icon' => 'hand-heart',    'title' => __( 'Community Welfare', 'sampreshan-child' ),
-           'desc' => __( 'Food, healthcare, and shelter for all.', 'sampreshan-child' ), 'color' => 'mor-pankh' ),
-);
 ?>
-<section class="sp-section sp-section--center" aria-labelledby="sp-causes-h">
+<section class="sp-section sp-section--center" aria-labelledby="sp-platform-h">
     <div class="sp-section__head">
-        <p class="sp-section__eyebrow"><?php esc_html_e( 'Quick Links · Categories', 'sampreshan-child' ); ?></p>
-        <h2 class="sp-section__title" id="sp-causes-h"><?php sp_icon_auto( 'temple', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Dharmic Causes', 'sampreshan-child' ); ?></h2>
-        <p class="sp-section__sub"><?php esc_html_e( 'Choose a cause, start a petition, and rally the community.', 'sampreshan-child' ); ?></p>
+        <p class="sp-section__eyebrow"><?php esc_html_e( 'This is Sampreshan', 'sampreshan-child' ); ?></p>
+        <h2 class="sp-section__title" id="sp-platform-h"><?php sp_icon_e( 'dharma', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'One worldwide social media for Sanatanis', 'sampreshan-child' ); ?></h2>
+        <p class="sp-section__sub"><?php esc_html_e( 'Hindus — and everyone across the world living by Sanatan Dharma — connect here. Every tool of Facebook and Twitter, among your own people. Plus one special tool: Issue Sampreshan — like Change.org, only for Dharma.', 'sampreshan-child' ); ?></p>
     </div>
-    <div class="sp-cause-grid">
-        <?php foreach ( $categories as $cat ) :
-            $url = home_url( '/' . $cat['slug'] . '/' );
-            $icon = $cat['icon'];
-            $color = 'sp-badge--' . $cat['color'];
-        ?>
-            <a href="<?php echo esc_url( $url ); ?>" class="sp-cause-card <?php echo esc_attr( $color ); ?>">
-                <span class="sp-cause-card__icon" aria-hidden="true"><?php sp_icon_auto( $icon, 'sp-icon--lg', '' ); ?></span>
-                <h3 class="sp-cause-card__title"><?php echo esc_html( $cat['title'] ); ?></h3>
-                <p class="sp-cause-card__desc"><?php echo esc_html( $cat['desc'] ); ?></p>
-                <span class="sp-cause-card__arrow" aria-hidden="true">&rarr;</span>
-            </a>
-        <?php endforeach; ?>
+    <div class="sp-steps">
+        <div class="sp-step-card">
+            <span class="sp-step-card__num" aria-hidden="true">1</span>
+            <span class="sp-step-card__icon" aria-hidden="true"><?php sp_icon_e( 'network', 'sp-icon--md', '' ); ?></span>
+            <h3><?php esc_html_e( 'Connect Like Family', 'sampreshan-child' ); ?></h3>
+            <p><?php esc_html_e( 'Make friends, post, share photos and videos, like, comment and discuss. The whole world\u2019s Sanatani family, on one platform.', 'sampreshan-child' ); ?></p>
+        </div>
+        <div class="sp-step-card">
+            <span class="sp-step-card__num" aria-hidden="true">2</span>
+            <span class="sp-step-card__icon" aria-hidden="true"><?php sp_icon_e( 'shankh', 'sp-icon--md', '' ); ?></span>
+            <h3><?php esc_html_e( 'Issue Sampreshan', 'sampreshan-child' ); ?></h3>
+            <p><?php esc_html_e( 'Raise any Dharma-related problem directly on the platform. People sign up with email, read your issue and carry it forward.', 'sampreshan-child' ); ?></p>
+        </div>
+        <div class="sp-step-card">
+            <span class="sp-step-card__num" aria-hidden="true">3</span>
+            <span class="sp-step-card__icon" aria-hidden="true"><span class="sp-ibadge" aria-hidden="true">I</span></span>
+            <h3><?php esc_html_e( 'I — The Badge of Support', 'sampreshan-child' ); ?></h3>
+            <p><?php esc_html_e( 'Every support is an I badge — just like a Like. The more people share and support, the more Is you collect. More Is, louder voice.', 'sampreshan-child' ); ?></p>
+        </div>
+    </div>
+    <div class="sp-section__actions">
+        <a class="btn btn--primary btn--lg" href="<?php echo esc_url( $start_url ); ?>"><?php esc_html_e( 'Start an Issue Sampreshan', 'sampreshan-child' ); ?></a>
+        <a class="btn btn--ghost btn--lg" href="<?php echo esc_url( wp_registration_url() ); ?>"><?php esc_html_e( 'Join with Email', 'sampreshan-child' ); ?></a>
     </div>
 </section>
 

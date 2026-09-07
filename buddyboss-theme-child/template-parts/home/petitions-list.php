@@ -26,7 +26,7 @@ $start_url = home_url( '/start-a-petition/' );
     <div class="sp-fu-sechead">
         <div>
             <p class="sp-fu-eyebrow"><?php echo esc_html__( 'Active Causes', 'sampreshan-child' ); ?></p>
-            <h2 id="home-petitions-heading" class="sp-fu-sectitle"><?php sp_icon_auto( 'megaphone', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Petitions & Campaigns', 'sampreshan-child' ); ?></h2>
+            <h2 id="home-petitions-heading" class="sp-fu-sectitle"><?php sp_icon_e( 'petition', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php echo esc_html__( 'Petitions & Campaigns', 'sampreshan-child' ); ?></h2>
         </div>
         <a class="sp-fu-link" href="<?php echo esc_url( $all_url ); ?>">
             <?php echo esc_html__( 'View all', 'sampreshan-child' ); ?> &rarr;
@@ -42,7 +42,7 @@ $start_url = home_url( '/start-a-petition/' );
     <?php else : ?>
         <div class="empty-state glass">
             <div class="empty-state__icon">
-                <?php sp_icon_auto( 'megaphone', 'sp-icon--xl sp-icon--saffron', '' ); ?>
+                <?php sp_icon_e( 'petition', 'sp-icon--xl sp-icon--saffron', '' ); ?>
             </div>
             <h3 class="empty-state__title"><?php echo esc_html__( 'No active petitions yet', 'sampreshan-child' ); ?></h3>
             <p class="empty-state__desc"><?php echo esc_html__( 'Be the first to start a petition and rally support for a cause that matters to the community.', 'sampreshan-child' ); ?></p>

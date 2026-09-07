@@ -29,7 +29,7 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
                     <span class="site-footer__title"><?php echo esc_html( $site_name ); ?></span>
                 </a>
                 <p class="site-footer__tagline">
-                    A digital platform by ShivBodh Trust for the Sanatana Dharma community to connect, raise awareness, and gather support for meaningful causes.
+                    A digital platform by ShivBodh Trust for the Sanatana Dharma community to connect, raise awareness, and gather support for meaningful causes — a worldwide Sanatani social media with Issue Sampreshan, where every support is an I.
                 </p>
                 <div class="site-footer__social">
                     <a class="site-footer__social-link" href="#" aria-label="Twitter" target="_blank" rel="noopener">

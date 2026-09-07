@@ -1,6 +1,10 @@
 # 🙏 Sampreshan.tech — Sanatan Voice Platform
 
-**Sampreshan (संप्रेषण)** ka arth hai — *samvad, sandesh, awaaj*.
+**Sampreshan (संप्रेषण)** ka arth hai — *संवाद, संदेश, आवाज़*।
+
+**मोटो / Motto:** *एकत्ता की आवाज़, धर्म का संदेश* — *Voice of Unity, Message of Dharma*
+
+**टैगलाइन:** *कोई पैसा नहीं, केवल आवाज़*
 
 Yeh platform **Sanatan Dharma ke anuyayiyon** ke liye ek sauchcha digital manch hai jahan log:
 
@@ -8,6 +12,8 @@ Yeh platform **Sanatan Dharma ke anuyayiyon** ke liye ek sauchcha digital manch 
 - ✊ Samajik, dharmik, sanskritik samasyaon ko uthayein
 - 📜 Kisi bhi mudde par **support batcha / signature** jama karein
 - 🕉️ Aacharyon, peethon aur sampradayon ke baare mein jagruk ho
+
+**Yeh poori duniya ke Sanataniyon ka apna social media hai** — Hindu ho ya Sanatan Dharma ke anusaar jeevan jeene wala koi bhi vyakti. Facebook-Twitter jaise **saare tools inbuilt** (judna, post, photo-video, like, comment, share, community) — **keval Sanatan followers ke liye**. Aur ek khaas add-on tool: **Issue Sampreshan** (Change.org jaisa) — yahan se seedhe apni dharm-samasya uthao; log **email se sign up** karke us issue par **"I" badge** dete hain jo **Like ki tarah** kaam karta hai. Log **jitna share + support karenge, utne hi I jama honge** — jitne zyada I, utni badi awaaj.
 
 > **Yahan kisi bhi prakar ka paisa nahi liya jaata — na donation, na membership fee, na koi aur financial transaction. Yeh ek non-commercial awareness + activism platform hai.**
 
@@ -42,9 +48,10 @@ Is liye hamara bhaiya platform hai: 👉 **[www.shivbodhtrust.org](https://www.s
 
 | Feature | Description |
 |---|---|
-| 👤 Member signup & profile | Koi bhi sadasya khud ko register kar sakta hai |
-| 💬 Community feed | Vichar, sandesh, post, comment, share |
-| ✍️ Issue raise karna | Koi bhi sadasya kisi bhi mudde ko uthata hai |
+| 👤 Member signup & profile | Koi bhi sadasya khud ko register kar sakta hai (email se sign up) |
+| 💬 Community feed | Vichar, sandesh, post, comment, share — Facebook-Twitter jaise saare social tools |
+| ✍️ Issue Sampreshan | Koi bhi sadasya apni dharm-samasya seedhe manch par uthata hai (Change.org jaisa tool) |
+| 🅸 I badge (Like jaisa) | Har samarthan ek **I** hai — jitne share + support, utne I; jitne zyada I, utni badi awaaj |
 | 📜 Signature / Support batcha | Kisi bhi provider (Change.org, custom, etc.) ke link se support joda ja sakta hai |
 | 🕉️ Acharya awareness section | 4 peeth aur sampradaya ka parichay (link: shivbodhtrust.org) |
 | 🌍 Multi-language | Hindi + English (vistar se aur bhashayen jod sakte hain) |

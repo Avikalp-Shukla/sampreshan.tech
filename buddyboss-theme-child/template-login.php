@@ -213,7 +213,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
                             <div class="sp-phone-section">
                                 <label class="sp-login__field">
                                     <span class="sp-login__label">
-                                        <?php sp_icon_auto( 'phone', 'sp-icon--sm sp-icon--muted', __( 'Phone', 'sampreshan-child' ) ); ?>
+                                        <?php sp_icon_e( 'mobile', 'sp-icon--sm sp-icon--muted', __( 'Phone', 'sampreshan-child' ) ); ?>
                                         <?php esc_html_e( 'Mobile number', 'sampreshan-child' ); ?>
                                     </span>
                                     <div class="sp-phone-input-group">

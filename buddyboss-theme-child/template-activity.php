@@ -65,7 +65,7 @@ $start_url = home_url( '/start-a-petition/' );
                     <?php if ( $is_pet ) : ?>
                         <div class="sp-dash-bar"><span class="sp-dash-bar__fill" style="width: <?php echo esc_attr( $prog ); ?>%"></span></div>
                         <p class="sp-dash-row__meta">
-                            <?php echo esc_html( sprintf( _n( '%s signature', '%s signatures', $sig, 'sampreshan-child' ), number_format_i18n( $sig ) ) ); ?>
+                            <?php echo esc_html( sprintf( _n( '%s I', '%s Is', $sig, 'sampreshan-child' ), number_format_i18n( $sig ) ) ); ?>
                             <?php if ( $goal > 0 ) : ?>&middot; <?php echo esc_html( sprintf( __( 'goal %s', 'sampreshan-child' ), number_format_i18n( $goal ) ) ); ?><?php endif; ?>
                         </p>
                     <?php endif; ?>

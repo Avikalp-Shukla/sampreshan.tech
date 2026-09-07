@@ -7,13 +7,13 @@
  */
 get_header();
 $term = get_queried_object();
-// Per-category 3D hero icon (slugs match the cause pages).
+// Per-category 3D hero icon — one topic = one symbol (see sp_cause_icon()).
 $cause_icons = array(
-    'category-temple-preservation'  => 'temple',
-    'category-cultural-heritage'    => 'collection',
-    'category-religious-education'  => 'book-open',
-    'category-environmental-causes' => 'leaf',
-    'category-community-welfare'    => 'hand-heart',
+    'category-temple-preservation'  => 'mandir',
+    'category-cultural-heritage'    => 'pothi',
+    'category-religious-education'  => 'vedagranth',
+    'category-environmental-causes' => 'peepal',
+    'category-community-welfare'    => 'seva',
 );
 $cause_slug = ( $term && isset( $term->post_name ) ) ? (string) $term->post_name : '';
 $cause_icon = isset( $cause_icons[ $cause_slug ] ) ? $cause_icons[ $cause_slug ] : 'temple';
@@ -82,7 +82,7 @@ $cause_icon = isset( $cause_icons[ $cause_slug ] ) ? $cause_icons[ $cause_slug ]
             <?php endif; ?>
         </section>
         <section class="sp-section sp-section--center" aria-labelledby="sp-cause-call-h">
-            <h2 class="sp-section__title" id="sp-cause-call-h"><?php sp_icon_auto( 'plus', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Make Your Voice Heard', 'sampreshan-child' ); ?></h2>
+            <h2 class="sp-section__title" id="sp-cause-call-h"><?php sp_icon_e( 'shankh', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Make Your Voice Heard', 'sampreshan-child' ); ?></h2>
             <p class="sp-section__sub"><?php printf( esc_html__( 'Every cause starts with one person. Start a petition under %s and rally the community.', 'sampreshan-child' ), '<strong>' . esc_html( get_the_title() ) . '</strong>' ); ?></p>
             <a class="btn btn--primary btn--lg" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">
                 <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>

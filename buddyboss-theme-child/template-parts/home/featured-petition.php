@@ -60,10 +60,15 @@ $user_signed = is_user_logged_in()
     && function_exists( 'sp_petition_user_has_signed' )
     && sp_petition_user_has_signed( $petition_id );
 $is_petition_cpt = ( 'petition' === get_post_type( $petition_id ) );
+// Placeholder shows the petition's own cause symbol (exact representative),
+// falling back to the generic petition icon when no cause is set.
+$featured_terms = get_the_terms( $petition_id, 'cause_category' );
+$featured_cause = ( $featured_terms && ! is_wp_error( $featured_terms ) && isset( $featured_terms[0]->slug ) ) ? $featured_terms[0]->slug : '';
+$featured_icon  = function_exists( 'sp_cause_icon' ) ? sp_cause_icon( $featured_cause ) : 'petition';
 ?>
 <article class="petition-card petition-card--featured card-3d fade-in" data-petition-card data-petition-card-id="<?php echo esc_attr( $petition_id ); ?>" aria-label="Featured petition">
     <div class="petition-card__image" aria-hidden="true">
-        <?php sp_icon_e( 'dharma', 'sp-icon--2xl sp-icon--saffron sp-icon--float', __( 'Featured', 'sampreshan-child' ) ); ?>
+        <?php sp_icon_e( $featured_icon, 'sp-icon--2xl sp-icon--saffron sp-icon--float', __( 'Featured', 'sampreshan-child' ) ); ?>
     </div>
 
     <div class="petition-card__body">
@@ -98,7 +103,7 @@ $is_petition_cpt = ( 'petition' === get_post_type( $petition_id ) );
             <div class="petition-card__progress-label">
                 <span class="petition-card__progress-count">
                     <span data-sp-signature-count><?php echo esc_html( number_format_i18n( $signature_current ) ); ?></span>
-                    <small><?php echo esc_html__( 'supporters', 'sampreshan-child' ); ?></small>
+                    <small><?php echo esc_html__( 'I', 'sampreshan-child' ); ?></small>
                 </span>
                 <span>
                     <?php
@@ -122,13 +127,13 @@ $is_petition_cpt = ( 'petition' === get_post_type( $petition_id ) );
                     data-petition-id="<?php echo esc_attr( $petition_id ); ?>"
                     data-signed="<?php echo $user_signed ? '1' : '0'; ?>"
                 >
-                    <?php sp_icon_e( $user_signed ? 'check' : 'pen', 'sp-icon--sm sp-icon--white', $user_signed ? __( 'Signed', 'sampreshan-child' ) : __( 'Sign', 'sampreshan-child' ) ); ?>
-                    <?php echo $user_signed ? esc_html__( 'You signed', 'sampreshan-child' ) : esc_html__( 'Sign This Petition', 'sampreshan-child' ); ?>
+                    <?php sp_icon_e( $user_signed ? 'check' : 'pen', 'sp-icon--sm sp-icon--white', $user_signed ? __( 'Supported', 'sampreshan-child' ) : __( 'I Support', 'sampreshan-child' ) ); ?>
+                    <?php echo $user_signed ? esc_html__( 'You supported', 'sampreshan-child' ) : esc_html__( 'I Support This Issue', 'sampreshan-child' ); ?>
                 </button>
             <?php else : ?>
                 <a class="btn-3d btn-3d--lg" href="<?php echo esc_url( $petition_url ); ?>">
-                    <?php sp_icon_e( 'pen', 'sp-icon--sm sp-icon--white', __( 'Sign', 'sampreshan-child' ) ); ?>
-                    <?php echo esc_html__( 'Sign This Petition', 'sampreshan-child' ); ?>
+                    <?php sp_icon_e( 'pen', 'sp-icon--sm sp-icon--white', __( 'I Support', 'sampreshan-child' ) ); ?>
+                    <?php echo esc_html__( 'I Support This Issue', 'sampreshan-child' ); ?>
                 </a>
             <?php endif; ?>
 

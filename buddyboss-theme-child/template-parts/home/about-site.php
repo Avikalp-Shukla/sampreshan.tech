@@ -13,7 +13,7 @@ $guide_url = home_url( '/community-guidelines/' );
     <div class="sp-section__head">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'What is Sampreshan?', 'sampreshan-child' ); ?></p>
         <h2 class="sp-section__title" id="sp-what-h"><?php sp_icon_auto( 'dharma', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'A simple place to raise what matters', 'sampreshan-child' ); ?></h2>
-        <p class="sp-section__sub"><?php esc_html_e( 'Temple upkeep, cultural heritage, religious education, community welfare — if it affects the Dharmic community, it belongs here.', 'sampreshan-child' ); ?></p>
+        <p class="sp-section__sub"><?php esc_html_e( 'Hindus and Sanatan followers across the world — connect, post and discuss here. Temple upkeep, heritage, education, welfare: if it affects the Dharmic community, raise it as an Issue Sampreshan.', 'sampreshan-child' ); ?></p>
     </div>
     <div class="sp-steps">
         <div class="sp-step-card">
@@ -30,7 +30,7 @@ $guide_url = home_url( '/community-guidelines/' );
         </div>
         <div class="sp-step-card">
             <span class="sp-step-card__num" aria-hidden="true">3</span>
-            <span class="sp-step-card__icon" aria-hidden="true"><?php sp_icon_e( 'megaphone', 'sp-icon--md', '' ); ?></span>
+            <span class="sp-step-card__icon" aria-hidden="true"><?php sp_icon_e( 'shankh', 'sp-icon--md', '' ); ?></span>
             <h3><?php esc_html_e( 'Impact', 'sampreshan-child' ); ?></h3>
             <p><?php esc_html_e( 'Take the collective voice to authorities, temples and media — with proof of public support.', 'sampreshan-child' ); ?></p>
         </div>

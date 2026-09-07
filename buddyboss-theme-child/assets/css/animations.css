@@ -4,8 +4,10 @@
  * @package SampreShan_Child
  */
 
-/* === SCROLL REVEAL SYSTEM === */
-.reveal {
+/* === SCROLL REVEAL SYSTEM ===
+   Hidden state applies ONLY when JS is present (html.js) — without JS,
+   content stays visible so the page can never appear blank. */
+.js .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
@@ -17,7 +19,7 @@
     transform: translateY(0);
 }
 
-.reveal--left {
+.js .reveal--left {
     transform: translateX(-30px);
 }
 
@@ -25,7 +27,7 @@
     transform: translateX(0);
 }
 
-.reveal--right {
+.js .reveal--right {
     transform: translateX(30px);
 }
 
@@ -33,7 +35,7 @@
     transform: translateX(0);
 }
 
-.reveal--scale {
+.js .reveal--scale {
     transform: scale(0.92);
 }
 
@@ -47,8 +49,8 @@
 .reveal--delay-4 { transition-delay: 0.4s; }
 .reveal--delay-5 { transition-delay: 0.5s; }
 
-/* === STAGGERED CHILDREN REVEAL === */
-.stagger-children > * {
+/* === STAGGERED CHILDREN REVEAL (JS-only hiding, same reason) === */
+.js .stagger-children > * {
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),

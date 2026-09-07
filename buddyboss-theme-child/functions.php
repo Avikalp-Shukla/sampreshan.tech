@@ -91,7 +91,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.3.0' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.3.5' );
 }
 
 /**
@@ -116,10 +116,20 @@ require_once get_stylesheet_directory() . '/inc/profile/fields.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 
 /**
+ * JS detector + no-JS fallback (prints first in <head>).
+ * Scroll-reveal hiding is scoped to `html.js`, so without JavaScript
+ * every section stays visible instead of a blank page.
+ */
+function sampreshan_child_js_detector() {
+    echo "<script>document.documentElement.className+=' js';</script>\n";
+    echo '<noscript><style>body{opacity:1!important}.reveal,.stagger-children>*{opacity:1!important;transform:none!important}</style></noscript>' . "\n";
+}
+add_action( 'wp_head', 'sampreshan_child_js_detector', 0 );
+
+/**
  * Enqueue Google Fonts (preconnect + display=swap for performance)
  */
-function sampreshan_child_enqueue_fonts() {
-    // Preconnect to Google Fonts servers
+function sampreshan_child_enqueue_fonts() {    // Preconnect to Google Fonts servers
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
 
@@ -1074,7 +1084,7 @@ function sampreshan_child_create_all_user_pages() {
             'option'   => 'sampreshan_my_petitions_page_created',
         ),
         array(
-            'title'    => __( 'Signed Petitions', 'sampreshan-child' ),
+            'title'    => __( 'Supported Issues', 'sampreshan-child' ),
             'slug'     => 'signed-petitions',
             'template' => 'template-signed.php',
             'option'   => 'sampreshan_signed_page_created',
@@ -1228,16 +1238,16 @@ function sp_petition_notify_author_on_signature( $petition_id, $signer_id, $sign
     $site_name    = get_bloginfo( 'name' );
 
     $subject = sprintf(
-        /* translators: 1: signer name, 2: petition title */
-        __( '[%1$s] %2$s signed your petition "%3$s"', 'sampreshan-child' ),
+        /* translators: 1: site name, 2: signer name, 3: petition title */
+        __( '[%1$s] %2$s gave an I to your issue "%3$s"', 'sampreshan-child' ),
         $site_name,
         $signer_name,
         $petition->post_title
     );
 
     $message = sprintf(
-        /* translators: 1: signer name, 2: petition title, 3: signature count, 4: petition URL */
-        __( "Hello %1$s,\n\n%2$s just signed your petition \"%3$s\"!\n\nTotal signatures: %4$s\n\nView your petition:\n%5$s\n\nKeep building support for your cause!\n\n— %6$s Team", 'sampreshan-child' ),
+        /* translators: 1: author, 2: signer, 3: title, 4: count, 5: url, 6: site */
+        __( "Hello %1$s,\n\n%2$s just gave an I to your issue \"%3$s\"!\n\nTotal Is: %4$s\n\nView your issue:\n%5$s\n\nKeep building support for your cause!\n\n— %6$s Team", 'sampreshan-child' ),
         $author->display_name,
         $signer_name,
         $petition->post_title,
