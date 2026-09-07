@@ -10,6 +10,12 @@
     html { -webkit-text-size-adjust: 100%; }
     body { background: linear-gradient(135deg, #ff9933, #ffffff, #138808); min-height: 100vh; overflow-x: clip; }
     img, video, svg { max-width: 100%; height: auto; }
+    /* Real icons (no emoji): gradient-stroke premium set, transparent bg */
+    .ic { width: 1.5em; height: 1.5em; vertical-align: -0.35em;
+      filter: drop-shadow(0 2px 3px rgba(10,26,61,0.35)); }
+    .mission-icon .ic, .issue-icon .ic, .peeth-emoji .ic { width: 1em; height: 1em; vertical-align: -0.15em; }
+    .post-action .ic { width: 1.15em; height: 1.15em; vertical-align: -0.2em; }
+    .mission-icon, .issue-icon, .peeth-emoji { line-height: 1; }
 
     /* Header */
     .header {
@@ -350,9 +356,17 @@
   </style>
 </head>
 <body>
+  <!-- Shared icon gradients (single defs, referenced by every icon) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <linearGradient id="gSaff" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFB877"/><stop offset="100%" stop-color="#E0851A"/></linearGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5D98A"/><stop offset="100%" stop-color="#B8860B"/></linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7DE9FF"/><stop offset="100%" stop-color="#0E4D64"/></linearGradient>
+    <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#BDE8C4"/><stop offset="100%" stop-color="#1A7A2E"/></linearGradient>
+    <linearGradient id="gRose" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F6B8C1"/><stop offset="100%" stop-color="#9A1B1E"/></linearGradient>
+  </defs></svg>
   <!-- Header -->
   <header class="header">
-    <div class="logo">🙏 Sampreshan.tech</div>
+    <div class="logo"><svg class="ic" viewBox="0 0 64 64" fill="url(#gSaff)" style="width:1em;height:1em;vertical-align:-0.15em"><path d="M32 52C24 42 18 34 18 26c0-3 1-5 3-6 3 2 8 2 11 0 4 3 9 3 12 0 2 1 3 3 3 6 0 8-6 16-14 26z" opacity="0.95"/></svg> Sampreshan.tech</div>
     <nav class="nav-links" aria-label="Primary">
       <a href="#mission">Mission</a>
       <a href="#issues">Issues</a>
@@ -384,7 +398,7 @@
 
   <!-- Mission -->
   <section id="mission" class="section" style="padding-top: 20px;">
-    <h2 class="section-title">🙏 Our Mission</h2>
+    <h2 class="section-title">Our Mission</h2>
     <p class="section-sub">
       Across India and the whole world, followers of Sanatan Dharma have their own gurus and traditions.
       Yet often their voice is suppressed, because it never reaches their own community.
@@ -392,22 +406,22 @@
     </p>
     <div class="mission">
       <div class="mission-item">
-        <div class="mission-icon">🤝</div>
+        <div class="mission-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gSaff)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="mission-title">Connect & Discuss</div>
         <div class="mission-desc">Connect and discuss with people of your tradition, region and thought.</div>
       </div>
       <div class="mission-item">
-        <div class="mission-icon">✊</div>
+        <div class="mission-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gSaff)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l4 4V6l-4 4H4z" fill="url(#gSaff)" stroke="none"/><path d="M16.5 9a4.5 4.5 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></svg></div>
         <div class="mission-title">Raise Issues</div>
         <div class="mission-desc">Any issue — social, religious or cultural — raise it here and reach people.</div>
       </div>
       <div class="mission-item">
-        <div class="mission-icon">📜</div>
+        <div class="mission-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gSaff)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div class="mission-title">Gather Support</div>
         <div class="mission-desc">Collect Is of support on any issue — through any provider, freely.</div>
       </div>
       <div class="mission-item">
-        <div class="mission-icon">🕉️</div>
+        <div class="mission-icon"><svg class="ic" viewBox="0 0 64 64" fill="url(#gSaff)"><path d="M32 52C24 42 18 34 18 26c0-3 1-5 3-6 3 2 8 2 11 0 4 3 9 3 12 0 2 1 3 3 3 6 0 8-6 16-14 26z" opacity="0.95"/><path d="M32 52c-4-6-6-11-6-16 4 2 8 2 12 0 0 5-2 10-6 16z" fill="#FFF8F0" opacity="0.55"/><ellipse cx="32" cy="54" rx="10" ry="1.6" fill="#1A3380" opacity="0.18"/></svg></div>
         <div class="mission-title">Message of Unity</div>
         <div class="mission-desc">One Dharma, many paths. Respect for every peeth, tradition and acharya.</div>
       </div>
@@ -436,14 +450,14 @@
 
   <!-- Issues -->
   <section id="issues" class="section">
-    <h2 class="section-title">✍️ Live Issues & Petitions</h2>
+    <h2 class="section-title">Live Issues & Petitions</h2>
     <p class="section-sub">
       Here any member raises an issue. Read, reflect, and add your support —
       a single I makes the voice louder. <em>No money, only voice.</em>
     </p>
     <div class="issues-list">
       <div class="issue-card">
-        <div class="issue-icon">📜</div>
+        <div class="issue-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gSaff)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div class="issue-content">
           <div class="issue-title">Protecting Sacred Cow Heritage</div>
           <div class="issue-desc">Social awareness for Gau Mata protection and demand for better policies from the government.</div>
@@ -452,7 +466,7 @@
         <div class="signature-count">12,450 / 50,000</div>
       </div>
       <div class="issue-card">
-        <div class="issue-icon">🕉️</div>
+        <div class="issue-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gSaff)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="issue-content">
           <div class="issue-title">Ban on Cow Slaughter in All States</div>
           <div class="issue-desc">Demand for a uniform ban on cow slaughter across all states of the country.</div>
@@ -461,7 +475,7 @@
         <div class="signature-count">8,320 / 30,000</div>
       </div>
       <div class="issue-card">
-        <div class="issue-icon">🏛️</div>
+        <div class="issue-icon"><svg class="ic" viewBox="0 0 64 64" fill="url(#gSaff)"><path d="M8 52h48v4H8z"/><path d="M14 52V30l6-14h24l6 14v22h-8V34a6 6 0 0 0-12 0v18z" opacity="0.92"/><circle cx="32" cy="10" r="3"/><rect x="31" y="2" width="2" height="6"/></svg></div>
         <div class="issue-content">
           <div class="issue-title">Restoration and Protection of Ancient Temples</div>
           <div class="issue-desc">Protecting ancient temples as world heritage — restoration and social recognition.</div>
@@ -474,7 +488,7 @@
 
   <!-- Acharya / Peeth awareness -->
   <section id="peeth" class="section">
-    <h2 class="section-title">🕉️ Connect with Acharyas and Peeths</h2>
+    <h2 class="section-title">Connect with Acharyas and Peeths</h2>
     <p class="section-sub">
       Acharyas are the highest pillar of Dharma. Along with the great acharyas of the
       4 sacred peeths established by <strong>Sri Adi Shankaracharya</strong>, acharyas of many
@@ -483,32 +497,32 @@
     </p>
     <div class="peeth-grid">
       <div class="peeth-card">
-        <div class="peeth-emoji">🛕</div>
+        <div class="peeth-emoji"><svg class="ic" viewBox="0 0 64 64" fill="url(#gSaff)"><path d="M8 52h48v4H8z"/><path d="M14 52V30l6-14h24l6 14v22h-8V34a6 6 0 0 0-12 0v18z" opacity="0.92"/><circle cx="32" cy="10" r="3"/><rect x="31" y="2" width="2" height="6"/></svg></div>
         <div class="peeth-name">Govardhan Peeth (Puri)</div>
         <div class="peeth-desc">One of the four dhams established by Adi Shankaracharya. Tradition of renunciation and wisdom.</div>
         <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">Read on shivbodhtrust.org →</a>
       </div>
       <div class="peeth-card">
-        <div class="peeth-emoji">🪔</div>
+        <div class="peeth-emoji"><svg class="ic" viewBox="0 0 64 64"><ellipse cx="32" cy="56" rx="14" ry="2" fill="#1A3380" opacity="0.18"/><path d="M10 36c0-3 5-4 22-4s22 1 22 4l-4 8c0 2-2 4-4 4H18c-2 0-4-2-4-4z" fill="url(#gGold)"/><path d="M32 32c-3-4-3-8 0-12 3 4 3 8 0 12z" fill="url(#gSaff)"/></svg></div>
         <div class="peeth-name">Sharada Peeth (Sringeri)</div>
         <div class="peeth-desc">The foremost seat of Advaita Vedanta. An ancient centre of Vedic wisdom and philosophy.</div>
         <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">Read on shivbodhtrust.org →</a>
       </div>
       <div class="peeth-card">
-        <div class="peeth-emoji">🙏</div>
+        <div class="peeth-emoji"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gBlue)" stroke-width="2" stroke-linecap="round"><path d="M2 9c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 4-2 5-1"/><path d="M2 15c2.5-2.5 5-2.5 7.5 0s5 2.5 7.5 0 4-2 5-1"/></svg></div>
         <div class="peeth-name">Dwaraka Peeth (Sharda)</div>
         <div class="peeth-desc">The religious seat of the western region. Guidance of the acharyas.</div>
         <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">Read on shivbodhtrust.org →</a>
       </div>
       <div class="peeth-card">
-        <div class="peeth-emoji">📿</div>
+        <div class="peeth-emoji"><svg class="ic" viewBox="0 0 24 24" fill="url(#gBlue)"><path d="M2 20l6.5-11 4 6.5L15 11l7 9z" opacity="0.9"/><path d="M8.5 9L12 3l3.5 6z" fill="#FFF8F0" opacity="0.8"/></svg></div>
         <div class="peeth-name">Jyotirmath Peeth (Badri)</div>
         <div class="peeth-desc">The northern Himalayan seat. The traditional home of renunciation and contemplation.</div>
         <a class="peeth-link" href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">Read on shivbodhtrust.org →</a>
       </div>
     </div>
     <p class="section-sub" style="margin-top: 30px;">
-      🙏 <strong>One Message:</strong> Dharma is one, paths are many. When all acharyas and traditions
+      <strong>One Message:</strong> Dharma is one, paths are many. When all acharyas and traditions
       stand on the same dignity, different views are mutual respect, not opposition.
       Detailed introductions of every peeth and acharya are available at
       <a href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">www.shivbodhtrust.org</a>.
@@ -517,7 +531,7 @@
 
   <!-- Feed -->
   <section id="feed" class="section">
-    <h2 class="section-title">📰 Community Feed</h2>
+    <h2 class="section-title">Community Feed</h2>
     <p class="section-sub">
       Thoughts of acharyas, regional news and member discussions — all together.
     </p>
@@ -534,9 +548,9 @@
           Today I gave my I to the petition running for Gau Mata protection. You too should support it. #GauSeva #SanatanDharma
         </div>
         <div class="post-actions">
-          <div class="post-action">👍 234</div>
-          <div class="post-action">💬 45</div>
-          <div class="post-action">🔄 12</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> 234</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gBlue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 45</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gGreen)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> 12</div>
         </div>
       </div>
       <div class="post-card">
@@ -548,12 +562,12 @@
           </div>
         </div>
         <div class="post-content">
-          Visited the ancient temple of my region. Protecting our religious heritage is everyone's duty. Raise your voice! 🙏
+          Visited the ancient temple of my region. Protecting our religious heritage is everyone's duty. Raise your voice!
         </div>
         <div class="post-actions">
-          <div class="post-action">👍 567</div>
-          <div class="post-action">💬 89</div>
-          <div class="post-action">🔄 34</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> 567</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gBlue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 89</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gGreen)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> 34</div>
         </div>
       </div>
       <div class="post-card">
@@ -565,12 +579,12 @@
           </div>
         </div>
         <div class="post-content">
-          Attended the morning Ganga aarti yesterday. Felt a new energy within. Protecting our rivers is our duty. 🌊
+          Attended the morning Ganga aarti yesterday. Felt a new energy within. Protecting our rivers is our duty.
         </div>
         <div class="post-actions">
-          <div class="post-action">👍 892</div>
-          <div class="post-action">💬 156</div>
-          <div class="post-action">🔄 67</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gGold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> 892</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gBlue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> 156</div>
+          <div class="post-action"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#gGreen)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> 67</div>
         </div>
       </div>
     </div>
@@ -578,7 +592,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>🙏 © 2026 Sampreshan.tech — Sanatan Voice Platform</p>
+    <p>© 2026 Sampreshan.tech — Sanatan Voice Platform</p>
     <p style="font-size: 1.05em; margin-top: 4px;"><strong>Voice of Unity, Message of Dharma</strong></p>
     <p style="opacity: 0.85;">This is a <strong>non-commercial</strong> digital platform. No money of any kind is taken here — no donations, no membership fee.</p>
     <p style="opacity: 0.85;">Built under the leadership of <a href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">ShivBodh Trust</a>. For Acharya/Peeth introductions, visit <a href="https://www.shivbodhtrust.org" target="_blank" rel="noopener">www.shivbodhtrust.org</a></p>

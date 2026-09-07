@@ -1,0 +1,53 @@
+{
+  "model": "b/deepseek-v4-flash",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "switchModelsOnFlag": false,
+  "remoteControlAtStartup": true,
+
+  "models": {
+    "deepseek-v4-free": {
+      "id": "deepseek/deepseek-v4-flash",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash — free tier, fast reasoning",
+      "inputCost": 0,
+      "outputCost": 0,
+      "currency": "USD"
+    },
+    "deepseek-v4-vision-free": {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash Vision — free tier with image support",
+      "inputCost": 0,
+      "outputCost": 0,
+      "currency": "USD",
+      "supportsVision": true
+    },
+    "deepseek-v4-pro": {
+      "id": "deepseek/deepseek-v4-pro",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": false,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Pro — paid tier, higher quality",
+      "inputCost": 1.32,
+      "outputCost": 1.32,
+      "currency": "USD"
+    }
+  }
+}

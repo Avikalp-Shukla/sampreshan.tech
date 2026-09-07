@@ -1,0 +1,43 @@
+{
+  "model": "bai/claude-fable-5-low",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "switchModelsOnFlag": false,
+  "remoteControlAtStartup": true,
+
+  "models": {
+    "deepseek-v4-free": {
+      "id": "deepseek/deepseek-v4-flash",
+      "provider": "bai",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash — free tier, fast"
+    },
+    "deepseek-v4-vision-free": {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "provider": "bai",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash Vision — free tier with image support"
+    },
+    "deepseek-v4-pro": {
+      "id": "deepseek/deepseek-v4-pro",
+      "provider": "bai",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": false,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Pro — paid tier"
+    }
+  }
+}

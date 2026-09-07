@@ -68,8 +68,10 @@
   .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;backdrop-filter:blur(14px);
     box-shadow:0 18px 50px rgba(0,0,0,.45);transition:.22s}
   .card:hover{transform:translateY(-3px);border-color:rgba(255,138,0,.45);box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 32px rgba(255,138,0,.12)}
-  .icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:14px;
-    background:rgba(255,138,0,.12);border:1px solid rgba(255,138,0,.3)}
+  .icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+    background:transparent;border:0}
+  .ic{width:40px;height:40px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45))}
+  .pet-media .ic{width:64px;height:64px}
   .card h3{margin-bottom:8px;font-size:1.05rem}
   .card p{color:var(--muted);font-size:.92rem}
   /* petition cards */
@@ -113,6 +115,12 @@
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="dSaff" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFB877"/><stop offset="100%" stop-color="#E0851A"/></linearGradient>
+  <linearGradient id="dGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5D98A"/><stop offset="100%" stop-color="#B8860B"/></linearGradient>
+  <linearGradient id="dBlue" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7DE9FF"/><stop offset="100%" stop-color="#0E4D64"/></linearGradient>
+  <linearGradient id="dGreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#BDE8C4"/><stop offset="100%" stop-color="#1A7A2E"/></linearGradient>
+</defs></svg>
 <header><nav class="nav">
   <div class="brand"><span class="om">ॐ</span> SampreShan</div>
   <div class="nav-links"><a href="#features">Platform</a><a href="#issues">Petitions</a><a href="#peeth">Mission</a><a href="#feed">Community</a></div>
@@ -158,15 +166,15 @@
     <h2 class="sec-title">Petitions &amp; Campaigns</h2>
     <p class="sec-sub">Real causes the community is rallying behind right now.</p>
     <div class="grid3">
-      <div class="card pet"><div class="pet-media">ॐ<span class="pet-cause">Temple Heritage</span></div>
+      <div class="card pet"><div class="pet-media"><svg class="ic" viewBox="0 0 64 64" fill="url(#dSaff)"><path d="M8 52h48v4H8z"/><path d="M14 52V30l6-14h24l6 14v22h-8V34a6 6 0 0 0-12 0v18z" opacity="0.92"/><circle cx="32" cy="10" r="3"/><rect x="31" y="2" width="2" height="6"/></svg><span class="pet-cause">Temple Heritage</span></div>
         <div class="pet-body"><h3>Restore the ancient stepwell near Kashi Vishwanath corridor</h3>
         <div class="sigrow"><b>8,412</b> signatures</div><div class="bar"><span class="fill" style="width:67%"></span></div>
         <p class="goal">67% of 12,500 goal</p><a class="btn btn-primary btn-sm" href="#issues">Sign</a></div></div>
-      <div class="card pet"><div class="pet-media" style="background:linear-gradient(135deg,#083344,#0E4D64 55%,#41E2FF)">ॐ<span class="pet-cause">Culture</span></div>
+      <div class="card pet"><div class="pet-media" style="background:linear-gradient(135deg,#083344,#0E4D64 55%,#41E2FF)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="url(#dGold)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg><span class="pet-cause">Culture</span></div>
         <div class="pet-body"><h3>Sanskrit learning centres in every district library</h3>
         <div class="sigrow"><b>5,209</b> signatures</div><div class="bar"><span class="fill" style="width:52%"></span></div>
         <p class="goal">52% of 10,000 goal</p><a class="btn btn-primary btn-sm" href="#issues">Sign</a></div></div>
-      <div class="card pet"><div class="pet-media" style="background:linear-gradient(135deg,#0B2E13,#1A7A2E 60%,#F5C542)">ॐ<span class="pet-cause">Environment</span></div>
+      <div class="card pet"><div class="pet-media" style="background:linear-gradient(135deg,#0B2E13,#1A7A2E 60%,#F5C542)"><svg class="ic" viewBox="0 0 64 64" fill="url(#dGreen)"><path d="M32 8c14 2 19 16 9 25-4 4-6.5 9-7 21-0.5-12-3.5-17-8-21C16 24 20 10 32 8z"/><path d="M32 14l0.6 34" stroke="#EAF7EC" stroke-width="2" stroke-linecap="round" opacity="0.85"/></svg><span class="pet-cause">Environment</span></div>
         <div class="pet-body"><h3>Protect peepal &amp; banyan trees on highway projects</h3>
         <div class="sigrow"><b>11,980</b> signatures</div><div class="bar"><span class="fill" style="width:80%"></span></div>
         <p class="goal">80% of 15,000 goal</p><a class="btn btn-primary btn-sm" href="#issues">Sign</a></div></div>
@@ -178,7 +186,7 @@
     <h2 class="sec-title">Dedicated to all who have faith in Sanatan Dharma.</h2>
     <p class="sec-sub">No donations on this platform. No fees. Just a clean space for Sanatan voices to be heard — every sampradaya respected equally.</p>
     <div class="grid3">
-      <div class="card"><div class="icon">ॐ</div><h3>Dharma First</h3><p>Every feature serves the community — never advertisers, never data brokers.</p></div>
+      <div class="card"><div class="icon"><svg class="ic" viewBox="0 0 64 64" fill="url(#dSaff)"><path d="M32 52C24 42 18 34 18 26c0-3 1-5 3-6 3 2 8 2 11 0 4 3 9 3 12 0 2 1 3 3 3 6 0 8-6 16-14 26z" opacity="0.95"/><path d="M32 52c-4-6-6-11-6-16 4 2 8 2 12 0 0 5-2 10-6 16z" fill="#FFF8F0" opacity="0.55"/></svg></div><h3>Dharma First</h3><p>Every feature serves the community — never advertisers, never data brokers.</p></div>
       <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Trust &amp; Safety</h3><p>Clear community guidelines keep every tradition respected and every voice safe.</p></div>
       <div class="card"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFB35C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>One Sangha</h3><p>Members, petitions, feed and profiles connected in a single living network.</p></div>
     </div>

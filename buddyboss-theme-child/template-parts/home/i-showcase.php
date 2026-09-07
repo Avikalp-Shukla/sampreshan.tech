@@ -156,17 +156,6 @@ $feed_url  = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed
         </div>
     </div>
 
-    <!-- Counter below -->
-    <div class="d3-reveal" style="text-align:center; margin-top:clamp(2rem, 5vw, 3rem);">
-        <p style="font-size:clamp(1rem, 2vw, 1.2rem); font-weight:600; color:var(--d3-text); margin-bottom:0.5rem;">
-            <?php esc_html_e( 'We\'re live —', 'sampreshan-child' ); ?>
-            <span style="color:var(--d3-neon-saffron); text-shadow:var(--d3-glow-sm); font-weight:800; font-size:1.3em;">
-                <span data-count="12450">0</span><span style="color:var(--d3-neon-saffron);">+</span>
-            </span>
-        </p>
-        <p style="color:var(--d-text-muted); font-size:0.95rem;"><?php esc_html_e( 'Every share and support adds another supporter', 'sampreshan-child' ); ?></p>
-    </div>
-
     <!-- Breathing I→Eye morph loop JS -->
     <script>
     (function () {

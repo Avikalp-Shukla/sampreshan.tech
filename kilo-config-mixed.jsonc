@@ -1,0 +1,117 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+
+  "provider": {
+    "explabs": {
+      "options": {
+        "apiKey": "${EXPLABS_API_KEY}",
+        "baseURL": "https://api.experientiallabs.ai/v1"
+      },
+      "models": {
+        "gpt-6-astra": {
+          "name": "GPT-6 Astra",
+          "cost": { "input": 1.25, "output": 1.25 },
+          "contextWindow": 128000,
+          "supportsStream": true,
+          "defaultParams": { "stream": true, "reasoning_effort": "xhigh" }
+        }
+      }
+    },
+    "b": {
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash",
+          "cost": { "input": 0, "output": 0 },
+          "isFree": true,
+          "contextWindow": 64000
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision",
+          "cost": { "input": 0, "output": 0 },
+          "isFree": true,
+          "contextWindow": 64000,
+          "supportsVision": true
+        }
+      }
+    },
+    "b-router": {
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.bairouter.io/v1"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash (router)",
+          "cost": { "input": 0, "output": 0 },
+          "isFree": true,
+          "contextWindow": 64000
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision (router)",
+          "cost": { "input": 0, "output": 0 },
+          "isFree": true,
+          "contextWindow": 64000,
+          "supportsVision": true
+        }
+      }
+    },
+    "b-gateway": {
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.baigateway.io/v1"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash (gateway)",
+          "cost": { "input": 0, "output": 0 },
+          "isFree": true,
+          "contextWindow": 64000
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision (gateway)",
+          "cost": { "input": 0, "output": 0 },
+          "isFree": true,
+          "contextWindow": 64000,
+          "supportsVision": true
+        }
+      }
+    }
+  },
+
+  "model": "explabs/gpt-6-astra",
+  "subagent_model": "explabs/gpt-6-astra",
+
+  "permission": { "bash": "allow" },
+  "web_search": true,
+  "sandbox": { "enabled": true },
+
+  "indexing": {
+    "enabled": true,
+    "model": "ollama/nomic-embed-text",
+    "vectorStore": "qdrant",
+    "provider": "ollama"
+  },
+
+  "experimental": {
+    "batch_tool": true,
+    "image_generation": true,
+    "native_notebook_tools": true,
+    "openTelemetry": true,
+    "continue_loop_on_deny": true
+  },
+
+  "agent": { "explore": { "hidden": false } },
+
+  "share": "auto",
+  "disabled_providers": [],
+  "remote_control": true,
+  "mcp": {
+    "github": {
+      "enabled": true
+    }
+  }
+}

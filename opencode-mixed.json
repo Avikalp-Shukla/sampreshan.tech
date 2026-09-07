@@ -1,0 +1,86 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "explabs": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Experiential Labs",
+      "options": {
+        "baseURL": "https://api.experientiallabs.ai/v1",
+        "apiKey": "{env:EXPLABS_API_KEY}"
+      },
+      "models": {
+        "gpt-6-astra": {
+          "name": "GPT-6 Astra",
+          "reasoning": true,
+          "tool_call": true,
+          "attachment": true
+        }
+      }
+    },
+    "b": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "b.ai",
+      "options": {
+        "baseURL": "https://api.b.ai/v1",
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash",
+          "reasoning": true,
+          "tool_call": true
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision",
+          "attachment": true,
+          "tool_call": true
+        },
+        "deepseek-v4-pro": {
+          "name": "DeepSeek V4 Pro",
+          "reasoning": true,
+          "tool_call": true
+        }
+      }
+    },
+    "b-router": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "b.ai Router fallback",
+      "options": {
+        "baseURL": "https://api.bairouter.io/v1",
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash (router)",
+          "reasoning": true,
+          "tool_call": true
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision (router)",
+          "attachment": true,
+          "tool_call": true
+        }
+      }
+    },
+    "b-gateway": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "b.ai Gateway fallback",
+      "options": {
+        "baseURL": "https://api.baigateway.io/v1",
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk"
+      },
+      "models": {
+        "deepseek-v4-flash": {
+          "name": "DeepSeek V4 Flash (gateway)",
+          "reasoning": true,
+          "tool_call": true
+        },
+        "deepseek-v4-flash-vision-exp": {
+          "name": "DeepSeek V4 Flash Vision (gateway)",
+          "attachment": true,
+          "tool_call": true
+        }
+      }
+    }
+  }
+}

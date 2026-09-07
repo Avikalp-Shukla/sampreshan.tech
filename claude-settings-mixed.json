@@ -1,0 +1,126 @@
+{
+  "model": "openai/gpt-6-astra",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "switchModelsOnFlag": false,
+  "remoteControlAtStartup": true,
+
+  "models": {
+    "gpt-6-astra": {
+      "id": "gpt-6-astra",
+      "provider": "openai-compatible",
+      "options": {
+        "apiKey": "${EXPLABS_API_KEY}",
+        "baseURL": "https://api.experientiallabs.ai/v1"
+      },
+      "isFree": false,
+      "contextWindow": 128000,
+      "description": "GPT-6 Astra — xhigh reasoning, streaming support via Experiential Labs",
+      "supportsReasoning": true,
+      "supportsStreaming": true
+    },
+    "gpt-6-astra-stream": {
+      "id": "gpt-6-astra",
+      "provider": "openai-compatible",
+      "options": {
+        "apiKey": "${EXPLABS_API_KEY}",
+        "baseURL": "https://api.experientiallabs.ai/v1",
+        "stream": true,
+        "reasoning_effort": "xhigh"
+      },
+      "isFree": false,
+      "contextWindow": 128000,
+      "description": "GPT-6 Astra (streaming, xhigh reasoning) — Experiential Labs",
+      "supportsReasoning": true,
+      "supportsStreaming": true
+    },
+    "deepseek-v4-free": {
+      "id": "deepseek/deepseek-v4-flash",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash — free tier",
+      "inputCost": 0,
+      "outputCost": 0
+    },
+    "deepseek-v4-vision-free": {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash Vision — free with image support",
+      "supportsVision": true
+    },
+    "deepseek-v4-free-router": {
+      "id": "deepseek/deepseek-v4-flash",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.bairouter.io/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash via bairouter fallback — free tier",
+      "inputCost": 0,
+      "outputCost": 0
+    },
+    "deepseek-v4-free-gateway": {
+      "id": "deepseek/deepseek-v4-flash",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.baigateway.io/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash via baigateway fallback — free tier",
+      "inputCost": 0,
+      "outputCost": 0
+    },
+    "deepseek-v4-vision-free-router": {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.bairouter.io/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash Vision via bairouter — free with image support",
+      "supportsVision": true
+    },
+    "deepseek-v4-vision-free-gateway": {
+      "id": "deepseek/deepseek-v4-flash-vision-exp",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.baigateway.io/v1"
+      },
+      "isFree": true,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Flash Vision via baigateway — free with image support",
+      "supportsVision": true
+    },
+    "deepseek-v4-pro": {
+      "id": "deepseek/deepseek-v4-pro",
+      "provider": "b",
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "isFree": false,
+      "contextWindow": 64000,
+      "description": "DeepSeek V4 Pro — paid tier via b.ai primary",
+      "inputCost": 1.32,
+      "outputCost": 1.32
+    }
+  }
+}

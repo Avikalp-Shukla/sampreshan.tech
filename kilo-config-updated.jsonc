@@ -1,0 +1,70 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+
+  "provider": {
+    "b": {
+      "options": {
+        "apiKey": "sk-canmbr2jyis9fkq46k8dec0c037mejhk",
+        "baseURL": "https://api.b.ai/v1"
+      },
+      "models": {
+        "deepseek-v4-flash": { "name": "DeepSeek V4 Flash" },
+        "deepseek-v4-flash-vision-exp": { "name": "DeepSeek V4 Flash Vision" }
+      }
+    },
+
+    "qwen11": {
+      "options": {
+        "baseURL": "https://pnywsahxhac1qjbo.us-east-2.aws.endpoints.huggingface.cloud/v1"
+      },
+      "models": {
+        "Qwen/Qwen3.8-Flash-Next": { "name": "Qwen/Qwen3.8-Flash-Next" }
+      }
+    },
+
+    "xkiro": {
+      "options": {
+        "baseURL": "https://api.xkiro.com/v1",
+        "apiKey": "<YOUR_XKIRO_API_KEY>"
+      },
+      "models": {
+        "qwen/qwen3.8-max:free": { "name": "Qwen 3.8 Max (free)" }
+      }
+    }
+  },
+
+  "model": "b/deepseek-v4-flash",
+  "subagent_model": "kilo/nvidia/nemotron-3-ultra-550b-a55b:free",
+
+  "permission": { "bash": "allow" },
+  "web_search": true,
+  "sandbox": { "enabled": true },
+
+  "indexing": {
+    "enabled": true,
+    "model": "ollama/nomic-embed-text",
+    "vectorStore": "qdrant",
+    "provider": "ollama"
+  },
+
+  "experimental": {
+    "batch_tool": true,
+    "image_generation": true,
+    "native_notebook_tools": true,
+    "openTelemetry": true,
+    "continue_loop_on_deny": true
+  },
+
+  "agent": { "explore": { "hidden": false } },
+
+  "share": "auto",
+  "disabled_providers": [
+    "qwen11"
+  ],
+  "remote_control": true,
+  "mcp": {
+    "github": {
+      "enabled": true
+    }
+  }
+}
