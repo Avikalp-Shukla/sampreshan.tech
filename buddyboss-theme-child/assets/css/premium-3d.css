@@ -19,8 +19,8 @@
     --d-border-glow:rgba(255,153,51,0.15);
 
     /* Text */
-    --d-text:       #f0ece4;
-    --d-text-muted: #8a8694;
+    --d-text:       #ffffff;
+    --d-text-muted: #b0adc0;
     --d-text-dim:   #5a5666;
 
     /* Accent — saffron/gold */
@@ -522,7 +522,8 @@
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.03em;
-    color: var(--d-text);
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
     margin: 0 0 1rem;
 }
 
@@ -594,7 +595,8 @@
     font-family: 'Inter', -apple-system, sans-serif;
     font-size: clamp(1.05rem, 2vw, 1.25rem);
     font-weight: 700;
-    color: var(--d-text);
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     margin: 0 0 0.6rem;
     line-height: 1.3;
 }
