@@ -95,8 +95,8 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
                     </a>
                 </div>
             <?php else : ?>
-                <a class="btn btn--outline btn--sm" href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>">Sign In</a>
-                <a class="btn btn--primary btn--sm" href="<?php echo esc_url( wp_registration_url() ); ?>">Join</a>
+                <a class="btn btn--outline btn--sm" href="<?php echo esc_url( home_url( '/login/' ) ); ?>">Sign In</a>
+                <a class="btn btn--primary btn--sm" href="<?php echo esc_url( home_url( '/login/' ) ); ?>">Join</a>
             <?php endif; ?>
         </div>
     </div>
@@ -124,10 +124,10 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
             <?php sp_icon_auto( 'star', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Dashboard', 'sampreshan-child' ); ?>
         </a>
     <?php else : ?>
-        <a href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>">
+        <a href="<?php echo esc_url( home_url( '/login/' ) ); ?>">
             <?php sp_icon_auto( 'account', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Sign In', 'sampreshan-child' ); ?>
         </a>
-        <a href="<?php echo esc_url( wp_registration_url() ); ?>">
+        <a href="<?php echo esc_url( home_url( '/login/' ) ); ?>">
             <?php sp_icon_auto( 'plus', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Join', 'sampreshan-child' ); ?>
         </a>
     <?php endif; ?>

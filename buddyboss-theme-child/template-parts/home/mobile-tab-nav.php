@@ -15,7 +15,7 @@ $feed_page_id  = $feed_url ? url_to_postid( $feed_url ) : 0;
 $community_url = home_url( '/community/' );
 $is_logged_in  = is_user_logged_in();
 $dashboard_url = home_url( '/dashboard/' );
-$account_url   = $is_logged_in ? $dashboard_url : wp_login_url( get_permalink() );
+$account_url   = $is_logged_in ? $dashboard_url : home_url( '/login/' );
 
 $current_slug = '';
 if ( is_front_page() ) { $current_slug = 'home'; }

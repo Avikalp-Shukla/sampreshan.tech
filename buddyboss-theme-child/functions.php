@@ -154,10 +154,11 @@ function sampreshan_block_member_admin() {
 add_action( 'admin_init', 'sampreshan_block_member_admin', 1 );
 
 /**
- * No WP toolbar on the frontend for members (app feel; admins keep it).
+ * No WP toolbar on the frontend for anyone except admins (app feel).
  */
 function sampreshan_member_admin_bar( $show ) {
     if ( is_user_logged_in() && ! current_user_can( 'manage_options' ) ) { return false; }
+    if ( ! is_user_logged_in() && ! is_admin() ) { return false; }
     return $show;
 }
 add_filter( 'show_admin_bar', 'sampreshan_member_admin_bar', 20 );

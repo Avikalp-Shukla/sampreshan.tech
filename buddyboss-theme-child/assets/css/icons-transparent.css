@@ -254,3 +254,27 @@ body .sp-users table {
         filter: none !important;
     }
 }
+
+/* === 8. Hide WP/BuddyBoss login+register buttons ============ */
+/* Remove wp-admin-bar login/register links for everyone */
+#wp-admin-bar-bp-login,
+#wp-admin-bar-bp-register,
+#wp-admin-bar-wp-logo {
+    display: none !important;
+}
+
+/* Remove BuddyBoss header Sign in / Sign up buttons */
+.header-actions .signin-button,
+.header-actions .signup,
+a.signin-button,
+a.button.signup,
+.bb-login-register-buttons .signin-button,
+.bb-login-register-buttons .signup,
+.bb-header-buttons {
+    display: none !important;
+}
+
+/* Remove any wp-login.php links from the frontend */
+a[href*="wp-login.php"] {
+    display: none !important;
+}
