@@ -2,7 +2,8 @@
 /**
  * Home: Flag Cinema — Premium 3D Waving Sanatan Dhwaja
  * JS sine-wave animation, glass transparency, neon saffron glow.
- * Hindi→English word cycle. Pure JS + SVG, no external deps.
+ * "वसुधैव कुटुम्बकम्" in handwriting style flowing with the flag wave.
+ * Pure JS + SVG, no external deps.
  *
  * @package SampreShan_Child
  */
@@ -58,19 +59,22 @@
                 <!-- Glass highlight overlay -->
                 <path id="flagGlassPath" d="" fill="url(#flagGlass)"/>
 
-                <!-- Om symbol (centered on flag) -->
-                <text id="flagOm" x="250" y="145" text-anchor="middle" dominant-baseline="central"
-                      font-size="72" font-family="Georgia, 'Noto Serif Devanagari', serif" font-weight="bold"
-                      fill="rgba(255,248,236,0.9)" style="paint-order:stroke;"
-                      stroke="rgba(139,58,0,0.4)" stroke-width="1.5">ॐ</text>
+                <!-- "वसुधैव कुटुम्बकम्" handwriting — moves with flag wave -->
+                <text id="flagText1" text-anchor="middle" dominant-baseline="central"
+                      font-size="26" font-family="'Kalam','Caveat','Noto Sans Devanagari',cursive"
+                      font-style="italic" font-weight="700"
+                      fill="rgba(255,248,236,0.92)" style="paint-order:stroke; letter-spacing:0.04em;"
+                      stroke="rgba(139,58,0,0.35)" stroke-width="0.8">वसुधैव</text>
+                <text id="flagText2" text-anchor="middle" dominant-baseline="central"
+                      font-size="26" font-family="'Kalam','Caveat','Noto Sans Devanagari',cursive"
+                      font-style="italic" font-weight="700"
+                      fill="rgba(255,248,236,0.92)" style="paint-order:stroke; letter-spacing:0.04em;"
+                      stroke="rgba(139,58,0,0.35)" stroke-width="0.8">कुटुम्बकम्</text>
             </svg>
         </div>
 
         <!-- Glass overlay -->
         <div class="sp-flag-3d__glass" aria-hidden="true"></div>
-
-        <!-- Floating Om glow -->
-        <div class="sp-flag-3d__om" aria-hidden="true">ॐ</div>
     </div>
 
     <!-- Word cycle -->
@@ -83,16 +87,17 @@
         <?php esc_html_e( 'One flag. One voice. Sanatan Dharma.', 'sampreshan-child' ); ?>
     </p>
 
-    <!-- JS: sine-wave flag animation -->
+    <!-- JS: sine-wave flag animation + handwriting flow -->
     <script>
     (function () {
         'use strict';
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-        var front = document.getElementById('flagFront');
-        var back  = document.getElementById('flagBack');
-        var glass = document.getElementById('flagGlassPath');
-        var om    = document.getElementById('flagOm');
+        var front  = document.getElementById('flagFront');
+        var back   = document.getElementById('flagBack');
+        var glass  = document.getElementById('flagGlassPath');
+        var text1  = document.getElementById('flagText1');
+        var text2  = document.getElementById('flagText2');
         if (!front || !back) return;
 
         var W = 420, H = 280;
@@ -144,11 +149,22 @@
             back.setAttribute('d', dBack);
             glass.setAttribute('d', dFront);
 
-            // Move Om with flag center
-            var midX = startX + (endX - startX) * 0.55;
-            var midYOff = waveY(midX, time + 0.15, 8, 1.8);
-            om.setAttribute('x', midX);
-            om.setAttribute('y', topY + 55 + midYOff);
+            // Move "वसुधैव" with flag center (top half)
+            var midX1 = startX + (endX - startX) * 0.48;
+            var midYOff1 = waveY(midX1, time + 0.15, 8, 1.8);
+            text1.setAttribute('x', midX1);
+            text1.setAttribute('y', topY + 35 + midYOff1);
+            // Subtle rotation follows the wave slope
+            var dx1 = waveY(midX1 + 2, time + 0.15, 8, 1.8) - midYOff1;
+            text1.setAttribute('transform', 'rotate(' + (dx1 * 1.2) + ',' + midX1 + ',' + (topY + 35 + midYOff1) + ')');
+
+            // Move "कुटुम्बकम्" with flag lower half
+            var midX2 = startX + (endX - startX) * 0.48;
+            var midYOff2 = waveY(midX2, time + 0.45, 10, 1.8);
+            text2.setAttribute('x', midX2);
+            text2.setAttribute('y', topY + 72 + midYOff2);
+            var dx2 = waveY(midX2 + 2, time + 0.45, 10, 1.8) - midYOff2;
+            text2.setAttribute('transform', 'rotate(' + (dx2 * 1.2) + ',' + midX2 + ',' + (topY + 72 + midYOff2) + ')');
 
             requestAnimationFrame(animate);
         }

@@ -107,28 +107,15 @@
   100% { opacity: 0.8; transform: scale(1.05); }
 }
 
-/* Om symbol floating on flag */
-.sp-flag-3d__om {
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translate(-50%, -50%);
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 0 20px rgba(255, 153, 51, 0.8), 0 0 40px rgba(255, 153, 51, 0.4);
-  animation: omFloat 3s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 2;
-  font-weight: 700;
-}
-
-@keyframes omFloat {
-  0% { transform: translate(-50%, -50%) translateY(0); }
-  100% { transform: translate(-50%, -50%) translateY(-4px); }
+/* Handwriting text flowing with flag wave */
+#flagText1, #flagText2 {
+  paint-order: stroke;
+  filter: drop-shadow(0 0 6px rgba(255, 153, 51, 0.3));
+  transition: filter 0.3s;
 }
 
 /* ═══════════════════════════════════════
-   2. EYE — 3D morph with neon iris
+   2. EYE — 3D morph with neon iris + eyebrow
    ═══════════════════════════════════════ */
 
 .sp-eye-3d {
@@ -176,6 +163,17 @@
 
 @keyframes eyeDraw {
   to { stroke-dashoffset: 0; }
+}
+
+/* Eyebrow animation */
+.sp-eye-3d__brow {
+  transform-origin: 90px 36px;
+  animation: browRaise 4s ease-in-out infinite;
+}
+
+@keyframes browRaise {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
 }
 
 /* Glow ring around eye */
@@ -242,7 +240,7 @@
 }
 
 /* ═══════════════════════════════════════
-   4. DEMO STAGE — i-showcase dark stage
+   4. DEMO STAGE — i-showcase dark stage + I→Eye morph
    ═══════════════════════════════════════ */
 
 .sp-i-stage {
@@ -255,6 +253,28 @@
   justify-content: center;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 153, 51, 0.05) 0%, transparent 70%);
+}
+
+/* I badge breathing glow ring */
+.sp-i-breathe__glow {
+  animation: iGlowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes iGlowPulse {
+  0% { stroke-width: 1; opacity: 0.3; }
+  100% { stroke-width: 3; opacity: 0.7; }
+}
+
+/* Eye morph — positioned absolute, overlaps I badge */
+.sp-eye-morph {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* +1 pop bubbles */
@@ -302,10 +322,12 @@
   .sp-flag-3d__om,
   .sp-eye-3d__pupil,
   .sp-eye-3d__iris,
+  .sp-eye-3d__brow,
   .sp-eye-3d__glow-ring,
   .sp-ibadge-3d::after,
   .sp-ibadge-3d--animate,
   .sp-ibadge-3d__letter,
+  .sp-i-breathe__glow,
   .sp-i-pop--1,
   .sp-i-pop--2,
   .sp-i-pop--3 {

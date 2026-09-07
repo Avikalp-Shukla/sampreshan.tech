@@ -104,6 +104,7 @@
         + '<circle cx="90" cy="90" r="14" fill="url(#ePupil)"/>'
         + '<circle cx="78" cy="75" r="8" fill="rgba(255,255,255,0.85)"/>'
         + '<circle cx="100" cy="100" r="3" fill="rgba(255,255,255,0.35)"/>'
+        + '<path d="M30 52 Q60 22, 90 20 Q120 22, 150 52" fill="none" stroke="rgba(90,60,30,0.7)" stroke-width="4" stroke-linecap="round"/>'
         + '<path d="M18 90 C18 50,60 20,90 20 C120 20,162 50,162 90" fill="none" stroke="rgba(255,153,51,0.3)" stroke-width="2" stroke-linecap="round"/>'
         + '</svg>';
 
