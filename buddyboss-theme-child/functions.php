@@ -270,7 +270,8 @@ function sampreshan_critical_dark_css() {
     .d3-card, .d3-card__icon, .d3-card__title, .d3-card__text,
     .d3-featured, .d3-hscroll, .d3-hscroll__track,
     .d3-cta__inner, .d3-cta__title, .d3-cta__sub, .d3-cta__actions,
-    .d3-flag, .d3-eye, .d3-badge {
+    .d3-flag, .d3-eye, .d3-badge,
+    .sp-i-layer, .sp-i-stage, #sp-i-badge, #sp-i-eye {
         opacity: 1 !important;
         transform: none !important;
     }
