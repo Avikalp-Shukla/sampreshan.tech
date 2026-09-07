@@ -19,6 +19,9 @@
         return;
     }
 
+    /* ── Enable animations (content is visible by default, JS enables motion) ── */
+    document.documentElement.classList.add('d3-animated');
+
     /* ── Cinematic easing (shared) ── */
     function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
     function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
