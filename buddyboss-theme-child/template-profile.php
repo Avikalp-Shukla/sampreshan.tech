@@ -164,7 +164,7 @@ $start_url    = home_url( '/start-a-petition/' );
         <!-- Stats -->
         <div class="sp-fu-stats" aria-label="<?php esc_attr_e( 'Activity stats', 'sampreshan-child' ); ?>">
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['petitions_started'] ) ); ?></strong> <?php esc_html_e( 'Petitions', 'sampreshan-child' ); ?></span>
-            <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['signatures_given'] ) ); ?></strong> <?php esc_html_e( 'Is given', 'sampreshan-child' ); ?></span>
+            <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['signatures_given'] ) ); ?></strong> <?php esc_html_e( 'supports given', 'sampreshan-child' ); ?></span>
             <span><strong><?php echo esc_html( number_format_i18n( (int) $stats['supporters_received'] ) ); ?></strong> <?php esc_html_e( 'Supporters', 'sampreshan-child' ); ?></span>
         </div>
 
@@ -204,7 +204,7 @@ $start_url    = home_url( '/start-a-petition/' );
                         <div class="sp-fu-post__engage">
                             <?php if ( is_user_logged_in() && current_user_can( 'sign_petitions' ) ) : ?>
                                 <button type="button" class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm sp-sign-button<?php echo $signed ? ' is-signed' : ''; ?>" data-petition-id="<?php echo esc_attr( $pid ); ?>" data-signed="<?php echo $signed ? '1' : '0'; ?>">
-                                    <?php if ( $signed ) : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Supported', 'sampreshan-child' ); ?><?php else : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'I Support', 'sampreshan-child' ); ?><?php endif; ?>
+                                    <?php if ( $signed ) : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Supported', 'sampreshan-child' ); ?><?php else : ?><?php sp_icon_e( 'ibadge', 'sp-icon sp-icon--xs', '' ); ?> <?php echo esc_html__( 'Support', 'sampreshan-child' ); ?><?php endif; ?>
                                 </button>
                             <?php endif; ?>
                             <a class="sp-fu-link" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read →', 'sampreshan-child' ); ?></a>

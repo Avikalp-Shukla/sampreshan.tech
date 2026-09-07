@@ -42,7 +42,7 @@ $is_logged_in = is_user_logged_in();
             <ul class="d3-hero__points">
                 <li><?php sp_icon_auto( 'dharma', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'One platform for Sanatanis worldwide', 'sampreshan-child' ); ?></li>
                 <li><?php sp_icon_auto( 'shankh', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Issue Sampreshan — raise your voice', 'sampreshan-child' ); ?></li>
-                <li><span class="sp-ibadge sp-ibadge--sm" aria-hidden="true">I</span><?php esc_html_e( 'Every support is an I', 'sampreshan-child' ); ?></li>
+                <li><span class="sp-ibadge sp-ibadge--sm" aria-hidden="true">I</span><?php esc_html_e( 'Every support counts', 'sampreshan-child' ); ?></li>
             </ul>
         </div>
 
@@ -91,7 +91,7 @@ $is_logged_in = is_user_logged_in();
             <div class="d3-card">
                 <div class="d3-card__icon"><span class="sp-ibadge" aria-hidden="true">I</span></div>
                 <h3 class="d3-card__title"><?php esc_html_e( 'I — The Badge of Support', 'sampreshan-child' ); ?></h3>
-                <p class="d3-card__text"><?php esc_html_e( 'Every support is an I badge — just like a Like. The more people share and support, the more Is you collect. More Is, louder voice.', 'sampreshan-child' ); ?></p>
+                <p class="d3-card__text"><?php esc_html_e( 'Every support counts — just like a Like. The more people share and support, the more supporters you gather. More supporters, louder voice.', 'sampreshan-child' ); ?></p>
             </div>
         </div>
 

@@ -134,7 +134,7 @@ while ( have_posts() ) : the_post();
                                     data-signed="<?php echo $user_signed ? '1' : '0'; ?>"
                                 >
                                     <?php sp_icon_e( 'ibadge', 'sp-icon--sm', '' ); ?>
-                                    <?php echo $user_signed ? esc_html__( 'Supported', 'sampreshan-child' ) : esc_html__( 'I Support this issue', 'sampreshan-child' ); ?>
+                                    <?php echo $user_signed ? esc_html__( 'Supported', 'sampreshan-child' ) : esc_html__( 'Support this issue', 'sampreshan-child' ); ?>
                                 </button>
                             </div>
                         <?php elseif ( ! is_user_logged_in() ) : ?>
