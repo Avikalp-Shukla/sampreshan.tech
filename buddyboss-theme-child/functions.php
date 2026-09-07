@@ -263,6 +263,17 @@ function sampreshan_critical_dark_css() {
     }
     .d3-btn--primary { background: #ff9933 !important; color: #000 !important; }
     .d3-btn--ghost { background: transparent !important; border-color: rgba(255,153,51,0.4) !important; color: #ff9933 !important; }
+    .d3-reveal, .d3-reveal-left, .d3-reveal-right, .d3-reveal-scale,
+    .d3-stagger, .d3-stagger > *,
+    .d3-hero__eyebrow, .d3-hero__title, .d3-hero__sub, .d3-hero__actions,
+    .d3-section__inner, .d3-grid-3, .d3-grid-4,
+    .d3-card, .d3-card__icon, .d3-card__title, .d3-card__text,
+    .d3-featured, .d3-hscroll, .d3-hscroll__track,
+    .d3-cta__inner, .d3-cta__title, .d3-cta__sub, .d3-cta__actions,
+    .d3-flag, .d3-eye, .d3-badge {
+        opacity: 1 !important;
+        transform: none !important;
+    }
     </style>' . "\n";
 }
 add_action( 'wp_head', 'sampreshan_critical_dark_css', -1 );
