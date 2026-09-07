@@ -216,6 +216,13 @@ function sampreshan_critical_dark_css() {
         --bb-content-border-color: rgba(255,255,255,0.06) !important;
         --bb-header-background: #0c0e14 !important;
         --bb-footer-background: #08090c !important;
+        --d-bg: #0c0e14 !important;
+        --d-bg-deep: #08090c !important;
+        --d-text: #ffffff !important;
+        --d-text-muted: #b0adc0 !important;
+        --d-bg-card: #12151e !important;
+        --d-bg-elevated: #181c28 !important;
+        --d-accent: #ff9933 !important;
     }
     html, body, #content, .site-content, .container, .bb-grid,
     .site-content-grid, .site-main, .site-main--landing, .sp-landing,
@@ -227,17 +234,35 @@ function sampreshan_critical_dark_css() {
         background-color: #08090c !important;
         color: #ffffff !important;
     }
-    /* Header */
     .site-header, .site-header--bb, .bb-mobile-header, #masthead {
         background: #0c0e14 !important;
         border-bottom: 1px solid rgba(255,255,255,0.06) !important;
     }
-    /* Footer */
     .site-footer, .site-footer__inner {
         background: #08090c !important;
     }
-    /* Admin bar */
     #wpadminbar { background: #0c0e14 !important; }
+    .d3-hero, .d3-section, .d3-cta, .d3-footer {
+        background: #0c0e14 !important;
+        color: #ffffff !important;
+    }
+    .d3-section__title, .d3-section__sub, .d3-section__eyebrow,
+    .d3-card__title, .d3-card__text, .d3-cta__title, .d3-cta__sub,
+    h1, h2, h3, h4, h5, h6, p, span, li, a {
+        color: #ffffff !important;
+    }
+    .d3-section__sub, .d3-card__text, .d3-cta__sub, p, li {
+        color: #b0adc0 !important;
+    }
+    .d3-section__eyebrow, .d3-card__icon {
+        color: #ff9933 !important;
+    }
+    .d3-card {
+        background: linear-gradient(145deg, #12151e 0%, #181c28 100%) !important;
+        border-color: rgba(255,255,255,0.06) !important;
+    }
+    .d3-btn--primary { background: #ff9933 !important; color: #000 !important; }
+    .d3-btn--ghost { background: transparent !important; border-color: rgba(255,153,51,0.4) !important; color: #ff9933 !important; }
     </style>' . "\n";
 }
 add_action( 'wp_head', 'sampreshan_critical_dark_css', -1 );
