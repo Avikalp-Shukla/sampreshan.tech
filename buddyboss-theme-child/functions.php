@@ -196,6 +196,51 @@ function sampreshan_child_js_detector() {
     echo '<noscript><style>body{opacity:1!important}.reveal,.stagger-children>*{opacity:1!important;transform:none!important}</style></noscript>' . "\n";
 }
 add_action( 'wp_head', 'sampreshan_child_js_detector', 0 );
+/**
+ * CRITICAL DARK CSS — inline in <head>, priority -1 (before ALL other CSS)
+ * Forces dark backgrounds on every wrapper. BuddyBoss sets white via
+ * CSS custom properties that override our child theme stylesheets.
+ * This inline style ALWAYS wins because it's first in the cascade
+ * AND it uses !important on every background.
+ */
+function sampreshan_critical_dark_css() {
+    if ( ! is_front_page() ) return;
+    echo '<style id="sampreshan-critical-dark">
+    :root {
+        --bb-body-background-color: #08090c !important;
+        --bb-body-background-color-rgb: 8,9,12 !important;
+        --bb-body-text-color: #ffffff !important;
+        --bb-body-text-color-rgb: 255,255,255 !important;
+        --bb-content-background-color: #12151e !important;
+        --bb-content-alternate-background-color: #181c28 !important;
+        --bb-content-border-color: rgba(255,255,255,0.06) !important;
+        --bb-header-background: #0c0e14 !important;
+        --bb-footer-background: #08090c !important;
+    }
+    html, body, #content, .site-content, .container, .bb-grid,
+    .site-content-grid, .site-main, .site-main--landing, .sp-landing,
+    .site-header, .site-header--bb, .bb-mobile-header, .site-footer,
+    .elementor, .elementor-location-header, .elementor-location-footer,
+    .elementor-location-archive, .elementor-section, .elementor-widget-wrap,
+    .site-content .container, .site-content .bb-grid,
+    .site-main > div, .site-main > section {
+        background-color: #08090c !important;
+        color: #ffffff !important;
+    }
+    /* Header */
+    .site-header, .site-header--bb, .bb-mobile-header, #masthead {
+        background: #0c0e14 !important;
+        border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    /* Footer */
+    .site-footer, .site-footer__inner {
+        background: #08090c !important;
+    }
+    /* Admin bar */
+    #wpadminbar { background: #0c0e14 !important; }
+    </style>' . "\n";
+}
+add_action( 'wp_head', 'sampreshan_critical_dark_css', -1 );
 
 /**
  * Enqueue Google Fonts (preconnect + display=swap for performance)
