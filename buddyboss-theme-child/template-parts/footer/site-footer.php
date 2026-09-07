@@ -95,8 +95,8 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
         <div class="site-footer__bottom">
             <p>&copy; <?php echo esc_html( $year ); ?> <?php echo esc_html( $site_name ); ?>. All rights reserved.</p>
             <p class="site-footer__credit">
-                A non-commercial initiative by <a href="https://shivbodhtrust.org" target="_blank" rel="noopener">ShivBodh Trust</a>
-                &middot; <span>3D icons by <a href="https://icons8.com" target="_blank" rel="noopener nofollow">Icons8</a></span>
+                <?php esc_html_e( 'Dedicated to all who have faith in Sanatan Dharma', 'sampreshan-child' ); ?>
+                &middot; <?php esc_html_e( 'An initiative by', 'sampreshan-child' ); ?> <a href="https://shivbodhtrust.org" target="_blank" rel="noopener">ShivBodh Trust</a>
             </p>
         </div>
     </div>

@@ -438,6 +438,19 @@
     flex-wrap: wrap;
 }
 
+/* Discreet attribution line (Icons8 free license) */
+.sp-page__credit {
+    text-align: center;
+    font-size: var(--text-xs, 0.75rem);
+    color: var(--text-soft, #8A8A8A);
+    margin: var(--space-4, 1rem) 0 0;
+}
+.sp-page__credit a {
+    color: var(--saffron-700, #E0851A);
+    text-decoration: none;
+}
+.sp-page__credit a:hover { text-decoration: underline; }
+
 /* ============================================================
    TEAM / PEOPLE GRID
    ============================================================ */

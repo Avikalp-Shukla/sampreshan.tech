@@ -540,6 +540,9 @@ body.sp-future .sp-page__cta-title {
 body.sp-future .sp-page__cta-sub {
     color: var(--ft-muted);
 }
+body.sp-future .sp-page__credit {
+    color: var(--ft-faint);
+}
 
 body.sp-future .sp-login__label,
 body.sp-future .sp-login__brand-name {
@@ -757,6 +760,9 @@ body.sp-future .sp-step-card__num {
     color: rgba(255, 200, 120, 0.28);
 }
 body.sp-future .sp-hero__logo-tag {
+    color: var(--ft-gold);
+}
+body.sp-future .sp-hero__points .sp-icon {
     color: var(--ft-gold);
 }
 body.sp-future .sp-fu-sidelink:hover {

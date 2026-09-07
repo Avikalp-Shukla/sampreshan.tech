@@ -338,7 +338,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
             <?php
             printf(
                 /* translators: %s = site name */
-                esc_html__( '%s — a non-commercial initiative of ShivBodh Trust.', 'sampreshan-child' ),
+                esc_html__( '%s — dedicated to all who have faith in Sanatan Dharma.', 'sampreshan-child' ),
                 '<strong>' . esc_html( get_bloginfo( 'name' ) ) . '</strong>'
             );
             ?>

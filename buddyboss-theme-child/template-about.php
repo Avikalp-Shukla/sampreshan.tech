@@ -155,6 +155,8 @@ get_header();
             </div>
         </section>
 
+        <p class="sp-page__credit"><?php esc_html_e( '3D icons by', 'sampreshan-child' ); ?> <a href="https://icons8.com" target="_blank" rel="noopener nofollow">Icons8</a></p>
+
     </div>
 </main>
 

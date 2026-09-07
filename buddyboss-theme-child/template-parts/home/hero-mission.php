@@ -18,7 +18,7 @@ $is_logged_in = is_user_logged_in();
         <div class="sp-hero__copy">
             <p class="sp-hero__badge">
                 <img class="sp-hero__badge-logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="20" height="20" />
-                <?php esc_html_e( 'A non-commercial initiative of ShivBodh Trust', 'sampreshan-child' ); ?>
+                <?php esc_html_e( 'Dedicated to all who have faith in Sanatan Dharma', 'sampreshan-child' ); ?>
             </p>
             <h1 class="sp-hero__title">
                 <?php esc_html_e( 'One voice for', 'sampreshan-child' ); ?>
@@ -37,9 +37,9 @@ $is_logged_in = is_user_logged_in();
                 </a>
             </div>
             <ul class="sp-hero__points">
-                <li><?php sp_icon_e( 'check', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'No donations, no fees', 'sampreshan-child' ); ?></li>
-                <li><?php sp_icon_e( 'check', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Every tradition respected', 'sampreshan-child' ); ?></li>
-                <li><?php sp_icon_e( 'check', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Hindi + English friendly', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_e( 'dharma', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'One platform for Sanatanis worldwide', 'sampreshan-child' ); ?></li>
+                <li><?php sp_icon_e( 'shankh', 'sp-icon--sm', '' ); ?><?php esc_html_e( 'Issue Sampreshan — raise your voice', 'sampreshan-child' ); ?></li>
+                <li><span class="sp-ibadge sp-ibadge--sm" aria-hidden="true">I</span><?php esc_html_e( 'Every support is an I', 'sampreshan-child' ); ?></li>
             </ul>
         </div>
         <div class="sp-hero__art" aria-hidden="true">
