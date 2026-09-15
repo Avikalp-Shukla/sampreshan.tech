@@ -28,3 +28,8 @@ npm run framer:status
 The `.env` file must contain the Framer credentials and is ignored by Git.
 Use `npm run framer:pull` to refresh the local snapshot; publish/deploy commands
 should only be used when explicitly intended.
+
+## Deployment reference
+
+See [`DEPLOYMENT-RUNBOOK.md`](DEPLOYMENT-RUNBOOK.md) for the repeatable release
+and production-deployment checklist. Credentials remain outside the repository.
