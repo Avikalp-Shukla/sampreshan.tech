@@ -30,7 +30,7 @@ if ( $user_id <= 0 ) {
 }
 if ( $user_id <= 0 ) {
     ?>
-    <main class="site-main sp-profile sp-profile--guest sp-fu-wash" role="main">
+    <main id="main" class="site-main sp-profile sp-profile--guest sp-fu-wash" role="main">
         <div class="sp-container sp-empty">
             <?php sp_icon_auto( 'lock', 'sp-icon--3xl sp-icon--saffron', __( 'Locked', 'sampreshan-child' ) ); ?>
             <h1 class="sp-empty__title"><?php esc_html_e( 'Sign in to view your profile', 'sampreshan-child' ); ?></h1>
@@ -94,7 +94,7 @@ if ( function_exists( 'sp_petitions_table' ) ) {
 $settings_url = home_url( '/settings/' );
 $start_url    = home_url( '/start-a-petition/' );
 ?>
-<main class="site-main sp-fu-wash" role="main">
+<main id="main" class="site-main sp-fu-wash" role="main">
     <div class="sp-fu-profile">
 
         <!-- Cover -->

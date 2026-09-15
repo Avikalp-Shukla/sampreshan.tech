@@ -76,7 +76,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
              DIGITS MODE: hand off to Digits' own login page.
              Digits handles the entire OTP / phone / email flow.
              ====================================================== -->
-        <main class="sp-login__card glass sp-login__card--digits" role="main">
+        <main id="main" class="sp-login__card glass sp-login__card--digits" role="main">
             <div class="sp-login__art" aria-hidden="true">
                 <?php sp_icon_auto( 'lotus', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Lotus', 'sampreshan-child' ) ); ?>
                 <?php sp_icon_auto( 'om',    'sp-icon--2xl sp-icon--gold sp-icon--pulse',   __( 'Om',    'sampreshan-child' ) ); ?>
@@ -130,7 +130,7 @@ $login_notice = ( '' !== $login_error && isset( $error_messages[ $login_error ] 
              FALLBACK MODE: custom Sampreshan login form.
              Used when Digits is not installed.
              ====================================================== -->
-        <main class="sp-login__card glass" role="main">
+        <main id="main" class="sp-login__card glass" role="main">
 
             <div class="sp-login__art" aria-hidden="true">
                 <?php sp_icon_auto( 'lotus', 'sp-icon--3xl sp-icon--saffron sp-icon--float', __( 'Lotus', 'sampreshan-child' ) ); ?>

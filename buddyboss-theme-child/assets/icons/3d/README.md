@@ -84,27 +84,19 @@ All files live in `assets/icons/3d/`. Adding a new icon: drop the SVG there, giv
 2. **CSS (`assets/css/icon-system.css`)** — `.sp-icon` is a 1em square that flexes to its size. Every size modifier is a CSS custom property (`--sp-icon-size`) that gets remapped at each of 7 breakpoints.
 3. **Browser renders** — the inline SVG is recolored by `currentColor`, gets a soft drop-shadow, and animates if requested.
 
-## Icons8 3D Fluency imports (responsive PNG)
+## Original SVG icon set
 
-`assets/icons/icons8/` holds 45 Icons8 3D Fluency icons (transparent PNG) at
-3 sizes: `-48` (mobile), `-96` (tablet), `-192` (desktop/retina) — 135 files.
+All site icons are now served from this directory as original inline SVG
+artwork through `sp_icon()` / `sp_icon_e()`. The SVGs use unique gradient and
+filter IDs, support accessible labels, and avoid external image requests.
 
 ```php
-<?php sp_icon_auto( 'trending', 'sp-icon--md', '' ); ?>
+<?php sp_icon_e( 'trending', 'sp-icon--md', 'Trending' ); ?>
 ```
 
-`sp_icon_auto()` = same signature as `sp_icon_e()`. It serves the PNG
-`srcset` when imported, else falls back to our custom SVG. Brand icons
-(`om`, `lotus`, `diya`, `dharma`, `petition`, `network`, `video`, `flag`,
-`image`, `warning`, `logout`, `share`, `users`) stay 100% custom SVG.
-
-**Usage rule (site-wide):** templates call `sp_icon_auto()` everywhere
-except monochrome-on-colour contexts (white glyphs on gradient buttons),
-which keep `sp_icon_e()`. `assets/css/icons-transparent.css` (loaded last)
-strips every box/chip behind glyphs and adds 3D depth in all modes.
-
-**License:** Icons8 free plan — PNG use requires attribution, credited in
-the site footer ("3D icons by Icons8" linking https://icons8.com).
+Use `sp_icon_e()` for labelled icons and `sp_icon()` when the surrounding
+markup already provides the accessible name. Decorative icons are emitted as
+hidden from assistive technology by the helper.
 
 ## Favicon
 

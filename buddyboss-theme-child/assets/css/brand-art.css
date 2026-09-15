@@ -1,0 +1,179 @@
+/**
+ * Sampreshan — Brand Artwork
+ * ==========================================================================
+ * Styles for the original artwork in assets/art/:
+ *   mandala.svg       lotus + sacred geometry (hero centrepiece)
+ *   voice-rings.svg   a voice spreading outward (hero backdrop)
+ *   jali.svg          tileable lattice (quiet background texture)
+ *   wave.svg          layered section divider
+ *
+ * Ground rules
+ * ------------
+ *  - Art is decorative: every layer is aria-hidden and pointer-events:none.
+ *  - Animation is CSS-only and disabled under prefers-reduced-motion.
+ *  - On phones the layers scale down (and the mandala drops out) so the hero
+ *    stays fast and uncluttered instead of fighting the copy for attention.
+ *
+ * @package SampreShan_Child
+ */
+
+/* ==========================================================================
+   HERO — voice rings behind a slowly turning mandala, card floating on top
+   ========================================================================== */
+.d3-hero__art {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+}
+
+.d3-hero__rings,
+.d3-hero__mandala {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: min(100%, 560px);
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* Voice rings sit furthest back and breathe outward. */
+.d3-hero__rings {
+    width: min(118%, 660px);
+    opacity: 0.85;
+    animation: sp-breathe 9s var(--sp-ease, cubic-bezier(0.16, 1, 0.3, 1)) infinite;
+    will-change: transform, opacity;
+}
+
+/* The mandala turns very slowly — a calm, devotional rotation. */
+.d3-hero__mandala {
+    width: min(86%, 420px);
+    opacity: 0.5;
+    animation: sp-spin 120s linear infinite;
+    will-change: transform;
+}
+
+/* The logo card must always sit above the artwork. */
+.d3-hero__object,
+.d3-hero__card {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes sp-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes sp-breathe {
+    0%,
+    100% { transform: scale(1);     opacity: 0.75; }
+    50%  { transform: scale(1.055); opacity: 1; }
+}
+
+/* Phones: keep the rings (cheap, one element) and drop the rotating mandala
+   so the hero stays light and the copy stays readable. */
+@media (max-width: 767px) {
+    .d3-hero__rings {
+        width: min(130%, 460px);
+        opacity: 0.5;
+        animation-duration: 12s;
+    }
+
+    .d3-hero__mandala {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   JALI — tileable lattice used as a whisper-quiet section texture
+   ========================================================================== */
+.sp-jali {
+    position: relative;
+    isolation: isolate;
+}
+
+.sp-jali::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../art/jali.svg");
+    background-repeat: repeat;
+    background-size: 120px 120px;
+    opacity: 0.35;
+    pointer-events: none;
+    /* Fade the texture out toward the edges so it never looks like a wallpaper
+       seam — a soft radial mask keeps the centre legible. */
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 35%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 35%, transparent 100%);
+}
+
+/* ==========================================================================
+   WAVE — layered divider between major sections
+   ========================================================================== */
+.sp-wave {
+    display: block;
+    width: 100%;
+    height: clamp(48px, 7vw, 96px);
+    margin: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ==========================================================================
+   SECTION ORNAMENT — small lotus mark used above section headings
+   ========================================================================== */
+.sp-ornament {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--d-accent, #ff9933);
+}
+
+.sp-ornament::before,
+.sp-ornament::after {
+    content: "";
+    width: clamp(24px, 5vw, 56px);
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--d-accent, #ff9933)
+    );
+}
+
+.sp-ornament::after {
+    background: linear-gradient(
+        to left,
+        transparent,
+        var(--d-accent, #ff9933)
+    );
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .d3-hero__rings,
+    .d3-hero__mandala {
+        animation: none !important;
+        will-change: auto;
+    }
+
+    .d3-hero__rings {
+        opacity: 0.7;
+    }
+}
+
+/* Windows High Contrast — decorative art should not interfere. */
+@media (forced-colors: active) {
+    .d3-hero__rings,
+    .d3-hero__mandala,
+    .sp-jali::before {
+        display: none;
+    }
+}

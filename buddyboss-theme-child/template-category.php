@@ -18,7 +18,7 @@ $cause_icons = array(
 $cause_slug = ( $term && isset( $term->post_name ) ) ? (string) $term->post_name : '';
 $cause_icon = isset( $cause_icons[ $cause_slug ] ) ? $cause_icons[ $cause_slug ] : 'temple';
 ?>
-<main class="sp-page sp-page--cause" aria-label="<?php echo esc_attr( $term->post_title ?? __( 'Category', 'sampreshan-child' ) ); ?>">
+<main id="main" class="sp-page sp-page--cause" aria-label="<?php echo esc_attr( $term->post_title ?? __( 'Category', 'sampreshan-child' ) ); ?>">
     <div class="sp-page__hero sp-page__hero--cause" style="--cause-accent: var(--saffron-500);">
         <div class="sp-page__hero-mask"></div>
         <div class="sp-page__hero-inner">

@@ -38,7 +38,7 @@ while ( have_posts() ) : the_post();
     // Cover placeholder + category chips show the cause's own symbol.
     $single_cause_icon = ( $categories && function_exists( 'sp_cause_icon' ) ) ? sp_cause_icon( $categories[0] ) : 'petition';
     ?>
-    <main class="site-main sp-petition-single" role="main">
+    <main id="main" class="site-main sp-petition-single" role="main">
 
         <article class="sp-petition-single__hero divine-bg" aria-labelledby="sp-petition-title">
             <div class="sp-petition-single__hero-inner">

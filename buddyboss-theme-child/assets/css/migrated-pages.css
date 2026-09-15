@@ -1,0 +1,58 @@
+.elementor-widget-html img,
+.elementor-widget-html video,
+.elementor-widget-html iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.elementor-widget-html table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.elementor-widget-html pre,
+.elementor-widget-html code {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.elementor-widget-html [style*="width: 100vw"],
+.elementor-widget-html [style*="width:100vw"] {
+    max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .elementor-widget-html h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .elementor-widget-html h2 {
+        font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    }
+}
+
+@media (max-width: 767px) {
+    .elementor-widget-html {
+        overflow-wrap: anywhere;
+    }
+
+    .elementor-widget-html section,
+    .elementor-widget-html .container,
+    .elementor-widget-html .hero,
+    .elementor-widget-html .grid,
+    .elementor-widget-html .grid-2,
+    .elementor-widget-html .grid-3 {
+        max-width: 100%;
+    }
+
+    .elementor-widget-html .hero {
+        padding: 3rem 1rem;
+    }
+
+    .elementor-widget-html .btn {
+        max-width: 100%;
+        white-space: normal;
+    }
+}

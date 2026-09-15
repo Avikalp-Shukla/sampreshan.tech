@@ -42,7 +42,7 @@ if ( function_exists( 'sp_petitions_table' ) ) {
 $browse_url = home_url( '/petitions/' );
 ?>
 
-<main class="sp-page sp-users" role="main">
+<main id="main" class="sp-page sp-users" role="main">
     <header class="sp-users__hero">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Your support', 'sampreshan-child' ); ?></p>
         <h1 class="sp-users__title"><?php sp_icon_auto( 'check', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Issues You Supported', 'sampreshan-child' ); ?></h1>

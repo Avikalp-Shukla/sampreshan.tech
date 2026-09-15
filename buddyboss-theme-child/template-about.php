@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 ?>
 
-<main class="site-main sp-page" role="main">
+<main id="main" class="site-main sp-page" role="main">
 
     <!-- HERO -->
     <header class="sp-page__hero">
@@ -155,7 +155,7 @@ get_header();
             </div>
         </section>
 
-        <p class="sp-page__credit"><?php esc_html_e( '3D icons by', 'sampreshan-child' ); ?> <a href="https://icons8.com" target="_blank" rel="noopener nofollow">Icons8</a></p>
+        <p class="sp-page__credit"><?php esc_html_e( 'Original artwork created for Sampreshan by ShivBodh Trust.', 'sampreshan-child' ); ?></p>
 
     </div>
 </main>

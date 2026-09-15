@@ -27,7 +27,7 @@ $ajax_url       = admin_url( 'admin-ajax.php' );
 $upload_url     = wp_upload_dir()['baseurl'];
 ?>
 
-<main class="sp-page sp-petition-create" role="main">
+<main id="main" class="sp-page sp-petition-create" role="main">
     <div class="sp-petition-create__inner">
 
         <!-- HERO -->

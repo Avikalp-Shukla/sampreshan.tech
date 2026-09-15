@@ -56,7 +56,7 @@ if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['sp_contact_nonce'] 
 }
 ?>
 
-<main class="site-main sp-page" role="main">
+<main id="main" class="site-main sp-page" role="main">
 
     <!-- HERO -->
     <header class="sp-page__hero">

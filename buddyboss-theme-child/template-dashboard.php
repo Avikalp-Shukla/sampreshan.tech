@@ -156,7 +156,7 @@ $share_url   = $share_pid > 0 ? (string) get_permalink( $share_pid ) : '';
 $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
 ?>
 
-<main class="sp-page sp-dashboard" role="main">
+<main id="main" class="sp-page sp-dashboard" role="main">
     <div class="sp-dashboard__inner">
 
         <!-- PROFILE BAR -->

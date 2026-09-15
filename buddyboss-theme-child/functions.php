@@ -12,11 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * IconScout credentials — define in wp-config.php for production:
- *   define( 'ICONSCOUT_CLIENT_ID', '165483987904653' );
- *   define( 'ICONSCOUT_API_KEY',   'GJmR3qpF7LGDVNyfXfuQTHVVAPnYh0jTtjJQAwF' );
- * Or set via WP admin: Settings → IconScout (we'll add a simple options page later).
- * For now, the API client falls back to get_option() / env vars.
+ * IconScout credentials.
+ *
+ * The API key is a server-side secret — it belongs in wp-config.php and must
+ * never be committed:
+ *   define( 'ICONSCOUT_CLIENT_ID', '...' );
+ *   define( 'ICONSCOUT_API_KEY',   '...' );
+ *
+ * The client in inc/iconscout/client.php falls back to get_option() / env
+ * vars when the constants are absent. Nothing is hardcoded here on purpose.
  */
 
 /**
@@ -24,6 +28,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Digits → Settings → Firebase reads this same "Config" snippet, so keep
  * one canonical copy here and pass it to JS via `SampreshanFirebase`.
+ *
+ * SECURITY NOTE: these are *public client identifiers*, not secrets. Firebase
+ * web config is shipped to the browser by design (it is printed into the page
+ * below via wp_localize_script), and Google documents the apiKey as an
+ * identifier rather than a credential. Access is controlled in the Firebase
+ * Console — API-key HTTP referrer restrictions and App Check — not by hiding
+ * these values. Genuine secrets (e.g. the IconScout API key) must never be
+ * committed and are not present here.
+ *
  * Override in wp-config.php when needed:
  *   define( 'SAMPRESHAN_FIREBASE_API_KEY', '...' );
  *   define( 'SAMPRESHAN_FIREBASE_AUTH_DOMAIN', '...' );
@@ -59,27 +72,83 @@ function sp_firebase_api_key() {
  * published page using template-activity.php (slug `feed-2` on live).
  * Resolves it dynamically so renames never break navigation again.
  */
-function sp_feed_url() {
+/**
+ * Resolve a page URL by its assigned page template — cached.
+ *
+ * These lookups run a `postmeta` query, and both the header and the home
+ * templates call them, so the result is memoised per request and then in a
+ * transient. The transient is flushed whenever a page is saved so a renamed
+ * or re-templated page is picked up immediately.
+ *
+ * @param string $template      Template filename, e.g. 'template-activity.php'.
+ * @param string $fallback_path Slug to fall back to, e.g. 'feed-2'.
+ * @return string Absolute URL (never empty).
+ */
+function sp_page_url_by_template( $template, $fallback_path ) {
+    static $cache = array();
+
+    $key = $template . '|' . $fallback_path;
+    if ( isset( $cache[ $key ] ) ) {
+        return $cache[ $key ];
+    }
+
+    $transient_key = 'sp_url_' . md5( $key );
+    $cached        = get_transient( $transient_key );
+    if ( is_string( $cached ) && '' !== $cached ) {
+        $cache[ $key ] = $cached;
+        return $cached;
+    }
+
+    $url = '';
+
     $ids = get_posts( array(
         'post_type'      => 'page',
         'meta_key'       => '_wp_page_template',
-        'meta_value'     => 'template-activity.php',
+        'meta_value'     => $template,
         'posts_per_page' => 1,
         'post_status'    => 'publish',
         'fields'         => 'ids',
         'orderby'        => 'ID',
         'order'          => 'ASC',
+        'no_found_rows'  => true,
     ) );
+
     if ( ! empty( $ids ) ) {
-        $url = get_permalink( (int) $ids[0] );
-        if ( $url ) { return $url; }
+        $url = (string) get_permalink( (int) $ids[0] );
     }
-    $by_path = get_page_by_path( 'feed-2' );
-    if ( $by_path ) {
-        $url = get_permalink( $by_path );
-        if ( $url ) { return $url; }
+
+    if ( '' === $url ) {
+        $by_path = get_page_by_path( $fallback_path );
+        if ( $by_path ) {
+            $url = (string) get_permalink( $by_path );
+        }
     }
-    return home_url( '/feed-2/' );
+
+    if ( '' === $url ) {
+        $url = home_url( '/' . trim( $fallback_path, '/' ) . '/' );
+    }
+
+    set_transient( $transient_key, $url, HOUR_IN_SECONDS );
+    $cache[ $key ] = $url;
+
+    return $url;
+}
+
+/**
+ * Flush cached template-page URLs when a page changes.
+ */
+function sp_flush_page_url_cache( $post_id ) {
+    if ( wp_is_post_revision( $post_id ) ) { return; }
+    if ( 'page' !== get_post_type( $post_id ) ) { return; }
+
+    delete_transient( 'sp_url_template-activity.php|feed-2' );
+    delete_transient( 'sp_url_template-dashboard.php|dashboard' );
+}
+add_action( 'save_post', 'sp_flush_page_url_cache', 20 );
+add_action( 'deleted_post', 'sp_flush_page_url_cache', 20 );
+
+function sp_feed_url() {
+    return sp_page_url_by_template( 'template-activity.php', 'feed-2' );
 }
 
 /**
@@ -91,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.5.1' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.0' );
 }
 
 /**
@@ -99,26 +168,10 @@ if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
  * Members land here after login; never in wp-admin.
  */
 function sampreshan_dashboard_url() {
-    $ids = get_posts( array(
-        'post_type'      => 'page',
-        'meta_key'       => '_wp_page_template',
-        'meta_value'     => 'template-dashboard.php',
-        'posts_per_page' => 1,
-        'post_status'    => 'publish',
-        'fields'         => 'ids',
-        'orderby'        => 'ID',
-        'order'          => 'ASC',
-    ) );
-    if ( ! empty( $ids ) ) {
-        $url = get_permalink( (int) $ids[0] );
-        if ( $url ) { return $url; }
-    }
-    $by_path = get_page_by_path( 'dashboard' );
-    if ( $by_path ) {
-        $url = get_permalink( $by_path );
-        if ( $url ) { return $url; }
-    }
-    return home_url( '/dashboard/' );
+    // Shares the cached lookup in sp_page_url_by_template().
+    return function_exists( 'sp_page_url_by_template' )
+        ? sp_page_url_by_template( 'template-dashboard.php', 'dashboard' )
+        : home_url( '/dashboard/' );
 }
 
 /**
@@ -185,6 +238,23 @@ require_once get_stylesheet_directory() . '/inc/profile/fields.php';
 require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
+require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
+
+/**
+ * Skip link — the first focusable element on every page (WCAG 2.4.1).
+ *
+ * Rendered on wp_body_open, which the BuddyBoss parent header fires, so it
+ * appears on every template without editing 20 files. Targets #main, which
+ * every page template now carries.
+ */
+function sampreshan_child_skip_link() {
+    if ( is_admin() ) { return; }
+    printf(
+        '<a class="sp-skip-link" href="#main">%s</a>' . "\n",
+        esc_html__( 'Skip to content', 'sampreshan-child' )
+    );
+}
+add_action( 'wp_body_open', 'sampreshan_child_skip_link', 1 );
 
 /**
  * JS detector + no-JS fallback (prints first in <head>).
@@ -197,85 +267,22 @@ function sampreshan_child_js_detector() {
 }
 add_action( 'wp_head', 'sampreshan_child_js_detector', 0 );
 /**
- * CRITICAL DARK CSS — inline in <head>, priority -1 (before ALL other CSS)
- * Forces dark backgrounds on every wrapper. BuddyBoss sets white via
- * CSS custom properties that override our child theme stylesheets.
- * This inline style ALWAYS wins because it's first in the cascade
- * AND it uses !important on every background.
+ * Minimal anti-FOUC paint.
+ *
+ * The old version of this hook inlined ~4.5 KB of !important overrides that
+ * only applied to the front page, which is why the homepage looked designed
+ * and every other page fell back to default BuddyBoss. All of that now lives
+ * in assets/css/brand-system.css and loads on every page.
+ *
+ * This snippet does one job: set the base canvas colour before the
+ * stylesheets arrive so the page never flashes white. Keep it tiny — it is
+ * in the critical rendering path.
  */
 function sampreshan_critical_dark_css() {
-    if ( ! is_front_page() ) return;
-    echo '<style id="sampreshan-critical-dark">
-    :root {
-        --bb-body-background-color: #08090c !important;
-        --bb-body-background-color-rgb: 8,9,12 !important;
-        --bb-body-text-color: #ffffff !important;
-        --bb-body-text-color-rgb: 255,255,255 !important;
-        --bb-content-background-color: #12151e !important;
-        --bb-content-alternate-background-color: #181c28 !important;
-        --bb-content-border-color: rgba(255,255,255,0.06) !important;
-        --bb-header-background: #0c0e14 !important;
-        --bb-footer-background: #08090c !important;
-        --d-bg: #0c0e14 !important;
-        --d-bg-deep: #08090c !important;
-        --d-text: #ffffff !important;
-        --d-text-muted: #b0adc0 !important;
-        --d-bg-card: #12151e !important;
-        --d-bg-elevated: #181c28 !important;
-        --d-accent: #ff9933 !important;
-    }
-    html, body, #content, .site-content, .container, .bb-grid,
-    .site-content-grid, .site-main, .site-main--landing, .sp-landing,
-    .site-header, .site-header--bb, .bb-mobile-header, .site-footer,
-    .elementor, .elementor-location-header, .elementor-location-footer,
-    .elementor-location-archive, .elementor-section, .elementor-widget-wrap,
-    .site-content .container, .site-content .bb-grid,
-    .site-main > div, .site-main > section {
-        background-color: #08090c !important;
-        color: #ffffff !important;
-    }
-    .site-header, .site-header--bb, .bb-mobile-header, #masthead {
-        background: #0c0e14 !important;
-        border-bottom: 1px solid rgba(255,255,255,0.06) !important;
-    }
-    .site-footer, .site-footer__inner {
-        background: #08090c !important;
-    }
-    #wpadminbar { background: #0c0e14 !important; }
-    .d3-hero, .d3-section, .d3-cta, .d3-footer {
-        background: #0c0e14 !important;
-        color: #ffffff !important;
-    }
-    .d3-section__title, .d3-section__sub, .d3-section__eyebrow,
-    .d3-card__title, .d3-card__text, .d3-cta__title, .d3-cta__sub,
-    h1, h2, h3, h4, h5, h6, p, span, li, a {
-        color: #ffffff !important;
-    }
-    .d3-section__sub, .d3-card__text, .d3-cta__sub, p, li {
-        color: #b0adc0 !important;
-    }
-    .d3-section__eyebrow, .d3-card__icon {
-        color: #ff9933 !important;
-    }
-    .d3-card {
-        background: linear-gradient(145deg, #12151e 0%, #181c28 100%) !important;
-        border-color: rgba(255,255,255,0.06) !important;
-    }
-    .d3-btn--primary { background: #ff9933 !important; color: #000 !important; }
-    .d3-btn--ghost { background: transparent !important; border-color: rgba(255,153,51,0.4) !important; color: #ff9933 !important; }
-    .d3-reveal, .d3-reveal-left, .d3-reveal-right, .d3-reveal-scale,
-    .d3-stagger, .d3-stagger > *,
-    .d3-hero__eyebrow, .d3-hero__title, .d3-hero__sub, .d3-hero__actions,
-    .d3-section__inner, .d3-grid-3, .d3-grid-4,
-    .d3-card, .d3-card__icon, .d3-card__title, .d3-card__text,
-    .d3-featured, .d3-hscroll, .d3-hscroll__track,
-    .d3-cta__inner, .d3-cta__title, .d3-cta__sub, .d3-cta__actions,
-    .d3-flag, .d3-eye, .d3-badge,
-    .sp-i-layer, .sp-i-stage, #sp-i-badge, #sp-i-eye {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-    </style>' . "\n";
+    echo '<style id="sampreshan-critical">'
+       . ':root{--bb-body-background-color:#08090c;--bb-body-text-color:#ffffff}'
+       . 'html,body{background-color:#08090c;color:#ffffff}'
+       . '</style>' . "\n";
 }
 add_action( 'wp_head', 'sampreshan_critical_dark_css', -1 );
 
@@ -353,6 +360,13 @@ function sampreshan_child_enqueue_styles() {
         'sampreshan-responsive',
         get_stylesheet_directory_uri() . '/assets/css/responsive.css',
         array( 'sampreshan-components' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    wp_enqueue_style(
+        'sampreshan-migrated-pages',
+        get_stylesheet_directory_uri() . '/assets/css/migrated-pages.css',
+        array( 'sampreshan-responsive' ),
         SAMPRESHAN_CHILD_VERSION
     );
 
@@ -456,14 +470,36 @@ function sampreshan_child_enqueue_styles() {
         SAMPRESHAN_CHILD_VERSION
     );
 
-    // 3D Art — mature neon-glow SVGs: waving flag, eye morph, I-badge.
-    // Loaded AFTER premium-3d so it wins on all art components.
+    // Brand system — site-wide foundation: tokens, parent-theme surface
+    // neutralisation, typography, accessibility and responsive base.
+    // MUST be global (every page) — this is what keeps the whole site on one
+    // visual system instead of only the homepage.
     wp_enqueue_style(
-        'sampreshan-3d-art',
-        get_stylesheet_directory_uri() . '/assets/css/3d-art.css',
+        'sampreshan-brand-system',
+        get_stylesheet_directory_uri() . '/assets/css/brand-system.css',
         array( 'sampreshan-premium-3d' ),
         SAMPRESHAN_CHILD_VERSION
     );
+
+    // Brand artwork — layers for the original SVG art in assets/art/.
+    wp_enqueue_style(
+        'sampreshan-brand-art',
+        get_stylesheet_directory_uri() . '/assets/css/brand-art.css',
+        array( 'sampreshan-brand-system' ),
+        SAMPRESHAN_CHILD_VERSION
+    );
+
+    // 3D Art — neon-glow flag, I→eye morph, badge glow.
+    // Its classes (d3-*, sp-i-*) are used by the homepage partials only, so
+    // this stylesheet is no longer loaded site-wide.
+    if ( is_front_page() ) {
+        wp_enqueue_style(
+            'sampreshan-3d-art',
+            get_stylesheet_directory_uri() . '/assets/css/3d-art.css',
+            array( 'sampreshan-brand-art' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+    }
 
     // Shared page templates styles (About, Contact, Guidelines, Privacy, Terms, Disclaimer)
     if ( is_page_template( array( 'template-about.php', 'template-contact.php', 'template-guidelines.php', 'template-privacy.php', 'template-terms.php', 'template-disclaimer.php' ) ) ) {
@@ -1485,16 +1521,6 @@ function sp_petition_notify_author_on_signature( $petition_id, $signer_id, $sign
     wp_mail( $author->user_email, $subject, $message, $headers );
 }
 add_action( 'sampreshan_petition_signed', 'sp_petition_notify_author_on_signature', 10, 3 );
-
-/**
- * Prevent users from signing the same petition twice via direct URL manipulation.
- */
-function sp_enforce_single_signature_per_user() {
-    if ( ! is_user_logged_in() ) { return; }
-    // The signature handler already has a UNIQUE constraint, but this
-    // provides a cleaner error message for the UI.
-}
-add_action( 'init', 'sp_enforce_single_signature_per_user' );
 
 /**
  * Sanitize and validate petition creation inputs server-side.

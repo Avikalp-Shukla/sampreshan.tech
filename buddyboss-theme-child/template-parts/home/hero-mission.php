@@ -47,6 +47,12 @@ $is_logged_in = is_user_logged_in();
         </div>
 
         <div class="d3-hero__art" aria-hidden="true">
+            <?php if ( function_exists( 'sp_art_url' ) && sp_art_url( 'voice-rings.svg' ) ) : ?>
+                <img class="d3-hero__rings" src="<?php echo esc_url( sp_art_url( 'voice-rings.svg' ) ); ?>" alt="" width="600" height="600" loading="eager" decoding="async" />
+            <?php endif; ?>
+            <?php if ( function_exists( 'sp_art_url' ) && sp_art_url( 'mandala.svg' ) ) : ?>
+                <img class="d3-hero__mandala" src="<?php echo esc_url( sp_art_url( 'mandala.svg' ) ); ?>" alt="" width="400" height="400" loading="lazy" decoding="async" />
+            <?php endif; ?>
             <div class="d3-hero__object">
                 <div class="d3-hero__card">
                     <img class="d3-hero__logo" src="<?php echo esc_url( $logo_url ); ?>" alt="" width="120" height="120" fetchpriority="high" />

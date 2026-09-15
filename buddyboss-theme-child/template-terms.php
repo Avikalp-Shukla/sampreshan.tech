@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 ?>
 
-<main class="site-main sp-page" role="main">
+<main id="main" class="site-main sp-page" role="main">
 
     <!-- HERO -->
     <header class="sp-page__hero">

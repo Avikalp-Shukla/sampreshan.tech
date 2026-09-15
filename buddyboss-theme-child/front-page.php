@@ -9,13 +9,19 @@
 get_header();
 ?>
 
-<main class="site-main site-main--landing" role="main">
+<main id="main" class="site-main site-main--landing" role="main">
     <div class="sp-landing" style="max-width:none; padding:0; gap:0;">
 
         <?php
         /* === HERO (full-viewport dark immersive) === */
         $hero_tpl = get_stylesheet_directory() . '/template-parts/home/hero-mission.php';
         if ( file_exists( $hero_tpl ) ) { include $hero_tpl; }
+
+        /* === SECTION DIVIDER (original wave artwork) === */
+        if ( function_exists( 'sp_art_url' ) && sp_art_url( 'wave.svg' ) ) {
+            echo '<img class="sp-wave" src="' . esc_url( sp_art_url( 'wave.svg' ) ) . '"'
+                . ' alt="" width="1440" height="120" loading="lazy" decoding="async" aria-hidden="true" />' . "\n";
+        }
 
         /* === STATS STRIP (glass counters, scroll-triggered) === */
         $stats_tpl = get_stylesheet_directory() . '/template-parts/home/stats-strip.php';
@@ -46,8 +52,8 @@ get_header();
         if ( file_exists( $flag_tpl ) ) { include $flag_tpl; }
         ?>
 
-        <!-- TRUST CTA — Dark immersive -->
-        <section class="d3-cta" aria-label="About the Trust">
+        <!-- TRUST CTA — Dark immersive, with the jali lattice behind it -->
+        <section class="d3-cta sp-jali" aria-label="About the Trust">
             <div class="d3-cta__inner d3-reveal">
                 <p class="d3-section__eyebrow" style="justify-content:center; margin-bottom:1rem;"><?php esc_html_e( 'By ShivBodh Trust', 'sampreshan-child' ); ?></p>
                 <h2 class="d3-cta__title"><?php esc_html_e( 'Dedicated to all who have faith in Sanatan Dharma.', 'sampreshan-child' ); ?></h2>

@@ -43,7 +43,7 @@ if ( is_wp_error( $causes ) ) { $causes = array(); }
 $start_url = home_url( '/start-a-petition/' );
 ?>
 
-<main class="sp-page sp-users" role="main">
+<main id="main" class="sp-page sp-users" role="main">
     <header class="sp-users__hero">
         <p class="sp-section__eyebrow"><?php esc_html_e( 'Community causes', 'sampreshan-child' ); ?></p>
         <h1 class="sp-users__title"><?php sp_icon_auto( 'petition', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'All Petitions', 'sampreshan-child' ); ?></h1>
