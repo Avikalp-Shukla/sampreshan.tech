@@ -43,4 +43,10 @@ extract.sh
 
 # ---- Agent / Skill files ----
 .claude/
+.workbuddy-ai/
+.serena/
+.codex/
+.continue/
+.kilo/
+ops/
 push-via-api.sh
