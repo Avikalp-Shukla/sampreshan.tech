@@ -160,7 +160,7 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.0' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.1' );
 }
 
 /**
@@ -192,6 +192,24 @@ function sampreshan_login_redirect( $redirect_to, $requested_redirect_to, $user 
     return $redirect_to;
 }
 add_filter( 'login_redirect', 'sampreshan_login_redirect', PHP_INT_MAX, 3 );
+
+/**
+ * Recover the signed-in user's dashboard when BuddyBoss returns a broken
+ * self-profile URL instead of the member dashboard.
+ */
+function sampreshan_recover_member_dashboard_404() {
+    if ( ! is_user_logged_in() || ! is_404() || ! function_exists( 'bp_is_user' ) || ! bp_is_user() ) {
+        return;
+    }
+
+    if ( function_exists( 'bp_displayed_user_id' ) && (int) bp_displayed_user_id() !== get_current_user_id() ) {
+        return;
+    }
+
+    wp_safe_redirect( sampreshan_dashboard_url(), 302 );
+    exit;
+}
+add_action( 'template_redirect', 'sampreshan_recover_member_dashboard_404', 1 );
 
 /**
  * Keep members out of wp-admin entirely (AJAX + posting endpoints stay open).
