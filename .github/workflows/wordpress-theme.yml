@@ -55,28 +55,46 @@ jobs:
   deploy:
     name: Deploy theme over SFTP
     needs: validate
-    if: ${{ secrets.WP_DEPLOY_HOST != '' && secrets.WP_DEPLOY_USER != '' && secrets.WP_DEPLOY_KEY != '' && secrets.WP_DEPLOY_TARGET != '' }}
     runs-on: ubuntu-latest
     environment:
       name: production
       url: https://sampreshan.tech
+    env:
+      WP_DEPLOY_HOST: ${{ secrets.WP_DEPLOY_HOST }}
+      WP_DEPLOY_PORT: ${{ secrets.WP_DEPLOY_PORT }}
+      WP_DEPLOY_USER: ${{ secrets.WP_DEPLOY_USER }}
+      WP_DEPLOY_KEY: ${{ secrets.WP_DEPLOY_KEY }}
+      WP_DEPLOY_TARGET: ${{ secrets.WP_DEPLOY_TARGET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check deployment configuration
+        id: config
+        shell: bash
+        run: |
+          if [[ -n "$WP_DEPLOY_HOST" && -n "$WP_DEPLOY_USER" && -n "$WP_DEPLOY_KEY" && -n "$WP_DEPLOY_TARGET" ]]; then
+            echo 'configured=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'configured=false' >> "$GITHUB_OUTPUT"
+            echo 'Production deploy skipped: WP_DEPLOY_* secrets are not configured.'
+          fi
+
       - name: Deploy child theme
+        if: steps.config.outputs.configured == 'true'
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.WP_DEPLOY_HOST }}
-          port: ${{ secrets.WP_DEPLOY_PORT || 22 }}
-          username: ${{ secrets.WP_DEPLOY_USER }}
-          key: ${{ secrets.WP_DEPLOY_KEY }}
+          host: ${{ env.WP_DEPLOY_HOST }}
+          port: ${{ env.WP_DEPLOY_PORT || 22 }}
+          username: ${{ env.WP_DEPLOY_USER }}
+          key: ${{ env.WP_DEPLOY_KEY }}
           source: buddyboss-theme-child
-          target: ${{ secrets.WP_DEPLOY_TARGET }}
+          target: ${{ env.WP_DEPLOY_TARGET }}
           overwrite: true
           rm: false
 
       - name: Smoke test live homepage
+        if: steps.config.outputs.configured == 'true'
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location --max-time 30 https://sampreshan.tech/ >/tmp/sampreshan-home.html
