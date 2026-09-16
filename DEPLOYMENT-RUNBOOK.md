@@ -12,6 +12,7 @@ This is the master reference for releasing `sampreshan.tech` safely.
 - Web stack: WordPress, BuddyBoss, Elementor, LiteSpeed, MariaDB
 - GitHub Pages demo URL: `https://avikalp-shukla.github.io/sampreshan.tech/`
 - GitHub Pages workflow: `.github/workflows/pages.yml`
+- WordPress theme workflow: `.github/workflows/wordpress-theme.yml`
 - Current theme release: `1.6.0`
 
 ## Local validation
@@ -94,3 +95,20 @@ No production SFTP/SSH/hosting target is configured in this repository. GitHub
 Pages is live for the static demo, but it does not publish the WordPress site.
 Production can be automated once the non-secret target details above are known
 and credentials are supplied through environment variables or CI secrets.
+
+## GitHub production secrets
+
+The WordPress theme workflow deploys only when all of these repository secrets
+exist. `WP_DEPLOY_TARGET` must be the remote WordPress themes directory, for
+example `/home/account/public_html/wp-content/themes/`.
+
+```text
+WP_DEPLOY_HOST
+WP_DEPLOY_PORT
+WP_DEPLOY_USER
+WP_DEPLOY_KEY
+WP_DEPLOY_TARGET
+```
+
+Without these secrets the validation and theme artifact jobs still run, while
+the production deploy job is skipped safely.

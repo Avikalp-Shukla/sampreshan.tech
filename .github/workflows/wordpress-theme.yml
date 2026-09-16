@@ -1,0 +1,83 @@
+name: Validate and deploy WordPress child theme
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'buddyboss-theme-child/**'
+      - '.github/workflows/wordpress-theme.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-theme-production
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate theme
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Lint PHP
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' file; do
+            php -l "$file"
+          done < <(find buddyboss-theme-child -type f -name '*.php' -not -path '*/vendor/*' -print0)
+
+      - name: Check whitespace
+        run: git diff --check
+
+      - name: Build theme archive
+        run: |
+          mkdir -p build
+          zip -qr build/sampreshan-child-${GITHUB_SHA::12}.zip buddyboss-theme-child \
+            -x '*/.DS_Store' '*/node_modules/*'
+
+      - name: Upload theme artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sampreshan-child-theme
+          path: build/*.zip
+          if-no-files-found: error
+
+  deploy:
+    name: Deploy theme over SFTP
+    needs: validate
+    if: ${{ secrets.WP_DEPLOY_HOST != '' && secrets.WP_DEPLOY_USER != '' && secrets.WP_DEPLOY_KEY != '' && secrets.WP_DEPLOY_TARGET != '' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://sampreshan.tech
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy child theme
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.WP_DEPLOY_HOST }}
+          port: ${{ secrets.WP_DEPLOY_PORT || 22 }}
+          username: ${{ secrets.WP_DEPLOY_USER }}
+          key: ${{ secrets.WP_DEPLOY_KEY }}
+          source: buddyboss-theme-child
+          target: ${{ secrets.WP_DEPLOY_TARGET }}
+          overwrite: true
+          rm: false
+
+      - name: Smoke test live homepage
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --max-time 30 https://sampreshan.tech/ >/tmp/sampreshan-home.html
+          grep -q 'sampreshan-child' /tmp/sampreshan-home.html
