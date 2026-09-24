@@ -1,52 +1,19 @@
-# ---- WordPress core ----
-wp-config.php
-wp-config.php.save
-*.bak
-*.orig
+# WordPress production secrets and server-local files
+public_html/wp-config.php
+public_html/wp-config.php.*
+public_html/.env
+public_html/.env.*
 
-# ---- Media uploads (large) ----
+# WordPress backups and temporary files
+public_html/*.bak
+public_html/*.bak.*
+public_html/*.backup
+public_html/*.save
+public_html/*.tmp
 public_html/wp-content/uploads/
-wp-content/uploads/
-
-# ---- Caches ----
-public_html/wp-content/litespeed/
-wp-content/litespeed/
 public_html/wp-content/cache/
-wp-content/cache/
 public_html/wp-content/upgrade/
-wp-content/upgrade/
 public_html/wp-content/upgrade-temp-backup/
-wp-content/upgrade-temp-backup/
 
-# ---- Node / build ----
-node_modules/
-*.log
-
-# ---- OS files ----
-.DS_Store
-Thumbs.db
-
-# ---- Local config ----
-.env
-.local.env
-
-# ---- Backup archives (keep the SQL dump in repo per decision) ----
-*.tar.gz
-*.zip
-backups/
-extract.sh
-
-# ---- Editor ----
-.idea/
-.vscode/
-*.code-workspace
-
-# ---- Agent / Skill files ----
-.claude/
-.workbuddy-ai/
-.serena/
-.codex/
-.continue/
-.kilo/
-ops/
-push-via-api.sh
+# Codespaces/local development
+.devcontainer/.env
