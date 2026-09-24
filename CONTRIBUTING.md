@@ -8,6 +8,7 @@
 - [DEVELOPMENT.md](DEVELOPMENT.md) — local development guidance
 - [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — community expectations
 - [SECURITY.md](SECURITY.md) — private vulnerability reporting
+- [Repository administration guide](docs/REPOSITORY-ADMINISTRATION.md) — access, branch protection और non-collaborator verification
 
 ## योगदान के तरीके
 
@@ -25,6 +26,7 @@
 5. PR description में summary, testing steps, risks और screenshots (यदि relevant हों) दें।
 6. Review comments का समाधान करें और conversation resolution सुनिश्चित करें।
 7. Maintainer approval और required checks के बाद ही merge करें।
+8. `main` पर direct push न करें; repository administration guide में documented protection policy लागू होनी चाहिए।
 
 ## Commit और code quality
 

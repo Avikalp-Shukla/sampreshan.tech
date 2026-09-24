@@ -1,7 +1,20 @@
 # Development guide
 
-This repository contains the Sampreshan.tech WordPress document root and the
-optional Framer sync utility.
+This repository contains the Sampreshan.tech WordPress document root and the optional Framer sync utility.
+
+## Repository administration
+
+Repository owners and maintainers should follow [`docs/REPOSITORY-ADMINISTRATION.md`](docs/REPOSITORY-ADMINISTRATION.md) for:
+
+- GitHub repository-level settings
+- About, website and topics configuration
+- Discussions and Projects
+- Collaborator roles and least-privilege access
+- `main` branch protection
+- Non-collaborator read-only verification
+- Security and access review cadence
+
+That guide documents the intended policy; only a repository administrator can apply GitHub settings in the web interface.
 
 ## Static preview
 
@@ -11,8 +24,7 @@ Open `demo.html` directly for the static landing-page preview.
 
 1. Use a local PHP + MariaDB/WordPress environment.
 2. Serve `public_html/` as the document root.
-3. Copy `public_html/wp-config-sample.php` to a local `wp-config.php` and set
-   local database credentials.
+3. Copy `public_html/wp-config-sample.php` to a local `wp-config.php` and set local database credentials.
 4. Import one of the SQL dumps only when a local database snapshot is needed.
 5. Keep uploads, caches, archives, and credentials out of Git.
 
