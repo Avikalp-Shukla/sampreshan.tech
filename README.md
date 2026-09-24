@@ -1,136 +1,134 @@
-# 🙏 Sampreshan.tech — Sanatan Voice Platform
+# 🙏 Sampreshan.tech
 
-**Sampreshan (संप्रेषण)** ka arth hai — *संवाद, संदेश, आवाज़*।
+**Sampreshan (संप्रेषण)** — संवाद, जागरूकता और रचनात्मक सामुदायिक सहभागिता का एक open-source digital platform.
 
-**मोटो / Motto:** *एकत्ता की आवाज़, धर्म का संदेश* — *Voice of Unity, Message of Dharma*
+> **Shivbodh Trust की महत्वाकांक्षी सामाजिक-तकनीकी परियोजना**
+>
+> Sanatana Dharma से जुड़े लोगों, समुदायों और संस्थाओं को सम्मानजनक संवाद, जागरूकता, समस्याओं को सामने रखने और सकारात्मक, शांतिपूर्ण तथा रचनात्मक सहभागिता के लिए एक विश्वसनीय मंच उपलब्ध कराना।
 
-**टैगलाइन:** *कोई पैसा नहीं, केवल आवाज़*
+[![Website](https://img.shields.io/badge/website-sampreshan.tech-0f766e?style=flat-square&logo=google-chrome&logoColor=white)](https://sampreshan.tech)
+[![Open Source](https://img.shields.io/badge/project-open%20source-2563eb?style=flat-square&logo=github)](https://github.com/Sampreshan/sampreshan.tech)
+[![Maintained by Shivbodh Trust](https://img.shields.io/badge/maintained%20by-Shivbodh%20Trust-f59e0b?style=flat-square)](https://shivbodhtrust.org)
 
-Yeh platform **Sanatan Dharma ke anuyayiyon** ke liye ek sauchcha digital manch hai jahan log:
+## परियोजना के बारे में
 
-- 🤝 Ek doosre se judein aur vichar-vimarsh karein
-- ✊ Samajik, dharmik, sanskritik samasyaon ko uthayein
-- 📜 Kisi bhi mudde par **support batcha / signature** jama karein
-- 🕉️ Aacharyon, peethon aur sampradayon ke baare mein jagruk ho
+Sampreshan एक **open-source और non-commercial** पहल है। इसका उद्देश्य technology का उपयोग करके लोगों और समुदायों को जोड़ना, authentic information और awareness को बढ़ावा देना, तथा lawful और constructive community participation को आसान बनाना है।
 
-**Yeh poori duniya ke Sanataniyon ka apna social media hai** — Hindu ho ya Sanatan Dharma ke anusaar jeevan jeene wala koi bhi vyakti. Facebook-Twitter jaise **saare tools inbuilt** (judna, post, photo-video, like, comment, share, community) — **keval Sanatan followers ke liye**. Aur ek khaas add-on tool: **Issue Sampreshan** (Change.org jaisa) — yahan se seedhe apni dharm-samasya uthao; log **email se sign up** karke us issue par **"I" badge** dete hain jo **Like ki tarah** kaam karta hai. Log **jitna share + support karenge, utne hi I jama honge** — jitne zyada I, utni badi awaaj.
+यह परियोजना **Shivbodh Trust की दीर्घकालीन और महत्वाकांक्षी vision** से प्रेरित है। यह किसी एक व्यक्ति, क्षेत्र या संप्रदाय तक सीमित नहीं है; इसका लक्ष्य Sanatana Dharma से जुड़े विविध समुदायों के बीच सम्मानजनक संवाद और सहयोग को बढ़ावा देना है।
 
-> **Yahan kisi bhi prakar ka paisa nahi liya jaata — na donation, na membership fee, na koi aur financial transaction. Yeh ek non-commercial awareness + activism platform hai.**
+### हमारा vision
 
----
+- लोगों और समुदायों के बीच respectful communication को बढ़ावा देना।
+- सांस्कृतिक और धार्मिक heritage, शिक्षा तथा परंपराओं के बारे में awareness बढ़ाना।
+- सामाजिक और सामुदायिक मुद्दों को शांतिपूर्ण, lawful और constructive तरीके से उठाने का मंच देना।
+- technology को accessible, secure, maintainable और उपयोगी बनाना।
+- दुनिया भर के contributors को open-source collaboration का अवसर देना।
 
-## 🌐 Platform ka Uddeshya (Why this exists)
+## मुख्य क्षमताएँ
 
-Bharat sahit poore vishwa mein Sanatan Dharma ke anuyayiyon ke apne-apne guru hain, apni sampradaya hain, apne kshetra hain. Bahut baar unki awaaz daba di jaati hai kyunki unki apni community tak woh baat pahunch nahi paati.
+| क्षेत्र | उद्देश्य |
+| --- | --- |
+| Community profiles और activity | लोगों को connect, communicate और collaborate करने में सहायता |
+| Issues और awareness | महत्वपूर्ण विषयों को structured तरीके से सामने रखना |
+| Support और participation | community support तथा constructive action को संगठित करना |
+| Cultural और religious awareness | Acharya, Peeth, Sampradaya और heritage से संबंधित जानकारी साझा करना |
+| बहुभाषी अनुभव | Hindi, English और भविष्य की अन्य भाषाओं के लिए आधार |
+| Responsible moderation | सम्मानजनक, authentic और सुरक्षित community environment |
 
-**Sampreshan** isi samasya ka samadhan hai — ek aisa digital manch jahan:
+## क्या Sampreshan नहीं है
 
-- Vartman mein log ek doosre se jud sakein
-- Saath mil kar sakaratmak parivartan la sakein
-- Kisi bhi samasya ko personally raise karke platform ke logon tak awaaz pahuncha sakein
-- Website par signature / support batcha jama kar sakein (kisi bhi signup ke madhyam se, kisi bhi provider se)
+- यह fundraising, donation या crowdfunding platform नहीं है।
+- यह किसी व्यक्ति, धर्म, संप्रदाय, जाति या समुदाय के विरुद्ध घृणा, अपमान या हिंसा का मंच नहीं है।
+- यह defamation, harassment, personal attacks, illegal activities या social conflict को बढ़ावा नहीं देता।
+- Repository में मौजूद code और documentation को production-ready मानने से पहले review और testing आवश्यक है।
 
----
+## Open-source community
 
-## 🕉️ Acharya, Peeth aur Sampradaya ke baare mein
+हम responsible collaboration का स्वागत करते हैं। आप निम्न प्रकार से योगदान कर सकते हैं:
 
-Dharm ka sarvashreshtha stambh **aacharya** hain. **Sri Adi Shankaracharya** dwara sthapit **charam dham** (4 peeeth) ke shreshta aacharyon ke saath-sath anek sampradaya ke aacharya aaj bhi logon ke jeevan mein dharmik samasyaon ka hal uplabdh karate hain.
+- Bug report या feature request के लिए [Issue खोलें](https://github.com/Sampreshan/sampreshan.tech/issues)।
+- Documentation, accessibility, testing और code quality में सुधार करें।
+- छोटे और focused pull requests भेजें।
+- Security समस्या को public issue में पोस्ट न करें; [Security Policy](SECURITY.md) देखें।
 
-Lekin sabhi shreshta aacharyon ka ek portal par ek saath na hona kahin na kahin logo mein yah aabhas paida karta hai ki *sab mein bhed hai* — jabki dharm ek hai, raahayein anek hain.
+योगदान शुरू करने से पहले [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) और [DEVELOPMENT.md](DEVELOPMENT.md) पढ़ें।
 
-Is liye hamara bhaiya platform hai: 👉 **[www.shivbodhtrust.org](https://www.shivbodhtrust.org)** — jaha har aacharya, har peeth aur har sampradaya ka vivechak parichay uplabdh hai.
+## Technology stack
 
-> **www.sampreshan.tech** ko **Shivbodh Trust** ke netrtva mein banaya gaya hai, keval logo ko technical yug mein ekjut karne ke uddeshya se. Yahan koi paisa nahi liya jaata. Aacharya-parichay aur dharmik margadarshan ke liye **www.shivbodhtrust.org** dekhein.
+- **Application:** WordPress और BuddyBoss Platform
+- **Themes/UI:** BuddyBoss Theme, child theme और Elementor
+- **Web server:** LiteSpeed / Apache-compatible configuration
+- **Database:** MariaDB
+- **Caching और SEO:** LiteSpeed Cache तथा Rank Math
+- **Automation:** GitHub Actions, shell scripts और project-specific tooling
+- **Optional design integration:** Framer sync tooling
 
----
+Technology choices project की जरूरतों के अनुसार बदल सकती हैं।
 
-## ✅ Is platform par kya ho sakta hai
+## Repository structure
 
-| Feature | Description |
-|---|---|
-| 👤 Member signup & profile | Koi bhi sadasya khud ko register kar sakta hai (email se sign up) |
-| 💬 Community feed | Vichar, sandesh, post, comment, share — Facebook-Twitter jaise saare social tools |
-| ✍️ Issue Sampreshan | Koi bhi sadasya apni dharm-samasya seedhe manch par uthata hai (Change.org jaisa tool) |
-| 🅸 I badge (Like jaisa) | Har samarthan ek **I** hai — jitne share + support, utne I; jitne zyada I, utni badi awaaj |
-| 📜 Signature / Support batcha | Kisi bhi provider (Change.org, custom, etc.) ke link se support joda ja sakta hai |
-| 🕉️ Acharya awareness section | 4 peeth aur sampradaya ka parichay (link: shivbodhtrust.org) |
-| 🌍 Multi-language | Hindi + English (vistar se aur bhashayen jod sakte hain) |
-
-## ❌ Is platform par kya NAHI hota
-
-- ❌ Kisi bhi prakar ka paisa (donation, fee, membership) collect nahi hota
-- ❌ Fundraising ya crowdfunding nahi hoti
-- ❌ Kisi bhi dharm, sampradaya, jaati ke viruddh koi bhi content nahi
-- ❌ Kisi bhi vyakti, sangathan, rajya ke viruddh nindatmak content nahi
-
----
-
-## 🛠️ Tech Stack (current)
-
-- **Frontend demo:** `demo.html` (single-page static demo, LiteSpeed ke peeche se serve hota hai)
-- **CMS:** WordPress + BuddyBoss Platform (members, profiles, groups, messaging, activity, notifications)
-- **Page builder:** Elementor / Elementor Pro
-- **Caching:** LiteSpeed Cache plugin
-- **SEO:** Rank Math + Rank Math Pro
-- **Auth add-on:** OneAll Social Login
-- **Custom code snippets:** WPCode Premium
-- **DB:** MariaDB 10.11 (`samp_sampreshan_wp` — see `db-20260901-185918.sql` for full schema)
-- **Web server:** LiteSpeed (Apache `.htaccess` compatible)
-
-Active themes:
-- `public_html/wp-content/themes/buddyboss-theme` (primary)
-- `public_html/wp-content/themes/hello-elementor` (fallback / Elementor canvas)
-
----
-
-## 📂 Repository layout
-
-```
-sampreshan-tech/
-├── demo.html                       # Static landing page (Hindi + English mix)
-├── README.md                       # This file
-├── .gitignore
-├── .htaccess.live                  # Live htaccess (LSCache + WP rewrite + demo nocache)
-├── extract.sh                      # Backup archive extraction script
-├── db-20260901-185918.sql          # MariaDB dump (full schema + data)
-├── files-20260901-185918.tar.gz    # Files backup archive
-├── sampreshan-full-20260901-185918.tar.gz
-└── public_html/                    # WordPress document root
-    ├── .htaccess
-    ├── index.php
-    ├── wp-config.php
-    ├── wp-admin/
-    ├── wp-includes/
-    └── wp-content/
-        ├── themes/                 # buddyboss-theme, hello-elementor
-        ├── plugins/                # buddyboss, elementor, litespeed-cache, rank-math, …
-        ├── mu-plugins/
-        ├── uploads/
-        ├── litespeed/              # cache (gitignored)
-        └── upgrade/
+```text
+.
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── DEVELOPMENT.md
+├── DEPLOYMENT-RUNBOOK.md
+├── .github/                 # issue और pull request templates
+├── buddyboss-theme-child/   # Sampreshan के custom theme changes
+├── framer-sync/             # Framer से संबंधित optional tooling
+├── public_html/             # WordPress document root
+└── demo.html                # Static/demo experience
 ```
 
----
+### संवेदनशील files के बारे में महत्वपूर्ण सूचना
 
-## 🚀 Local / dev quickstart
+Production configuration, credentials, `.env` files, database exports, backups और user uploads को source control में नहीं रखना चाहिए। Existing snapshots या exports को production secrets की तरह treat करें: उनकी समीक्षा करें, आवश्यकता न हो तो हटाएँ, और यदि credentials कभी commit हुए हों तो उन्हें rotate करें। पूरी guidance के लिए [SECURITY.md](SECURITY.md) देखें।
 
-1. Clone: `git clone git@github.com:Avikalp-Shukla/sampreshan.tech.git`
-2. Set up local WP + MariaDB (or use the SQL dump to seed).
-3. Place contents of `public_html/` in your web root (e.g. MAMP/XAMPP/LiteSpeed local).
-4. Import `db-20260901-185918.sql` into your local DB.
-5. Update `public_html/wp-config.php` with local DB credentials.
-6. For the static demo, just open `demo.html` in a browser.
+## Local development — संक्षिप्त रूपरेखा
 
----
+1. Repository clone करें:
 
-## 🤝 Related projects
+   ```bash
+   git clone https://github.com/Sampreshan/sampreshan.tech.git
+   cd sampreshan.tech
+   ```
 
-- **www.shivbodhtrust.org** — Aacharya/Peeth/Sampradaya parichay portal (sister project by the same trust).
+2. Local WordPress और MariaDB environment तैयार करें।
+3. `public_html/` को अपने local web root में रखें।
+4. केवल सुरक्षित और scrubbed development database snapshot का उपयोग करें।
+5. Local configuration values को environment variables या ignored local config में रखें; production credentials का उपयोग न करें।
+6. WordPress, theme और plugin changes को local environment में test करें।
+7. Pull request खोलने से पहले relevant checks, security review और documentation validation करें।
 
----
+Detailed setup और development guidance: [DEVELOPMENT.md](DEVELOPMENT.md).
 
-## 📜 License & content policy
+## Project governance
 
-Yeh platform **non-commercial** hai. Kisi bhi prakar ki financial transaction is site par nahi ki jaati. Content purely awareness, vichar-vimarsh aur samasya-jagrukta ke liye hai. Kisi bhi vyakti, sampradaya, samaj ya dharm ke viruddh apratyashi content ki anumati nahi hai.
+- `main` को stable और production-ready रखने का प्रयास किया जाता है।
+- Production-impacting बदलाव pull request और review के माध्यम से होने चाहिए।
+- Security और privacy concerns को responsibly disclose किया जाना चाहिए।
+- AI-assisted contributions को merge से पहले human review, testing और security validation से गुजरना होगा।
+- Repository access trusted maintainers तक सीमित रखा जाना चाहिए।
 
-🙏 **Dharm ek hai, raahayein anek hain. Sab ka sammaan, sab ka swagat.**
+Repository की GitHub settings में branch protection, required reviews, required checks, conversation resolution और restricted pushes enabled होने चाहिए।
+
+## संबंधित परियोजनाएँ
+
+- [Shivbodh Trust](https://shivbodhtrust.org) — Acharya, Peeth और Sampradaya awareness initiative
+- [Sampreshan website](https://sampreshan.tech)
+
+## License और content policy
+
+इस repository के software, documentation, branding और content पर लागू license और usage terms को project maintainers द्वारा स्पष्ट और अद्यतन रखा जाएगा। जब तक किसी file या repository section में अलग license न हो, कोई भी copyright या trademark अधिकार स्वतः प्रदान नहीं माना जाना चाहिए।
+
+Sampreshan एक non-commercial awareness और community-participation initiative है। Platform पर lawful, peaceful, respectful और constructive engagement अपेक्षित है।
+
+## संपर्क
+
+- **General platform communication:** [sampreshan.tech@gmail.com](mailto:sampreshan.tech@gmail.com)
+- **Security reports:** [SECURITY.md](SECURITY.md)
+- **Website:** [sampreshan.tech](https://sampreshan.tech)
+
+🙏 **धर्म एक है, मार्ग अनेक हैं — सम्मान, संवाद और सहयोग के साथ।**

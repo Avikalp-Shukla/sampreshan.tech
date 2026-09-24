@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Sampreshan/sampreshan.tech/security
+    about: Security problems को public issue में post न करें; private reporting instructions के लिए SECURITY.md देखें.
+  - name: Project documentation
+    url: https://github.com/Sampreshan/sampreshan.tech/blob/main/README.md
+    about: Project vision, setup और contribution guidance पढ़ें.

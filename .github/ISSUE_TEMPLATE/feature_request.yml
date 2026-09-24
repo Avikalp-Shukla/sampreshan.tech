@@ -1,0 +1,33 @@
+name: Feature request
+description: सुधार या नई सुविधा का प्रस्ताव दें
+title: "feature: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: समस्या या आवश्यकता
+      description: यह सुविधा किस user या community need को address करती है?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: प्रस्तावित समाधान
+      description: आपका proposed approach और expected outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: विकल्प
+      description: किन alternatives पर विचार किया गया?
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: यह proposal lawful, peaceful, respectful और non-commercial project principles के अनुरूप है।
+          required: true

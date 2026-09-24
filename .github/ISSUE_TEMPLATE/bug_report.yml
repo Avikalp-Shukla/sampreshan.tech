@@ -1,0 +1,43 @@
+name: Bug report
+description: Reproducible problem report करें
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Security vulnerability के लिए यह form उपयोग न करें। [SECURITY.md](https://github.com/Sampreshan/sampreshan.tech/blob/main/SECURITY.md) देखें।
+  - type: textarea
+    id: summary
+    attributes:
+      label: समस्या
+      description: समस्या का स्पष्ट और संक्षिप्त विवरण दें।
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: समस्या दोहराने के steps लिखें।
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser, WordPress, plugin/theme version या अन्य relevant details.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: मैंने secrets, passwords और personal data हटाकर report तैयार की है।
+          required: true
