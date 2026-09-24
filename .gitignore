@@ -30,11 +30,13 @@ Thumbs.db
 .env
 .local.env
 
-# ---- Backup archives (keep the SQL dump in repo per decision) ----
+# ---- Backup archives / DB exports ----
 *.tar.gz
 *.zip
 backups/
 extract.sh
+/db-*.sql
+/sampreshan-db-*.sql
 
 # ---- Editor ----
 .idea/

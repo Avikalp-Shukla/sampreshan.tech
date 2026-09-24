@@ -74,7 +74,7 @@ Is liye hamara bhaiya platform hai: 👉 **[www.shivbodhtrust.org](https://www.s
 - **SEO:** Rank Math + Rank Math Pro
 - **Auth add-on:** OneAll Social Login
 - **Custom code snippets:** WPCode Premium
-- **DB:** MariaDB 10.11 (`samp_sampreshan_wp` — see `db-20260901-185918.sql` for full schema)
+- **DB:** MariaDB 10.11 (`samp_sampreshan_wp`)
 - **Web server:** LiteSpeed (Apache `.htaccess` compatible)
 
 Active themes:
@@ -91,10 +91,7 @@ sampreshan-tech/
 ├── README.md                       # This file
 ├── .gitignore
 ├── .htaccess.live                  # Live htaccess (LSCache + WP rewrite + demo nocache)
-├── extract.sh                      # Backup archive extraction script
-├── db-20260901-185918.sql          # MariaDB dump (full schema + data)
-├── files-20260901-185918.tar.gz    # Files backup archive
-├── sampreshan-full-20260901-185918.tar.gz
+├── extract.sh                      # Backup archive extraction script (not for public commits)
 └── public_html/                    # WordPress document root
     ├── .htaccess
     ├── index.php
@@ -115,11 +112,10 @@ sampreshan-tech/
 ## 🚀 Local / dev quickstart
 
 1. Clone: `git clone git@github.com:Avikalp-Shukla/sampreshan.tech.git`
-2. Set up local WP + MariaDB (or use the SQL dump to seed).
+2. Set up local WP + MariaDB with a fresh database.
 3. Place contents of `public_html/` in your web root (e.g. MAMP/XAMPP/LiteSpeed local).
-4. Import `db-20260901-185918.sql` into your local DB.
-5. Update `public_html/wp-config.php` with local DB credentials.
-6. For the static demo, just open `demo.html` in a browser.
+4. Update `public_html/wp-config.php` with local DB credentials.
+5. For the static demo, just open `demo.html` in a browser.
 
 ---
 
@@ -129,7 +125,22 @@ sampreshan-tech/
 
 ---
 
+## 🌍 Open Source governance & access model
+
+- Repository is intended to stay **public and readable** for everyone.
+- Development write access is restricted to approved collaborators/organization members only.
+- All changes to `main` should go through pull requests with review.
+- Please follow:
+  - [CONTRIBUTING.md](./CONTRIBUTING.md)
+  - [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+  - [SECURITY.md](./SECURITY.md)
+- Never commit database exports, backups, credentials, tokens, or private keys.
+
+---
+
 ## 📜 License & content policy
+
+Code licensing details are available in the root [`LICENSE`](./LICENSE) file.
 
 Yeh platform **non-commercial** hai. Kisi bhi prakar ki financial transaction is site par nahi ki jaati. Content purely awareness, vichar-vimarsh aur samasya-jagrukta ke liye hai. Kisi bhi vyakti, sampradaya, samaj ya dharm ke viruddh apratyashi content ki anumati nahi hai.
 
