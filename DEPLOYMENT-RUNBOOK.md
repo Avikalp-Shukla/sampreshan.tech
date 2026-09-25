@@ -4,13 +4,13 @@ This is the master reference for releasing `sampreshan.tech` safely.
 
 ## Verified project facts
 
-- Git repository: `Avikalp-Shukla/sampreshan.tech`
+- Git repository: `Sampreshan/sampreshan.tech`
 - Default release branch: `main`
-- Local project root: `/Users/avikalpshukla/ShivBodh-Projects/sampreshan-tech`
+- Local project root: `/home/runner/work/sampreshan.tech/sampreshan.tech`
 - WordPress document root in this snapshot: `public_html/`
 - Active child theme source: `buddyboss-theme-child/`
 - Web stack: WordPress, BuddyBoss, Elementor, LiteSpeed, MariaDB
-- GitHub Pages demo URL: `https://avikalp-shukla.github.io/sampreshan.tech/`
+- GitHub Pages demo URL: `https://sampreshan.github.io/sampreshan.tech/`
 - GitHub Pages workflow: `.github/workflows/pages.yml`
 - WordPress theme workflow: `.github/workflows/wordpress-theme.yml`
 - Current theme release: `1.6.0`
@@ -112,3 +112,34 @@ WP_DEPLOY_TARGET
 
 Without these secrets the validation and theme artifact jobs still run, while
 the production deploy job is skipped safely.
+
+## First controlled production deployment
+
+Use this once hosting details and secrets are finalized:
+
+1. Confirm that all `WP_DEPLOY_*` repository secrets are set in GitHub.
+2. Confirm `WP_DEPLOY_TARGET` points to the live server theme directory:
+   `.../wp-content/themes/`.
+3. Open the latest `Validate and deploy WordPress child theme` workflow run and
+   verify `Validate theme` succeeds.
+4. Verify `Deploy theme over SFTP` runs (not skipped) and completes without
+   transfer errors.
+5. Run smoke checks against `https://sampreshan.tech/`:
+   - Homepage loads and contains child-theme markup.
+   - Login, dashboard, profile, and one petition page load.
+   - Mobile layout sanity check and browser console error check.
+6. Record run URL, commit SHA, deploy timestamp, and operator in deployment
+   notes.
+
+## Rollback and backup confirmation
+
+Before each production deploy, verify rollback readiness:
+
+1. Confirm latest server backup/snapshot timestamp and retention window.
+2. Keep previous child-theme version archive accessible for immediate restore.
+3. Confirm restore operator and method (host panel, SFTP overwrite, or snapshot
+   rollback) are documented.
+4. Define rollback trigger conditions (critical UI break, login failure,
+   petition flow failure, severe PHP errors).
+5. If rollback is executed, restore previous version, purge caches, and rerun
+   smoke checks on homepage/login/dashboard/profile/petition.
