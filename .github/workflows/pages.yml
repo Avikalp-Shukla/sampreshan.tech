@@ -35,9 +35,14 @@ jobs:
         run: |
           rm -rf site
           mkdir -p site
-          cp index.html site/
-          cp demo.html site/
+          copied=0
+          [ -f index.html ] && cp index.html site/ && copied=1
+          [ -f demo.html ] && cp demo.html site/ && copied=1
           [ -f preview.html ] && cp preview.html site/
+          if [ "$copied" -eq 0 ]; then
+            echo "No static demo files found to publish."
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
