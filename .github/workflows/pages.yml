@@ -8,6 +8,15 @@ on:
       - 'demo.html'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
+    inputs:
+      optional_dirs:
+        description: 'Space-separated optional directories to publish'
+        required: false
+        default: 'assets css js images img fonts'
+      optional_files:
+        description: 'Space-separated optional files to publish'
+        required: false
+        default: 'favicon.ico robots.txt sitemap.xml'
 
 permissions:
   contents: read
@@ -33,8 +42,8 @@ jobs:
 
       - name: Build static demo artifact
         env:
-          PAGES_OPTIONAL_DIRS: "assets css js images img fonts"
-          PAGES_OPTIONAL_FILES: "favicon.ico robots.txt sitemap.xml"
+          PAGES_OPTIONAL_DIRS: ${{ github.event.inputs.optional_dirs || 'assets css js images img fonts' }}
+          PAGES_OPTIONAL_FILES: ${{ github.event.inputs.optional_files || 'favicon.ico robots.txt sitemap.xml' }}
         run: |
           set -euo pipefail
           rm -rf site
