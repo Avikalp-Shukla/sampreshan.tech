@@ -50,6 +50,7 @@ jobs:
             echo "No static demo files found to publish."
             exit 1
           fi
+          touch site/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
