@@ -6,8 +6,27 @@ on:
     paths:
       - 'index.html'
       - 'demo.html'
+      - 'preview.html'
+      - 'assets/**'
+      - 'css/**'
+      - 'js/**'
+      - 'images/**'
+      - 'img/**'
+      - 'fonts/**'
+      - 'favicon.ico'
+      - 'robots.txt'
+      - 'sitemap.xml'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
+    inputs:
+      optional_dirs:
+        description: 'Space-separated optional directories to publish'
+        required: false
+        default: 'assets css js images img fonts'
+      optional_files:
+        description: 'Space-separated optional files to publish'
+        required: false
+        default: 'favicon.ico robots.txt sitemap.xml'
 
 permissions:
   contents: read
@@ -31,10 +50,34 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build static demo artifact
+        env:
+          PAGES_OPTIONAL_DIRS: ${{ github.event.inputs.optional_dirs || 'assets css js images img fonts' }}
+          PAGES_OPTIONAL_FILES: ${{ github.event.inputs.optional_files || 'favicon.ico robots.txt sitemap.xml' }}
+        run: |
+          set -euo pipefail
+          rm -rf site
+          mkdir -p site
+          copied=0
+          [ -f index.html ] && cp index.html site/ && copied=1
+          [ -f demo.html ] && cp demo.html site/ && copied=1
+          [ -f preview.html ] && cp preview.html site/ && copied=1
+          for dir in $PAGES_OPTIONAL_DIRS; do
+            [ -d "$dir" ] && cp -R "$dir" site/ && copied=1
+          done
+          for file in $PAGES_OPTIONAL_FILES; do
+            [ -f "$file" ] && cp "$file" site/ && copied=1
+          done
+          if [ "$copied" -eq 0 ]; then
+            echo "No static demo files found to publish."
+            exit 1
+          fi
+          touch site/.nojekyll
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'site'
 
       - name: Deploy to GitHub Pages
         id: deployment
