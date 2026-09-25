@@ -38,7 +38,7 @@ jobs:
           copied=0
           [ -f index.html ] && cp index.html site/ && copied=1
           [ -f demo.html ] && cp demo.html site/ && copied=1
-          [ -f preview.html ] && cp preview.html site/
+          [ -f preview.html ] && cp preview.html site/ && copied=1
           if [ "$copied" -eq 0 ]; then
             echo "No static demo files found to publish."
             exit 1
