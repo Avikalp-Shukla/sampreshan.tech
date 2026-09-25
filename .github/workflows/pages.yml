@@ -37,13 +37,15 @@ jobs:
           rm -rf site
           mkdir -p site
           copied=0
+          PAGES_OPTIONAL_DIRS=(assets css js images img fonts)
+          PAGES_OPTIONAL_FILES=(favicon.ico robots.txt sitemap.xml)
           [ -f index.html ] && cp index.html site/ && copied=1
           [ -f demo.html ] && cp demo.html site/ && copied=1
           [ -f preview.html ] && cp preview.html site/ && copied=1
-          for dir in assets css js images img fonts; do
+          for dir in "${PAGES_OPTIONAL_DIRS[@]}"; do
             [ -d "$dir" ] && cp -R "$dir" site/ && copied=1
           done
-          for file in favicon.ico robots.txt sitemap.xml; do
+          for file in "${PAGES_OPTIONAL_FILES[@]}"; do
             [ -f "$file" ] && cp "$file" site/ && copied=1
           done
           if [ "$copied" -eq 0 ]; then
