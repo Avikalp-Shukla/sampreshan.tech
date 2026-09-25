@@ -1,8 +1,11 @@
-# Local development helper for GitHub Codespaces.
-# The live VPS database and wp-config.php are intentionally not copied here.
+#!/usr/bin/env bash
+set -euo pipefail
 
-if [ -f index.php ] && [ ! -f wp-config.php ]; then
-  echo "wp-config.php is not present; use a local database configuration before starting WordPress."
+# The production wp-config.php and database are intentionally not copied into
+# Codespaces. Configure a local database before using the full WordPress app.
+if [ ! -f public_html/wp-config.php ]; then
+  echo "Notice: public_html/wp-config.php is missing."
+  echo "Copy public_html/wp-config-sample.php to public_html/wp-config.php and configure a local database."
 fi
 
-php -S 0.0.0.0:8080 -t .
+exec php -S 0.0.0.0:8080 -t public_html public_html/router.php
