@@ -19,7 +19,8 @@ $items = new WP_Query( array(
     'order'          => 'DESC',
 ) );
 
-$start_url = home_url( '/start-a-petition/' );
+$show_story_form = is_user_logged_in() && ! empty( $_GET['new_story'] );
+$start_url       = home_url( '/start-a-petition/' );
 ?>
 
 <main id="main" class="sp-page sp-users sp-users--narrow" role="main">
@@ -28,6 +29,34 @@ $start_url = home_url( '/start-a-petition/' );
         <h1 class="sp-users__title"><?php sp_icon_auto( 'feed', 'sp-icon--md sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Community Feed', 'sampreshan-child' ); ?></h1>
         <p class="sp-users__sub"><?php esc_html_e( 'The newest petitions and stories — sign, share, and join the conversation.', 'sampreshan-child' ); ?></p>
     </header>
+
+    <?php if ( $show_story_form ) : ?>
+        <div class="sp-dash-card sp-dash-card--pad sp-community-composer">
+            <div class="sp-dash-card__head sp-community-composer__head">
+                <div>
+                    <h2 class="sp-dash-card__title"><?php esc_html_e( 'Share a community update', 'sampreshan-child' ); ?></h2>
+                    <p class="sp-dash-card__sub"><?php esc_html_e( 'Post a quick update, story, or community note.', 'sampreshan-child' ); ?></p>
+                </div>
+            </div>
+            <form method="post" action="<?php echo esc_url( $GLOBALS['wp']->request ? home_url( $GLOBALS['wp']->request ) : home_url( '/community/' ) ); ?>" enctype="multipart/form-data" class="sp-community-composer__form">
+                <?php wp_nonce_field( 'sampreshan_community_story', 'sampreshan_community_story_nonce' ); ?>
+                <textarea name="sampreshan_story" rows="5" placeholder="Write something for the community..." class="sp-community-composer__field" required></textarea>
+
+                <div class="sp-story-image-wrap">
+                    <label for="sampreshan_story_image" class="sp-community-composer__label">
+                        <?php esc_html_e( 'Add image', 'sampreshan-child' ); ?>
+                    </label>
+                    <input id="sampreshan_story_image" type="file" name="sampreshan_story_image" accept="image/*" class="sp-community-composer__input" />
+                    <img id="sampreshan_story_image_preview" alt="" class="sp-community-composer__preview" />
+                </div>
+
+                <div class="sp-community-composer__actions">
+                    <a class="btn btn--ghost" href="<?php echo esc_url( remove_query_arg( 'new_story' ) ); ?>"><?php esc_html_e( 'Cancel', 'sampreshan-child' ); ?></a>
+                    <button class="btn btn--primary" type="submit"><?php esc_html_e( 'Post to community', 'sampreshan-child' ); ?></button>
+                </div>
+            </form>
+        </div>
+    <?php endif; ?>
 
     <?php if ( $items->have_posts() ) : ?>
         <div class="sp-feed">
@@ -84,5 +113,127 @@ $start_url = home_url( '/start-a-petition/' );
         </div>
     <?php endif; ?>
 </main>
+
+<style>
+.sp-community-composer {
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(17, 24, 39, 0.92), rgba(9, 14, 22, 0.98));
+    border: 1px solid rgba(255, 184, 92, 0.25);
+    box-shadow: 0 22px 44px rgba(3, 7, 18, 0.42);
+}
+
+.sp-community-composer__head {
+    padding: 0 0 1rem;
+    border-bottom: 1px solid rgba(255, 191, 125, 0.18);
+    margin-bottom: 1rem;
+}
+
+.sp-community-composer__form {
+    display: grid;
+    gap: 1rem;
+}
+
+.sp-community-composer__field {
+    width: 100%;
+    min-height: 170px;
+    border: 1px solid rgba(255, 209, 145, 0.26);
+    border-radius: 18px;
+    padding: 1rem 1.05rem;
+    font: 400 1rem/1.7 "SFMono-Regular", "Consolas", "Liberation Mono", monospace;
+    resize: vertical;
+    color: #f8fafc;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(9, 14, 22, 0.92));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), inset 0 0 22px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    letter-spacing: 0.02em;
+}
+
+.sp-community-composer__field::placeholder {
+    color: rgba(226, 232, 240, 0.62);
+}
+
+.sp-community-composer__field:focus {
+    outline: none;
+    border-color: rgba(251, 146, 60, 0.9);
+    box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.18), inset 0 0 22px rgba(0, 0, 0, 0.22);
+}
+
+.sp-community-composer__label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.sp-community-composer__input {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 0.9rem;
+    border: 1px dashed rgba(255, 183, 92, 0.48);
+    border-radius: 12px;
+    background: rgba(12, 18, 28, 0.75);
+    color: #f8fafc;
+}
+
+.sp-community-composer__preview {
+    display: none;
+    width: 100%;
+    max-height: 260px;
+    object-fit: cover;
+    margin-top: 0.9rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 183, 92, 0.26);
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.26);
+}
+
+.sp-community-composer__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 560px) {
+    .sp-community-composer {
+        border-radius: 18px;
+    }
+    .sp-community-composer__field {
+        min-height: 150px;
+        font-size: 0.96rem;
+    }
+    .sp-community-composer__actions {
+        justify-content: stretch;
+    }
+    .sp-community-composer__actions > * {
+        flex: 1 1 auto;
+    }
+}
+</style>
+
+<script>
+(function () {
+    var input = document.getElementById('sampreshan_story_image');
+    var preview = document.getElementById('sampreshan_story_image_preview');
+    if (!input || !preview) { return; }
+
+    input.addEventListener('change', function () {
+        var file = this.files && this.files[0];
+        if (!file) {
+            preview.style.display = 'none';
+            preview.src = '';
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            preview.src = event.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    });
+})();
+</script>
 
 <?php get_footer(); ?>

@@ -47,6 +47,10 @@ get_header();
         $pulse_tpl = get_stylesheet_directory() . '/template-parts/home/social-fusion.php';
         if ( file_exists( $pulse_tpl ) ) { include $pulse_tpl; }
 
+        /* === ACHARYA & PEETH DISCOVERY === */
+        $dharma_tpl = get_stylesheet_directory() . '/template-parts/home/dharma-directory.php';
+        if ( file_exists( $dharma_tpl ) ) { include $dharma_tpl; }
+
         /* === FLAG CINEMA === */
         $flag_tpl = get_stylesheet_directory() . '/template-parts/home/flag-cinema.php';
         if ( file_exists( $flag_tpl ) ) { include $flag_tpl; }

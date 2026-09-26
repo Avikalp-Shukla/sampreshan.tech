@@ -107,6 +107,36 @@ $logo_url     = function_exists( 'sp_logo_url' ) ? sp_logo_url() : content_url( 
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<?php if ( function_exists( 'sp_ai_agent_is_configured' ) && sp_ai_agent_is_configured() ) : ?>
+<!-- Sampreshan Sahayak — floating AI help widget -->
+<div class="sp-sahayak" id="sp-sahayak">
+    <button class="sp-sahayak__launcher" type="button" data-sahayak-launcher aria-haspopup="dialog" aria-expanded="false" aria-controls="sp-sahayak-panel" aria-label="<?php esc_attr_e( 'Open Sampreshan Sahayak help chat', 'sampreshan-child' ); ?>">
+        <?php sp_icon_auto( 'chat', 'sp-icon--md', '' ); ?>
+    </button>
+    <div class="sp-sahayak__panel" id="sp-sahayak-panel" role="dialog" aria-label="<?php esc_attr_e( 'Sampreshan Sahayak', 'sampreshan-child' ); ?>" aria-modal="false">
+        <div class="sp-sahayak__head">
+            <div>
+                <h2><?php esc_html_e( 'Sampreshan Sahayak', 'sampreshan-child' ); ?></h2>
+                <p><?php esc_html_e( 'Ask about petitions, profiles, or the dashboard', 'sampreshan-child' ); ?></p>
+            </div>
+            <button class="sp-sahayak__close" type="button" data-sahayak-close aria-label="<?php esc_attr_e( 'Close chat', 'sampreshan-child' ); ?>">
+                <?php sp_icon_auto( 'close', 'sp-icon--sm', '' ); ?>
+            </button>
+        </div>
+        <div class="sp-sahayak__body" data-sahayak-body aria-live="polite">
+            <div class="sp-sahayak__msg sp-sahayak__msg--assistant"><?php esc_html_e( 'Namaste! Main Sampreshan Sahayak hoon. Petitions, Acharya/Peeth profiles, ya dashboard ke baare mein kuch bhi poochh sakte hain.', 'sampreshan-child' ); ?></div>
+        </div>
+        <form class="sp-sahayak__form" data-sahayak-form>
+            <label class="screen-reader-text" for="sp-sahayak-input"><?php esc_html_e( 'Type your message', 'sampreshan-child' ); ?></label>
+            <textarea class="sp-sahayak__input" id="sp-sahayak-input" data-sahayak-input rows="1" maxlength="1000" placeholder="<?php esc_attr_e( 'Type a message…', 'sampreshan-child' ); ?>" autocomplete="off"></textarea>
+            <button class="sp-sahayak__send" type="submit" data-sahayak-send aria-label="<?php esc_attr_e( 'Send message', 'sampreshan-child' ); ?>">
+                <?php sp_icon_auto( 'send', 'sp-icon--sm', '' ); ?>
+            </button>
+        </form>
+    </div>
+</div>
+<?php endif; ?>
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

@@ -96,6 +96,9 @@ function sp_migrated_page_description( $description ) {
 add_filter( 'rank_math/frontend/description', 'sp_migrated_page_description', 20 );
 
 function sp_migrated_pages_schema() {
+    if ( function_exists( 'rank_math' ) ) {
+        return;
+    }
     if ( ! sp_is_migrated_acharya_page() ) {
         return;
     }

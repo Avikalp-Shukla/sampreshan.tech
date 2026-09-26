@@ -160,8 +160,81 @@ require_once get_stylesheet_directory() . '/inc/iconscout/client.php';
  * Theme version (for cache busting)
  */
 if ( ! defined( 'SAMPRESHAN_CHILD_VERSION' ) ) {
-    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.1' );
+    define( 'SAMPRESHAN_CHILD_VERSION', '1.6.4' );
 }
+
+/**
+ * Navigation locations are editable in Appearance → Menus. The seeded menus
+ * are a safe initial structure only; they are never overwritten afterward.
+ */
+function sp_register_navigation_locations() {
+    register_nav_menus( array(
+        'sampreshan-primary' => __( 'Sampreshan Primary Navigation', 'sampreshan-child' ),
+        'sampreshan-mobile'  => __( 'Sampreshan Mobile Navigation', 'sampreshan-child' ),
+    ) );
+}
+add_action( 'after_setup_theme', 'sp_register_navigation_locations' );
+
+function sp_navigation_default_items() {
+    return array(
+        array( 'title' => __( 'Home', 'sampreshan-child' ), 'url' => home_url( '/' ) ),
+        array( 'title' => __( 'Feed', 'sampreshan-child' ), 'url' => sp_feed_url() ),
+        array( 'title' => __( 'Petitions', 'sampreshan-child' ), 'url' => home_url( '/petitions/' ) ),
+        array( 'title' => __( 'Community', 'sampreshan-child' ), 'url' => home_url( '/community/' ) ),
+        array( 'title' => __( 'Acharyas & Peeths', 'sampreshan-child' ), 'url' => function_exists( 'sp_dharma_directory_url' ) ? sp_dharma_directory_url() : home_url( '/dharma-acharya/' ) ),
+        array( 'title' => __( 'About', 'sampreshan-child' ), 'url' => home_url( '/about/' ) ),
+    );
+}
+
+function sp_seed_navigation_menus() {
+    $locations = (array) get_theme_mod( 'nav_menu_locations', array() );
+    $items     = sp_navigation_default_items();
+
+    foreach ( array( 'sampreshan-primary' => __( 'Sampreshan Primary', 'sampreshan-child' ), 'sampreshan-mobile' => __( 'Sampreshan Mobile', 'sampreshan-child' ) ) as $location => $menu_name ) {
+        if ( ! empty( $locations[ $location ] ) && wp_get_nav_menu_object( (int) $locations[ $location ] ) ) {
+            continue;
+        }
+
+        $menu = wp_get_nav_menu_object( $menu_name );
+        $menu_id = $menu ? (int) $menu->term_id : wp_create_nav_menu( $menu_name );
+        if ( is_wp_error( $menu_id ) ) {
+            continue;
+        }
+
+        if ( empty( wp_get_nav_menu_items( $menu_id ) ) ) {
+            foreach ( $items as $position => $item ) {
+                wp_update_nav_menu_item( $menu_id, 0, array(
+                    'menu-item-title'  => $item['title'],
+                    'menu-item-url'    => $item['url'],
+                    'menu-item-status' => 'publish',
+                    'menu-item-position' => $position + 1,
+                ) );
+            }
+        }
+        $locations[ $location ] = $menu_id;
+    }
+
+    set_theme_mod( 'nav_menu_locations', $locations );
+}
+add_action( 'init', 'sp_seed_navigation_menus', 40 );
+
+function sp_nav_link_classes( $classes, $item, $args, $depth ) {
+    if ( empty( $args->theme_location ) || ! in_array( $args->theme_location, array( 'sampreshan-primary', 'sampreshan-mobile' ), true ) ) {
+        return $classes;
+    }
+    $classes[] = 'sampreshan-nav-item';
+    return $classes;
+}
+add_filter( 'nav_menu_css_class', 'sp_nav_link_classes', 10, 4 );
+
+function sp_nav_link_attributes( $atts, $item, $args ) {
+    if ( empty( $args->theme_location ) || ! in_array( $args->theme_location, array( 'sampreshan-primary', 'sampreshan-mobile' ), true ) ) {
+        return $atts;
+    }
+    $atts['class'] = ( 'sampreshan-primary' === $args->theme_location ) ? 'site-header__nav-link' : 'sp-mobile-menu__link';
+    return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'sp_nav_link_attributes', 10, 3 );
 
 /**
  * Theme Dashboard URL — single source of truth (like sp_feed_url()).
@@ -196,13 +269,59 @@ add_filter( 'login_redirect', 'sampreshan_login_redirect', PHP_INT_MAX, 3 );
 /**
  * Recover the signed-in user's dashboard when BuddyBoss returns a broken
  * self-profile URL instead of the member dashboard.
+ *
+ * We intentionally match the public URL pattern directly because BuddyBoss can
+ * legitimately 404 on the logged-in user's own profile if the member route is
+ * broken or a prior rewrite/state mismatch is in play.
  */
 function sampreshan_recover_member_dashboard_404() {
-    if ( ! is_user_logged_in() || ! is_404() || ! function_exists( 'bp_is_user' ) || ! bp_is_user() ) {
+    if ( ! is_user_logged_in() || ! current_user_can( 'read' ) ) {
         return;
     }
 
-    if ( function_exists( 'bp_displayed_user_id' ) && (int) bp_displayed_user_id() !== get_current_user_id() ) {
+    $uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( (string) $_SERVER['REQUEST_URI'] ) : '';
+    if ( '' === $uri ) {
+        return;
+    }
+
+    $request_path = trim( wp_parse_url( $uri, PHP_URL_PATH ) ?: '', '/' );
+    if ( '' === $request_path ) {
+        return;
+    }
+
+    $home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+    if ( '' !== $home_path ) {
+        $request_path = preg_replace( '#^' . preg_quote( $home_path, '#' ) . '#', '', $request_path, 1 );
+        $request_path = trim( $request_path, '/' );
+    }
+
+    if ( '' === $request_path || ! preg_match( '#^members/([^/]+)(?:/.*)?$#i', $request_path, $matches ) ) {
+        return;
+    }
+
+    $target_slug = sanitize_user( $matches[1], true );
+    $current_user = wp_get_current_user();
+    if ( ! $current_user || ! $current_user->exists() ) {
+        return;
+    }
+
+    $is_self_profile = ( $current_user->user_nicename === $target_slug ) || ( $current_user->user_login === $target_slug );
+    if ( ! $is_self_profile ) {
+        return;
+    }
+
+    if ( function_exists( 'bp_is_user' ) && bp_is_user() ) {
+        if ( function_exists( 'bp_displayed_user_id' ) && (int) bp_displayed_user_id() !== get_current_user_id() ) {
+            return;
+        }
+    }
+
+    if ( is_admin() || is_404() || ( is_home() && ! is_front_page() ) ) {
+        wp_safe_redirect( sampreshan_dashboard_url(), 302 );
+        exit;
+    }
+
+    if ( ! is_404() ) {
         return;
     }
 
@@ -235,6 +354,68 @@ function sampreshan_member_admin_bar( $show ) {
 add_filter( 'show_admin_bar', 'sampreshan_member_admin_bar', 20 );
 
 /**
+ * Handle a logged-in community story post with optional image upload.
+ */
+function sampreshan_handle_community_story_submission() {
+    if ( ! is_user_logged_in() || ! isset( $_POST['sampreshan_community_story_nonce'] ) ) {
+        return;
+    }
+
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['sampreshan_community_story_nonce'] ) ), 'sampreshan_community_story' ) ) {
+        return;
+    }
+
+    if ( empty( $_POST['sampreshan_story'] ) ) {
+        return;
+    }
+
+    $story = trim( wp_strip_all_tags( wp_unslash( $_POST['sampreshan_story'] ) ) );
+    if ( '' === $story ) {
+        return;
+    }
+
+    // Keep URLs stable and readable. The story body belongs in the content,
+    // not in the post title or permalink slug.
+    $title = __( 'Community update', 'sampreshan-child' );
+
+    $post_id = wp_insert_post( array(
+        'post_author'    => get_current_user_id(),
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'post_title'     => $title,
+        'post_content'   => wp_kses_post( $story ),
+        'post_excerpt'   => wp_trim_words( $story, 24, '...' ),
+    ), true );
+
+    if ( ! is_wp_error( $post_id ) && ! empty( $_FILES['sampreshan_story_image']['name'] ) ) {
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/media.php';
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+
+        $file = $_FILES['sampreshan_story_image'];
+        $overrides = array(
+            'test_form' => false,
+            'mimes'     => array(
+                'jpg|jpeg' => 'image/jpeg',
+                'png'      => 'image/png',
+                'gif'      => 'image/gif',
+                'webp'     => 'image/webp',
+            ),
+        );
+
+        $uploaded = media_handle_sideload( $file, $post_id, __( 'Community story image', 'sampreshan-child' ), $overrides );
+        if ( ! is_wp_error( $uploaded ) ) {
+            set_post_thumbnail( $post_id, $uploaded );
+        }
+    }
+
+    $redirect = sampreshan_dashboard_url();
+    wp_safe_redirect( add_query_arg( 'story_posted', '1', $redirect ) . '#sp-dashboard-feed' );
+    exit;
+}
+add_action( 'init', 'sampreshan_handle_community_story_submission', 20 );
+
+/**
  * Load the icon helper (sp_icon(), sp_icon_e(), sp_favicon_url()).
  * Must be loaded before any template that uses the helpers.
  */
@@ -257,6 +438,7 @@ require_once get_stylesheet_directory() . '/inc/auth/loader.php';
 require_once get_stylesheet_directory() . '/inc/notifications/center.php';
 require_once get_stylesheet_directory() . '/inc/seo/schema.php';
 require_once get_stylesheet_directory() . '/inc/migrated-acharya-pages.php';
+require_once get_stylesheet_directory() . '/inc/dharma-directory.php';
 
 /**
  * Skip link — the first focusable element on every page (WCAG 2.4.1).
@@ -549,6 +731,24 @@ function sampreshan_child_enqueue_styles() {
         );
     }
 
+    if ( is_singular( 'post' ) ) {
+        wp_enqueue_style(
+            'sampreshan-story',
+            get_stylesheet_directory_uri() . '/assets/css/story.css',
+            array( 'sampreshan-icon-system' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+    }
+
+    if ( is_front_page() || is_singular( array( 'dharma_profile', 'dharma_update' ) ) || is_post_type_archive( 'dharma_profile' ) || is_tax( 'dharma_peeth' ) ) {
+        wp_enqueue_style(
+            'sampreshan-dharma-directory',
+            get_stylesheet_directory_uri() . '/assets/css/dharma-directory.css',
+            array( 'sampreshan-icon-system' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+    }
+
     // Custom login page styles — load on the /login page or when digit
     // is rendering its form. Detection is conservative to avoid a
     // global cost.
@@ -634,6 +834,12 @@ function sampreshan_child_enqueue_styles() {
             'sampreshan-dashboard',
             get_stylesheet_directory_uri() . '/assets/css/dashboard.css',
             array( 'sampreshan-icon-system' ),
+            SAMPRESHAN_CHILD_VERSION
+        );
+        wp_enqueue_style(
+            'sampreshan-dharma-directory',
+            get_stylesheet_directory_uri() . '/assets/css/dharma-directory.css',
+            array( 'sampreshan-dashboard' ),
             SAMPRESHAN_CHILD_VERSION
         );
     }

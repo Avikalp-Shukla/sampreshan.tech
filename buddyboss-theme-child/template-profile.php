@@ -93,6 +93,7 @@ if ( function_exists( 'sp_petitions_table' ) ) {
 
 $settings_url = home_url( '/settings/' );
 $start_url    = home_url( '/start-a-petition/' );
+$community_url = function_exists( 'sp_feed_url' ) ? sp_feed_url() : home_url( '/feed-2/' );
 ?>
 <main id="main" class="site-main sp-fu-wash" role="main">
     <div class="sp-fu-profile">
@@ -114,6 +115,10 @@ $start_url    = home_url( '/start-a-petition/' );
             <div class="sp-fu-id__actions">
                 <?php if ( $is_me ) : ?>
                     <a class="sp-fu-btn sp-fu-btn--mor sp-fu-btn--sm" href="<?php echo esc_url( $settings_url ); ?>"><?php esc_html_e( 'Edit profile', 'sampreshan-child' ); ?></a>
+                    <a class="sp-fu-btn sp-fu-btn--secondary sp-fu-btn--sm" href="<?php echo esc_url( add_query_arg( 'new_story', '1', $community_url ) ); ?>">
+                        <?php sp_icon_auto( 'feed', 'sp-icon--xs', '' ); ?>
+                        <?php esc_html_e( 'Post to community', 'sampreshan-child' ); ?>
+                    </a>
                     <a class="sp-fu-btn sp-fu-btn--primary sp-fu-btn--sm" href="<?php echo esc_url( $start_url ); ?>">
                         <?php sp_icon_auto( 'plus', 'sp-icon--xs', '' ); ?>
                         <?php esc_html_e( 'Start a Petition', 'sampreshan-child' ); ?>

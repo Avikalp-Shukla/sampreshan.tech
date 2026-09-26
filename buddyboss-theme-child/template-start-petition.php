@@ -25,6 +25,8 @@ $current_user   = wp_get_current_user();
 $nonce          = wp_create_nonce( 'sp_create_petition' );
 $ajax_url       = admin_url( 'admin-ajax.php' );
 $upload_url     = wp_upload_dir()['baseurl'];
+$profile_id     = isset( $_GET['profile'] ) ? absint( $_GET['profile'] ) : 0;
+$profile_target = ( $profile_id > 0 && 'dharma_profile' === get_post_type( $profile_id ) ) ? get_the_title( $profile_id ) : '';
 ?>
 
 <main id="main" class="sp-page sp-petition-create" role="main">
@@ -197,6 +199,7 @@ $upload_url     = wp_upload_dir()['baseurl'];
                             id="petition-target"
                             name="petition_target"
                             maxlength="120"
+                            value="<?php echo esc_attr( $profile_target ); ?>"
                             placeholder="<?php esc_attr_e( 'e.g. The Archaeological Survey of India, Local Government', 'sampreshan-child' ); ?>"
                         >
                     </div>

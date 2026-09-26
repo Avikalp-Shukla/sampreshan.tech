@@ -12,8 +12,43 @@ public_html/*.save
 public_html/*.tmp
 public_html/wp-content/uploads/
 public_html/wp-content/cache/
+public_html/wp-content/litespeed/
 public_html/wp-content/upgrade/
 public_html/wp-content/upgrade-temp-backup/
 
 # Codespaces/local development
 .devcontainer/.env
+
+# ---- Node / build ----
+node_modules/
+*.log
+
+# ---- OS files ----
+.DS_Store
+Thumbs.db
+
+# ---- Local config ----
+.env
+.local.env
+
+# ---- Backup archives (keep the SQL dump in repo per decision) ----
+*.tar.gz
+*.zip
+backups/
+extract.sh
+
+# ---- Editor ----
+.idea/
+.vscode/
+*.code-workspace
+
+# ---- Agent / Skill files ----
+.claude/
+.workbuddy-ai/
+.serena/
+.codex/
+.continue/
+.kilo/
+ops/
+push-via-api.sh
+.playwright-mcp/

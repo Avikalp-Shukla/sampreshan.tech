@@ -6,7 +6,8 @@
  * @package SampreShan_Child
  */
 
-.sp-profile {
+.sp-profile,
+.sp-fu-profile {
     --sp-profile-pad: clamp(1rem, 3vw, 2rem);
     --sp-profile-max: 1280px;
     --sp-profile-radius: var(--radius-lg, 20px);
@@ -16,6 +17,375 @@
     padding: var(--sp-profile-pad);
     display: grid;
     gap: var(--space-6, 1.5rem);
+}
+
+.sp-fu-profile {
+    position: relative;
+    display: block !important;
+    box-sizing: border-box;
+    width: min(calc(100% - 2rem), 1180px) !important;
+    max-width: 1180px !important;
+    margin: 0 auto;
+    padding: 0 0 2.5rem;
+    color: #f5efe8;
+}
+
+#main.sp-fu-wash {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.page-template-template-profile #content,
+body.page-template-template-profile #primary,
+body.page-template-template-profile .site-content-grid,
+body.page-template-template-profile .bb-grid {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.sp-fu-profile > .sp-fu-cover {
+    display: block;
+    width: 100%;
+}
+
+.sp-fu-cover {
+    position: relative;
+    height: clamp(180px, 28vw, 260px);
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(255,159,80,0.95), rgba(200,89,20,0.9));
+    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.18);
+    overflow: hidden;
+}
+
+.sp-fu-cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 18% 30%, rgba(255,255,255,0.38), transparent 20%),
+                radial-gradient(circle at 65% 10%, rgba(255,219,121,0.22), transparent 24%);
+}
+
+.sp-fu-cover__om {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: clamp(4rem, 8vw, 9rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    opacity: 0.18;
+    color: rgba(255,255,255,0.92);
+}
+
+.sp-fu-id {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: -3rem;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.sp-fu-avatar {
+    width: clamp(110px, 16vw, 148px);
+    height: clamp(110px, 16vw, 148px);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid rgba(12, 17, 25, 0.9);
+    background: linear-gradient(135deg, #f2d0a2, #d98f40);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
+    flex-shrink: 0;
+}
+
+.sp-fu-avatar img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.sp-fu-id__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.sp-fu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    padding: 0.76rem 1.1rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease, border-color 0.2s ease;
+}
+
+.sp-fu-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+}
+
+.sp-fu-btn--sm {
+    padding: 0.66rem 0.95rem;
+    font-size: 0.85rem;
+}
+
+.sp-fu-btn--mor {
+    background: rgba(255,255,255,0.06);
+    color: #f5efe8;
+    border-color: rgba(255,255,255,0.12);
+}
+
+.sp-fu-btn--secondary {
+    background: rgba(255,255,255,0.08);
+    color: #fffaf3;
+    border-color: rgba(255,255,255,0.14);
+}
+
+.sp-fu-btn--primary {
+    background: linear-gradient(135deg, #ff9b37, #eb6a0d);
+    color: #fff;
+    border-color: rgba(255,150,70,0.6);
+    box-shadow: 0 10px 26px rgba(237, 122, 26, 0.34);
+}
+
+.sp-fu-name {
+    margin: 0;
+    font-size: clamp(2.1rem, 3.4vw, 3rem);
+    line-height: 1.05;
+    font-family: var(--font-display, 'Cormorant Garamond', serif);
+    color: #f8f4ef;
+}
+
+.sp-fu-names {
+    padding: 0 1rem;
+    margin-top: 1rem;
+}
+
+.sp-fu-handle,
+.sp-fu-bio,
+.sp-fu-meta,
+.sp-fu-complete,
+.sp-fu-post__meta,
+.sp-fu-post__title a,
+.sp-fu-link,
+.sp-fu-stats span,
+.sp-fu-tab {
+    color: #d9d0c6;
+}
+
+.sp-fu-handle {
+    margin: 0.3rem 0 0.75rem;
+    color: #d9cbb9;
+}
+
+.sp-fu-bio {
+    margin: 0.5rem 0 0.8rem;
+    max-width: 58ch;
+    line-height: 1.7;
+    color: #e8e1d9;
+}
+
+.sp-fu-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0.5rem 0 0;
+    color: #d7d1ca;
+    font-size: 0.9rem;
+}
+
+.sp-fu-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+}
+
+.sp-fu-chips li {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    padding: 0.42rem 0.7rem;
+    font-size: 0.8rem;
+    color: #f6efe8;
+}
+
+.sp-fu-complete {
+    margin: 1.1rem 1rem 0;
+    padding: 0.95rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    line-height: 1.6;
+}
+
+.sp-fu-complete__bar {
+    display: block;
+    margin-top: 0.7rem;
+    width: 100%;
+    height: 7px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+}
+
+.sp-fu-complete__fill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #f5b250, #eb6a0d);
+}
+
+.sp-fu-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(120px, 1fr));
+    gap: 0.7rem;
+    margin: 1.1rem 1rem 0;
+}
+
+.sp-fu-stats span {
+    display: block;
+    padding: 0.9rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    line-height: 1.6;
+}
+
+.sp-fu-stats strong {
+    display: block;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1.1;
+}
+
+.sp-fu-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1.25rem 1rem 0;
+    padding-top: 0.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sp-fu-tab {
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 0.7rem 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: #d4cabf;
+}
+
+.sp-fu-tab.is-active {
+    color: #fff;
+    border-color: rgba(245, 178, 80, 0.9);
+}
+
+.sp-fu-pane {
+    display: none;
+    margin: 1rem 1rem 0;
+}
+
+.sp-fu-pane.is-active {
+    display: block;
+}
+
+.sp-fu-post {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 1rem;
+    margin-bottom: 0.9rem;
+}
+
+.sp-fu-post__head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.sp-fu-post__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-flex;
+    background: rgba(255,255,255,0.06);
+}
+
+.sp-fu-post__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sp-fu-post__who {
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+}
+
+.sp-fu-post__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.sp-fu-post__title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sp-fu-post__meta {
+    margin: 0;
+    color: #d1c8be;
+}
+
+.sp-fu-post__engage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+    margin-top: 0.9rem;
+}
+
+.sp-fu-link {
+    color: #f5d4a3;
+    text-decoration: none;
+}
+
+@media (max-width: 767px) {
+    .sp-fu-id {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sp-fu-id__actions {
+        justify-content: flex-start;
+        margin-bottom: 0;
+    }
+
+    .sp-fu-stats {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ====== HERO ====== */

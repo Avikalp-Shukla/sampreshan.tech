@@ -27,41 +27,23 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
         </a>
 
         <nav class="site-header__nav" aria-label="Primary navigation">
-            <a class="site-header__nav-link <?php echo is_front_page() ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                <?php sp_icon_auto( 'home', 'sp-icon--xs', '' ); ?>
-                Home
-            </a>
-            <a class="site-header__nav-link <?php echo is_page( 'petitions' ) || is_page( 'start-a-petition' ) || is_singular( 'petition' ) ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url( home_url( '/petitions/' ) ); ?>">
-                <?php sp_icon_auto( 'petition', 'sp-icon--xs', '' ); ?>
-                Petitions
-            </a>
-            <a class="site-header__nav-link <?php echo ( $sp_feed_id && is_page( $sp_feed_id ) ) ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url( $sp_feed_url ); ?>">
-                <?php sp_icon_auto( 'feed', 'sp-icon--xs', '' ); ?>
-                Feed
-            </a>
-            <a class="site-header__nav-link <?php echo is_page( 'community' ) ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url( home_url( '/community/' ) ); ?>">
-                <?php sp_icon_auto( 'network', 'sp-icon--xs', '' ); ?>
-                Community
-            </a>
-            <a class="site-header__nav-link <?php echo is_page( 'about' ) ? 'is-active' : ''; ?>"
-               href="<?php echo esc_url( home_url( '/about/' ) ); ?>">
-                <?php sp_icon_auto( 'info', 'sp-icon--xs', '' ); ?>
-                About
-            </a>
-            <?php if ( $is_logged_in ) : ?>
-                <a class="site-header__nav-link <?php echo is_page( 'dashboard' ) ? 'is-active' : ''; ?>"
-                   href="<?php echo esc_url( home_url( '/dashboard/' ) ); ?>">
-                    <?php sp_icon_auto( 'star', 'sp-icon--xs', '' ); ?>
-                    Dashboard
-                </a>
-            <?php endif; ?>
+            <?php
+            wp_nav_menu( array(
+                'theme_location' => 'sampreshan-primary',
+                'container'      => false,
+                'menu_class'     => 'site-header__nav-list',
+                'fallback_cb'    => false,
+                'depth'          => 1,
+            ) );
+            ?>
         </nav>
 
         <div class="site-header__actions">
+            <?php if ( $is_logged_in ) : ?>
+                <a class="btn btn--outline btn--sm site-header__dashboard" href="<?php echo esc_url( sampreshan_dashboard_url() ); ?>">
+                    <?php esc_html_e( 'Dashboard', 'sampreshan-child' ); ?>
+                </a>
+            <?php endif; ?>
             <a class="btn btn--primary btn--sm site-header__start" href="<?php echo esc_url( home_url( '/start-a-petition/' ) ); ?>">
                 <?php sp_icon_auto( 'plus', 'sp-icon--xs', '' ); ?>
                 <?php esc_html_e( 'Start', 'sampreshan-child' ); ?>
@@ -104,21 +86,15 @@ $sp_feed_id  = $sp_feed_url ? url_to_postid( $sp_feed_url ) : 0;
 
 <!-- Mobile drawer menu (tablet + mobile, toggled via data-menu-toggle) -->
 <nav class="sp-mobile-menu" id="sp-mobile-menu" data-mobile-menu aria-label="<?php esc_attr_e( 'Mobile navigation', 'sampreshan-child' ); ?>">
-    <a class="<?php echo is_front_page() ? 'is-active' : ''; ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-        <?php sp_icon_auto( 'home', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Home', 'sampreshan-child' ); ?>
-    </a>
-    <a class="<?php echo is_page( 'petitions' ) || is_page( 'start-a-petition' ) || is_singular( 'petition' ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( home_url( '/petitions/' ) ); ?>">
-        <?php sp_icon_auto( 'petition', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Petitions', 'sampreshan-child' ); ?>
-    </a>
-    <a class="<?php echo ( $sp_feed_id && is_page( $sp_feed_id ) ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( $sp_feed_url ); ?>">
-        <?php sp_icon_auto( 'feed', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Feed', 'sampreshan-child' ); ?>
-    </a>
-    <a class="<?php echo is_page( 'community' ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( home_url( '/community/' ) ); ?>">
-        <?php sp_icon_auto( 'network', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Community', 'sampreshan-child' ); ?>
-    </a>
-    <a class="<?php echo is_page( 'about' ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( home_url( '/about/' ) ); ?>">
-        <?php sp_icon_auto( 'info', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'About', 'sampreshan-child' ); ?>
-    </a>
+    <?php
+    wp_nav_menu( array(
+        'theme_location' => 'sampreshan-mobile',
+        'container'      => false,
+        'menu_class'     => 'sp-mobile-menu__list',
+        'fallback_cb'    => false,
+        'depth'          => 1,
+    ) );
+    ?>
     <?php if ( $is_logged_in ) : ?>
         <a class="<?php echo is_page( 'dashboard' ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( home_url( '/dashboard/' ) ); ?>">
             <?php sp_icon_auto( 'star', 'sp-icon--xs', '' ); ?> <?php esc_html_e( 'Dashboard', 'sampreshan-child' ); ?>

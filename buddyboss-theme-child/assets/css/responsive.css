@@ -153,6 +153,18 @@ h1, h2, h3, h4, h5, h6,
     display: none;
 }
 
+.sp-mobile-menu__list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+}
+
+.sp-mobile-menu__list li {
+    list-style: none;
+}
+
 /* Reveal hiding is scoped to html.js in animations.css / design-system-v2.css,
    so without JS everything stays visible — no fallback rule needed here. */
 

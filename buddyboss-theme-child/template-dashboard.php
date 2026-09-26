@@ -154,6 +154,16 @@ $share_candidates = get_posts( array(
 $share_pid   = ! empty( $share_candidates ) ? (int) $share_candidates[0] : 0;
 $share_url   = $share_pid > 0 ? (string) get_permalink( $share_pid ) : '';
 $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
+
+$dashboard_feed = new WP_Query( array(
+    'post_type'           => array( 'post', 'petition' ),
+    'post_status'         => 'publish',
+    'posts_per_page'      => 8,
+    'orderby'             => 'date',
+    'order'               => 'DESC',
+    'ignore_sticky_posts' => true,
+    'no_found_rows'       => true,
+) );
 ?>
 
 <main id="main" class="sp-page sp-dashboard" role="main">
@@ -212,6 +222,8 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
                 <span class="sp-dash-stat__label"><?php esc_html_e( 'Published', 'sampreshan-child' ); ?></span>
             </div>
         </section>
+
+        <?php if ( function_exists( 'sp_dharma_dashboard_section' ) ) { sp_dharma_dashboard_section(); } ?>
 
         <div class="sp-dash-grid">
 
@@ -547,6 +559,45 @@ $share_title = $share_pid > 0 ? (string) get_the_title( $share_pid ) : '';
 
             </div>
         </div>
+
+        <section id="sp-dashboard-feed" class="sp-dash-card sp-dash-card--pad sp-dashboard-feed" aria-labelledby="sp-dashboard-feed-title">
+            <div class="sp-dash-card__head sp-dashboard-feed__head">
+                <div>
+                    <h2 class="sp-dash-card__title" id="sp-dashboard-feed-title"><?php sp_icon_auto( 'feed', 'sp-icon--sm sp-icon--saffron', '' ); ?> <?php esc_html_e( 'Community feed', 'sampreshan-child' ); ?></h2>
+                    <p class="sp-dash-card__sub"><?php esc_html_e( 'Latest stories and petitions from the community.', 'sampreshan-child' ); ?></p>
+                </div>
+                <a class="sp-dash-link" href="<?php echo esc_url( $feed_url ); ?>"><?php esc_html_e( 'View all', 'sampreshan-child' ); ?> &rarr;</a>
+            </div>
+            <?php if ( isset( $_GET['story_posted'] ) ) : ?>
+                <p class="sp-dashboard-feed__notice" role="status"><?php esc_html_e( 'Your update is now live in the community feed.', 'sampreshan-child' ); ?></p>
+            <?php endif; ?>
+            <?php if ( $dashboard_feed->have_posts() ) : ?>
+                <div class="sp-dashboard-feed__list">
+                    <?php while ( $dashboard_feed->have_posts() ) : $dashboard_feed->the_post();
+                        $feed_is_petition = 'petition' === get_post_type();
+                        $feed_author_id    = (int) get_post_field( 'post_author', get_the_ID() );
+                        $feed_avatar       = get_avatar_url( $feed_author_id, array( 'size' => 64 ) );
+                    ?>
+                        <article class="sp-dashboard-feed__item">
+                            <span class="sp-dashboard-feed__avatar" aria-hidden="true">
+                                <?php if ( $feed_avatar ) : ?><img src="<?php echo esc_url( $feed_avatar ); ?>" alt="" width="40" height="40" loading="lazy" /><?php endif; ?>
+                            </span>
+                            <div class="sp-dashboard-feed__body">
+                                <div class="sp-dashboard-feed__meta">
+                                    <strong><?php echo esc_html( get_the_author_meta( 'display_name', $feed_author_id ) ); ?></strong>
+                                    <span><?php echo $feed_is_petition ? esc_html__( 'started a petition', 'sampreshan-child' ) : esc_html__( 'posted an update', 'sampreshan-child' ); ?> &middot; <?php echo esc_html( human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ); ?> <?php esc_html_e( 'ago', 'sampreshan-child' ); ?></span>
+                                </div>
+                                <h3 class="sp-dashboard-feed__title"><a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a></h3>
+                                <p class="sp-dashboard-feed__excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt() ?: wp_strip_all_tags( get_the_content() ), 28 ) ); ?></p>
+                            </div>
+                            <span class="sp-dash-pill <?php echo $feed_is_petition ? 'sp-dash-pill--active' : 'sp-dash-pill--draft'; ?>"><?php echo $feed_is_petition ? esc_html__( 'Petition', 'sampreshan-child' ) : esc_html__( 'Story', 'sampreshan-child' ); ?></span>
+                        </article>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+            <?php else : ?>
+                <p class="sp-dash-muted"><?php esc_html_e( 'No community updates yet.', 'sampreshan-child' ); ?></p>
+            <?php endif; ?>
+        </section>
     </div>
 </main>
 
